@@ -4,17 +4,25 @@ Instead of creating 2.5E+27 mods just for the 91 listed species, this dynamic mo
 1) Place this mod into the Starbound mod folder to make it work
 2) Run `replace.ps1` (You might have to right click and select `Run with PowerShell`) to change the values.  No policy change is required.
 3) Input a comma deliminated list (Ex: `kazdra, avali , sergal,dragon`)
-4) The first value is to replace stuff like the space ships and space station.
+4) The first value is to replace stuff like the spaceships and space station.
 5) The second value is used in cultist and space labs.
 
 Reset to default values with `reset.ps1`.
 
+# Community sharing
+### To make it easy to include in modpacks you are allowed to publish on steam or chucklefish forums _if_ you
+* Reference the __original author__ (zekrom_vale)
+* Reference this mod by __adding a link__ to the [main page](https://github.com/zekrom-vale/DynamicSpawn) and tell users that they can create their own with this mod
+* __Identify__ the species added
+* Warn the user that this mod __requires all of the species__ added for it to work (In the mod __and__ the pack)
+* __Remove__ the `.ps1` files (PowerShell)
+* Redirect the issues [here](https://github.com/zekrom-vale/DynamicSpawn/issues).
+* __Update the mod__ to the latest version in a timely manner (Unless it only changes the `.ps1` files)
+* __Never sell__ this mod
+
 # Bugs/Notes
-* Do __not__ leave prompts blank!
-* Do __not__ set both values to the same thing (Although this might be imposible)
 * If you discover empty 'dungeons' like the space station and ships __it is a bug!__
-* Spelling is __important__ as it will cause falure of NPC spawing!
-* Do __not__ leave extranious commas.  (This will not work: `,kazdra, avali,, sergal,`)
+* Spelling is __important__ as it will cause failure of NPC spawning!
 
 # Get PowerShell for linux and macOS
 https://github.com/PowerShell/PowerShell
