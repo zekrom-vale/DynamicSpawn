@@ -3,13 +3,14 @@ Instead of creating 2.5E+27 mods just for the 91 species, this dynamic mod allow
 # How to use
 * Place this mod into the Starbound mod folder to make it work
 * Run `replace.ps1` (You might have to right click and select `Run with PowerShell`) to change the values.  No policy change is required.
+* Input a comma deliminated list (Ex: kazdra, avali, sergal, dragon)
 * The first value is to replace stuff like the space ships and space station.
 * The second value is used in cultist and space labs.
 
 Reset to default values with `reset.ps1`.
 
 # Bugs
-Do __not__ leave any spaces blank!
+Do __not__ leave prompts blank!
 
 Do __not__ set both values to the same thing (Although this might be imposible)
 
@@ -17,7 +18,8 @@ Do __not__ set both values to the same thing (Although this might be imposible)
 https://github.com/PowerShell/PowerShell
 
 # Races
-### This is incomplete and you MUST HAVE the corisponding MOD for it to WORK
+### You MUST HAVE the corisponding MOD for it to WORK
+### This is an incomplete list
 Attarran
 
 Canids
