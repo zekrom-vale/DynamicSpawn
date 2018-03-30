@@ -1,6 +1,6 @@
 Write-Output "Running"
 $prev= Get-Content prevVal.txt
-$val= "apex, avian, floran, glitch, human, hylotl, novakid"
+$val= "    `"value`": `"apex, avian, floran, glitch, human, hylotl, novakid`""
 $item = Get-ChildItem . *.json.patch -rec
 Write-Output "."
 foreach ($file in $item){
@@ -12,7 +12,7 @@ Write-Output "."
 $val| Set-Content 'prevVal.txt'
 
 $prev= Get-Content prevVal2.txt
-$val= "apex, avian, human, hylotl"
+$val= "`"value`": `"apex, avian, human, hylotl`"    "
 Write-Output "."
 foreach ($file in $item){
     (Get-Content $file.PSPath) |
