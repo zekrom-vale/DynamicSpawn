@@ -14,99 +14,48 @@ Do __not__ set both values to the same thing (Although this might be imposible)
 https://github.com/PowerShell/PowerShell
 
 # Races
-### !WARNING! THIS IS INCOMPLETE AND SOME ARE NOT IDs (making it not work)
-agaran
-albino penguin
-alicorn
-alpaca
+### !WARNING! This is INCOMPLETE and SOME MAY NOT be an ID (making it not work)
+apex
 arachne
 argonian
-attarran
 avali
+avian
 avikan
-avonian
-bat pony
-blattra
 bunnykin
 callistan
-canids
-catus
-changeling
-chicken
-clownkin
-cryoguin
-demon
-draconis
 droden
-eevee
-eevee (eeveetwo)
 elunite
-everis
 familiar
 felin
 fenerox
+floran
 gardevan
-gem
+glitch
 greckan
 gyrusen
-indix
-inkling
+human
+hylotl
+Indix
 kazdra
 kemono
 kineptic
-kirhos
 lamia
-lombax (pointed)
-lombax (striped)
-manic penguin
 mantizi
-moogle
 munari
 neko
 nightar
 ningen
 novakid
-ooze
 orcana
-pegasus
 peglaci
-penguin
-pengvolt
-phantasm
 phox
-plaguin
-ponex
-pony
-puffin
-pyg
-pyroguin
-radien
-robo penguin
-rock hopper penguin
-rodentia
-saturnians
-scorsheep
+pygs
 sergal
-shade
-shadow2
 skath
 skelekin
-slime person
-tauren
-terrakin
-thelusion
+slimeperson
 trink
-troll
-troll
-umbreon
-unicorn
-vammpyric
-vanilla penguin
-vel'uuish
 vespoid
 viera
 vulpes
 wasphive
-webber
-woogle
-zombie
