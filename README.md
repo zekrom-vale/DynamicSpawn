@@ -1,18 +1,20 @@
 # Starbound mod: DynamicSpawn
 Instead of creating 2.5E+27 mods just for the 91 listed species, this dynamic mod allows the user to add species to spawn in vanilla maps.  
 # How to use
-* Place this mod into the Starbound mod folder to make it work
-* Run `replace.ps1` (You might have to right click and select `Run with PowerShell`) to change the values.  No policy change is required.
-* Input a comma deliminated list (Ex: `kazdra, avali, sergal, dragon`)
-* The first value is to replace stuff like the space ships and space station.
-* The second value is used in cultist and space labs.
+1) Place this mod into the Starbound mod folder to make it work
+2) Run `replace.ps1` (You might have to right click and select `Run with PowerShell`) to change the values.  No policy change is required.
+3) Input a comma deliminated list (Ex: `kazdra, avali , sergal,dragon`)
+4) The first value is to replace stuff like the space ships and space station.
+5) The second value is used in cultist and space labs.
 
 Reset to default values with `reset.ps1`.
 
-# Bugs
-Do __not__ leave prompts blank!
-
-Do __not__ set both values to the same thing (Although this might be imposible)
+# Bugs/Notes
+* Do __not__ leave prompts blank!
+* Do __not__ set both values to the same thing (Although this might be imposible)
+* If you discover empty 'dungeons' like the space station and ships __it is a bug!__
+* Spelling is __important__ as it will cause falure of NPC spawing!
+* Do __not__ leave extranious commas.  (This will not work: `,kazdra, avali,, sergal,`)
 
 # Get PowerShell for linux and macOS
 https://github.com/PowerShell/PowerShell
