@@ -7,7 +7,8 @@ Reset to default values with `reset.ps1`.
 
 # Bugs
 Do __not__ leave any spaces blank!
+
 Do __not__ set both values to the same thing (Although this might be imposible)
 
-#Get PowerShell for linux and macOS
+# Get PowerShell for linux and macOS
 https://github.com/PowerShell/PowerShell
