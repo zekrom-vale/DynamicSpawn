@@ -5,13 +5,9 @@ $start={
 	Write-Host 'Default: "apex, avian, floran, glitch, human, hylotl, novakid"' -ForegroundColor Green
 	Write-Host 'Type "end" to end the input' -ForegroundColor Yellow
 	$val=looping
-	Write-Host ''
-	Write-Host ''
 
 	Write-Host 'Default: "apex, avian, human, hylotl"' -ForegroundColor Green
 	$val2=looping
-	Write-Host ''
-	Write-Host ''
 	core $val $val2
 }
 
@@ -23,11 +19,15 @@ function Int{
 
 function looping{
 	$array= @()
-	For($n=1; -not ($userInput -like 'end'); $n++){
-		Write-Host ''
+	For($n=1; ; $n++){
 		$userInput= Read-Host "New Value $($n)"
 		$userInput= $userInput -replace '\s',''
 		If($userInput -like 'end'){
+			If($n -eq 1){
+				Write-Host 'ERROR: Value 1 can not be blank' -ForegroundColor Red
+				$n--
+				continue
+			}
 			break
 		}
 		If(-not($userInput -match '\w+')){
@@ -50,6 +50,8 @@ function looping{
 		$array+= $userInput
 	}
 	$array=$array -join ","
+	Write-Host ''
+	Write-Host ''
 	return $array
 }
 
