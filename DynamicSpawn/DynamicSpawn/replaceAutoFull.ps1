@@ -3,6 +3,7 @@ $start={
 
 	Write-Host "Does not ignore vanilla defaults!" -ForegroundColor Green
 	Write-Host 'Default: "apex, avian, floran, glitch, human, hylotl, novakid"' -ForegroundColor Green
+	Write-Host 'Type "end" to end the input' -ForegroundColor Yellow
 	$val=looping
 	Write-Host ''
 	Write-Host ''
