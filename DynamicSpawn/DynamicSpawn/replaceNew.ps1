@@ -1,13 +1,13 @@
 $start={
 	$species= Int
 
-	Write-Host "Ignores vanilla defaults"
-	Write-Host 'Default: "apex, avian, floran, glitch, human, hylotl, novakid"'
+	Write-Host "Ignores vanilla defaults" -ForegroundColor Green
+	Write-Host 'Default: "apex, avian, floran, glitch, human, hylotl, novakid"' -ForegroundColor Green
 	$val=looping
 	Write-Host ''
 	Write-Host ''
 
-	Write-Host 'Default: "apex, avian, human, hylotl"'
+	Write-Host 'Default: "apex, avian, human, hylotl"' -ForegroundColor Green
 	$val2=looping
 	Write-Host ''
 	Write-Host ''
@@ -31,17 +31,15 @@ function looping{
 		}
 		If(-not($userInput -match '\w+')){
 			$n--
-			Write-Host 'ERROR-------------------'
-			Write-Host 'Invalid input'
+			Write-Host "ERROR: Invalid input" -ForegroundColor Red
 			continue
 		}
 		If(-not($species -contains $userInput)){
-			Write-Host 'ERROR-------------------'
-			Write-Host "$($userInput) not found."
-			Write-Host 'S: Ends the script'
-			Write-Host "R: Remembers $($userInput) to species list"
-			Write-Host "I: Ignores $($userInput)"
-			Write-Host "E: Removes $($userInput) from change"
+			Write-Host "ERROR: $($userInput) not found." -ForegroundColor Red
+			Write-Host 'S: Ends the script' -ForegroundColor Yellow
+			Write-Host "R: Remembers $($userInput) to species list" -ForegroundColor Yellow
+			Write-Host "I: Ignores $($userInput)" -ForegroundColor Yellow
+			Write-Host "E: Removes $($userInput) from change" -ForegroundColor Yellow
 			$do= act $userInput
 			If($do -eq 'R'){
 				$n--
@@ -70,8 +68,8 @@ function act($userInput){
 		return 'R'
 	}
 	Else{
-		Write-Host 'Invalid selection'
-		return act $userInput
+		Write-Host 'ERROR: Invalid selection' -ForegroundColor Red
+		act $userInput
 	}
 }
 
