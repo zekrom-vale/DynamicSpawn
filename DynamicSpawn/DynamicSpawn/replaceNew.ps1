@@ -21,7 +21,7 @@ function Int{
 }
 
 function looping{
-	$var= @()
+	$array= @()
 	For($n=1; -not ($userInput -like 'end'); $n++){
 		Write-Host ''
 		$userInput= Read-Host "New Value $($n)"
@@ -48,10 +48,10 @@ function looping{
 				continue
 			}
 		}
-		$var+= $userInput
+		$array+= $userInput
 	}
-	$var -Join ','
-	return $var
+	$array=$array -join ","
+	return $array
 }
 
 function act($userInput){
