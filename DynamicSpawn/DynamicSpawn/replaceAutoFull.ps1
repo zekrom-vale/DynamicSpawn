@@ -1,7 +1,7 @@
 $start={
 	$species= Int
 
-	Write-Host "Ignores vanilla defaults" -ForegroundColor Green
+	Write-Host "Does not ignore vanilla defaults!" -ForegroundColor Green
 	Write-Host 'Default: "apex, avian, floran, glitch, human, hylotl, novakid"' -ForegroundColor Green
 	$val=looping
 	Write-Host ''
