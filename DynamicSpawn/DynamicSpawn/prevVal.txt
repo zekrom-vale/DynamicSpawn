@@ -1,2 +1,2 @@
-    "value" :"apex, avian, floran, glitch, human, hylotl, novakid"
-"value": "apex, avian, human, hylotl"    
+    "value":"apex,avian,floran,glitch,human,hylotl,novakid"
+"value":"apex,avian,human,hylotl"    
