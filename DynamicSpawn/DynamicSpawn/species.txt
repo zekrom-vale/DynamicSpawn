@@ -7,9 +7,11 @@ agaran
 albinopenguin
 alicorn
 alpaca
+apex
 arachne
 argonian
 avali
+avian
 avikan
 avonian
 batpony
@@ -31,9 +33,13 @@ everis
 familiar
 felin
 fenerox
+floran
 gardevan
+glitch
 greckan
 gyrusen
+human
+hylotl
 inkling
 kazdra
 kemono
@@ -48,6 +54,7 @@ munari
 neko
 nightar
 ningen
+novakid
 ooze
 orcana
 pegasus
@@ -88,4 +95,4 @@ vulpes
 wasphive
 webber
 woggle
-zombie
+zombie

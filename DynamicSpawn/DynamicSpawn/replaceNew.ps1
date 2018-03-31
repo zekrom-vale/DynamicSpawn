@@ -1,70 +1,60 @@
 $start={
-	Write-Output "Ignores vanilla defaults"
-	Write-Output 'Default: "apex, avian, floran, glitch, human, hylotl, novakid"'
-	$val= @()
-	$species= Get-Content species.txt
-	$species -Split '`n'
-	For($n=1; -not ($userInput -like 'end'); $n++){
-		$userInput= Read-Host "New Value $($n)"
-		$userInput= $userInput -replace '\s',''
-		If($userInput -like 'end'){
-			break
-		}
-		If(-not($userInput -match '\w+')){
-			$n--
-			Write-Output 'Invalid input'
-			continue
-		}
-		If(-not($species -contains $userInput)){
-			Write-Output "$($userInput) not found."
-			Write-Output 'S: Ends the script'
-			Write-Output "R: Remembers $($userInput) to species list"
-			Write-Output "I: Ignores $($userInput)"
-			Write-Output "E: Removes $($userInput) from change"
-			$do= act $userInput
-			If($do -eq 'R'){
-				$n--
-				continue
-			}
-		}
-		$val+= $userInput
-	}
-	$val -Join ','
+	$species= Int
 
-	$val2= @()
-	Write-Output 'Default: "apex, avian, human, hylotl"'
-	$userInput=''
-	For($n=1; -not ($userInput -like 'end'); $n++){
-		$userInput= Read-Host "New Value $($n)"
-		$userInput= $userInput -replace '\s',''
-		If($userInput -like 'end'){
-			break
-		}
-		If(-not($userInput -match '\w+')){
-			$n--
-			Write-Output 'Invalid input'
-			continue
-		}
-		If(-not($species -contains $userInput)){
-			Write-Output "$($userInput) not found."
-			Write-Output 'S: Ends the script'
-			Write-Output "R: Remembers $($userInput) to species list"
-			Write-Output "I: Ignores $($userInput)"
-			Write-Output "E: Removes $($userInput) from change"
-			$do= act $userInput
-			If($do -eq 'R'){
-				$n--
-				continue
-			}
-		}
-		$val2+= $userInput
-	}
-	$val2 -Join ','
+	Write-Host "Ignores vanilla defaults"
+	Write-Host 'Default: "apex, avian, floran, glitch, human, hylotl, novakid"'
+	$val=looping
+	Write-Host ''
+	Write-Host ''
+
+	Write-Host 'Default: "apex, avian, human, hylotl"'
+	$val2=looping
+	Write-Host ''
+	Write-Host ''
 	core $val $val2
 }
 
+function Int{
+	$species= Get-Content species.txt
+	$species -Split '`n'
+	return $species
+}
+
+function looping{
+	$var= @()
+	For($n=1; -not ($userInput -like 'end'); $n++){
+		Write-Host ''
+		$userInput= Read-Host "New Value $($n)"
+		$userInput= $userInput -replace '\s',''
+		If($userInput -like 'end'){
+			break
+		}
+		If(-not($userInput -match '\w+')){
+			$n--
+			Write-Host 'ERROR-------------------'
+			Write-Host 'Invalid input'
+			continue
+		}
+		If(-not($species -contains $userInput)){
+			Write-Host 'ERROR-------------------'
+			Write-Host "$($userInput) not found."
+			Write-Host 'S: Ends the script'
+			Write-Host "R: Remembers $($userInput) to species list"
+			Write-Host "I: Ignores $($userInput)"
+			Write-Host "E: Removes $($userInput) from change"
+			$do= act $userInput
+			If($do -eq 'R'){
+				$n--
+				continue
+			}
+		}
+		$var+= $userInput
+	}
+	$var -Join ','
+	return $var
+}
+
 function act($userInput){
-	Write-Output $userInput
 	$key= Read-Host 'Action'
 	If($key -like 'S'){
 		exit
@@ -80,7 +70,7 @@ function act($userInput){
 		return 'R'
 	}
 	Else{
-		Write-Output 'Invalid selection'
+		Write-Host 'Invalid selection'
 		return act $userInput
 	}
 }
@@ -88,9 +78,9 @@ function act($userInput){
 function core($val, $val2){
 	$item = Get-ChildItem . *.json.patch -rec
 	$prev= Get-Content prevVal.txt
-	$val= "    `"value`": `"apex, avian, floran, glitch, human, hylotl, novakid, $($val)`""
+	$val= "    `"value`":`"apex,avian,floran,glitch,human,hylotl,novakid,$($val)`""
 	$prev2= Get-Content prevVal2.txt
-	$val2= "`"value`": `"apex, avian, human, hylotl, $($val2)`"    "
+	$val2= "`"value`":`"apex,avian,human,hylotl,$($val2)`"    "
 
 	foreach ($file in $item){
 		(Get-Content $file.PSPath) |
