@@ -1,7 +1,7 @@
 Param(
 	[switch]full
 )
-function startFn(){
+function startFn{
 	species= Int
 	if [$full]
 	then
@@ -24,7 +24,7 @@ function Int(){
 	return $species
 }
 
-function looping(){
+function looping{
 	array=@()
 	For(n=1; ; n++)do
 		read -p "New Value ${n}" userInput
@@ -66,11 +66,11 @@ F: Forgets all values" > /dev/tty
 	return $array
 }
 
-function act($userInput){
+function act{
 	read -p 'Action' key
 	if [$key -like 'S']
 	then
-		Add-Content -Path "species.txt" -Value $userInput
+		Add-Content -Path "species.txt" -Value $1
 		return 'I'
 	elif [$key -like 'I']
 	then
@@ -88,11 +88,11 @@ function act($userInput){
 		exit
 	else
 		echo -e '\e[31mERROR: Invalid selection\e[0m' > /dev/tty
-		act $userInput
+		act $1
 	fi
 }
 
-function core($val, $val2){
+function core{
 	item=Get-ChildItem . *.json.patch -rec
 	prev=Get-Content prevVal.txt
 	$prev -Split '\n'
@@ -103,21 +103,21 @@ function core($val, $val2){
 	else
 		cont="apex,avian,floran,glitch,human,hylotl,novakid,"
 		cont2="apex,avian,human,hylotl,"
-	}fi
+	fi
 	val="    \"value\":\"${cont}${val}\""
 	val2="\"value\":\"${cont2}${val2}\"    "
 
 	foreach ($file in $item) do
 		(Get-Content $file.PSPath) |
-		Foreach-Object { $_ -replace $prev[0], $val } |
+		Foreach-Object { $_ -replace $prev[0], $1 } |
 		Set-Content $file.PSPath
 		(Get-Content $file.PSPath) |
-		Foreach-Object { $_ -replace $prev[1], $val2 } |
+		Foreach-Object { $_ -replace $prev[1], $2 } |
 		Set-Content $file.PSPath
 	done
 
-	$val+="\n${val2}"
-	$val| Set-Content 'prevVal.txt'
+	$1+="\n${val2}"
+	$1| Set-Content 'prevVal.txt'
 	exit
 }
 startFn
