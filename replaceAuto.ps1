@@ -2,7 +2,6 @@ Param(
 	[switch]$full
 )
 $start={
-	Write-Host $full
 	$species= Int
 	If($full){
 		Write-Host "Does not ignore vanilla defaults"-ForegroundColor Green
