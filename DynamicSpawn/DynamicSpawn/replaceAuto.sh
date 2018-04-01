@@ -1,7 +1,7 @@
 Param(
 	[switch]full
 )
-function startFn{
+function startFn(){
 	species= Int
 	if [$full]
 	then
@@ -18,20 +18,20 @@ function startFn{
 	core $val $val2
 }
 
-function Int{
+function Int(){
 	species=Get-Content species.txt
 	$species -Split '\n'
 	return $species
 }
 
-function looping{
+function looping(){
 	array=@()
 	For(n=1; ; n++)do
 		read -p "New Value ${n}" userInput
 		userInput=$userInput -replace '\s',''
 		if [$userInput -like 'end']
 		then
-			if [$n -eq 1]
+			if [$n==1]
 			then
 				echo 'ERROR: Value 1 can not be blank' -ForegroundColor Red
 				$n--
@@ -39,13 +39,13 @@ function looping{
 			fi
 			break
 		fi
-		if [-not($userInput -match '\w+')]
+		if [!($userInput -match '\w+')]
 		then
 			$n--
 			echo "ERROR: Invalid input" -ForegroundColor Red
 			continue
 		fi
-		if [-not($species -contains $userInput)]
+		if [!($species -contains $userInput)]
 		then
 			echo "ERROR: ${userInput} not found." -ForegroundColor Red
 			echo "S: Saves ${userInput} to species list
@@ -53,7 +53,7 @@ I: Ignores ${userInput}
 R: Removes ${userInput} from change
 F: Forgets all values" -ForegroundColor Yellow
 			action=act $userInput
-			if [$action -eq 'R']
+			if [$action=='R']
 			then
 				$n--
 				continue
@@ -107,14 +107,14 @@ function core($val, $val2){
 	val="    \"value\":\"${cont}${val}\""
 	val2="\"value\":\"${cont2}${val2}\"    "
 
-	foreach ($file in $item){
+	foreach ($file in $item) do
 		(Get-Content $file.PSPath) |
 		Foreach-Object { $_ -replace $prev[0], $val } |
 		Set-Content $file.PSPath
 		(Get-Content $file.PSPath) |
 		Foreach-Object { $_ -replace $prev[1], $val2 } |
 		Set-Content $file.PSPath
-	}
+	done
 
 	$val+="\n${val2}"
 	$val| Set-Content 'prevVal.txt'
