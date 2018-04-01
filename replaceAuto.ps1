@@ -2,12 +2,13 @@ Param(
 	[switch]$full
 )
 $start={
+	Write-Host $full
 	$species= Int
 	If($full){
-		Write-Host "Ignores vanilla defaults"-ForegroundColor Green
+		Write-Host "Does not ignore vanilla defaults"-ForegroundColor Green
 	}
 	Else{
-		Write-Host "Does not ignore vanilla defaults!"-ForegroundColor Green
+		Write-Host "Ignores vanilla defaults!"-ForegroundColor Green
 	}
 	Write-Host "Default: ""apex, avian, floran, glitch, human, hylotl, novakid""" -ForegroundColor Green
 	Write-Host 'Type "end" to end the input' -ForegroundColor Yellow
