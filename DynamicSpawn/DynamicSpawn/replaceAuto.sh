@@ -2,7 +2,7 @@ Param(
 	[switch]full
 )
 function startFn{
-	species= Int
+	species=$(Int)
 	if [$full]
 	then
 		echo -e "\e[31mDoes not include" > /dev/tty
@@ -12,16 +12,16 @@ function startFn{
 	fi
 	echo -e "Default: \"apex, avian, floran, glitch, human, hylotl, novakid\""
 	echo -e "\e[33mType \"end\" to end the input\e[0m"
-	val=looping
+	val=$(looping)
 	echo "\e[32mDefault: \"apex, avian, human, hylotl\"\e[0m" > /dev/tty
-	val2=looping
-	core $val $val2
+	val2=$(looping)
+	core "$val" "$val2"
 }
 
-function Int(){
+function Int{
 	species=Get-Content species.txt
 	$species -Split '\n'
-	return $species
+	echo $species
 }
 
 function looping{
@@ -63,7 +63,7 @@ F: Forgets all values" > /dev/tty
 	done
 	array=$array -join ","
 	echo ''
-	return $array
+	echo $array
 }
 
 function act{
@@ -104,8 +104,8 @@ function core{
 		cont="apex,avian,floran,glitch,human,hylotl,novakid,"
 		cont2="apex,avian,human,hylotl,"
 	fi
-	val="    \"value\":\"${cont}${val}\""
-	val2="\"value\":\"${cont2}${val2}\"    "
+	val="    \"value\":\"${cont}${1}\""
+	val2="\"value\":\"${cont2}${2}\"    "
 
 	foreach ($file in $item) do
 		(Get-Content $file.PSPath) |
@@ -116,7 +116,7 @@ function core{
 		Set-Content $file.PSPath
 	done
 
-	$1+="\n${val2}"
+	$1+="\n${2}"
 	$1| Set-Content 'prevVal.txt'
 	exit
 }
