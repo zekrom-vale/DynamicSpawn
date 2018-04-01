@@ -5,15 +5,15 @@ function startFn(){
 	species= Int
 	if [$full]
 	then
-		echo "Does not include "-ForegroundColor Red -NoNewline
-		echo "vanilla defaults!"-ForegroundColor Green
+		echo -e "\e[31mDoes not include" > /dev/tty
+		echo -e "\e[32mvanilla defaults!" > /dev/tty
 	else
-		echo "Includes vanilla defaults automatically"-ForegroundColor Green 
+		echo -e "\e[32mIncludes vanilla defaults automatically" > /dev/tty
 	fi
-	echo "Default: ""apex, avian, floran, glitch, human, hylotl, novakid""" -ForegroundColor Green
-	echo 'Type "end" to end the input' -ForegroundColor Yellow
+	echo -e "Default: \"apex, avian, floran, glitch, human, hylotl, novakid\""
+	echo -e "\e[33mType \"end\" to end the input\e[0m"
 	val=looping
-	echo 'Default: "apex, avian, human, hylotl"' -ForegroundColor Green
+	echo "\e[32mDefault: \"apex, avian, human, hylotl\"\e[0m" > /dev/tty
 	val2=looping
 	core $val $val2
 }
@@ -33,7 +33,7 @@ function looping(){
 		then
 			if [$n==1]
 			then
-				echo 'ERROR: Value 1 can not be blank' -ForegroundColor Red
+				echo -e "\e[31mERROR: Value 1 can not be blank\e[0m" > /dev/tty
 				$n--
 				continue
 			fi
@@ -42,16 +42,16 @@ function looping(){
 		if [!($userInput -match '\w+')]
 		then
 			$n--
-			echo "ERROR: Invalid input" -ForegroundColor Red
+			echo -e "\e[31mERROR: Invalid input\e[0m" > /dev/tty
 			continue
 		fi
 		if [!($species -contains $userInput)]
 		then
-			echo "ERROR: ${userInput} not found." -ForegroundColor Red
-			echo "S: Saves ${userInput} to species list
+			echo -e "\e[31mERROR: ${userInput} not found."
+			echo -e "\e[33mS: Saves ${userInput} to species list
 I: Ignores ${userInput}
 R: Removes ${userInput} from change
-F: Forgets all values" -ForegroundColor Yellow
+F: Forgets all values" > /dev/tty
 			action=act $userInput
 			if [$action=='R']
 			then
@@ -87,7 +87,7 @@ function act($userInput){
 	then
 		exit
 	else
-		echo 'ERROR: Invalid selection' -ForegroundColor Red
+		echo -e '\e[31mERROR: Invalid selection\e[0m' > /dev/tty
 		act $userInput
 	fi
 }
