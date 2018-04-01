@@ -1,13 +1,14 @@
 Param(
 	[switch]$full
 )
-$start={
+function startFn{
 	$species= Int
 	If($full){
-		Write-Host "Does not ignore vanilla defaults"-ForegroundColor Green
+		Write-Host "Does not include "-ForegroundColor Red -NoNewline
+		Write-Host "vanilla defaults!"-ForegroundColor Green
 	}
 	Else{
-		Write-Host "Ignores vanilla defaults!"-ForegroundColor Green
+		Write-Host "Includes vanilla defaults automatically"-ForegroundColor Green 
 	}
 	Write-Host "Default: ""apex, avian, floran, glitch, human, hylotl, novakid""" -ForegroundColor Green
 	Write-Host 'Type "end" to end the input' -ForegroundColor Yellow
@@ -43,10 +44,10 @@ function looping{
 		}
 		If(-not($species -contains $userInput)){
 			Write-Host "ERROR: $($userInput) not found." -ForegroundColor Red
-			Write-Host "S: Ends the script
-R: Remembers $($userInput) to species list
+			Write-Host "S: Saves $($userInput) to species list
 I: Ignores $($userInput)
-E: Removes $($userInput) from change" -ForegroundColor Yellow
+R: Removes $($userInput) from change
+F: Forgets all values" -ForegroundColor Yellow
 			$do= act $userInput
 			If($do -eq 'R'){
 				$n--
@@ -63,17 +64,21 @@ E: Removes $($userInput) from change" -ForegroundColor Yellow
 function act($userInput){
 	$key= Read-Host 'Action'
 	If($key -like 'S'){
-		exit
-	}
-	ElseIf($key -like 'R'){
 		Add-Content -Path "species.txt" -Value $userInput
 		return 'I'
 	}
 	ElseIf($key -like 'I'){
 		return 'I'
 	}
-	ElseIf($key -like 'E'){
+	ElseIf($key -like 'R'){
 		return 'R'
+	}
+	ElseIf($key -like 'F'){
+		startFn
+		exit
+	}
+	ElseIf($key -like 'exit' -or $key -like 'abort' -or $key -like 'A'){
+		exit
 	}
 	Else{
 		Write-Host 'ERROR: Invalid selection' -ForegroundColor Red
@@ -109,4 +114,4 @@ function core($val, $val2){
 	$val| Set-Content 'prevVal.txt'
 	exit
 }
-&$start
+startFn
