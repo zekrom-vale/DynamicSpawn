@@ -1,11 +1,17 @@
+Param(
+	[switch]$full
+)
 $start={
 	$species= Int
-
-	Write-Host "Ignores vanilla defaults" -ForegroundColor Green
-	Write-Host 'Default: "apex, avian, floran, glitch, human, hylotl, novakid"' -ForegroundColor Green
+	If($full){
+		Write-Host "Ignores vanilla defaults"-ForegroundColor Green
+	}
+	Else{
+		Write-Host "Does not ignore vanilla defaults!"-ForegroundColor Green
+	}
+	Write-Host "Default: ""apex, avian, floran, glitch, human, hylotl, novakid""" -ForegroundColor Green
 	Write-Host 'Type "end" to end the input' -ForegroundColor Yellow
 	$val=looping
-
 	Write-Host 'Default: "apex, avian, human, hylotl"' -ForegroundColor Green
 	$val2=looping
 	core $val $val2
@@ -37,10 +43,10 @@ function looping{
 		}
 		If(-not($species -contains $userInput)){
 			Write-Host "ERROR: $($userInput) not found." -ForegroundColor Red
-			Write-Host 'S: Ends the script' -ForegroundColor Yellow
-			Write-Host "R: Remembers $($userInput) to species list" -ForegroundColor Yellow
-			Write-Host "I: Ignores $($userInput)" -ForegroundColor Yellow
-			Write-Host "E: Removes $($userInput) from change" -ForegroundColor Yellow
+			Write-Host "S: Ends the script
+R: Remembers $($userInput) to species list
+I: Ignores $($userInput)
+E: Removes $($userInput) from change" -ForegroundColor Yellow
 			$do= act $userInput
 			If($do -eq 'R'){
 				$n--
@@ -50,7 +56,6 @@ function looping{
 		$array+= $userInput
 	}
 	$array=$array -join ","
-	Write-Host ''
 	Write-Host ''
 	return $array
 }
@@ -80,14 +85,21 @@ function core($val, $val2){
 	$item = Get-ChildItem . *.json.patch -rec
 	$prev= Get-Content prevVal.txt
 	$prev -Split '`n'
-	$val= "    `"value`":`"apex,avian,floran,glitch,human,hylotl,novakid,$($val)`""
-	$val2= "`"value`":`"apex,avian,human,hylotl,$($val2)`"    "
+	If($full){
+		$cont= ""
+		$cont2= ""
+	}
+	Else{
+		$cont= "apex,avian,floran,glitch,human,hylotl,novakid,"
+		$cont2= "apex,avian,human,hylotl,"
+	}
+	$val= "    `"value`":`"$($cont)$($val)`""
+	$val2= "`"value`":`"$($cont2)$($val2)`"    "
 
 	foreach ($file in $item){
 		(Get-Content $file.PSPath) |
 		Foreach-Object { $_ -replace $prev[0], $val } |
 		Set-Content $file.PSPath
-
 		(Get-Content $file.PSPath) |
 		Foreach-Object { $_ -replace $prev[1], $val2 } |
 		Set-Content $file.PSPath
@@ -97,5 +109,4 @@ function core($val, $val2){
 	$val| Set-Content 'prevVal.txt'
 	exit
 }
-
 &$start
