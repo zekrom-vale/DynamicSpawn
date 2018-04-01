@@ -2,6 +2,21 @@
 Instead of creating 2.5E+27 mods just for the 91 listed species, this dynamic mod allows the user to add species to spawn in vanilla maps.  
 # How to use
 1) Place this mod into the Starbound mod folder to make it work
+2) Run `replaceAuto.ps1` or `replaceAuto.ps1 - Full` to start adding species
+3) Enter the species separated by enters
+4) If it is not valid you can type these letters
+```
+S: Ends the script
+R: Remembers <value> to species list
+I: Ignores <value>
+E: Removes <value> from change
+```
+5) Type `end` to end the process
+6) Repeat for the next part
+
+Reset to default values with `reset.ps1`.
+### The old way `replaceManual.ps1`
+1) Place this mod into the Starbound mod folder to make it work
 2) Run `replace.ps1` (You might have to right click and select `Run with PowerShell`) to change the values.  No policy change is required.
 3) Input a comma deliminated list (Ex: `kazdra, avali , sergal,dragon`)
 4) The first value is to replace stuff like the spaceships and space station.
