@@ -6,20 +6,21 @@ function startFn{
 	If($full){
 		Write-Host "Does not include "-ForegroundColor Red -NoNewline
 		Write-Host "vanilla defaults!"-ForegroundColor Green
-		$cont=@()
-		$cont2=@()
 	}
 	Else{
 		Write-Host "Includes vanilla defaults automatically"-ForegroundColor Green
-		$cont=@("apex","avian","floran","glitch","human","hylotl","novakid")
-		$cont2=@("apex","avian","human","hylotl")
 	}
-	Write-Host "Default: `"apex, avian, floran, glitch, human, hylotl, novakid`"" -ForegroundColor Green
-	Write-Host 'Type "end" to end the input' -ForegroundColor Yellow
-	$val=looping $cont 'A'
-	Write-Host 'Default: "apex, avian, human, hylotl"' -ForegroundColor Green
-	$val2=looping $cont2 'B'
-	core $val $val2
+	$cont=@(
+		@("apex","avian","floran","glitch","human","hylotl","novakid"),
+		@("apex","avian","human","hylotl")
+	)
+	$val=@()
+	For($i=0; $i -lt $cont.Length; $i++){
+		Write-Host "Default: $($cont[$i])" -ForegroundColor Green
+		Write-Host 'Type "end" to end the input' -ForegroundColor Yellow
+		$val+=looping $cont[$i] $i
+	}
+	core $val
 }
 
 function Int{
@@ -34,7 +35,7 @@ function looping($array, $run){
 		$userInput= Read-Host " New Spawn Value $($n)"
 		$userInput= $userInput -replace '\s',''
 		If($userInput -like '$exit'){
-			end
+			exit
 		}
 		If($userInput -like 'end'){
 			If($n -eq 1){
@@ -99,20 +100,18 @@ function act($userInput){
 	}
 }
 
-function core($val, $val2){
+function core($val){
 	$item = Get-ChildItem . *.json.patch -rec
 	$prev= Get-Content prevVal.txt
 	$prev -Split '`n'
-	$val= "`"value`":`"$($val)`" //A"
-	$val2= "`"value`":`"$($val2)`" //B"
+	$val= @("`"value`":`"$($val[0])`" //A", "`"value`":`"$($val[1])`" //B")
 
 	foreach ($file in $item){
-		(Get-Content $file.PSPath) |
-		Foreach-Object { $_ -replace $prev[0], $val } |
-		Set-Content $file.PSPath
-		(Get-Content $file.PSPath) |
-		Foreach-Object { $_ -replace $prev[1], $val2 } |
-		Set-Content $file.PSPath
+		For($r=0; $r -lt $val.Length; $r++){
+			(Get-Content $file.PSPath) |
+			Foreach-Object { $_ -replace $prev[$r], $val[$r] } |
+			Set-Content $file.PSPath
+		}
 	}
 
 	$val+="`n$($val2)"
