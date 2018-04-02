@@ -8,7 +8,7 @@ function startFn{
 		Write-Host "vanilla defaults!"-ForegroundColor Green
 	}
 	Else{
-		Write-Host "Includes vanilla defaults automatically"-ForegroundColor Green
+		Write-Host "Includes vanilla defaults automatically" -ForegroundColor Green
 	}
 	$cont=@(
 		@("apex","avian","floran","glitch","human","hylotl","novakid"),
@@ -18,7 +18,13 @@ function startFn{
 	For($i=0; $i -lt $cont.Length; $i++){
 		Write-Host "Default: $($cont[$i])" -ForegroundColor Green
 		Write-Host 'Type "end" to end the input' -ForegroundColor Yellow
-		$val+=looping $cont[$i] $i
+		$l=65+$i
+		If($full){
+			$val+=looping @() $l
+		}
+		Else{
+			$val+=looping $cont[$i] $l
+		}
 	}
 	core $val
 }
@@ -31,7 +37,7 @@ function Int{
 
 function looping($array, $run){
 	For($n=$array.Length+1; ; $n++){
-		Write-Host $run -ForegroundColor Green -NoNewline
+		Write-Host "$([char]$run)" -ForegroundColor Green -NoNewline
 		$userInput= Read-Host " New Spawn Value $($n)"
 		$userInput= $userInput -replace '\s',''
 		If($userInput -like '$exit'){
@@ -100,11 +106,15 @@ function act($userInput){
 	}
 }
 
-function core($val){
+function core($valInt){
 	$item = Get-ChildItem . *.json.patch -rec
 	$prev= Get-Content prevVal.txt
 	$prev -Split '`n'
-	$val= @("`"value`":`"$($val[0])`" //A", "`"value`":`"$($val[1])`" //B")
+	$val= @()
+	For($i=0; $i -lt $valInt.Length; $i++){
+		$l=$i+65
+		$val+= "`"value`":`"$($valInt[$i])`" //$([char]$l)"
+	}
 
 	foreach ($file in $item){
 		For($r=0; $r -lt $val.Length; $r++){
@@ -113,7 +123,7 @@ function core($val){
 			Set-Content $file.PSPath
 		}
 	}
-
+	Read-Host '??'
 	$val+="`n$($val2)"
 	$val| Set-Content 'prevVal.txt'
 	exit
