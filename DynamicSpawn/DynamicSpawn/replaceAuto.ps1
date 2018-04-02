@@ -103,8 +103,8 @@ function core($val, $val2){
 	$item = Get-ChildItem . *.json.patch -rec
 	$prev= Get-Content prevVal.txt
 	$prev -Split '`n'
-	$val= "    `"value`":`"$($val)`""
-	$val2= "`"value`":`"$($val2)`"    "
+	$val= "`"value`":`"$($val)`" //A"
+	$val2= "`"value`":`"$($val2)`" //B"
 
 	foreach ($file in $item){
 		(Get-Content $file.PSPath) |
