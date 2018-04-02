@@ -6,15 +6,19 @@ function startFn{
 	If($full){
 		Write-Host "Does not include "-ForegroundColor Red -NoNewline
 		Write-Host "vanilla defaults!"-ForegroundColor Green
+		$cont=@()
+		$cont2=@()
 	}
 	Else{
-		Write-Host "Includes vanilla defaults automatically"-ForegroundColor Green 
+		Write-Host "Includes vanilla defaults automatically"-ForegroundColor Green
+		$cont=@("apex","avian","floran","glitch","human","hylotl","novakid")
+		$cont2=@("apex","avian","human","hylotl")
 	}
-	Write-Host "Default: ""apex, avian, floran, glitch, human, hylotl, novakid""" -ForegroundColor Green
+	Write-Host "Default: `"apex, avian, floran, glitch, human, hylotl, novakid`"" -ForegroundColor Green
 	Write-Host 'Type "end" to end the input' -ForegroundColor Yellow
-	$val=looping
+	$val=looping $cont 'A'
 	Write-Host 'Default: "apex, avian, human, hylotl"' -ForegroundColor Green
-	$val2=looping
+	$val2=looping $cont2 'B'
 	core $val $val2
 }
 
@@ -24,11 +28,14 @@ function Int{
 	return $species
 }
 
-function looping{
-	$array= @()
-	For($n=1; ; $n++){
-		$userInput= Read-Host "New Value $($n)"
+function looping($array, $run){
+	For($n=$array.Length+1; ; $n++){
+		Write-Host $run -ForegroundColor Green -NoNewline
+		$userInput= Read-Host " New Spawn Value $($n)"
 		$userInput= $userInput -replace '\s',''
+		If($userInput -like '$exit'){
+			end
+		}
 		If($userInput -like 'end'){
 			If($n -eq 1){
 				Write-Host 'ERROR: Value 1 can not be blank' -ForegroundColor Red
@@ -40,6 +47,11 @@ function looping{
 		If(-not($userInput -match '\w+')){
 			$n--
 			Write-Host "ERROR: Invalid input" -ForegroundColor Red
+			continue
+		}
+		If($array -contains $userInput){
+			$n--
+			Write-Host "ERROR: Duplicate input" -ForegroundColor Red
 			continue
 		}
 		If(-not($species -contains $userInput)){
@@ -62,7 +74,8 @@ F: Forgets all values" -ForegroundColor Yellow
 }
 
 function act($userInput){
-	$key= Read-Host 'Action'
+	Write-Host 'Action: ' -ForegroundColor Magenta -NoNewline
+	$key= Read-Host
 	If($key -like 'S'){
 		Add-Content -Path "species.txt" -Value $userInput
 		return 'I'
@@ -77,7 +90,7 @@ function act($userInput){
 		startFn
 		exit
 	}
-	ElseIf($key -like 'exit' -or $key -like 'abort' -or $key -like 'A'){
+	ElseIf($key -like 'exit' -or $key -like 'abort'){
 		exit
 	}
 	Else{
@@ -90,16 +103,8 @@ function core($val, $val2){
 	$item = Get-ChildItem . *.json.patch -rec
 	$prev= Get-Content prevVal.txt
 	$prev -Split '`n'
-	If($full){
-		$cont= ""
-		$cont2= ""
-	}
-	Else{
-		$cont= "apex,avian,floran,glitch,human,hylotl,novakid,"
-		$cont2= "apex,avian,human,hylotl,"
-	}
-	$val= "    `"value`":`"$($cont)$($val)`""
-	$val2= "`"value`":`"$($cont2)$($val2)`"    "
+	$val= "    `"value`":`"$($val)`""
+	$val2= "`"value`":`"$($val2)`"    "
 
 	foreach ($file in $item){
 		(Get-Content $file.PSPath) |
