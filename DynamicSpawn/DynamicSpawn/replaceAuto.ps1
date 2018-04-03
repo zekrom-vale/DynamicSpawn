@@ -125,8 +125,7 @@ function core($valInt, $key){
 	$prev -Split '`n'
 	$val= @()
 	For($i=0; $i -lt $valInt.Length; $i++){
-		$l=$i+65
-		$val+= "`"value`":`"$($valInt[$i])`" //$($key)"
+		$val+= "`"value`":`"$($valInt[$i])`" //$($key[$i])"
 	}
 
 	foreach ($file in $item){
