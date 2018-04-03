@@ -1,14 +1,16 @@
 Param(
 	[switch]$full
 )
+$red=@{"ForegroundColor"="Red"}
+$yel=@{"ForegroundColor"="Yellow"}
 function startFn{
 	$species= Int
 	If($full){
-		Write-Host "Does not include "-ForegroundColor Red -NoNewline
-		Write-Host "vanilla defaults!"-ForegroundColor Yellow
+		Write-Host "Does not include " @red -NoNewline
+		Write-Host "vanilla defaults!" @yel
 	}
 	Else{
-		Write-Host "Includes vanilla defaults automatically" -ForegroundColor Yellow
+		Write-Host "Includes vanilla defaults automatically" @yel
 	}
 	#===============================
 	$cont=@(
@@ -28,7 +30,7 @@ function startFn{
 	For($i=0; $i -lt $cont.Length; $i++){
 		Write-Host "Modifies: $($des[$i])" -ForegroundColor Cyan
 		Write-Host "Default: $($cont[$i])" -ForegroundColor Green
-		Write-Host "    Type `"end`" to end the input" -ForegroundColor Yellow
+		Write-Host "    Type `"end`" to end the input" @yel
 		If($full){
 			$val+=looping @() $key[$i]
 		}
@@ -40,7 +42,7 @@ function startFn{
 }
 
 function Int{
-	$species= Get-Content 'species.txt'
+	$species= Get-Content 'species.csv'
 	$species -Split '`n'
 	return $species
 }
@@ -55,7 +57,7 @@ function looping($array, $run){
 		}
 		If($userInput -like 'end'){
 			If($n -eq 1){
-				Write-Host 'ERROR: Value 1 can not be blank' -ForegroundColor Red
+				Write-Host 'ERROR: Value 1 can not be blank' @red
 				$n--
 				continue
 			}
@@ -63,20 +65,20 @@ function looping($array, $run){
 		}
 		If(-not($userInput -match '\w+')){
 			$n--
-			Write-Host "`tERROR: Invalid input" -ForegroundColor Red
+			Write-Host "`tERROR: Invalid input" @red
 			continue
 		}
 		If($array -contains $userInput){
 			$n--
-			Write-Host "`tERROR: Duplicate input" -ForegroundColor Red
+			Write-Host "`tERROR: Duplicate input" @red
 			continue
 		}
 		If(-not($species -contains $userInput)){
-			Write-Host "    ERROR: $($userInput) not found." -ForegroundColor Red
+			Write-Host "    ERROR: $($userInput) not found." @red
 			Write-Host "      S: Saves $($userInput) to species list
       I: Ignores $($userInput)
       R: Removes $($userInput) from change
-      F: Forgets all values" -ForegroundColor Yellow
+      F: Forgets all values" @yel
 			$do= act $userInput
 			If($do -eq 'R'){
 				$n--
@@ -94,7 +96,7 @@ function act($userInput){
 	Write-Host "    Action: " -ForegroundColor Magenta -NoNewline
 	$key= Read-Host
 	If($key -like 'S'){
-		Add-Content -Path "species.txt" -Value $userInput
+		Add-Content -Path "species.csv" -Value $userInput
 		return 'I'
 	}
 	ElseIf($key -like 'I'){
@@ -112,14 +114,14 @@ function act($userInput){
 		exit
 	}
 	Else{
-		Write-Host "      ERROR: Invalid selection" -ForegroundColor Red
+		Write-Host "      ERROR: Invalid selection" @red
 		act $userInput
 	}
 }
 
 function core($valInt, $key){
 	$item = Get-ChildItem . *.json.patch -rec
-	$prev= Get-Content 'prevVal.txt'
+	$prev= Get-Content 'prevVal.csv'
 	$prev -Split '`n'
 	$val= @()
 	For($i=0; $i -lt $valInt.Length; $i++){
@@ -134,7 +136,7 @@ function core($valInt, $key){
 			Set-Content $file.PSPath
 		}
 	}
-	$val -join "`n"| Set-Content 'prevVal.txt'
+	$val -join "`n"| Set-Content 'prevVal.csv'
 	exit
 }
 startFn

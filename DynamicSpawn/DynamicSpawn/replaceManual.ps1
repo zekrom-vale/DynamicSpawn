@@ -19,7 +19,7 @@ $start2={
 }
 $core={
 	$item = Get-ChildItem . *.json.patch -rec
-	$prev= Get-Content prevVal.txt
+	$prev= Get-Content prevVal.csv
 	$prev -Split '`n'
 	$val= "    `"value`":`"$($val)`""
 	$val2= "`"value`":`"$($val2)`"    "
@@ -35,7 +35,7 @@ $core={
 	}
 
 	$val+="`n$($val2)"
-	$val| Set-Content 'prevVal.txt'
+	$val| Set-Content 'prevVal.csv'
 	exit
 }
 &$start
