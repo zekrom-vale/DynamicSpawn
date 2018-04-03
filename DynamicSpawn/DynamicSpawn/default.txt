@@ -1,0 +1,2 @@
+All NPCs:A:apex,avian,floran,glitch,human,hylotl,novakid
+Science NPCs:B:apex,avian,human,hylotl

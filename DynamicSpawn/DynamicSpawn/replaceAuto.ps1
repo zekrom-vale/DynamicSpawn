@@ -2,7 +2,7 @@ Param(
 	[switch]$full
 )
 function startFn{
-	$species= Int
+	$species=Int
 	If($full){
 		Write-Host "Does not include "-ForegroundColor Red -NoNewline
 		Write-Host "vanilla defaults!"-ForegroundColor Green
@@ -10,36 +10,44 @@ function startFn{
 	Else{
 		Write-Host "Includes vanilla defaults automatically" -ForegroundColor Green
 	}
-	$cont=@(
-		@("apex","avian","floran","glitch","human","hylotl","novakid"),
-		@("apex","avian","human","hylotl")
-	)
+	$cont=default
 	$val=@()
 	For($i=0; $i -lt $cont.Length; $i++){
-		Write-Host "Default: $($cont[$i])" -ForegroundColor Green
+		Write-Host "$($cont[$i][0]),
+Default: $($cont[$i][2])" -ForegroundColor Green
 		Write-Host 'Type "end" to end the input' -ForegroundColor Yellow
-		$l=65+$i
 		If($full){
-			$val+=looping @() $l
+			$val+=looping @() $cont[$i][1]
 		}
 		Else{
-			$val+=looping $cont[$i] $l
+			$val+=looping $cont[$i][2] $cont[$i][1]
 		}
 	}
 	core $val
 }
-
 function Int{
-	$species= Get-Content species.txt
+	$species=Get-Content 'species.txt'
 	$species -Split '`n'
 	return $species
 }
-
+function default{
+	#<text>:<key>:<array>
+	#<text>:<key>:<array>
+	#...
+	$array=Get-Content 'default.txt'
+	$array=$array -split '\n'
+	For($i=0; $i -lt $array.Length; $i++){
+		$array[$i]=$array[$i] -split ':'
+		$array[$i][2]=$array[$i][2] -split ','
+		Write-Host $array[$i]
+	}
+	return $array
+}
 function looping($array, $run){
-	For($n=$array.Length+1; ; $n++){
+	For($n=$array.Length+1;; $n++){
 		Write-Host "$([char]$run)" -ForegroundColor Green -NoNewline
-		$userInput= Read-Host " New Spawn Value $($n)"
-		$userInput= $userInput -replace '\s',''
+		$userInput=Read-Host " New Spawn Value $($n)"
+		$userInput=$userInput -replace '\s',''
 		If($userInput -like '$exit'){
 			exit
 		}
@@ -67,7 +75,7 @@ function looping($array, $run){
 I: Ignores $($userInput)
 R: Removes $($userInput) from change
 F: Forgets all values" -ForegroundColor Yellow
-			$do= act $userInput
+			$do=act $userInput
 			If($do -eq 'R'){
 				$n--
 				continue
@@ -79,10 +87,9 @@ F: Forgets all values" -ForegroundColor Yellow
 	Write-Host ''
 	return $array
 }
-
 function act($userInput){
 	Write-Host 'Action: ' -ForegroundColor Magenta -NoNewline
-	$key= Read-Host
+	$key=Read-Host
 	If($key -like 'S'){
 		Add-Content -Path "species.txt" -Value $userInput
 		return 'I'
@@ -105,27 +112,24 @@ function act($userInput){
 		act $userInput
 	}
 }
-
 function core($valInt){
-	$item = Get-ChildItem . *.json.patch -rec
-	$prev= Get-Content prevVal.txt
+	$item=Get-ChildItem . *.json.patch -rec
+	$prev=Get-Content 'prevVal.txt'
 	$prev -Split '`n'
-	$val= @()
+	$val=@()
 	For($i=0; $i -lt $valInt.Length; $i++){
 		$l=$i+65
 		$val+= "`"value`":`"$($valInt[$i])`" //$([char]$l)"
 	}
-
-	foreach ($file in $item){
+	foreach($file in $item){
 		For($r=0; $r -lt $val.Length; $r++){
-			(Get-Content $file.PSPath) |
-			Foreach-Object { $_ -replace $prev[$r], $val[$r] } |
+			(Get-Content $file.PSPath)|
+			Foreach-Object{$_ -replace $prev[$r], $val[$r]}|
 			Set-Content $file.PSPath
 		}
 	}
-	Read-Host '??'
-	$val+="`n$($val2)"
-	$val| Set-Content 'prevVal.txt'
+	$val=$val -join "`n"
+	$val|Set-Content 'prevVal.txt'
 	exit
 }
 startFn
