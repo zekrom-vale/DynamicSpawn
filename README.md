@@ -28,16 +28,19 @@ Reset to default values with `reset.ps1`.
 ### To make it easy to include in modpacks you are allowed to publish on steam or chucklefish forums _if_ you
 * Reference the __original author__ (zekrom_vale)
 * Reference this mod by __adding a link__ to the [main page](https://github.com/zekrom-vale/DynamicSpawn) and tell users that they can create their own with this mod
-* __Identify__ the species added
-* Warn the user that this mod __requires all of the species__ added for it to work (In the mod __and__ the pack)
-* __Remove__ the `.ps1` files (PowerShell)
+* __Identify__ the species added (Use the required tab on the steam workshop or equivelent)
+* _Please_ add required to the `metadeta` file of all the required mods to reduce issues
+* Warn the user that this mod __and/or__ pack __requires all of the species__ added for it to work.
+* __Remove__ the `.ps1` and `.sh` files (PowerShell and shell)
+* Remove `species.csv` or `species.txt` as it is no longer required
 * Redirect the issues [here](https://github.com/zekrom-vale/DynamicSpawn/issues).
 * __Update the mod__ to the latest version in a timely manner (Unless it only changes the `.ps1` files)
 * __Never sell__ this mod
+* __Never__ remove the `LICENCE` file from the mod!
 
 # Bugs/Notes
 * If you discover empty 'dungeons' like the space station and ships __it is a bug!__
-* Spelling is __important__ as it will cause failure of NPC spawning!
+  * You might have added invalid species or ones that are not installed.
 
 # Get PowerShell for linux and macOS
 https://github.com/PowerShell/PowerShell
