@@ -17,6 +17,7 @@
 *.RTF  diff=astextplain
 
 $ cat .gitattributes
+*.csv linguist-detectable=true
 *.biome linguist-detectable=true
 *.codex linguist-detectable=true
 *.config linguist-detectable=true
@@ -43,6 +44,7 @@ $ cat .gitattributes
 *.treasurepools linguist-detectable=true
 *.vehicle linguist-detectable=true
 
+*.csv linguist-language=CSV
 *.biome linguist-language=JSON
 *.codex linguist-language=JSON
 *.config linguist-language=JSON
