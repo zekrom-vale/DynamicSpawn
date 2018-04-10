@@ -1,4 +1,8 @@
 [{
+"op":"add",
+"path":"/DynamicSpawn",
+"value":true
+},{
 "op": "replace",
 "path": "/layers/3/objects/1/properties/npc",
 "value":"apex,avian,human,hylotl" //B
@@ -7,3 +11,4 @@
 "path": "/layers/3/objects/2/properties/npc",
 "value":"apex,avian,human,hylotl" //B
 }]
+
