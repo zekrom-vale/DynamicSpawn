@@ -15,15 +15,18 @@ function startFn{
 	#===============================
 	$cont=@(
 		@("apex","avian","floran","glitch","human","hylotl","novakid"),
+		@("apex","avian","human","hylotl"),
 		@("apex","avian","human","hylotl")
 	)
 	$des=@(
 		"Generic NPC Spawn",
-		"Scientific and cult NPC Spawn"
+		"Scientific NPC Spawn",
+		"Cult NPC Spawn"
 	)
 	$key=@(
 		"A",
-		"B"
+		"B",
+		"C"
 	)
 	#===============================
 	$val=@()
@@ -120,18 +123,18 @@ function act($userInput){
 }
 
 function core($valInt, $key){
-	$item = Get-ChildItem . *.json.patch -rec
-	$prev= Get-Content 'prevVal.csv'
+	$item=Get-ChildItem . *.json.patch -rec
+	$prev=Get-Content 'prevVal.csv'
 	$prev -Split '`n'
-	$val= @()
-	For($i=0; $i -lt $valInt.Length; $i++){
+	$val=@()
+	For($i=0;$i -lt $valInt.Length;$i++){
 		$val+= "`"value`":`"$($valInt[$i])`" //$($key[$i])"
 	}
 
 	foreach ($file in $item){
-		For($r=0; $r -lt $val.Length; $r++){
-			(Get-Content $file.PSPath) |
-			Foreach-Object { $_ -replace $prev[$r], $val[$r] } |
+		For($r=0;$r -lt $val.Length;$r++){
+			(Get-Content $file.PSPath)|
+			Foreach-Object{$_ -replace $prev[$r], $val[$r]} |
 			Set-Content $file.PSPath
 		}
 	}
