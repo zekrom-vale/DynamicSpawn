@@ -1,17 +1,21 @@
+Write-Output "This will reset ALL custom values!" -ForegroundColor "Red"
+Read-Host "Press Enter to continue"
 Write-Output "Running"
 $item=Get-ChildItem . *.json.patch -rec
 $prev=Get-Content prevVal.txt
 $prev -Split '`n'
 $val=@(
-	"`"value`":`"apex,avian,floran,glitch,human,hylotl,novakid`" //A",
-	"`"value`":`"apex,avian,human,hylotl`" //B",
-	"`"value`":`"apex,avian,human,hylotl`" //C"
+	'"value":"apex,avian,floran,glitch,human,hylotl,novakid" //A',
+	'"value":"apex,avian,human,hylotl" //B',
+	'"value":"apex,avian,human,hylotl" //C',
+	'"value":"apex,avian,human,hylotl,novakid" //P',
+	'"value":"apex,avian,floran,glitch,human,hylotl,novakid" //M'
 )
 
 foreach ($file in $item){
 	For($r=0;$r -lt $val.Length;$r++){
 		(Get-Content $file.PSPath)|
-		Foreach-Object{$_ -replace $prev[$r], $val[$r]} |
+		Foreach-Object{$_ -replace $prev[$r],$val[$r]} |
 		Set-Content $file.PSPath
 	}
 }
