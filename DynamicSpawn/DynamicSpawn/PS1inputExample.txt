@@ -1,0 +1,51 @@
+Includes vanilla defaults automatically
+Modifies: Generic NPC Spawn (Includes Space Station)
+Includes by default: apex avian floran glitch human hylotl novakid
+    Type "end" to end the input
+A New Spawn Value 8:   kazdra
+A New Spawn Value 9: end
+
+Modifies: Scientific NPC Spawn
+Includes by default: apex avian human hylotl
+    Type "end" to end the input
+B New Spawn Value 5: kazdra 
+B New Spawn Value 6: troll  
+B New Spawn Value 7: 	argonian
+B New Spawn Value 8: end
+
+Modifies: Cult NPC Spawn
+Includes by default: apex avian human hylotl
+    Type "end" to end the input
+C New Spawn Value 5: kazdra
+C New Spawn Value 6: troll
+C New Spawn Value 7: end
+
+Modifies: Pirate NPC Spawn
+Includes by default: apex avian human hylotl novakid
+    Type "end" to end the input
+P New Spawn Value 6: kazdra
+P New Spawn Value 7: argonian
+P New Spawn Value 8: troll
+P New Spawn Value 9: end
+
+Modifies: Merchant NPC Spawn
+Includes by default: apex avian glitch human hylotl novakid
+    Type "end" to end the input
+M New Spawn Value 7: kazdra
+M New Spawn Value 8: argonain
+    ERROR: argonain not found.
+      S: Saves argonain to species list
+      I: Ignores argonain
+      R: Removes argonain from change
+      F: Forgets all values
+    Action: r
+M New Spawn Value 8: argonian
+M New Spawn Value 9: end
+
+Modifies: Bandit NPC Spawn
+Includes by default: apex avian human hylotl novakid
+    Type "end" to end the input
+T New Spawn Value 6: kazdra
+T New Spawn Value 7:    argonian
+T New Spawn Value 8: troll
+T New Spawn Value 9: end

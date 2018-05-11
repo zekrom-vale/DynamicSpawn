@@ -1,0 +1,13 @@
+[{
+"op":"add",
+"path":"/DynamicSpawn",
+"value":true
+},{
+"op":"replace",
+"path":"/layers/3/objects/23/properties/npc",
+"value":"apex,avian,floran,glitch,human,hylotl,novakid" //M
+},{
+"op":"replace",
+"path":"/layers/3/objects/24/properties/npc",
+"value":"apex,avian,floran,glitch,human,hylotl,novakid" //M
+}]
