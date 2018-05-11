@@ -1,0 +1,8 @@
+{
+  "author" : "zekrom_vale",
+  "description" : "Adds Species to spawn in vanilla maps.\nRun replace.ps1 to change the values.  No policy change is required.\nFirst value is to replace stuff like the space ships and space station.\nThe second value is used in cultist and space labs.\n\nReset to default values with reset.ps1.",
+  "friendlyName" : "Dynamic Spawn",
+  "friendlyname" : "Dynamic Spawn",
+  "includes" : ["ZekromsKazdraRecipes"],
+  "name" : "DynamicSpawn"
+}
