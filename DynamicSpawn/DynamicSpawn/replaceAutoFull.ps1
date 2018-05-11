@@ -1,1 +1,0 @@
-PowerShell -File "replaceAuto.ps1" -full

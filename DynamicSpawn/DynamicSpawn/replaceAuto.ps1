@@ -1,6 +1,3 @@
-Param(
-	[switch]$full
-)
 $red=@{"ForegroundColor"="Red"}
 $yel=@{"ForegroundColor"="Yellow"}
 $grn=@{"ForegroundColor"="Green"}
@@ -45,7 +42,7 @@ function startFn{
 	$val=@()
 	For($i=0;$i -lt $cont.Length;$i++){
 		Write-Host "Modifies: $($des[$i])" -ForegroundColor Cyan
-		If(-not $full){
+		If(fullMode){
 			Write-Host "Includes by default: " @yel -NoNewline
 		}
 		Else{
@@ -61,6 +58,18 @@ function startFn{
 		}
 	}
 	core $val $key
+}
+
+function fullMode{
+	$full=Read-Host "Run in full mode? (Y/N)"
+	If($full -like 'Y'){
+		return 'Y'
+	}
+	If($full -like 'N'){
+		return 'N'
+	}
+	Write-Host "Invalid option"
+	return fullMode
 }
 
 function Int{
