@@ -42,25 +42,17 @@ function startFn{
 		If($full -eq 'N'){
 			$val+=looping $cont[$i] $key[$i]
 		}
-		If($full -eq 'Y'){
+		ElseIf($full -eq 'Y'){
 			Write-Host '    Ruining in full mode' @yel
 			$val+=looping @() $key[$i]
 		}
-		If($full -eq 'M'){
+		ElseIf($full -eq 'M'){
 			Write-Host '    Ruining in manual mode' @yel
-			$val+=checkManual
+			$val+=Read-Host 'List of species'
 		}
+		Write-Host ''
 	}
 	core $val $key
-}
-
-function checkManual{
-	$string=Read-Host 'List of species'
-	if($string -match '^\s*(?:\s*\w+\s*,)*\s*\w+\s*$'){
-		return $string
-	}
-	Write-Host 'Invalid string'
-	return checkManual
 }
 
 function fullMode{
@@ -127,7 +119,6 @@ function looping($array,$run){
 		}
 		$array+=$uI
 	}
-	Write-Host ''
 	return $array -join ","
 }
 

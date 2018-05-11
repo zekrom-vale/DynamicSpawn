@@ -2,7 +2,7 @@ Write-Output "This will reset ALL custom values!" -ForegroundColor "Red"
 Read-Host "Press Enter to continue"
 Write-Output "Running"
 $item=Get-ChildItem . *.json.patch -rec
-$prev=Get-Content prevVal.txt
+$prev=Get-Content prevVal.cvs
 $prev -Split '`n'
 $val=@(
 	'"value":"apex,avian,floran,glitch,human,hylotl,novakid" //A',
