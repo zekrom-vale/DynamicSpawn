@@ -3,19 +3,19 @@
 "path":"/DynamicSpawn",
 "value":true
 },{
-	"op": "replace",
-	"path": "/layers/3/objects/29/properties/npc",
+	"op":"replace",
+	"path":"/layers/3/objects/29/properties/npc",
 	"value":"apex,avian,floran,glitch,human,hylotl,novakid" //M
 },{
-	"op": "replace",
-	"path": "/layers/3/objects/30/properties/npc",
+	"op":"replace",
+	"path":"/layers/3/objects/30/properties/npc",
 	"value":"apex,avian,floran,glitch,human,hylotl,novakid" //M
 },{
-	"op": "replace",
-	"path": "/layers/3/objects/31/properties/npc",
+	"op":"replace",
+	"path":"/layers/3/objects/31/properties/npc",
 	"value":"apex,avian,floran,glitch,human,hylotl,novakid" //M
 },{
-	"op": "replace",
-	"path": "/layers/3/objects/47/properties/npc",
+	"op":"replace",
+	"path":"/layers/3/objects/47/properties/npc",
 	"value":"apex,avian,floran,glitch,human,hylotl,novakid" //M
 }]

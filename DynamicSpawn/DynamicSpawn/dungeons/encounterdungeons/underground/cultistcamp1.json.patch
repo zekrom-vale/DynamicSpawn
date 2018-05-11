@@ -3,12 +3,12 @@
 "path":"/DynamicSpawn",
 "value":true
 },{
-"op": "replace",
-"path": "/layers/3/objects/0/properties/npc",
-"value": "apex,avian,human,hylotl" //C
+"op":"replace",
+"path":"/layers/3/objects/0/properties/npc",
+"value":"apex,avian,human,hylotl" //C
 },{
-"op": "replace",
-"path": "/layers/3/objects/1/properties/npc",
-"value": "apex,avian,human,hylotl" //C
+"op":"replace",
+"path":"/layers/3/objects/1/properties/npc",
+"value":"apex,avian,human,hylotl" //C
 }
 ]

@@ -3,11 +3,11 @@
 "path":"/DynamicSpawn",
 "value":true
 },{
-"op": "replace",
-"path": "/layers/3/objects/16/properties/npc",
+"op":"replace",
+"path":"/layers/3/objects/16/properties/npc",
 "value":"apex,avian,floran,glitch,human,hylotl,novakid" //M
 },{
-"op": "replace",
-"path": "/layers/3/objects/17/properties/npc",
+"op":"replace",
+"path":"/layers/3/objects/17/properties/npc",
 "value":"apex,avian,floran,glitch,human,hylotl,novakid" //M
 }]

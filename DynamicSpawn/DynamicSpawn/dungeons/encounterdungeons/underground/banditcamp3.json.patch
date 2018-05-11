@@ -4,18 +4,18 @@
 "value":true
 },
 {
-"op": "replace",
-"path": "/layers/3/objects/0/properties/npc",
-"value": "apex,avian,human,hylotl,novakid" //T
+"op":"replace",
+"path":"/layers/3/objects/0/properties/npc",
+"value":"apex,avian,human,hylotl,novakid" //T
 },
 {
-"op": "replace",
-"path": "/layers/3/objects/2/properties/npc",
-"value": "apex,avian,human,hylotl,novakid" //T
+"op":"replace",
+"path":"/layers/3/objects/2/properties/npc",
+"value":"apex,avian,human,hylotl,novakid" //T
 },
 {
-"op": "replace",
-"path": "/layers/3/objects/4/properties/npc",
-"value": "apex,avian,human,hylotl,novakid" //T
+"op":"replace",
+"path":"/layers/3/objects/4/properties/npc",
+"value":"apex,avian,human,hylotl,novakid" //T
 }
 ]

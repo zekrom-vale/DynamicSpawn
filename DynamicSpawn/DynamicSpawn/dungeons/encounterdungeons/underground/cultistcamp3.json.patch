@@ -3,16 +3,16 @@
 "path":"/DynamicSpawn",
 "value":true
 },{
-"op": "replace",
-"path": "/layers/3/objects/3/properties/npc",
-"value": "apex,avian,human,hylotl" //C
+"op":"replace",
+"path":"/layers/3/objects/3/properties/npc",
+"value":"apex,avian,human,hylotl" //C
 },{
-"op": "replace",
-"path": "/layers/3/objects/4/properties/npc",
-"value": "apex,avian,human,hylotl" //C
+"op":"replace",
+"path":"/layers/3/objects/4/properties/npc",
+"value":"apex,avian,human,hylotl" //C
 },{
-"op": "replace",
-"path": "/layers/3/objects/7/properties/npc",
-"value": "apex,avian,human,hylotl" //C
+"op":"replace",
+"path":"/layers/3/objects/7/properties/npc",
+"value":"apex,avian,human,hylotl" //C
 }
 ]
