@@ -5,13 +5,13 @@
 },{
 	"op": "replace",
 	"path": "/layers/5/objects/2/properties/npc",
-	"value":"apex,avian,human,hylotl" //B
+	"value":"apex,avian,glitch,human,hylotl,novakid" //M
 },{
 	"op": "replace",
 	"path": "/layers/5/objects/3/properties/npc",
-	"value":"apex,avian,human,hylotl" //B
+	"value":"apex,avian,glitch,human,hylotl,novakid" //M
 },{
 	"op": "replace",
 	"path": "/layers/5/objects/4/properties/npc",
-	"value":"apex,avian,human,hylotl" //B
+	"value":"apex,avian,glitch,human,hylotl,novakid" //M
 }]

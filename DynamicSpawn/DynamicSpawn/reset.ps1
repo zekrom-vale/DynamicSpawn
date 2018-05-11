@@ -9,7 +9,8 @@ $val=@(
 	'"value":"apex,avian,human,hylotl" //B',
 	'"value":"apex,avian,human,hylotl" //C',
 	'"value":"apex,avian,human,hylotl,novakid" //P',
-	'"value":"apex,avian,floran,glitch,human,hylotl,novakid" //M'
+	'"value":"apex,avian,floran,glitch,human,hylotl,novakid" //M',
+	'"value":"apex,avian,human,hylotl,novakid" //T'
 )
 
 foreach ($file in $item){

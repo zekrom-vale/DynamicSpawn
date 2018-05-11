@@ -19,7 +19,8 @@ function startFn{
 		@("apex","avian","human","hylotl"),
 		@("apex","avian","human","hylotl"),
 		@("apex","avian","human","hylotl","novakid"),
-		@("apex","avian","glitch","human","hylotl","novakid")
+		@("apex","avian","glitch","human","hylotl","novakid"),
+		@("apex","avian","human","hylotl","novakid")
 		#,@("apex","avian","floran","glitch","human","hylotl","novakid")
 	)
 	$des=@(
@@ -28,6 +29,7 @@ function startFn{
 		"Cult NPC Spawn",
 		"Pirate NPC Spawn",
 		"Merchant NPC Spawn",
+		"Bandit NPC Spawn",
 		"Random outpost Civilian"
 	)
 	$key=@(
@@ -36,6 +38,7 @@ function startFn{
 		"C",
 		"P",
 		"M",
+		"T",
 		"Outpost"
 	)
 	#==
