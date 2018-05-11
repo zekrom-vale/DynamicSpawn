@@ -2,11 +2,12 @@
 Instead of creating 2.5E+27 mods just for the 91 listed species, this dynamic mod allows the user to add species to spawn in vanilla maps.  No, I have not looked into how to hack or use vanrabilities.  Feel free to look at the code and scan it with any antivirus/antimalware program.  Why Powershell?  This is the only script that I know of that can mass replace values in files so I can easly create a tool to change the JSON.patch files.
 # How to use
 1) Place this mod into the Starbound mod folder to make it work
-2) Run `replaceAuto.ps1` or `replaceAuto.ps1 - Full` to start adding species
+2) Run `replaceAuto.ps1` to start adding species
 	* You might have to right click and select `Run with PowerShell` to change the values
 	* No policy change is required (`l` or `n`)
-3) Enter the species separated by enters
-4) If it is not valid you can type these letters
+3) Chose the mode (Y: Full controll, N: Includes defults, M: Manualy input the string)
+4) Enter the species separated by enters
+5) If it is not valid you can type these letters
 ```
 S: Saves <Value> to species list
 I: Ignores <Value>
@@ -14,8 +15,8 @@ R: Removes <Value> from change
 F: Forgets all values
 exit or abort: Exits the script (Extra key for debug resons)
 ```
-5) Type `end` to end the process
-6) Go to step 3 until it quits
+6) Type `end` to end the process
+7) Go to step 3 until it quits
 
 Reset to default values with `reset.ps1`.
 
@@ -35,6 +36,7 @@ Reset to default values with `reset.ps1`.
 # Bugs/Notes
 * If you discover empty 'dungeons' like the space station and ships __it is a bug!__  _HOWEVER,_
 * You might have added invalid species or ones that are not installed.
+* Manual mode does not check for errors
 
 # Get PowerShell for linux and macOS
 https://github.com/PowerShell/PowerShell
