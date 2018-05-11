@@ -73,8 +73,17 @@ function looping($array,$run){
 		Write-Host $run @grn -NoNewline
 		$uI=Read-Host " New Spawn Value $($n)"
 		$uI=$uI -replace '(^\s+|\s+$)',''
+		If($uI -like ''){
+			$n--
+			continue
+		}
 		If($uI -like 'exit' -or $uI -like 'abort'){
-			exit
+			$uI=Read-Host "Are you sure? (Y/N)"
+			if($ui -like 'Y'){
+				exit
+			}
+			$n--
+			continue
 		}
 		If($uI -like 'end'){
 			If($n -eq 1){
