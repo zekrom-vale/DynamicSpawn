@@ -3,13 +3,6 @@ $yel=@{"ForegroundColor"="Yellow"}
 $grn=@{"ForegroundColor"="Green"}
 function startFn{
 	$species=Int
-	If($full){
-		Write-Host "Does not include " @red -NoNewline
-		Write-Host "vanilla defaults!" @yel
-	}
-	Else{
-		Write-Host "Includes vanilla defaults automatically" @yel
-	}
 	#==
 	$cont=@(
 		@("apex","avian","floran","glitch","human","hylotl","novakid"),
@@ -42,31 +35,44 @@ function startFn{
 	$val=@()
 	For($i=0;$i -lt $cont.Length;$i++){
 		Write-Host "Modifies: $($des[$i])" -ForegroundColor Cyan
-		If(fullMode){
-			Write-Host "Includes by default: " @yel -NoNewline
-		}
-		Else{
-			Write-Host "Default: " @yel -NoNewline
-		}
+		Write-Host "Default: " @yel -NoNewline
 		Write-Host $cont[$i] @grn
+		$full=fullMode
 		Write-Host '    Type "end" to end the input' @yel
-		If($full){
+		If($full -eq 'N'){
+			$val+=looping $cont[$i] $key[$i]
+		}
+		If($full -eq 'Y'){
+			Write-Host '    Ruining in full mode' @yel
 			$val+=looping @() $key[$i]
 		}
-		Else{
-			$val+=looping $cont[$i] $key[$i]
+		If($full -eq 'M'){
+			Write-Host '    Ruining in manual mode' @yel
+			$val+=checkManual
 		}
 	}
 	core $val $key
 }
 
+function checkManual{
+	$string=Read-Host 'List of species'
+	if($string -match '^\s*(?:\s*\w+\s*,)*\s*\w+\s*$'){
+		return $string
+	}
+	Write-Host 'Invalid string'
+	return checkManual
+}
+
 function fullMode{
-	$full=Read-Host "Run in full mode? (Y/N)"
+	$full=Read-Host "Run in full mode? (Y/N) Or manual (M)"
 	If($full -like 'Y'){
 		return 'Y'
 	}
 	If($full -like 'N'){
 		return 'N'
+	}
+	If($full -like 'M'){
+		return 'M'
 	}
 	Write-Host "Invalid option"
 	return fullMode
