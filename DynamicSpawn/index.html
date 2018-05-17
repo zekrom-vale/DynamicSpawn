@@ -3,21 +3,17 @@
 <head>
 	<title>Dynamic Spawn Creator</title>
 	<meta charset="ASNI"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1"/>
-	<!-- Latest compiled and minified CSS -->
+	<meta name="viewport" content="width=device-width,initial-scale=1"/>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-	<!-- jQuery library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<!-- Popper JS -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-	<!-- Latest compiled JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 	<script>
 	$(document).ready(function(){
-	$("#speciesInput").on("keyup", function() {
+	$("#speciesInput").on("keyup",function(){
 		var value=$(this).val().toLowerCase();
-		$("#speciesList li").filter(function() {
-		$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+		$("#speciesList li").filter(function(){
+			$(this).toggle($(this).text().toLowerCase().indexOf(value)>-1)
 		});
 	});
 	});
@@ -38,6 +34,13 @@
 			background-color:#007bff;
 			border-color:#007bff;
 		}
+		#npcList>div>ul{
+			height:30vh;
+			overflow:auto;
+		}
+		#npcList>*{
+			padding:0;
+		}
 	</style>
 </head>
 <body onload="populateSpecies()">
@@ -46,7 +49,7 @@
 		<div>
 			<input class="form-control" id="speciesInput" type="text" placeholder="Search..">
 			<br/>
-			<ul class="list-group" id="speciesList" style="max-height:400px;overflow:auto"/>
+			<ul class="list-group" id="speciesList" style="height:30vh;overflow:auto"/>
 		</div>
 		<ul class="nav nav-tabs" role="tablist">
 			<li class="nav-item">
@@ -72,12 +75,6 @@
 			</li>
 		</ul>
 		<div class="tab-content" id="npcList">
-			<style>
-				#npcList > div.container > ul.list-group{
-					max-height:200px;
-					overflow:auto
-				}
-			</style>
 			<div id="npcGeneric" class="container tab-pane active">
 				<ul class="list-group"/>
 			</div>
@@ -100,10 +97,13 @@
 				<ul class="list-group"/>
 			</div>
 		</div>
-		<div class="alert alert-danger alert-dismissible" hidden>
-			<button type="button" class="close" data-dismiss="alert">&times;</button>
-			<strong>Failure!</strong> <span id="ErrorBox"/>
+		<br/>
+		<div class="btn-group">
+			<button class="btn btn-success" onclick="iexport(this)">Export JSON</button>
+			<button class="btn btn-success" onclick="iimport(this)">Import JSON</button>
+			<button class="btn btn-success" onclick="download(this)">Download Mod</button>
 		</div>
+		<input type="file" class="form-control-file border" id="iimport" accept=".DyS.json"/>
 	</div>
 </body>
 </html>
