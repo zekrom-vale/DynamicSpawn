@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dynamic Spawn Creator</title>
+	<meta charset="ASNI"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<!-- Popper JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+	<script>
+	$(document).ready(function(){
+	$("#speciesInput").on("keyup", function() {
+		var value=$(this).val().toLowerCase();
+		$("#speciesList li").filter(function() {
+		$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+		});
+	});
+	});
+	</script>
+	<script src="js/species.js"></script>
+	<style id="activeStyle">
+		.active-npcGeneric{
+			z-index:2;
+			color:#fff;
+			background-color:#007bff;
+			border-color:#007bff;
+		}
+	</style>
+</head>
+<body onload="populateSpecies()">
+	<div class="container-fluid">
+		<br/>
+		<div>
+			<input class="form-control" id="speciesInput" type="text" placeholder="Search..">
+			<br/>
+			<ul class="list-group" id="speciesList" style="max-height:400px;overflow:auto"/>
+		</div>
+		<ul class="nav nav-tabs" role="tablist">
+			<li class="nav-item">
+				<a class="nav-link active" data-toggle="tab" href="#npcGeneric" onclick="updateHash(this)">Generic</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" data-toggle="tab" href="#npcScientific" onclick="updateHash(this)">Scientific</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" data-toggle="tab" href="#npcCult" onclick="updateHash(this)">Cult</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" data-toggle="tab" href="#npcPirate" onclick="updateHash(this)">Pirate</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" data-toggle="tab" href="#npcMerchant" onclick="updateHash(this)">Merchant</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" data-toggle="tab" href="#npcBandit" onclick="updateHash(this)">Bandit</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" data-toggle="tab" href="#npcROC" onclick="updateHash(this)">Random Outpost Civilian</a>
+			</li>
+		</ul>
+		<div class="tab-content">
+			<style>
+				div.tab-content > div.container > ul.list-group{
+					max-height:200px;
+					overflow:auto
+				}
+			</style>
+			<div id="npcGeneric" class="container tab-pane active">
+				<ul class="list-group"/>
+			</div>
+			<div id="npcScientific" class="container tab-pane fade">
+				<ul class="list-group"/>
+			</div>
+			<div id="npcCult" class="container tab-pane fade">
+				<ul class="list-group"/>
+			</div>
+			<div id="npcPirate" class="container tab-pane fade">
+				<ul class="list-group"/>
+			</div>
+			<div id="npcMerchant" class="container tab-pane fade">
+				<ul class="list-group"/>
+			</div>
+			<div id="npcBandit" class="container tab-pane fade">
+				<ul class="list-group"/>
+			</div>
+			<div id="npcROC" class="container tab-pane fade">
+				<ul class="list-group"/>
+			</div>
+		</div>
+		<div class="alert alert-danger alert-dismissible" hidden>
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+			<strong>Failure!</strong> <span id="ErrorBox"/>
+		</div>
+	</div>
+</body>
+</html>

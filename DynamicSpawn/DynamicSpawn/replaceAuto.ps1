@@ -20,7 +20,7 @@ function startFn{
 		"Pirate NPC Spawn",
 		"Merchant NPC Spawn",
 		"Bandit NPC Spawn",
-		"Random outpost Civilian"
+		"Random Outpost Civilian"
 	)
 	$key=@(
 		"A",
