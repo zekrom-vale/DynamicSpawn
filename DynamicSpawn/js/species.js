@@ -109,13 +109,14 @@ function populateSpecies(){
 		arr[i]=li.cloneNode(li);
 		arr[i].setAttribute("onclick","modifyCont(this)");
 		arr[i].setAttribute("value",species[i]);
-		arr[i].innerHTML=species[i]+'<button type="button" class="btn btn-primary float-right" onclick="addToAll(this)">Add to All</button>';
+		arr[i].innerHTML=species[i]+'<button type="button" class="btn btn-secondary float-right" onclick="addToAll(this)">Add to All</button>';
 		arr[i].id=species[i];
 	}
 	document.getElementById("speciesList").append(...arr);//Spread
 }
 
 function modifyCont(el){
+	console.log(el);
 	var css="active-"+location.hash.replace("#","");
 	if(el.classList.contains(css)){
 		var item=document.querySelector(location.hash+" li[value="+el.getAttribute("value")+"]");
@@ -131,10 +132,14 @@ function modifyCont(el){
 }
 
 function addToAll(el){
-	var spawns=document.querySelectorAll("div.tab-content>div>ul");
-	el.setAttribute("onclick","removeEl(this)");
-	for(var i in spawns){
+	el=el.parentNode;
+	var spawns=document.querySelectorAll("#npcList>div:not("+location.hash+")>ul"),
+	base=document.querySelectorAll("#npcList>div:not("+location.hash+")");
+	for(var i=0; spawns.length>i;i++){
+		if(el.classList.contains("active-"+base[i].id))continue;
+		el.classList.add("active-"+base[i].id);
 		let li=el.cloneNode(true);
+		li.setAttribute("onclick","removeEl(this)");
 		li.id="";
 		spawns[i].prepend(li);
 	}

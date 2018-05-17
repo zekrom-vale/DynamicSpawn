@@ -31,6 +31,14 @@
 			border-color:#007bff;
 		}
 	</style>
+	<style>
+		#npcList li{
+			z-index:2;
+			color:#fff;
+			background-color:#007bff;
+			border-color:#007bff;
+		}
+	</style>
 </head>
 <body onload="populateSpecies()">
 	<div class="container-fluid">
@@ -63,9 +71,9 @@
 				<a class="nav-link" data-toggle="tab" href="#npcROC" onclick="updateHash(this)">Random Outpost Civilian</a>
 			</li>
 		</ul>
-		<div class="tab-content">
+		<div class="tab-content" id="npcList">
 			<style>
-				div.tab-content > div.container > ul.list-group{
+				#npcList > div.container > ul.list-group{
 					max-height:200px;
 					overflow:auto
 				}
