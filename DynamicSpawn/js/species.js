@@ -127,8 +127,8 @@ function populateSpecies(){
 		var a=document.createElement("a");
 		document.body.appendChild(a);
 		a.style="display:none";
-		return function (data,fileName){
-			var json=JSON.stringify(data),
+		return function (data,fileName,t){
+			var json=(t)?data:JSON.stringify(data),
 				blob=new Blob([json],{type:"octet/stream"}),
 				url=window.URL.createObjectURL(blob);
 			a.href=url;
@@ -201,7 +201,26 @@ function removeFromAll(el){
 }
 
 function download(){
-	return;
+	var ob=getLi()
+	for(var i in ob){
+		ob[i]=ob[i].join(",");
+	}
+	console.log("dwnld");
+	//----------
+	var xhr=new XMLHttpRequest();
+	xhr.open("POST",'DynamicSpawn.pak',true);
+	xhr.setRequestHeader("Content-type",'text/plain;charset=ASCII');
+	xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+	xhr.onreadystatechange=function(){
+		if(xhr.readyState==4 && xhr.status==200){
+			document.getElementById("data").innerHTML=data;
+			var blob=new Blob([xhr.response], {type: "octet/stream"});
+			saveData(blob,'DynamicSpawnTest.pak',true);
+		}
+	}
+	xhr.responseType="arraybuffer";
+	xhr.send();
+	//----------
 }
 
 function iimport(){
@@ -236,6 +255,10 @@ function setLi(set,key){
 }
 
 function iexport(){
+	saveData(getLi(),"export.DyS.json");
+}
+
+function getLi(){
 	var spawns=document.querySelectorAll("#npcList>div"),
 	arr={};
 	for(var i=0;spawns.length>i;i++){
@@ -246,7 +269,7 @@ function iexport(){
 			arr[id][n]=items[n].getAttribute("value");
 		}
 	}
-	saveData(arr,"export.DyS.json");
+	return arr;
 }
 
 function popup(mesage,type="danger"){
