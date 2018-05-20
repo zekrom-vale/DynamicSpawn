@@ -1,133 +1,44 @@
+"use strict";
 var saveData,
-species=[
-"Attarran",
-"Canids",
-"Eevee",
-"Indix",
-"Umbreon",
-"agaran",
-"albinopenguin",
-"alicorn",
-"alpaca",
-"apex",
-"arachne",
-"argonian",
-"avali",
-"avian",
-"avikan",
-"avonian",
-"batpony",
-"blattra",
-"bunnykin",
-"callistan",
-"cat",
-"catus",
-"changeling",
-"chicken",
-"clownkin",
-"cryoguin",
-"demon",
-"dragon",
-"droden",
-"eeveetwo",
-"elunite",
-"everis",
-"familiar",
-"felin",
-"fenerox",
-"floran",
-"gardevan",
-"glitch",
-"greckan",
-"gyrusen",
-"human",
-"hylotl",
-"inkling",
-"kazdra",
-"kemono",
-"kineptic",
-"lamia",
-"lombax_pointed",
-"lombax_striped",
-"manicpenguin",
-"mantizi",
-"moogle",
-"munari",
-"neko",
-"nightar",
-"ningen",
-"novakid",
-"ooze",
-"orcana",
-"pegasus",
-"peglaci",
-"penguin",
-"pengvolt",
-"phantasm",
-"phox",
-"plaguin",
-"ponex",
-"pony",
-"puffin",
-"pygs",
-"pyroguin",
-"robopenguin",
-"rockhopperpenguin",
-"rodentia",
-"saturn",
-"scorsheep",
-"sergal",
-"shade",
-"shadow2",
-"skath",
-"skelekin",
-"slimeperson",
-"su_gem",
-"tauren",
-"terrakin",
-"tirastrolls",
-"trink",
-"troll",
-"unicorn",
-"vampyric",
-"vanillapenguin",
-"vespoid",
-"viera",
-"vulpes",
-"wasphive",
-"webber",
-"woggle",
-"zombie"
-]
-
-function populateSpecies(){
+populateSpecies=()=>{
 	location.hash="npcGeneric";
+	var btnB=document.createElement("button");
+		btnB.classList.add("btn");
 	var li=document.createElement("li");
-	li.classList.add("list-group-item");
+		li.classList.add("list-group-item");
+	var btn=btnB.cloneNode();
+		btn.setAttribute("onclick","modifyCont(this)");
+		btn.style="width:50%;min-width:100px";
+		btn.classList.add("btn-dark");
+	var div=document.createElement("div");
+		div.classList.add("btn-group","float-right");
+		btnB.classList.add("btn-secondary");
+		var all=btnB.cloneNode();
+			all.setAttribute("onclick","addToAll(this)");
+			all.innerHTML="Add to All";
+			btnB.setAttribute("onclick","removeFromAll(this)");
+			btnB.innerHTML="Remove from All";
+		div.append(all,btnB);
 	var arr=[];
 	for(var i in species){
-		arr[i]=li.cloneNode(li);
+		arr[i]=li.cloneNode();
 		arr[i].setAttribute("value",species[i]);
-		arr[i].innerHTML=
-`<button onclick="modifyCont(this)" class="btn btn-dark" style="width:50%;min-width:100px">
-	${species[i]}
-</button>
-<div class="btn-group float-right">
-	<button type="button" class="btn btn-secondary" onclick="addToAll(this)">
-		Add to All
-	</button>
-	<button type="button" class="btn btn-secondary" onclick="removeFromAll(this)">
-		Remove from All
-	</button>
-</div>`;
 		arr[i].id=species[i];
+		let b=btn.cloneNode();
+			b.innerHTML=species[i];
+		arr[i].append(b,div.cloneNode(true));
 	}
 	document.getElementById("speciesList").append(...arr);//Spread
+	var c=getCookie("value");
+	if(c){
+		var item=JSON.parse(c);
+		for(var i in item)for(var n in item[i])setLi(i,item[i][n]);
+	}
 	saveData=(function(){
 		var a=document.createElement("a");
 		document.body.appendChild(a);
 		a.style="display:none";
-		return function (data,fileName,t){
+		return function(data,fileName,t){
 			var json=(t)?data:JSON.stringify(data),
 				blob=new Blob([json],{type:"octet/stream"}),
 				url=window.URL.createObjectURL(blob);
@@ -138,148 +49,168 @@ function populateSpecies(){
 		};
 		//https://jsfiddle.net/koldev/cW7W5/
 	}());
-}
+},
 
-function modifyCont(el){
+modifyCont=el=>{
 	el=el.parentNode;
-	var css="active-"+location.hash.replace("#","");
+	let hash=location.hash;
+	var css="active-"+hash.replace("#","");
 	if(el.classList.contains(css)){
-		var item=document.querySelector(location.hash+" li[value="+el.getAttribute("value")+"]");
+	var item=document.querySelector(`${hash} li[value=${el.getAttribute("value")}]`);
 		item.parentNode.removeChild(item);
 		el.classList.remove(css);
-		return;
 	}
-	el.classList.add(css);
-	var li=el.cloneNode(true);
-	li.setAttribute("onclick","removeEl(this)");
-	li.id="";
-	document.querySelector(location.hash+">ul").prepend(li);
-}
+	else{
+		el.classList.add(css);
+		var li=el.cloneNode(true);
+		li.setAttribute("onclick","removeEl(this)");
+		li.id="";
+		document.querySelector(hash+">ul").prepend(li);
+	}
+},
 
-function addToAll(el){
+addToAll=el=>{
 	var elp=el.parentNode.parentNode,
-	spawns=document.querySelectorAll("#npcList>div>ul"),
-	base=document.querySelectorAll("#npcList>div");
-	for(var i=0;base.length>i;i++){
-		if(elp.classList.contains("active-"+base[i].id)){
-			spawns[i]=null;
-		}
-		elp.classList.add("active-"+base[i].id);
+	spawns=$("#npcList ul"),
+	base=$("#npcList>div"),
+	arr=[],
+	_b=base.length;
+	for(var i=0;_b>i;i++){
+		if(elp.classList.contains("active-"+base[i].id))arr[i]=false;
+		else elp.classList.add("active-"+base[i].id);
 	}
-	for(var i=0;spawns.length>i;i++){
-		if(spawns[i]==null)continue;
+	var _s=spawns.length;
+	for(var i=0;_s>i;i++)if(arr[i]!=false){
 		let li=elp.cloneNode(true);
 		li.setAttribute("onclick","removeEl(this)");
 		li.id="";
 		spawns[i].prepend(li);
 	}
-}
+},
 
-function removeEl(el){
+removeEl=el=>{
 	var elp=el.parentNode;
 	document.getElementById(el.getAttribute("value")).classList.remove("active-"+location.hash.replace("#",""));
-}
+},
 
-function updateHash(el){
-	var hash=el.hash;
+updateHash=el=>{
+	var hash=el.hash,
+	style=document.getElementById("activeStyle");
 	location.hash=hash;
-	var style=document.getElementById("activeStyle");
-	style.innerHTML=style.innerHTML.replace(/\.active\-.+?\{/,".active-"+hash.replace("#","")+"{");
-}
+	style.innerHTML=style.innerHTML.replace(/active\-.+?\{/,`active-${hash.replace("#","")}\{`);
+},
 
-function removeFromAll(el){
+removeFromAll=el=>{
 	el=el.parentNode.parentNode;
 	var arr=el.classList.value.split(" ")
-	for(var i in arr){
-		if(!arr[i].includes("active-"))continue;
+	for(var i in arr)if(arr[i].includes("active-")){
 		let t=arr[i].replace("active-","");
-		var item=document.querySelector("#"+t+" [value="+el.getAttribute("value")+"]");
-		if(!item)continue;
-		item.parentNode.removeChild(item);
-		el.classList.remove(arr[i]);
+		var item=document.querySelector(`#${t} [value=${el.getAttribute("value")}]`);
+		if(item){
+			item.parentNode.removeChild(item);
+			el.classList.remove(arr[i]);
+		}
 	}
-}
+},
 
-function download(){
-	var ob=getLi()
-	for(var i in ob){
-		ob[i]=ob[i].join(",");
-	}
-	console.log("dwnld");
-	//----------
-	var xhr=new XMLHttpRequest();
+download=()=>{
+	var ob=getLi(),
+	xhr=new XMLHttpRequest();
+	for(var i in ob)ob[i]=ob[i].join(",");
 	xhr.open("POST",'DynamicSpawn.pak',true);
 	xhr.setRequestHeader("Content-type",'text/plain;charset=ASCII');
-	xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
-	xhr.onreadystatechange=function(){
-		if(xhr.readyState==4 && xhr.status==200){
-			document.getElementById("data").innerHTML=data;
-			var blob=new Blob([xhr.response], {type: "octet/stream"});
-			saveData(blob,'DynamicSpawnTest.pak',true);
-		}
+	xhr.setRequestHeader("Access-Control-Allow-Origin","*");
+	xhr.onreadystatechange=()=>{
+		if(xhr.readyState===4&&xhr.status===200)saveData(new Blob([xhr.response],{type:"octet/stream"}),'DynamicSpawnTest.pak',true);
 	}
 	xhr.responseType="arraybuffer";
 	xhr.send();
-	//----------
-}
+},
 
-function iimport(){
+iimport=()=>{
 	var fr=new FileReader();
 //medium.com/programmers-developers/convert-blob-to-string-in-javascript-944c15ad7d52
 	fr.addEventListener('loadend',(txt)=>{
 		txt=txt.srcElement.result;
-		console.log(txt);
 		var item=JSON.parse(txt);
-		for(var i in item){for(var n in item[i]){
-			setLi(i,item[i][n]);
-		}}
+		for(var i in item)for(var n in item[i])setLi(i,item[i][n]);
 	});
 	try{
 		files=document.getElementById("iimport").files;
 		if(files.length<1)throw "No file selected";
 		fr.readAsText(files[0]);
 	}catch(err){
-		popup("Import failure: "+err)
+		popup("Import failure: "+err);
 	}
-}
+},
 
-function setLi(set,key){
-	el=document.getElementById(key);
+setLi=(set,key)=>{
+	var el=document.getElementById(key);
+	console.log(key,el)
 	var css="active-"+set;
-	if(el.classList.contains(css))return;
-	el.classList.add(css);
-	var li=el.cloneNode(true);
-	li.setAttribute("onclick","removeEl(this)");
-	li.id="";
-	document.querySelector("#"+set+">ul").prepend(li);
-}
+	if(!el.classList.contains(css)){
+		el.classList.add(css);
+		var li=el.cloneNode(true);
+		li.setAttribute("onclick","removeEl(this)");
+		li.id="";
+		document.querySelector(`#${set}>ul`).appendChild(li);
+	}
+},
 
-function iexport(){
-	saveData(getLi(),"export.DyS.json");
-}
+iexport=()=>{
+	return saveData(getLi(),"export.DyS.json");
+},
 
-function getLi(){
-	var spawns=document.querySelectorAll("#npcList>div"),
-	arr={};
-	for(var i=0;spawns.length>i;i++){
+getLi=()=>{
+	var spawns=$("#npcList>div"),
+	arr={},
+	_s=spawns.length;
+	for(var i=0;_s>i;i++){
 		let id=spawns[i].id,
-		items=document.querySelectorAll("#"+id+" li");
-		arr[id]=[]
-		for(var n=0;items.length>n;n++){
-			arr[id][n]=items[n].getAttribute("value");
-		}
+		items=$(`#${id} li`),
+		_i=items.length;
+		arr[id]=[];
+		for(var n=0;_i>n;n++)arr[id][n]=items[n].getAttribute("value");
 	}
 	return arr;
-}
+},
 
-function popup(mesage,type="danger"){
+popup=(mesage,type="danger")=>{
 	var div=document.createElement("div");
-	div.classList.add("alert","alert-"+type,"alert-dismissible")
-	div.innerHTML=mesage;
+		div.classList.add("alert","alert-"+type,"alert-dismissible");
+		div.innerHTML=mesage;
 	var btn=document.createElement("button");
-	btn.classList.add("close")
-	btn.setAttribute("data-dismiss","alert")
-	btn.innerHTML="&times;"
+		btn.classList.add("close");
+		btn.dataset.dismiss="alert";
+		btn.innerHTML="×";
 	div.appendChild(btn);
 	document.body.prepend(div);
+},
+
+removeAll=()=>{
+	if(confirm("Remove all items from the current list?\nThis Cannot be undone!")){
+		$(`#speciesList li`).removeClass("active-"+location.hash.replace("#",""));
+		$(`${location.hash}:First ul:First`).empty();
+	}
+};
+
+window.addEventListener("beforeunload",()=>{
+	document.cookie=`value=${JSON.stringify(getLi())};expires=${dayPlus(90).toUTCString()}`;
+});
+
+function getCookie(n){
+	let ca=decodeURIComponent(document.cookie).split(';');
+	console.info(document.cookie);
+	n=new RegExp(`^\s*${n}=`);
+	for(var i in ca){
+		if(n.test(ca[i])){
+			return ca[i].replace(n,"");
+		}
+	}
+}
+
+function dayPlus(a){
+	var d=new Date();
+	d.setTime(d.getTime()+(a*86400000));
+	return d;
 }

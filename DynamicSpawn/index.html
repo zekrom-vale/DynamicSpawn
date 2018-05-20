@@ -2,52 +2,19 @@
 <html>
 <head>
 	<title>Dynamic Spawn Creator</title>
-	<meta charset="ASCII">
+	<meta charset="ASCII"/>
 	<meta name="viewport" content="width=device-width,initial-scale=1"/>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"/>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-	<script>
-	$(document).ready(function(){
-	$("#speciesInput").on("keyup",function(){
-		var value=$(this).val().toLowerCase();
-		$("#speciesList li").filter(function(){
-			$(this).toggle($(this).text().toLowerCase().indexOf(value)>-1)
-		});
-	});
-	});
-	</script>
-	<script src="js/species.js"></script>
-	<style id="activeStyle">
-		.active-npcGeneric{
-			z-index:2;
-			color:#fff;
-			background-color:#007bff;
-			border-color:#007bff;
-		}
-	</style>
-	<style>
-		#npcList li{
-			z-index:2;
-			color:#fff;
-			background-color:#007bff;
-			border-color:#007bff;
-		}
-		#npcList>div>ul{
-			height:30vh;
-			overflow:auto;
-		}
-		#npcList>*{
-			padding:0;
-		}
-	</style>
+	<link rel="stylesheet" href="css/core.css"/>
 </head>
 <body onload="populateSpecies()">
 	<div class="container-fluid">
 		<br/>
 		<div>
-			<input class="form-control" id="speciesInput" type="text" placeholder="Search..">
+			<input class="form-control" id="speciesInput" type="text" placeholder="Search Species...">
 			<br/>
 			<ul class="list-group" id="speciesList" style="height:30vh;overflow:auto"/>
 		</div>
@@ -71,42 +38,76 @@
 				<a class="nav-link" data-toggle="tab" href="#npcBandit" onclick="updateHash(this)">Bandit</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" data-toggle="tab" href="#npcROC" onclick="updateHash(this)">Random Outpost Civilian</a>
+				<a class="nav-link" data-toggle="tab" href="#npcROC" onclick="updateHash(this)">Outpost Civilian</a>
 			</li>
 		</ul>
 		<div class="tab-content" id="npcList">
 			<div id="npcGeneric" class="container tab-pane active">
+				<h3>Changes the species config of Generic NPCs.</h3>
+				<h5>Ex.</h5>
 				<ul class="list-group"/>
 			</div>
 			<div id="npcScientific" class="container tab-pane fade">
+				<h3>Changes the species config of Scientist NPCs.</h3>
+				<h5>Ex. Labs</h5>
 				<ul class="list-group"/>
 			</div>
 			<div id="npcCult" class="container tab-pane fade">
+				<h3>Changes the species config of Cult NPCs.</h3>
+				<h5></h5>
 				<ul class="list-group"/>
 			</div>
 			<div id="npcPirate" class="container tab-pane fade">
+				<h3>Changes the species config of Space Pirate NPCs.</h3>
+				<h5></h5>
 				<ul class="list-group"/>
 			</div>
 			<div id="npcMerchant" class="container tab-pane fade">
+				<h3>Changes the species config of Merchant NPCs.</h3>
+				<h5>Ex. Merchant Ship, Industrial Merchant Ship.</h5>
 				<ul class="list-group"/>
 			</div>
 			<div id="npcBandit" class="container tab-pane fade">
+				<h3>Changes the species config of Bandit NPCs.</h3>
+				<h5>Ex. Random encounters</h5>
 				<ul class="list-group"/>
 			</div>
 			<div id="npcROC" class="container tab-pane fade">
+				<h3>Changes the species config of Ranfom Outpost Civilians NPCs.</h3>
+				<h5></h5>
 				<ul class="list-group"/>
 			</div>
 		</div>
 		<br/>
 		<div class="btn-group">
-			<button class="btn btn-success" onclick="iexport(this)">Export JSON</button>
-			<button class="btn btn-success" onclick="iimport(this)">Import JSON</button>
-			<button class="btn btn-success" onclick="download(this)">Download Mod</button>
+			<button class="btn btn-danger" onclick="removeAll(this)">Remove All</button>
+			<button class="btn btn-success" onclick="iexport()">Export JSON</button>
+			<button class="btn btn-success" onclick="iimport()">Import JSON</button>
+			<button class="btn btn-success" onclick="download()" disabled>Download Mod</button>
 		</div>
-		<input type="file" class="form-control-file border" id="iimport" accept=".DyS.json"/>
-	</div>
-	<div id="data">
-		
+		<input type="file" class="form-control-file" id="iimport" accept=".DyS.json"/>
 	</div>
 </body>
+<scripts hidden>
+	</script>
+	<script src="js/species.js"></script>
+	<script src="js/speciesList.js"></script>
+	<style id="activeStyle">
+		.active-npcGeneric{
+			z-index:2;
+			color:#fff;
+			background-color:#007bff;
+			border-color:#007bff;
+		}
+	</style>
+	<script>
+	$(document).ready(()=>{
+		$("#speciesInput").on("keyup",function(){
+			var value=$(this).val().toLowerCase();
+			$("#speciesList li, #npcList li").filter(function(){
+				$(this).toggle($(this).text().toLowerCase().indexOf(value)>-1)
+			});
+		});
+	});
+</scripts>
 </html>

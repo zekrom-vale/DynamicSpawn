@@ -1,0 +1,7 @@
+#npcList>div>ul{
+	height:30vh;
+	overflow:auto;
+}
+#npcList>*{
+	padding:0;
+}
