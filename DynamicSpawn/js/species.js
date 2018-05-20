@@ -117,11 +117,13 @@ download=()=>{
 	var ob=getLi(),
 	xhr=new XMLHttpRequest();
 	for(var i in ob)ob[i]=ob[i].join(",");
-	xhr.open("POST",'DynamicSpawn.pak',true);
+	xhr.open("POST",'core.zip',true);
 	xhr.setRequestHeader("Content-type",'text/plain;charset=ASCII');
 	xhr.setRequestHeader("Access-Control-Allow-Origin","*");
 	xhr.onreadystatechange=()=>{
-		if(xhr.readyState===4&&xhr.status===200)saveData(new Blob([xhr.response],{type:"octet/stream"}),'DynamicSpawnTest.pak',true);
+		if(xhr.readyState===4&&xhr.status===200){
+			saveData(xhr.response,'DynamicSpawnTest.pak',true);
+		}
 	}
 	xhr.responseType="arraybuffer";
 	xhr.send();
