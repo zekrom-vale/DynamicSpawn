@@ -1,0 +1,223 @@
+﻿<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{EF6C6E70-CD57-482B-8C53-C554EA22D7ED}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <NoStandardLibraries>false</NoStandardLibraries>
+    <AssemblyName>DynamicSpawn</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>DynamicSpawn</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>Internet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="core.cs" />
+    <Compile Include="Interface1.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="dungeons\encounterdungeons\banditcamp1.json.patch" />
+    <None Include="dungeons\encounterdungeons\banditcamp2.json.patch" />
+    <None Include="dungeons\encounterdungeons\banditcamp3.json.patch" />
+    <None Include="dungeons\encounterdungeons\banditcamp4.json.patch" />
+    <None Include="dungeons\encounterdungeons\cultistcamp1.json.patch" />
+    <None Include="dungeons\encounterdungeons\cultistcamp2.json.patch" />
+    <None Include="dungeons\encounterdungeons\cultistcamp3.json.patch" />
+    <None Include="dungeons\encounterdungeons\underground\banditcamp1.json.patch" />
+    <None Include="dungeons\encounterdungeons\underground\banditcamp2.json.patch" />
+    <None Include="dungeons\encounterdungeons\underground\banditcamp3.json.patch" />
+    <None Include="dungeons\encounterdungeons\underground\banditcamp4.json.patch" />
+    <None Include="dungeons\encounterdungeons\underground\cultistcamp1.json.patch" />
+    <None Include="dungeons\encounterdungeons\underground\cultistcamp2.json.patch" />
+    <None Include="dungeons\encounterdungeons\underground\cultistcamp3.json.patch" />
+    <None Include="dungeons\space\cultistship\back_1.json.patch" />
+    <None Include="dungeons\space\cultistship\back_2.json.patch" />
+    <None Include="dungeons\space\cultistship\front_1.json.patch" />
+    <None Include="dungeons\space\cultistship\front_2.json.patch" />
+    <None Include="dungeons\space\cultistship\middle_1.json.patch" />
+    <None Include="dungeons\space\cultistship\middle_2.json.patch" />
+    <None Include="dungeons\space\cultistship\middle_3.json.patch" />
+    <None Include="dungeons\space\merchantastroship\back_1.json.patch" />
+    <None Include="dungeons\space\merchantastroship\back_2.json.patch" />
+    <None Include="dungeons\space\merchantastroship\front_1.json.patch" />
+    <None Include="dungeons\space\merchantastroship\front_2.json.patch" />
+    <None Include="dungeons\space\merchantastroship\front_3.json.patch" />
+    <None Include="dungeons\space\merchantindustrialship\back_1.json.patch" />
+    <None Include="dungeons\space\merchantindustrialship\back_2.json.patch" />
+    <None Include="dungeons\space\merchantindustrialship\front_1.json.patch" />
+    <None Include="dungeons\space\merchantindustrialship\front_2.json.patch" />
+    <None Include="dungeons\space\merchantindustrialship\front_3.json.patch" />
+    <None Include="dungeons\space\pirateship\backend2.json.patch" />
+    <None Include="dungeons\space\pirateship\backend3.json.patch" />
+    <None Include="dungeons\space\pirateship\cockpit1.json.patch" />
+    <None Include="dungeons\space\pirateship\cockpit2.json.patch" />
+    <None Include="dungeons\space\pirateship\cockpit3.json.patch" />
+    <None Include="dungeons\space\pirateship\middle1a.json.patch" />
+    <None Include="dungeons\space\pirateship\middle1b.json.patch" />
+    <None Include="dungeons\space\pirateship\middle2a.json.patch" />
+    <None Include="dungeons\space\pirateship\middle2b.json.patch" />
+    <None Include="dungeons\space\pirateship\middle2c.json.patch" />
+    <None Include="dungeons\space\pirateship\middle2d.json.patch" />
+    <None Include="dungeons\space\pirateship\middle3a.json.patch" />
+    <None Include="dungeons\space\pirateship\middle3b.json.patch" />
+    <None Include="dungeons\space\pirateship\middle4a.json.patch" />
+    <None Include="dungeons\space\pirateship\middle4b.json.patch" />
+    <None Include="dungeons\space\pirateship\middle5a.json.patch" />
+    <None Include="dungeons\space\pirateship\middle5b.json.patch" />
+    <None Include="dungeons\space\pirateship\middle5c.json.patch" />
+    <None Include="dungeons\space\pirateship\middle5d.json.patch" />
+    <None Include="dungeons\space\pirateship\middle6a.json.patch" />
+    <None Include="dungeons\space\pirateship\middle6b.json.patch" />
+    <None Include="dungeons\space\pirateship\middle7a.json.patch" />
+    <None Include="dungeons\space\pirateship\middle7b.json.patch" />
+    <None Include="dungeons\space\pirateship\middle8a.json.patch" />
+    <None Include="dungeons\space\pirateship\middle8b.json.patch" />
+    <None Include="dungeons\space\researchship\backend2.json.patch" />
+    <None Include="dungeons\space\researchship\backend3.json.patch" />
+    <None Include="dungeons\space\researchship\cockpit1.json.patch" />
+    <None Include="dungeons\space\researchship\cockpit2.json.patch" />
+    <None Include="dungeons\space\researchship\cockpit3.json.patch" />
+    <None Include="dungeons\space\researchship\middle1a.json.patch" />
+    <None Include="dungeons\space\researchship\middle1b.json.patch" />
+    <None Include="dungeons\space\researchship\middle2a.json.patch" />
+    <None Include="dungeons\space\researchship\middle2b.json.patch" />
+    <None Include="dungeons\space\researchship\middle2c.json.patch" />
+    <None Include="dungeons\space\researchship\middle2d.json.patch" />
+    <None Include="dungeons\space\researchship\middle3a.json.patch" />
+    <None Include="dungeons\space\researchship\middle3b.json.patch" />
+    <None Include="dungeons\space\researchship\middle4a.json.patch" />
+    <None Include="dungeons\space\researchship\middle4b.json.patch" />
+    <None Include="dungeons\space\researchship\middle5a.json.patch" />
+    <None Include="dungeons\space\researchship\middle5b.json.patch" />
+    <None Include="dungeons\space\researchship\middle5c.json.patch" />
+    <None Include="dungeons\space\researchship\middle5d.json.patch" />
+    <None Include="dungeons\space\researchship\middle6a.json.patch" />
+    <None Include="dungeons\space\researchship\middle6b.json.patch" />
+    <None Include="dungeons\space\researchship\middle7a.json.patch" />
+    <None Include="dungeons\space\researchship\middle7b.json.patch" />
+    <None Include="dungeons\space\researchship\middle8a.json.patch" />
+    <None Include="dungeons\space\researchship\middle8b.json.patch" />
+    <None Include="dungeons\space\spaceencounter\friendly_lab1.json.patch" />
+    <None Include="dungeons\space\spaceencounter\friendly_lab2.json.patch" />
+    <None Include="dungeons\space\spaceencounter\friendly_lab3.json.patch" />
+    <None Include="dungeons\space\spaceencounter\friendly_lab4.json.patch" />
+    <None Include="dungeons\space\spaceencounter\merchant_island1.json.patch" />
+    <None Include="dungeons\space\spaceencounter\merchant_island2.json.patch" />
+    <None Include="dungeons\space\spaceencounter\offices1.json.patch" />
+    <None Include="dungeons\space\spaceencounter\space_diner1.json.patch" />
+    <None Include="dungeons\space\spaceencounter\space_hotel1.json.patch" />
+    <None Include="dungeons\space\spacestation\core_horizontal_long1a.json.patch" />
+    <None Include="dungeons\space\spacestation\core_horizontal_long1b.json.patch" />
+    <None Include="dungeons\space\spacestation\core_horizontal_long2a.json.patch" />
+    <None Include="dungeons\space\spacestation\core_horizontal_long2b.json.patch" />
+    <None Include="dungeons\space\spacestation\core_horizontal_short1a.json.patch" />
+    <None Include="dungeons\space\spacestation\core_horizontal_short1b.json.patch" />
+    <None Include="dungeons\space\spacestation\core_horizontal_short2a.json.patch" />
+    <None Include="dungeons\space\spacestation\core_horizontal_short2b.json.patch" />
+    <None Include="dungeons\space\spacestation\core_horizontal_short2c.json.patch" />
+    <None Include="dungeons\space\spacestation\core_horizontal_short2d.json.patch" />
+    <None Include="dungeons\space\spacestation\core_horizontal_short3a.json.patch" />
+    <None Include="dungeons\space\spacestation\core_horizontal_short3b.json.patch" />
+    <None Include="dungeons\space\spacestation\core_horizontal_short4a.json.patch" />
+    <None Include="dungeons\space\spacestation\core_horizontal_short4b.json.patch" />
+    <None Include="dungeons\space\spacestation\quarters_bottom_long1a.json.patch" />
+    <None Include="dungeons\space\spacestation\quarters_bottom_long1b.json.patch" />
+    <None Include="dungeons\space\spacestation\quarters_bottom_long1c.json.patch" />
+    <None Include="dungeons\space\spacestation\quarters_bottom_long1d.json.patch" />
+    <None Include="dungeons\space\spacestation\quarters_top_long1a.json.patch" />
+    <None Include="dungeons\space\spacestation\quarters_top_long1b.json.patch" />
+    <None Include="dungeons\space\spacestation\quarters_top_long1c.json.patch" />
+    <None Include="dungeons\space\spacestation\quarters_top_long1d.json.patch" />
+    <None Include="packages.config" />
+    <None Include="Properties\app.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
+  <ProjectExtensions>
+    <VisualStudio AllowExistingFolder="true" />
+  </ProjectExtensions>
+</Project>

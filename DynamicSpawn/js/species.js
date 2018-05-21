@@ -65,7 +65,7 @@ window.addEventListener("load",()=>{
 			var value=$(this).val().toLowerCase().replace(/^\s*|\s*$/g,""),
 			exists=txt=>txt.toLowerCase().indexOf(value)>-1;
 			$("#speciesList li, #npcList li").filter(function(){
-				$(this).toggle(exists(this.firstChild.innerHTML||exists(this.getAttribute("value"))))
+				$(this).toggle(exists(this.firstChild.innerHTML||exists(this.getAttribute("value"))));
 			});
 		}
 	});
@@ -73,11 +73,9 @@ window.addEventListener("load",()=>{
 	$('[data-toggle="tooltip"]').tooltip();
 	//--------------- Get Path ---------------
 	var q=location.search.replace(/^\?/,"").split("&");
-	for(var i in q){
-		if(/^path=/i.test(q[i])){
-			q=q[i].replace(/^path=/i,"");
-			continue;
-		}
+	for(var i in q)if(/^path=/i.test(q[i])){
+		q=(q[i]+"\\").replace(/^path=/i,"");
+		continue;
 	}
 	document.getElementById("path").value=q;
 });
@@ -129,7 +127,7 @@ updateHash=el=>{
 	var hash=el.hash,
 	style=document.getElementById("activeStyle");
 	location.hash=hash;
-	style.innerHTML=style.innerHTML.replace(/active\-.+?\{/,`active-${hash.replace("#","")}\{`);
+	style.innerHTML=style.innerHTML.replace(/(active\-).+?\{/,`$1${hash.replace("#","")}\{`);
 },
 
 removeFromAll=el=>{
@@ -193,10 +191,13 @@ setLi=(set,key)=>{
 
 iexport=()=>{
 //https://www.w3schools.com/howto/howto_js_copy_clipboard.asp
+	alert("Paste the copped value to the file name and continue the application");
 	var input=document.getElementById("path");
 	input.disabled=false;
+	input.value+="value.DyS.json";
 	input.select();
-	console.log(document.execCommand("copy"));
+	document.execCommand("copy");
+	input.value=input.value.replace(/value\.DyS\.json$/i,"");
 	input.disabled=true;
 	return saveData(getLi(),"value.DyS.json");
 },
@@ -240,7 +241,6 @@ window.addEventListener("beforeunload",()=>{
 
 function getCookie(n){
 	let ca=decodeURIComponent(document.cookie).split(';');
-	console.info(document.cookie);
 	n=new RegExp(`^\s*${n}=`);
 	for(var i in ca){
 		if(n.test(ca[i])){
