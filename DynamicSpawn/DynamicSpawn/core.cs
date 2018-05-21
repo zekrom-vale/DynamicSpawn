@@ -17,38 +17,30 @@ class Program{
 static void run(){
 	if(core()!=true){
 		Console.WriteLine("Press enter to continue (`r` to reset)");
-		var string r=Console.ReadLine();
+		string r=Console.ReadLine();
 		new Regex(@"^\s*r\s*$","i").IsMatch(r)?init():run();
 	}
 }
 
 static bool core(bool first){
-	var files=GetFiles("dungeons",".json.patch");
-	var jsons=GetFiles("/",".DyS.json");
+    string[] jsons =GetFiles("/",".DyS.json");
 	if(jsons.Length>1){
 		Console.Write("Multiple .Dys.json files found");
-		for(int file in jsons){
-			Console.WriteLine(file," : ",jsons[file],"\n");
-		}
+		foreach(int file in jsons)Console.WriteLine(file," : ",jsons[file],"\n");
 		Console.WriteLine("Select file with number");
 		jsons=jsons[Console.ReadLine()];
 	}
 	else if(jsons.Length<1){
-		if(first==false){
-			Console.Error.WriteLine("No .DyS.json files found");
-		}
+		if(first==false)Console.Error.WriteLine("No .DyS.json files found");
 		return;
 	}
-	else{
-		jsons=jsons[0];
-	}
-	var json=Decode(File.ReadAllText(jsons));
-	foreach(string file in files){
-		var text=File.ReadAllText(file);
-		foreach(string key in json){
-			text.Replace(key,json[key]);
-		}
-		File.WriteAllText(file,text);
+	else jsons=jsons[0];
+	string json=Decode(File.ReadAllText(jsons));
+    string[] files=GetFiles("dungeons",".json.patch");
+    for(int i=0;i<files.Length;i++){
+        string text=File.ReadAllText(files[i]);
+		foreach(string key in json)text.Replace(key,json[key]);
+		File.WriteAllText(files[i],text);
 	}
 	return true;
 }
@@ -74,11 +66,7 @@ static IEnumerable<string> GetFiles(string path,string extension){
 		catch(Exception ex){
 			Console.Error.WriteLine(ex);
 		}
-		if(files!=null){
-			for(int i=0;i<files.Length;i++){
-				yield return files[i];
-			}
-		}
+		if(files!=null)for(int i=0;i<files.Length;i++)yield return files[i];
 	}
 }
 
@@ -117,5 +105,5 @@ public static string GetDefaultBrowserPath(){
 
 private static string cP(string p){
 	string[] url=p.Split('"',2);
-	return url[1]
+    return url[1];
 }
