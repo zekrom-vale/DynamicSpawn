@@ -10,13 +10,22 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="css/core.css"/>
 </head>
-<body onload="populateSpecies()">
+<body>
 	<div class="container-fluid">
 		<br/>
+		<div class="alert alert-success">
+			Path : <input id="path" disabled />
+		</div>
 		<div>
-			<input class="form-control" id="speciesInput" type="text" placeholder="Search Species...">
+			<label class="form-control">
+				<input id="speciesInput" type="text" placeholder="Search Species..."/>
+				<label class="switch float-right" style="position:relative;bottom:4px" data-toggle="tooltip" data-placement="left" title="Enable RegExp support">
+					<input type="checkbox" id="RegExp"/>
+					<span class="slider round"></span>
+				</label>
+			</label>
 			<br/>
-			<ul class="list-group" id="speciesList" style="height:30vh;overflow:auto"/>
+			<ul class="list-group" id="speciesList" style="height:25vh;overflow:auto"/>
 		</div>
 		<ul class="nav nav-tabs" role="tablist">
 			<li class="nav-item">
@@ -80,12 +89,12 @@
 		</div>
 		<br/>
 		<div class="btn-group">
-			<button class="btn btn-danger" onclick="removeAll(this)">Remove All</button>
+			<button class="btn btn-danger" onclick="removeAll(this)" data-toggle="tooltip" data-placement="top" title="In the selected tab">Remove All</button>
 			<button class="btn btn-success" onclick="iexport()">Export JSON</button>
 			<button class="btn btn-success" onclick="iimport()">Import JSON</button>
 			<button class="btn btn-success" onclick="download()">Download Mod</button>
 		</div>
-		<input type="file" class="form-control-file" id="iimport" accept=".DyS.json"/>
+		<input type="file" class="form-control-file" id="iimport" accept=".DyS.json" placeholder="Choose File to Import"/>
 	</div>
 </body>
 <scripts hidden>
@@ -100,14 +109,5 @@
 			border-color:#007bff;
 		}
 	</style>
-	<script>
-	$(document).ready(()=>{
-		$("#speciesInput").on("keyup",function(){
-			var value=$(this).val().toLowerCase();
-			$("#speciesList li, #npcList li").filter(function(){
-				$(this).toggle($(this).text().toLowerCase().indexOf(value)>-1)
-			});
-		});
-	});
 </scripts>
 </html>

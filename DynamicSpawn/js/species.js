@@ -1,6 +1,6 @@
 "use strict";
-var saveData,
-populateSpecies=()=>{
+window.addEventListener("load",()=>{
+	//--------------- Generate speciesList ---------------
 	location.hash="npcGeneric";
 	var btnB=document.createElement("button");
 		btnB.classList.add("btn");
@@ -29,6 +29,7 @@ populateSpecies=()=>{
 		arr[i].append(b,div.cloneNode(true));
 	}
 	document.getElementById("speciesList").append(...arr);//Spread
+	//--------------- Get Cookie Value ---------------
 	var c=getCookie("value");
 	if(c){
 		var item=JSON.parse(c);
@@ -49,8 +50,39 @@ populateSpecies=()=>{
 		};
 		//https://jsfiddle.net/koldev/cW7W5/
 	}());
-},
+	//--------------- Filter ---------------
+	$("#speciesInput").on("keyup",function(){
+		if(document.getElementById("RegExp").checked){
+			console.log($(this).val())
+			var v=new RegExp($(this).val(),"ig");
+			console.log(v)
+			$("#speciesList li, #npcList li").filter(function(){
+				$(this).toggle(v.test(this.firstChild.innerHTML)||v.test(this.getAttribute("value")))
+			});
+		}
+		else{
+			//https://www.w3schools.com/bootstrap4/bootstrap_filters.asp
+			var value=$(this).val().toLowerCase().replace(/^\s*|\s*$/g,""),
+			exists=txt=>txt.toLowerCase().indexOf(value)>-1;
+			$("#speciesList li, #npcList li").filter(function(){
+				$(this).toggle(exists(this.firstChild.innerHTML||exists(this.getAttribute("value"))))
+			});
+		}
+	});
+	//--------------- Tooltip ---------------
+	$('[data-toggle="tooltip"]').tooltip();
+	//--------------- Get Path ---------------
+	var q=location.search.replace(/^\?/,"").split("&");
+	for(var i in q){
+		if(/^path=/i.test(q[i])){
+			q=q[i].replace(/^path=/i,"");
+			continue;
+		}
+	}
+	document.getElementById("path").value=q;
+});
 
+var saveData,
 modifyCont=el=>{
 	el=el.parentNode;
 	let hash=location.hash;
@@ -160,7 +192,13 @@ setLi=(set,key)=>{
 },
 
 iexport=()=>{
-	return saveData(getLi(),"export.DyS.json");
+//https://www.w3schools.com/howto/howto_js_copy_clipboard.asp
+	var input=document.getElementById("path");
+	input.disabled=false;
+	input.select();
+	console.log(document.execCommand("copy"));
+	input.disabled=true;
+	return saveData(getLi(),"value.DyS.json");
 },
 
 getLi=()=>{
