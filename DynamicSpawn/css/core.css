@@ -15,6 +15,16 @@ label>*>textarea:focus, label>input:focus{
 	outline:none;
 }
 
+div>div.alert.alert-success.d-flex>.p-2{
+	padding:0!important;
+}
+
+.code{
+	font-family:SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+	font-size:87.5%;
+	word-break:break-word;
+}
+
 /*https://www.w3schools.com/howto/howto_css_switch.asp*/
 .switch{
 	position:relative;

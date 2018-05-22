@@ -8,12 +8,14 @@ internal class Program{
     private static void Main(){
 		if(!Core(true)){
             string url="file:///C:/Program%20Files%20(x86)/Steam/steamapps/common/Starbound/mymods/DynamicSpawn/DynamicSpawn/index.html";
-            string path=url+"?path="+Uri.EscapeDataString(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location));
+            string path=url+"?path="+Uri.EscapeDataString(Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location));
 
             System.Diagnostics.Process.Start(GetDefaultBrowserPath(),path);
-			//https://stackoverflow.com/questions/52797/how-do-i-get-the-path-of-the-assembly-the-code-is-in
-			Console.WriteLine("Press enter to continue");
+            Console.Clear();
+            //https://stackoverflow.com/questions/52797/how-do-i-get-the-path-of-the-assembly-the-code-is-in
+            Console.WriteLine("Once you have Exported the JSON file\nPress enter to continue");
 			Console.ReadLine();
+            Run();
 		}
 	}
 
@@ -21,17 +23,19 @@ internal class Program{
         if (!Core(false)){
             Console.WriteLine("Press enter to continue (`r` to reset)");
             string r=Console.ReadLine();
-            if (new Regex(@"^\s*r\s*$").IsMatch(r)) Main();
+            if(new Regex(@"^\s*r\s*$").IsMatch(r)) Main();
             else Run();
         }
     }
 
     private static bool Core(bool first){
-        string[] jsons=GetAllFiles("",".DyS.json");
+        string path=Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+        Console.Write(path);
+        string[] jsons=GetAllFiles(path,"*.DyS.json");
         string j="";
         if(jsons.Length>1){
             Console.Write("Multiple .Dys.json files found");
-            foreach(string i in jsons) Console.WriteLine(" : ", i, "\n");
+            foreach(string i in jsons)Console.WriteLine(" : ", i, "\n");
             //Not sure
             Console.WriteLine("Select file with number");
             int input=Int32.Parse(Console.ReadLine());
@@ -42,8 +46,7 @@ internal class Program{
             return false;
         }
         else j=jsons[0];
-        var json= Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(j));
-        //Decode(File.ReadAllText(j));
+        Dictionary<string,string> json=Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string,string>>(File.ReadAllText(j));
 
         string[] files=GetAllFiles("dungeons",".json.patch");
         foreach(string f in files){
@@ -56,34 +59,9 @@ internal class Program{
         }
         return true;
     }
-    public static IEnumerable<string> GetFiles(string path, string extension){
-        //https://stackoverflow.com/questions/929276/how-to-recursively-list-all-the-files-in-a-directory-in-c
-        Queue<string> queue = new Queue<string>();
-        queue.Enqueue(path);
-        while (queue.Count > 0){
-            path = queue.Dequeue();
-            try{
-                foreach (string d in Directory.GetDirectories(path)) queue.Enqueue(d);
-            }
-            catch (Exception ex){
-                Console.Error.WriteLine(ex);
-            }
-            string[] files = null;
-            try{
-                files = Directory.GetFiles(path, extension);
-            }
-            catch (Exception ex){
-                Console.Error.WriteLine(ex);
-            }
-            if (files != null) for (int i = 0; i < files.Length; i++) yield return files[i];
-        }
-    }
 
     public static string[] GetAllFiles(string path, string extension){
-        string[] arr={};
-        int i=0;
-        foreach(string f in GetFiles(path, extension)) arr[i++]=f;
-        return arr;
+        return Directory.GetFiles(path,extension,SearchOption.AllDirectories);
     }
 
     public static string GetDefaultBrowserPath(){

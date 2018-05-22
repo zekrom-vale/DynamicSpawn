@@ -74,7 +74,7 @@ window.addEventListener("load",()=>{
 	//--------------- Get Path ---------------
 	var q=location.search.replace(/^\?/,"").split("&");
 	for(var i in q)if(/^path=/i.test(q[i])){
-		q=(q[i]+"\\").replace(/^path=/i,"");
+		q=decodeURIComponent((q[i]+"\\").replace(/^path=/i,""));
 		continue;
 	}
 	document.getElementById("path").value=q;
