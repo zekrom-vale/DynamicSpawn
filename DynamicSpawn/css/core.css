@@ -87,7 +87,23 @@ input:checked + .slider:before{
 	outline:none;
 }
 
-#path{
+#path,#path2{
 	border:none;
 	background:none;
+}
+
+.nav-item.nav-link-sel>a>span{
+	visibility:visible;
+}
+
+.nav-item>a>span{
+	visibility:hidden;
+}
+
+a.nav-link{
+	cursor:pointer;
+	-webkit-user-select:none;
+	-moz-user-select:none;
+	-ms-user-select:none;
+	user-select:none;
 }

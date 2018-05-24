@@ -1,18 +1,10 @@
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text.RegularExpressions;
-using Microsoft.Win32;
-
 internal class Program{
     private static void Main(){
 		if(!Core(true)){
-            string url="file:///C:/Program%20Files%20(x86)/Steam/steamapps/common/Starbound/mymods/DynamicSpawn/DynamicSpawn/index.html";
-            string path=url+"?path="+Uri.EscapeDataString(Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location));
-
-            System.Diagnostics.Process.Start(GetDefaultBrowserPath(),path);
+            string path="file:///C:/Program%20Files%20(x86)/Steam/steamapps/common/Starbound/mymods/DynamicSpawn/DynamicSpawn/index.html?path="+Uri.EscapeDataString(Location);
+            System.Diagnostics.Process.Start(DefaultBrowserPath,path);
             Console.Clear();
-            //https://stackoverflow.com/questions/52797/how-do-i-get-the-path-of-the-assembly-the-code-is-in
             Console.WriteLine("Once you have Exported the JSON file\nPress enter to continue");
 			Console.ReadLine();
             Run();
@@ -20,86 +12,75 @@ internal class Program{
 	}
 
     private static void Run(){
-        if (!Core(false)){
+        if(!Core()){
             Console.WriteLine("Press enter to continue (`r` to reset)");
             string r=Console.ReadLine();
-            if(new Regex(@"^\s*r\s*$").IsMatch(r)) Main();
+            if(new System.Text.RegularExpressions.Regex(@"^\s*r\s*$").IsMatch(r))Main();
             else Run();
         }
     }
 
-    private static bool Core(bool first){
-        string path=Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+    private static bool Core(bool first=false){
+        string path=Location;
         Console.Write(path);
-        string[] jsons=GetAllFiles(path,"*.DyS.json");
+        string[] jsons=GetAllFiles(path,"*.DyS.cosv");
         string j="";
         if(jsons.Length>1){
-            Console.Write("Multiple .Dys.json files found");
-            foreach(string i in jsons)Console.WriteLine(" : ", i, "\n");
+            Console.Write("Multiple .Dys.cosv files found");
+            UInt16 n=1;
+            foreach(string i in jsons)Console.WriteLine("{0} : {1}\n",new dynamic[]{n,i});
             //Not sure
             Console.WriteLine("Select file with number");
-            int input=Int32.Parse(Console.ReadLine());
+            UInt16 input=UInt16.Parse(Console.ReadLine());
             j=jsons[input];
         }
         else if(jsons.Length<1){
-            if(first==false)Console.Error.WriteLine("No .DyS.json files found");
+            if(!first)Console.Error.WriteLine("No .DyS.cosv files found");
             return false;
         }
         else j=jsons[0];
-        Dictionary<string,string> json=Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string,string>>(File.ReadAllText(j));
+        string[] nvs=System.IO.File.ReadAllText(j).Split(new char[]{'\n'});
 
-        string[] files=GetAllFiles("dungeons",".json.patch");
+        string[] files=GetAllFiles("dungeons","*.json.patch");
         foreach(string f in files){
-            string text=File.ReadAllText(f);
-            foreach(KeyValuePair<string,string>js in json){
-                text.Replace(oldValue:js.Key,newValue:js.Value);
+            string text=System.IO.File.ReadAllText(f);
+            foreach(string v in nvs){
+                string[] vs=v.Split(new char[]{':'});
+                text.Replace(vs[0],vs[1]);
             }
-
-            File.WriteAllText(f,text);
+            System.IO.File.WriteAllText(f,text);
         }
         return true;
     }
 
-    public static string[] GetAllFiles(string path, string extension){
-        return Directory.GetFiles(path,extension,SearchOption.AllDirectories);
-    }
-
-    public static string GetDefaultBrowserPath(){
-        //http://www.seirer.net/blog/2014/6/10/solved-how-to-open-a-url-in-the-default-browser-in-csharp
-        string uA = @"Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http";
-        string bPK = @"$BROWSER$\shell\open\command";
-        RegistryKey uCK = null;
-        string bP = "";
+    public static string[] GetAllFiles(string path,string extension)=>System.IO.Directory.GetFiles(path,extension,System.IO.SearchOption.AllDirectories);
+    private static string Location=> System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+    public static string DefaultBrowserPath{get{
+        Microsoft.Win32.RegistryKey uCK =null;
+        string bP="";
         try{
-            //Read default browser path from userChoiceLKey
-            uCK = Registry.CurrentUser.OpenSubKey(uA + @"\UserChoice", false);
-            //Try machine default
-            if (uCK == null){
-                var bK = Registry.ClassesRoot.OpenSubKey(@"HTTP\shell\open\command", false);
-                if (bK == null){
-                    bK = Registry.CurrentUser.OpenSubKey(uA, false);
-                }
-                string p = CP(bK.GetValue(null) as string);
+            //http://www.seirer.net/blog/2014/6/10/solved-how-to-open-a-url-in-the-default-browser-in-csharp
+            string uA=@"Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http";
+            //From userChoiceLKey
+            uCK=Microsoft.Win32.Registry. CurrentUser.OpenSubKey(uA+@"\UserChoice",false);
+            //Machine default
+            if(uCK==null){
+               Microsoft.Win32.RegistryKey bK = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(@"HTTP\shell\open\command",false);
+                if(bK==null)bK=Microsoft.Win32.Registry.CurrentUser.OpenSubKey(uA,false);
+                string p=CP(bK.GetValue(null)as string);
                 bK.Close();
                 return p;
             }
             else{
-                string progId = (uCK.GetValue("ProgId").ToString());
+                string progId=(uCK.GetValue("ProgId").ToString());
                 uCK.Close();
-                string cBk = bPK.Replace("$BROWSER$", progId);
-                var kp = Registry.ClassesRoot.OpenSubKey(cBk, false);
-                bP = CP(kp.GetValue(null) as string);
+                Microsoft.Win32.RegistryKey kp= Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(@"$BROWSER$\shell\open\command".Replace("$BROWSER$",progId),false);
+                bP=CP(kp.GetValue(null)as string);
                 kp.Close();
                 return bP;
             }
         }
-        catch(Exception){
-            return "";
-        }
-    }
-
-    private static string CP(string p){
-        string[] url = p.Split('"');
-        return url[1];
-    }
+        catch(Exception){return"";}
+    }}
+    private static string CP(string p)=>p.Split('"')[1];
 }

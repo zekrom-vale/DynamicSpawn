@@ -2,7 +2,6 @@
 <html>
 <head>
 	<title>Dynamic Spawn Creator</title>
-	<meta charset="ASCII"/>
 	<meta name="viewport" content="width=device-width,initial-scale=1"/>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"/>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -11,44 +10,48 @@
 	<link rel="stylesheet" href="css/core.css"/>
 </head>
 <body>
-	<div class="container-fluid">
-		<br/>
+<!--[if IE]>
+	<script>
+		alert("This page is incompatible with Internet Explorer.\nPlease copy the link and paste it into modern browser.\nEx: Google Chrome or Firefox");
+	</script>
+<![endif]-->
+<br/>
+	<div class="container-fluid" id="container">
 		<div class="alert alert-success d-flex">
 			<div class="p-2">Path to Local:&nbsp;</div>
-			<input class="p-2 flex-grow-1 code" id="path" disabled  />
+			<input class="p-2 flex-grow-1 code" id="path" disabled />
 		</div>
 		<div>
 			<label class="form-control">
 				<input id="speciesInput" type="text" placeholder="Search Species..."/>
 				<label class="switch float-right" style="position:relative;bottom:4px" data-toggle="tooltip" data-placement="left" title="Enable RegExp support">
 					<input type="checkbox" id="RegExp"/>
-					<span class="slider round"></span>
 				</label>
 			</label>
 			<br/>
 			<ul class="list-group" id="speciesList" style="height:25vh;overflow:auto"/>
 		</div>
-		<ul class="nav nav-tabs" role="tablist">
+		<ul class="nav nav-tabs" role="tablist" id="npcTab">
 			<li class="nav-item">
-				<a class="nav-link active" data-toggle="tab" href="#npcGeneric" onclick="updateHash(this)">Generic</a>
+				<a class="nav-link active" data-toggle="tab" data-hash="#npcGeneric">Generic <span class="badge badge-primary">&#x2713;</span></a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" data-toggle="tab" href="#npcScientific" onclick="updateHash(this)">Scientific</a>
+				<a class="nav-link" data-toggle="tab" data-hash="#npcScientific">Scientific <span class="badge badge-primary">&#x2713;</span></a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" data-toggle="tab" href="#npcCult" onclick="updateHash(this)">Cult</a>
+				<a class="nav-link" data-toggle="tab" data-hash="#npcCult">Cult <span class="badge badge-primary">&#x2713;</span></a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" data-toggle="tab" href="#npcPirate" onclick="updateHash(this)">Pirate</a>
+				<a class="nav-link" data-toggle="tab" data-hash="#npcPirate">Pirate <span class="badge badge-primary">&#x2713;</span></a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" data-toggle="tab" href="#npcMerchant" onclick="updateHash(this)">Merchant</a>
+				<a class="nav-link" data-toggle="tab" data-hash="#npcMerchant">Merchant <span class="badge badge-primary">&#x2713;</span></a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" data-toggle="tab" href="#npcBandit" onclick="updateHash(this)">Bandit</a>
+				<a class="nav-link" data-toggle="tab" data-hash="#npcBandit">Bandit <span class="badge badge-primary">&#x2713;</span></a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" data-toggle="tab" href="#npcROC" onclick="updateHash(this)">Outpost Civilian</a>
+				<a class="nav-link" data-toggle="tab" data-hash="#npcROC">Outpost <span class="badge badge-primary">&#x2713;</span></a>
 			</li>
 		</ul>
 		<div class="tab-content" id="npcList">
@@ -83,18 +86,20 @@
 				<ul class="list-group"/>
 			</div>
 			<div id="npcROC" class="container tab-pane fade">
-				<h3>Changes the species config of Ranfom Outpost Civilians NPCs.</h3>
+				<h3>Changes the species config of Random Outpost NPCs.</h3>
 				<h5></h5>
 				<ul class="list-group"/>
 			</div>
 		</div>
 		<br/>
+		<!--[if !IE]><!-->
 		<div class="btn-group">
-			<button class="btn btn-danger" onclick="removeAll(this)" data-toggle="tooltip" data-placement="top" title="In the selected tab">Remove All</button>
+			<button class="btn btn-danger" id="removeAll" data-toggle="modal">Remove All</button>
 			<button class="btn btn-success" onclick="iexport()">Export JSON</button>
 			<button class="btn btn-success" onclick="iimport()">Import JSON</button>
-			<button class="btn btn-success" onclick="download()">Download Mod</button>
+			<button class="btn btn-success" onclick="download()" id="download">Download Mod</button>
 		</div>
+		<!--<![endif]-->
 		<input type="file" class="form-control-file" id="iimport" accept=".DyS.json" placeholder="Choose File to Import"/>
 	</div>
 </body>
@@ -111,4 +116,21 @@
 		}
 	</style>
 </scripts>
+<!--[if !IE]><!-->
+<div class="modal" id="modal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="modalHead"></h4>
+				<button type="button" class="close" data-dismiss="modal" id="modalX">&times;</button>
+			</div>
+			<div class="modal-body" id="modalBody"></div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal" id="modalOk">Ok</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal" id="modalCancel">Cancel</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!--<![endif]-->
 </html>
