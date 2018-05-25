@@ -1,4 +1,6 @@
 using System;
+using System.Text.RegularExpressions;
+
 internal class Program{
     private static void Main(){
 		if(!Core(true)){
@@ -15,57 +17,66 @@ internal class Program{
         if(!Core()){
             Console.WriteLine("Press enter to continue (`r` to reset)");
             string r=Console.ReadLine();
-            if(new System.Text.RegularExpressions.Regex(@"^\s*r\s*$").IsMatch(r))Main();
+            if(new Regex(@"^\s*r\s*$").IsMatch(r))Main();
             else Run();
         }
     }
 
     private static bool Core(bool first=false){
-        string path=Location;
+        string path=Location,
+            j="";
+        UInt16 n;
         Console.Write(path);
-        string[] jsons=GetAllFiles(path,"*.DyS.cosv");
-        string j="";
+        string[]jsons=GetAllFiles(path,"*.DyS.cosv");
         if(jsons.Length>1){
             Console.Write("Multiple .Dys.cosv files found");
-            UInt16 n=1;
-            foreach(string i in jsons)Console.WriteLine("{0} : {1}\n",new dynamic[]{n,i});
-            //Not sure
+            n=1;
+            foreach(string i in jsons)Console.WriteLine("{0}: {1}\n",new dynamic[]{n++,i});
             Console.WriteLine("Select file with number");
-            UInt16 input=UInt16.Parse(Console.ReadLine());
-            j=jsons[input];
+            j=jsons[UInt16.Parse(Console.ReadLine())-1];
         }
         else if(jsons.Length<1){
             if(!first)Console.Error.WriteLine("No .DyS.cosv files found");
             return false;
         }
         else j=jsons[0];
-        string[] nvs=System.IO.File.ReadAllText(j).Split(new char[]{'\n'});
-
-        string[] files=GetAllFiles("dungeons","*.json.patch");
+        string[]nvs=System.IO.File.ReadAllText(j).Split(new char[]{'\n'}),
+            files=GetAllFiles("dungeons","*.json.patch");
+        int _l=files.Length;
+        UInt16 I=1;
+        string[][]vs={};
+        n=0;
+        foreach(string v in nvs)vs[n++]=v.Split(new char[]{':'},2);
         foreach(string f in files){
-            string text=System.IO.File.ReadAllText(f);
-            foreach(string v in nvs){
-                string[] vs=v.Split(new char[]{':'});
-                text.Replace(vs[0],vs[1]);
-            }
-            System.IO.File.WriteAllText(f,text);
+            Console.WriteLine("{0} ({1} of {2})\n",new dynamic[]{f,I++,_l});
+            string txt=System.IO.File.ReadAllText(f);
+            n=0;
+            foreach(string v in nvs)txt.Replace(vs[n][0],vs[n++][1]);
+            System.IO.File.WriteAllText(f,txt);
         }
+        Console.WriteLine("Replacment Operation Compleated");
         return true;
     }
 
-    public static string[] GetAllFiles(string path,string extension)=>System.IO.Directory.GetFiles(path,extension,System.IO.SearchOption.AllDirectories);
-    private static string Location=> System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+    public static string[]GetAllFiles(string path,string extension)=>System.IO.Directory.GetFiles(path,extension,System.IO.SearchOption.AllDirectories);
+    private static string Location{
+        get{
+            string path=System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+            return new Regex(@"^[a-z]:(\\|\/)(\$[^\\\/]*|Temp|Recovery|Windows|Users|ProgramData|System Volume Information|Intel|PerfLogs)(\\|\/)").IsMatch(path)?"System Path":path;
+        }
+    }
+
     public static string DefaultBrowserPath{get{
-        Microsoft.Win32.RegistryKey uCK =null;
+        Microsoft.Win32.RegistryKey uCK=null;
         string bP="";
         try{
             //http://www.seirer.net/blog/2014/6/10/solved-how-to-open-a-url-in-the-default-browser-in-csharp
             string uA=@"Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http";
             //From userChoiceLKey
-            uCK=Microsoft.Win32.Registry. CurrentUser.OpenSubKey(uA+@"\UserChoice",false);
+            uCK=Microsoft.Win32.Registry.CurrentUser.OpenSubKey(uA+@"\UserChoice",false);
             //Machine default
             if(uCK==null){
-               Microsoft.Win32.RegistryKey bK = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(@"HTTP\shell\open\command",false);
+               Microsoft.Win32.RegistryKey bK=Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(@"HTTP\shell\open\command",false);
                 if(bK==null)bK=Microsoft.Win32.Registry.CurrentUser.OpenSubKey(uA,false);
                 string p=CP(bK.GetValue(null)as string);
                 bK.Close();
@@ -74,7 +85,7 @@ internal class Program{
             else{
                 string progId=(uCK.GetValue("ProgId").ToString());
                 uCK.Close();
-                Microsoft.Win32.RegistryKey kp= Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(@"$BROWSER$\shell\open\command".Replace("$BROWSER$",progId),false);
+                Microsoft.Win32.RegistryKey kp=Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(@"$BROWSER$\shell\open\command".Replace("$BROWSER$",progId),false);
                 bP=CP(kp.GetValue(null)as string);
                 kp.Close();
                 return bP;
@@ -82,5 +93,5 @@ internal class Program{
         }
         catch(Exception){return"";}
     }}
-    private static string CP(string p)=>p.Split('"')[1];
+    private static string CP(string p)=>p.Split(new char[]{'"'},2)[1];
 }
