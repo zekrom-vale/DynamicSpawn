@@ -5,9 +5,9 @@
 },{
 	"op":"replace",
 	"path":"/layers/3/objects/50/properties/npc",
-	"value":"apex,avian,floran,glitch,human,hylotl,novakid" //M
+	"value":"apex,avian,floran,glitch,human,hylotl,novakid"//#npcMerchant
 },{
 	"op":"replace",
 	"path":"/layers/3/objects/51/properties/npc",
-	"value":"apex,avian,floran,glitch,human,hylotl,novakid" //M
+	"value":"apex,avian,floran,glitch,human,hylotl,novakid"//#npcMerchant
 }]

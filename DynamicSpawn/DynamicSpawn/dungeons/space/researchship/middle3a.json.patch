@@ -5,13 +5,13 @@
 },{
 	"op":"replace",
 	"path":"/layers/5/objects/0/properties/npc",
-	"value":"apex,avian,human,hylotl" //B
+	"value":"apex,avian,human,hylotl"//#npcScientific
 },{
 	"op":"replace",
 	"path":"/layers/5/objects/1/properties/npc",
-	"value":"apex,avian,human,hylotl" //B
+	"value":"apex,avian,human,hylotl"//#npcScientific
 },{
 	"op":"replace",
 	"path":"/layers/5/objects/2/properties/npc",
-	"value":"apex,avian,human,hylotl" //B
+	"value":"apex,avian,human,hylotl"//#npcScientific
 }]
