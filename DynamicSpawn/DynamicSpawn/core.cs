@@ -7,17 +7,20 @@ internal class Program{
             string path="file:///C:/Program%20Files%20(x86)/Steam/steamapps/common/Starbound/mymods/DynamicSpawn/DynamicSpawn/index.html?path="+Uri.EscapeDataString(Location);
             System.Diagnostics.Process.Start(DefaultBrowserPath,path);
             Console.Clear();
-            Console.WriteLine("Once you have Exported the JSON file\nPress enter to continue");
-			Console.ReadLine();
+            Console.ForegroundColor=ConsoleColor.Yellow;
+            Console.WriteLine("Once you have Exported the JSON file\nPress any key to continue");
+            Console.ResetColor();
+			Console.ReadKey();
             Run();
 		}
 	}
 
     private static void Run(){
         if(!Core()){
-            Console.WriteLine("Press enter to continue (`r` to reset)");
-            string r=Console.ReadLine();
-            if(new Regex(@"^\s*r\s*$").IsMatch(r))Main();
+            Console.ForegroundColor=ConsoleColor.Yellow;
+            Console.WriteLine("Press any key to continue (`r` to reset)");
+            Console.ResetColor();
+            if(Console.ReadKey().KeyChar=='r')Main();
             else Run();
         }
     }
@@ -31,29 +34,43 @@ internal class Program{
         if(jsons.Length>1){
             Console.Write("Multiple .Dys.cosv files found");
             n=1;
+            Console.ForegroundColor=ConsoleColor.Cyan;
             foreach(string i in jsons)Console.WriteLine("{0}: {1}\n",new dynamic[]{n++,i});
+            Console.ForegroundColor=ConsoleColor.Yellow;
             Console.WriteLine("Select file with number");
             j=jsons[UInt16.Parse(Console.ReadLine())-1];
         }
         else if(jsons.Length<1){
-            if(!first)Console.Error.WriteLine("No .DyS.cosv files found");
+            if(!first){
+                Console.ForegroundColor=ConsoleColor.Red;
+                Console.Error.WriteLine("No .DyS.cosv files found");
+                Console.ResetColor();
+            }
             return false;
         }
         else j=jsons[0];
         string[]nvs=System.IO.File.ReadAllText(j).Split(new char[]{'\n'}),
-            files=GetAllFiles("dungeons","*.json.patch");
+            files=GetAllFiles("dungeons","*.json.patch"),
+            val={};
+        Regex[] regs={};
         int _l=files.Length;
         UInt16 I=1;
-        string[][]vs={};
         n=0;
-        foreach(string v in nvs)vs[n++]=v.Split(new char[]{':'},2);
+        foreach(string v in nvs){
+            string[]vs=v.Split(new char[]{':'},2);
+            regs[n]=new Regex(@"""([^\\""]|\\.)""\s*\/\/#"+vs[0]);
+            val[n++]=vs[1]+@"//#"+vs[0];
+        }
+        Console.ForegroundColor=ConsoleColor.Cyan;
         foreach(string f in files){
-            Console.WriteLine("{0} ({1} of {2})\n",new dynamic[]{f,I++,_l});
+            Console.Clear();
+            Console.WriteLine("{0} of {1}  {2}\n",new dynamic[]{I++,_l,f});
             string txt=System.IO.File.ReadAllText(f);
             n=0;
-            foreach(string v in nvs)txt.Replace(vs[n][0],vs[n++][1]);
+            foreach(string v in nvs)regs[n].Replace(input:txt,replacement:val[n]);
             System.IO.File.WriteAllText(f,txt);
         }
+        Console.ForegroundColor=ConsoleColor.Green;
         Console.WriteLine("Replacment Operation Compleated");
         return true;
     }
