@@ -10,7 +10,7 @@ function download(){
 	f=0;
 	for(var n in ob){
 		if(ob[n].length<1)arrF[f++]=++i;
-		else if(f===0)arr[i++]=`${n}:${ob[n].join(",")}`;
+		else if(f===0)arr[i++]=`${n}:"${ob[n].join(",")}"`;
 	}
 	if(f>0){
 		for(var i in arrF)arrF[i]=document.querySelector(
@@ -23,22 +23,26 @@ function download(){
 		return;
 	}
 	document.getElementById("modalCancel").style.display="none";
-	alertModal("Paste the copped value to the file name","Then continue the application",{"resolve":[s],"finally":[f]});
-	function s(){
-		var I=document.getElementById("path");
-		if(I){
-			I.disabled=false;
-			I.value+="value.DyS.cosv";
-			I.select();
-			document.execCommand("copy");
-			I.value=I.value.replace(/value\.DyS\.cosv$/i,"");
-			I.disabled=true;
-		}
-		saveData(arr.join("\n"),"value.DyS.cosv",true);
-	}
-	function f(){
-		document.getElementById("modalCancel").style.display="";
-	}
+	
+	
+	alertModal("Paste the copped value to the file name","Then continue the application",{
+		"resolve":[
+			()=>{
+				var I=document.getElementById("path");
+				if(I){
+					I.disabled=false;
+					I.value+="value.DyS.cosv";
+					I.select();
+					document.execCommand("copy");
+					I.value=I.value.replace(/value\.DyS\.cosv$/i,"");
+					I.disabled=true;
+				}
+				saveData(arr.join("\n"),"value.DyS.cosv",true);
+			}
+		],"finally":[
+			()=>{document.getElementById("modalCancel").style.display="";}
+		]
+	});
 }
 
 function iimport(){

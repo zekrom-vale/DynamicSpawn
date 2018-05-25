@@ -1,6 +1,6 @@
 using System;
 using System.Text.RegularExpressions;
-
+//(c) zekrom_vale
 internal class Program{
     private static void Main(){
 		if(!Core(true)){
@@ -29,7 +29,6 @@ internal class Program{
         string path=Location,
             j="";
         UInt16 n;
-        Console.Write(path);
         string[]jsons=GetAllFiles(path,"*.DyS.cosv");
         if(jsons.Length>1){
             Console.Write("Multiple .Dys.cosv files found");
@@ -51,15 +50,17 @@ internal class Program{
         else j=jsons[0];
         string[]nvs=System.IO.File.ReadAllText(j).Split(new char[]{'\n'}),
             files=GetAllFiles("dungeons","*.json.patch"),
-            val={};
-        Regex[] regs={};
+            val=new string[nvs.Length];
+        Regex[] regs=new Regex[nvs.Length];
         int _l=files.Length;
         UInt16 I=1;
         n=0;
         foreach(string v in nvs){
             string[]vs=v.Split(new char[]{':'},2);
-            regs[n]=new Regex(@"""([^\\""]|\\.)""\s*\/\/#"+vs[0]);
+            regs[n]=new Regex(@"""([^\\""]|\\.)*""\s*\/\/#"+vs[0]);
             val[n++]=vs[1]+@"//#"+vs[0];
+            Console.WriteLine(regs[n-1]);
+            Console.WriteLine(val[n-1]);
         }
         Console.ForegroundColor=ConsoleColor.Cyan;
         foreach(string f in files){
@@ -67,7 +68,8 @@ internal class Program{
             Console.WriteLine("{0} of {1}  {2}\n",new dynamic[]{I++,_l,f});
             string txt=System.IO.File.ReadAllText(f);
             n=0;
-            foreach(string v in nvs)regs[n].Replace(input:txt,replacement:val[n]);
+            foreach(string v in nvs)txt=regs[n].Replace(input:txt,replacement:val[n++]);
+            //Console.Write(txt);
             System.IO.File.WriteAllText(f,txt);
         }
         Console.ForegroundColor=ConsoleColor.Green;
@@ -110,5 +112,5 @@ internal class Program{
         }
         catch(Exception){return"";}
     }}
-    private static string CP(string p)=>p.Split(new char[]{'"'},2)[1];
+    private static string CP(string p)=>p.Split('"')[1];
 }
