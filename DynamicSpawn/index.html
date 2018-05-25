@@ -1,8 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta name="charset" content="UTF-8"/>
 	<title>Dynamic Spawn Creator</title>
-	<meta name="viewport" content="width=device-width,initial-scale=1"/>
+		<meta name="viewport" content="width=device-width,initial-scale=1"/>
+		<meta name="author" content="zekrom_vale"/>
+		<meta name="description" content="Create your own mod! Chose the NPCs you want to spawn in Starbound."/>
+		<meta name="generator" content="Notepad++"/>
+		<meta name="keywords" content="Starbound,NPC,Spawning,Mod,Dynamic Mod"/>
+
+		<meta name="creator" content="zekrom_vale"/>
+		<meta name="robots" content="nofollow"/>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"/>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
@@ -13,7 +21,7 @@
 <body>
 <!--[if IE]>
 	<script>
-		alert("This page is incompatible with Internet Explorer.\nPlease copy the link and paste it into modern browser.\nEx: Google Chrome or Firefox");
+	alert("This page is incompatible with Internet Explorer.\nPlease copy the link and paste it into modern browser.\nEx: Google Chrome or Firefox");
 	</script>
 <![endif]-->
 <br/>
@@ -97,8 +105,8 @@
 		<!--[if !IE]><!-->
 		<div class="btn-group">
 			<button class="btn btn-danger" id="removeAll" data-toggle="modal">Remove All</button>
-			<button class="btn btn-warning" onclick="removeVisible(event)">Remove Visible</button>
-			<button class="btn btn-primary" onclick="addVisible(event)">Add Visible</button>
+			<button class="btn btn-warning" id="removeVisible" onclick="removeVisible(event)">Remove Visible</button>
+			<button class="btn btn-primary" id="addVisible" onclick="addVisible(event)">Add Visible</button>
 			<button class="btn btn-success" onclick="iexport()">Export JSON</button>
 			<button class="btn btn-success" onclick="iimport()">Import JSON</button>
 			<button class="btn btn-success" onclick="download()" id="download">Download Mod</button>
@@ -108,9 +116,12 @@
 	</div>
 </body>
 <scripts hidden>
-	</script>
-	<script src="js/species.js"></script>
+	<script src="js/util.js"></script>
 	<script src="js/speciesList.js"></script>
+	<script src="js/species.js"></script>
+	<script src="js/load.js"></script>
+	<script src="js/io.js"></script>
+	<script src="js/custom.js"></script>
 	<style id="activeStyle">
 		.active-npcGeneric{
 			z-index:2;
