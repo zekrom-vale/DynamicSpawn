@@ -1,3 +1,4 @@
+"use strict";
 const species=[
 "Attarran",
 "Canids",
@@ -98,3 +99,4 @@ const species=[
 "woggle",
 "zombie"
 ]
+Object.freeze(species);

@@ -8,6 +8,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="css/core.css"/>
+	<link rel="stylesheet" href="css/techScrollBar.css"/>
 </head>
 <body>
 <!--[if IE]>
@@ -26,6 +27,7 @@
 				<input id="speciesInput" type="text" placeholder="Search Species..."/>
 				<label class="switch float-right" style="position:relative;bottom:4px" data-toggle="tooltip" data-placement="left" title="Enable RegExp support">
 					<input type="checkbox" id="RegExp"/>
+					<span class="slider round"></span>
 				</label>
 			</label>
 			<br/>
@@ -95,12 +97,14 @@
 		<!--[if !IE]><!-->
 		<div class="btn-group">
 			<button class="btn btn-danger" id="removeAll" data-toggle="modal">Remove All</button>
+			<button class="btn btn-warning" onclick="removeVisible(event)">Remove Visible</button>
+			<button class="btn btn-primary" onclick="addVisible(event)">Add Visible</button>
 			<button class="btn btn-success" onclick="iexport()">Export JSON</button>
 			<button class="btn btn-success" onclick="iimport()">Import JSON</button>
 			<button class="btn btn-success" onclick="download()" id="download">Download Mod</button>
 		</div>
-		<!--<![endif]-->
 		<input type="file" class="form-control-file" id="iimport" accept=".DyS.json" placeholder="Choose File to Import"/>
+		<!--<![endif]-->
 	</div>
 </body>
 <scripts hidden>
