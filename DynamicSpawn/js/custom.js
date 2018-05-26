@@ -28,7 +28,7 @@ document.getElementById("speciesInput").addEventListener("keyup",event=>{
 });
 
 var customNPC=(function(){
-	var[li,btn,div]=baseLi,
+	var[li,btn,img,div]=baseLi,
 	el=li.cloneNode();
 	el.classList.add("custom-species");
 	var b=btn.cloneNode();
@@ -36,15 +36,23 @@ var customNPC=(function(){
 	var divM=div.cloneNode(true);
 		divM.firstChild.setAttribute("onclick","addToAllC(this,event)");
 		divM.childNodes[1].setAttribute("onclick","removeFromAllC(this,event)");
-	return[el,b,divM];
+	var imgM=img.cloneNode();
+		imgM.classList.add("off");
+		imgM.src="img/tab_other.png";
+	var imgM2=img.cloneNode();
+		imgM2.classList.add("on");
+		imgM2.src="img/tab_other_select.png";
+		b.append(imgM,imgM2);
+	return[el,b,imgM,imgM2,divM];
 }());
 
-function customSetUp(species){
-	var[li,btn,div]=customNPC,
+function customSetUp(specie){
+	var[li,btn,img,img2,div]=customNPC,
 	el=li.cloneNode();
-	el.setAttribute("value",species);
+	el.setAttribute("value",specie);
 	var b=btn.cloneNode();
-		b.innerHTML="Custom: "+species;
+		b.innerHTML="Custom: "+specie;
+		b.append(img.cloneNode(),img2.cloneNode());
 	el.append(b,div.cloneNode(true));
 	return el;
 }

@@ -107,3 +107,11 @@ a.nav-link{
 	-ms-user-select:none;
 	user-select:none;
 }
+
+button:hover>img.off{
+	display:none;
+}
+
+button:not(:hover)>img.on{
+	display:none;
+}

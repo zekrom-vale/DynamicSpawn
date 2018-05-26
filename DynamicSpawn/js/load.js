@@ -11,14 +11,14 @@ window.addEventListener("load",()=>{
 	}
 	let valid=/^[a-z]:((\\|\/)[^\\\/:*?"<>|]+)+(\\|\/)$/i.test(qi),
 	sys=/System Path/.test(qi),
-	inMod=/(\\|\/)steamapps(\\|\/)common(\\|\/)Starbound(\\|\/)mods(\\|\/)[^\\\/]+(\\|\/)?$/.test(qi),
 	el=document.getElementById("path");
 	if(valid&&!sys){
-		let e=()=>{
-			popup("Warning: Local Component Not in Starbound's Mod Folder","warning");
-			return qi;
-		}
-		el.value=inMod?qi:e();
+		el.value=qi;
+		let inMod=/(\\|\/)steamapps(\\|\/)common(\\|\/)Starbound(\\|\/)mods(\\|\/)[^\\\/]+(\\|\/)?$/.test(qi),
+		atMod=/(\\|\/)steamapps(\\|\/)common(\\|\/)Starbound(\\|\/)mods(\\|\/)?$/.test(qi)
+		if(atMod)popup("Warning: Local Component Should not be In the Root of Mods","warning");
+		else if(!inMod)popup("Warning: Local Component Not in Starbound's Mod Folder","warning");
+		
 	}
 	else{
 		let e=()=>{
@@ -35,18 +35,35 @@ window.addEventListener("load",()=>{
 	if(location.hash){
 		let hash=location.hash;
 		location.hash="npcGeneric";
-		dtTab(document.querySelector('[data-hash="'+hash+'"]'));
+		dtTab(document.querySelector(`[data-hash="${hash}"]`));
 		location.hash=hash;
 	}
 	else location.hash="npcGeneric";
-	let [li,btn,div]=baseLi,
+	let [li,btn,img,div]=baseLi,
 	arr=[];
+	console.group();
 	for(var i in species){
 		arr[i]=li.cloneNode();
-		arr[i].setAttribute("value",species[i]);
-		arr[i].id=species[i];
+		let specie=species[i].value;
+		arr[i].setAttribute("value",specie);
+		arr[i].id=specie;
 		let b=btn.cloneNode();
-			b.innerHTML=species[i];
+			b.innerHTML=species[i].name;
+				let imgM=img.cloneNode();
+				imgM.classList.add("off");
+				imgM.src=species[i].img[0];
+				imgM.addEventListener("error",function(){
+					this.src="img/tab_other.png";
+					console.clear();
+				},{once:true});
+				let imgM2=img.cloneNode();
+				imgM2.classList.add("on");
+				imgM2.src=species[i].img[1];
+				imgM2.addEventListener("error",function(){
+					this.src="img/tab_other_select.png";
+					console.clear();
+				},{once:true});
+				b.append(imgM,imgM2);
 		arr[i].append(b,div.cloneNode(true));
 	}
 	document.getElementById("speciesList").append(...arr);//Spread

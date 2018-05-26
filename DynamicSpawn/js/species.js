@@ -86,7 +86,8 @@ var baseLi=(function(){
 			btnB.setAttribute("onclick","removeFromAll(this,event)");
 			btnB.innerHTML="Remove from All";
 		div.append(all,btnB);
-	return[li,btn,div];
+	var img=document.createElement("img");
+	return[li,btn,img,div];
 }());
 
 function dtTab(el){
