@@ -28,19 +28,25 @@ document.getElementById("speciesInput").addEventListener("keyup",event=>{
 });
 });
 
-
-function customSetUp(species){
+var customNPC=(function(){
 	var[li,btn,div]=baseLi,
 	el=li.cloneNode();
-	el.setAttribute("value",species);
-	el.id=species;
+	el.classList.add("custom-species");
 	var b=btn.cloneNode();
-		b.innerHTML="Custom: "+species;
 		b.setAttribute("onclick","modifyContC(this)");
 	var divM=div.cloneNode(true);
 		divM.firstChild.setAttribute("onclick","addToAllC(this,event)");
 		divM.childNodes[1].setAttribute("onclick","removeFromAllC(this,event)");
-	el.append(b,divM);
+	return[el,b,divM];
+}());
+
+function customSetUp(species){
+	var[li,btn,div]=customNPC,
+	el=li.cloneNode();
+	el.setAttribute("value",species);
+	var b=btn.cloneNode();
+		b.innerHTML="Custom: "+species;
+	el.append(b,div.cloneNode(true));
 	return el;
 }
 
