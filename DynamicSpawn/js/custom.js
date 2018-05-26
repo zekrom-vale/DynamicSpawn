@@ -1,5 +1,4 @@
 "use strict";
-
 window.addEventListener("load",()=>{
 document.getElementById("speciesInput").addEventListener("keyup",event=>{
 	if(event.key==="Enter"){

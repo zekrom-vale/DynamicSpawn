@@ -1,9 +1,7 @@
 "use strict";
 window.addEventListener("load",()=>{
 saveData=(function(){
-	var a=document.createElement("a");
-	document.body.appendChild(a);
-	a.style="display:none";
+	var a=document.getElementById("save");
 	return function(data,fileName,t){
 		let blob=new Blob([t?data:JSON.stringify(data)],{type:"octet/stream"}),
 			url=window.URL.createObjectURL(blob);
@@ -19,7 +17,7 @@ saveData=(function(){
 function getCookie(n){
 	let ca=decodeURIComponent(document.cookie).split(';');
 	n=new RegExp(`^\s*${n}=`);
-	for(var i in ca)if(n.test(ca[i]))return ca[i].replace(n,"");
+	for(var i in ca)if(n.test(ca[i]))return ca[i].slice(n.length);
 }
 
 function dayPlus(a){

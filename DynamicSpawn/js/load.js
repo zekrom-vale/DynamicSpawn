@@ -3,10 +3,10 @@ var saveData;
 
 window.addEventListener("load",()=>{
 {//--------------- Get Path ---------------
-	let q=location.search.replace(/^\?/,"").split("&"),
+	let q=location.search.slice(1).split("&"),
 	qi;
 	for(var i in q)if(/^path=/i.test(q[i])){
-		qi=decodeURIComponent((q[i]+"\\").replace(/^path=/i,""));
+		qi=decodeURIComponent(q[i].slice(5)+"\\");
 		continue;
 	}
 	let valid=/^[a-z]:((\\|\/)[^\\\/:*?"<>|]+)+(\\|\/)$/i.test(qi),
@@ -22,14 +22,13 @@ window.addEventListener("load",()=>{
 	}
 	else{
 		let e=()=>{
-			var c=confirm(`No path found
-Would you like to download the local component of Dynamic Spawn?
-If not, you still can create a list for later`);
-			if(c)location.href="https://github.com/zekrom-vale/DynamicSpawn/tree/c%23"
-			else document.getElementById("download").disabled=true;
+			alertModal("No path found","Would you like to download the local component of Dynamic Spawn?<br/>If not, you still can create a list for later",{
+				"resolve":[()=>{location.href="https://github.com/zekrom-vale/DynamicSpawn/tree/c%23"}],
+				"reject":[()=>{document.getElementById("download").disabled=true;}]
+			});
 		}
-		el.value=sys?"Cannot Be a System URL":qi?"Invalid URL":e();
 		el.id+="2";
+		el.value=sys?"Cannot Be a System URL":qi?"Invalid URL":e();
 	}
 }
 {//--------------- Generate speciesList ---------------
@@ -40,8 +39,8 @@ If not, you still can create a list for later`);
 		location.hash=hash;
 	}
 	else location.hash="npcGeneric";
-	let [li,btn,div]=baseLi;
-	let arr=[];
+	let [li,btn,div]=baseLi,
+	arr=[];
 	for(var i in species){
 		arr[i]=li.cloneNode();
 		arr[i].setAttribute("value",species[i]);
@@ -68,7 +67,7 @@ $("#speciesInput").on("keyup",function(){
 	}
 	else{
 		//https://www.w3schools.com/bootstrap4/bootstrap_filters.asp
-		var value=$(this).val().toLowerCase().replace(/^\s*|\s*$/g,""),
+		var value=$(this).val().toLowerCase().trim(),
 		exists=txt=>txt.toLowerCase().indexOf(value)>-1;
 		$("#speciesList li, #npcList li").filter(function(){
 			$(this).toggle(exists(this.firstChild.innerHTML||exists(this.getAttribute("value"))));
@@ -94,9 +93,8 @@ over("addVisible","Add All Visible");
 		if(!event.shiftKey)dtTab(this);
 		else window.setTimeout(()=>{
 			var hash=this.dataset.hash,
-			style=document.getElementById("activeStyle"),
-			oldHash=location.hash;
-			document.querySelector('[data-hash="'+oldHash+'"]').classList.add("show","active");
+			style=document.getElementById("activeStyle");
+			document.querySelector(`[data-hash="${location.hash}"]`).classList.add("show","active");
 			this.classList.remove("active");
 		},20);
 	},true);
@@ -114,13 +112,13 @@ over("addVisible","Add All Visible");
 				hashs=[];
 				for(var i=0;i<_l;i++){
 					let hash=sel[i].dataset.hash;
-					hashs[i]="active-"+hash.replace("#","");
+					hashs[i]="active-"+hash.slice(1);
 					$(`${hash}:First ul:First`).empty();
 				}
 				$(`#speciesList li`).removeClass(hashs.join(" "));
 			}
 			else{
-				$(`#speciesList li`).removeClass("active-"+location.hash.replace("#",""));
+				$(`#speciesList li`).removeClass("active-"+location.hash.slice(1));
 				$(`${location.hash}:First ul:First`).empty();
 			}
 		}

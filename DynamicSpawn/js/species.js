@@ -8,8 +8,8 @@ function addVisible(event){
 		css=[],
 		_b=base.length;
 		for(var n=0;n<_b;n++){
-			uls[n]=document.getElementById(base[n].dataset.hash.replace("#",""));
-			css[n]="active-"+uls[n].id.replace("#","");
+			uls[n]=document.getElementById(base[n].dataset.hash.slice(1));
+			css[n]="active-"+uls[n].id.slice(1);
 		}
 		for(var s=0;s<_l;s++)if(li[s].style.display!=="none"){
 			let lii=li[s].cloneNode(true);
@@ -27,7 +27,7 @@ function addVisible(event){
 	}
 	else{
 		var hash=location.hash,
-		css="active-"+hash.replace("#","");
+		css="active-"+hash.slice(1);
 		for(var i=0;i<_l;i++)if(!(li[i].classList.contains(css)||li[i].style.display==="none")){
 			li[i].classList.add(css);
 			let lii=li[i].cloneNode(true);
@@ -45,7 +45,7 @@ function removeVisible(event){
 		var base=document.querySelectorAll("#npcTab>li.nav-link-sel>a"),
 		_b=base.length;
 		for(var n=0;n<_b;n++){
-			var css="active-"+base[n].dataset.hash.replace("#","");
+			var css="active-"+base[n].dataset.hash.slice(1);
 			for(var i=0;i<_l;i++){
 				if(li[i].classList.contains(css)&&li[i].style.display!=="none"){
 					li[i].classList.remove(css);
@@ -57,7 +57,7 @@ function removeVisible(event){
 	}
 	else{
 		var hash=location.hash,
-		css="active-"+hash.replace("#","");
+		css="active-"+hash.slice(1);
 		for(var i=0;i<_l;i++){
 			if(li[i].classList.contains(css)&&li[i].style.display!=="none"){
 				li[i].classList.remove(css);
@@ -93,20 +93,20 @@ function dtTab(el){
 	var hash=el.dataset.hash,
 	style=document.getElementById("activeStyle"),
 	oldHash=location.hash,
-	list=document.getElementById(hash.replace("#",""));
-	document.querySelector('[data-hash="'+oldHash+'"]').classList.remove("show","active");
-	document.getElementById(oldHash.replace("#","")).classList.remove("active");
+	list=document.getElementById(hash.slice(1));
+	document.querySelector(`[data-hash="${oldHash}"]`).classList.remove("show","active");
+	document.getElementById(oldHash.slice(1)).classList.remove("active");
 	el.classList.add("show","active");
 	list.classList.add("active");
 	list.classList.remove("fade");
 	location.hash=hash;
-	style.innerHTML=style.innerHTML.replace(/(active\-).+?\{/,`$1${hash.replace("#","")}\{`);
+	style.innerHTML=style.innerHTML.replace(/(active\-).+?\{/,`$1${hash.slice(1)}\{`);
 }
 
 function modifyCont(el){
 	el=el.parentNode;
 	let hash=location.hash;
-	var css="active-"+hash.replace("#","");
+	var css="active-"+hash.slice(1);
 	if(el.classList.contains(css)){
 		var item=document.querySelector(`${hash} li[value=${el.getAttribute("value")}]`);
 		item.parentNode.removeChild(item);
@@ -147,7 +147,7 @@ function addToAll(el,event){
 
 function removeEl(el){
 	var elp=el.parentNode;
-	document.getElementById(el.getAttribute("value")).classList.remove("active-"+location.hash.replace("#",""));
+	document.getElementById(el.getAttribute("value")).classList.remove("active-"+location.hash.slice(1));
 }
 
 function removeFromAll(el,event){
@@ -156,7 +156,7 @@ function removeFromAll(el,event){
 	if(event.shiftKey){
 //BUG Deselects active item even if it is deselected
 		for(var i in arr)if(arr[i].includes("active-")){
-			let t=arr[i].replace("active-","");
+			let t=arr[i].slice(7);
 			if(document.querySelector(`[data-hash="#${t}"]`).parentNode.classList.contains("nav-link-sel")){
 				let item=document.querySelector(`#${t} li[value=${elp.getAttribute("value")}]`);
 				if(item){
@@ -168,7 +168,7 @@ function removeFromAll(el,event){
 	}
 	else for(var i in arr){
 		if(arr[i].includes("active-")){
-			let t=arr[i].replace("active-",""),
+			let t=arr[i].slice(7),
 			item=document.querySelector(`#${t} li[value=${elp.getAttribute("value")}]`);
 			if(item){
 				item.parentNode.removeChild(item);

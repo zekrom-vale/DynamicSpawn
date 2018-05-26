@@ -23,32 +23,27 @@ function download(){
 		return;
 	}
 	document.getElementById("modalCancel").style.display="none";
-	
-	
 	alertModal("Paste the copped value to the file name","Then continue the application",{
-		"resolve":[
-			()=>{
-				var I=document.getElementById("path");
-				if(I){
-					I.disabled=false;
-					I.value+="value.DyS.cosv";
-					I.select();
-					document.execCommand("copy");
-					I.value=I.value.replace(/value\.DyS\.cosv$/i,"");
-					I.disabled=true;
-				}
-				saveData(arr.join("\n"),"value.DyS.cosv",true);
+		"resolve":[()=>{
+			var I=document.getElementById("path");
+			if(I){
+				I.disabled=false;
+				I.value+="value.DyS.cosv";
+				I.select();
+				document.execCommand("copy");
+				I.value=I.value.replace(/value\.DyS\.cosv$/i,"");
+				I.disabled=true;
 			}
-		],"finally":[
-			()=>{document.getElementById("modalCancel").style.display="";}
-		]
+			saveData(arr.join("\n"),"value.DyS.cosv",true);
+		}],
+		"finally":[()=>{document.getElementById("modalCancel").style.display="";}]
 	});
 }
 
 function iimport(){
 	var fr=new FileReader();
 //medium.com/programmers-developers/convert-blob-to-string-in-javascript-944c15ad7d52
-	fr.addEventListener('loadend',(txt)=>{
+	fr.addEventListener('loadend',txt=>{
 		txt=txt.srcElement.result;
 		var item=JSON.parse(txt);
 		for(var i in item)for(var n in item[i])setLi(i,item[i][n]);
