@@ -3,18 +3,7 @@
 window.addEventListener("load",()=>{
 document.getElementById("speciesInput").addEventListener("keyup",event=>{
 	if(event.key==="Enter"){
-		var[li,btn,div]=baseLi;
-		var el=li.cloneNode(),
-		species=document.getElementById("speciesInput").value;
-		el.setAttribute("value",species);
-		el.id=species;
-		var b=btn.cloneNode();
-			b.innerHTML="Custom: "+species;
-			b.setAttribute("onclick","modifyContC(this)");
-		var divM=div.cloneNode(true);
-			divM.firstChild.setAttribute("onclick","addToAllC(this,event)");
-			divM.childNodes[1].setAttribute("onclick","removeFromAllC(this,event)");
-		el.append(b,divM);
+		var el=customSetUp(document.getElementById("speciesInput").value)
 		if(event.shiftKey){
 			let els=$("li.nav-link-sel>a.nav-link"),
 			_l=els.length;
@@ -38,6 +27,22 @@ document.getElementById("speciesInput").addEventListener("keyup",event=>{
 	}
 });
 });
+
+
+function customSetUp(species){
+	var[li,btn,div]=baseLi,
+	el=li.cloneNode();
+	el.setAttribute("value",species);
+	el.id=species;
+	var b=btn.cloneNode();
+		b.innerHTML="Custom: "+species;
+		b.setAttribute("onclick","modifyContC(this)");
+	var divM=div.cloneNode(true);
+		divM.firstChild.setAttribute("onclick","addToAllC(this,event)");
+		divM.childNodes[1].setAttribute("onclick","removeFromAllC(this,event)");
+	el.append(b,divM);
+	return el;
+}
 
 function modifyContC(el){
 	el=el.parentNode;

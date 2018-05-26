@@ -179,9 +179,14 @@ function removeFromAll(el,event){
 }
 
 function setLi(set,key){
-	var el=document.getElementById(key);
-	var css="active-"+set;
-	if(!el.classList.contains(css)){
+	var el=document.getElementById(key),
+	css="active-"+set;
+	if(!el){
+		var el=customSetUp(key)
+		let ul=document.querySelector(`#${set}>ul`);
+		if(!ul.querySelector(`#npcList li[value="${key}"]`))ul.prepend(el);
+	}
+	else if(!el.classList.contains(css)){
 		el.classList.add(css);
 		var li=el.cloneNode(true);
 		li.setAttribute("onclick","removeEl(this)");
