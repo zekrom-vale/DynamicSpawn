@@ -2,7 +2,7 @@
 window.addEventListener("load",()=>{
 document.getElementById("speciesInput").addEventListener("keyup",event=>{
 	if(event.key==="Enter"){
-		var el=customSetUp(document.getElementById("speciesInput").value)
+		var el=customSetUp(document.getElementById("speciesInput").value);
 		if(event.shiftKey){
 			let els=$("li.nav-link-sel>a.nav-link"),
 			_l=els.length;

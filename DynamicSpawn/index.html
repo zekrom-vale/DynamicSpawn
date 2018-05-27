@@ -7,6 +7,7 @@
 		<meta name="author" content="zekrom_vale"/>
 		<meta name="description" content="Create your own mod! Chose the NPCs you want to spawn in Starbound."/>
 		<meta name="generator" content="Notepad++"/>
+		<meta name="extensions" content="Bootstrap4,jQuery,popper*"/>
 		<meta name="keywords" content="Starbound,NPC,Spawning,Mod,Dynamic Mod"/>
 
 		<meta name="creator" content="zekrom_vale"/>
@@ -31,7 +32,7 @@
 			<button class="btn btn-primary" id="addVisible" onclick="addVisible(event)">Add Visible</button>
 			<button class="btn btn-success" onclick="iexport()">Export JSON</button>
 			<button class="btn btn-success" onclick="iimport()">Import JSON</button>
-			<button class="btn btn-success" onclick="download()" id="download">Download Mod</button>
+			<button class="btn btn-info" onclick="download()" id="download">Download Mod</button>
 		</div>
 	</header>
 	<!--<![endif]-->
@@ -43,11 +44,11 @@
 				<input class="p-2 flex-grow-1 code" id="path" disabled />
 			</div>
 			<div>
-				<label class="form-control">
-					<input id="speciesInput" type="text" placeholder="Search Species... EX: ^kazdra$|hum|^[a-b]|Ar(gon)?i|^s[^a-d]+"/>
+				<label class="form-control" id="speciesLabel">
+					<input id="speciesInput" type="text" placeholder="Search Species... EX: ^kazdra$|hum|^[a-b]|Ar(gon)?i|^s[^a-d]+|^.{5}$"/>
 					<label class="switch float-right" style="position:relative;bottom:4px" data-toggle="tooltip" data-placement="left" title="Enable RegExp support">
 						<input type="checkbox" id="RegExp"/>
-						<span class="slider round"></span>
+						<span class="slider round"/>
 					</label>
 				</label>
 				<br/>
@@ -141,9 +142,7 @@
 					<img class="card-img-top" src="https://image.freepik.com/free-icon/exe-file_318-10079.jpg" alt="EXE File" data-toggle="popover" data-trigger="hover" title="Image by flaticon" data-content="From freepik.com/free-icon/exe-file_695081.htm">
 					<div class="card-body">
 						<h4 class="card-title">The Local Component</h4>
-						<p class="card-text">
-							Required to create the working mod in the end.
-						</p>
+						<p class="card-text">Required to create the working mod in the end.</p>
 						<a href="https://github.com/zekrom-vale/DynamicSpawn/tree/c%23" class="btn btn-primary">Download Now!</a>
 					</div>
 				</div>
@@ -200,15 +199,12 @@
 					</div>
 				</div>
 				<div class="card carousel-item">
-					<img class="card-img-top" src="">
 					<div class="card-body">
 						<h4 class="card-title">You Ad Here</h4>
 						<p class="card-text">
 							For $2 a month you could host your ad on this site. Use <a data-toggle="tooltip" title="Bootstrap4 and jQuery available" class="help">HTML/CSS/JS</a> or any image.
 						</p>
-						<small>
-							Your ad must comply to my standards. No adult content, no scams, no political junk, no misleading information, no malware, ect.
-						</small>
+						<small>Your ad must comply to my standards. No adult content, no scams, no political junk, no misleading information, no malware, ect.</small>
 						<!--<a href="" class="btn btn-primary">Contact NOW!</a>-->
 					</div>
 				</div>
@@ -239,14 +235,14 @@
 		}
 	</style>
 	<a id="save"/>
+	<input type="file" id="iimport" accept=".DyS.json"/>
 </scripts>
 <!--[if !IE]><!-->
 <div class="modal" id="modal">
-	<input type="file" id="iimport" accept=".DyS.json"/>
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title" id="modalHead"></h4>
+				<h4 class="modal-title" id="modalHead"/>
 				<button type="button" class="close" data-dismiss="modal" id="modalX">&times;</button>
 			</div>
 			<div class="modal-body" id="modalBody"></div>

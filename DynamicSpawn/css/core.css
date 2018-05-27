@@ -11,8 +11,7 @@
 }
 /*https://stackoverflow.com/questions/3397113/how-to-remove-border-outline-around-text-input-boxes-chrome*/
 
-div>div.alert-success.d-flex>.p-2,
-#npcList>*{
+div>div.alert-success.d-flex>.p-2,#npcList>*{
 	padding:0!important;
 }
 
@@ -78,15 +77,12 @@ input:checked + .slider::before{
 	border-radius:50%;
 }
 
-#path>*>textarea:focus,
-#path>input:focus,
-label>*>textarea:focus,
-label>input:focus{
+#path>*>textarea:focus,#path>input:focus,
+label>*>textarea:focus,label>input:focus{
 	outline:none;
 }
 
-#path,
-#path2{
+#path,#path2{
 	border:none;
 	background:none;
 }
@@ -103,9 +99,7 @@ a.nav-link{
 	user-select:none;
 }
 
-button:hover>img.off,
-button:not(:hover)>img.on,
-.switch input{
+button:hover>img.off,button:not(:hover)>img.on,.switch input{
 	display:none;
 }
 
@@ -136,4 +130,13 @@ button:not(:hover)>img.on,
 
 .invert{
 	filter:invert(1);
+}
+
+#speciesLabel.err{
+	background-color:red!important;
+}
+
+.carousel-item,.carousel-inner,#side,
+#side2,#speciesInput,li.list-group-item{
+	background-color:transparent;
 }

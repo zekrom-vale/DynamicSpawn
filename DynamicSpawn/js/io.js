@@ -20,24 +20,25 @@ function download(){
 		function e(){
 			document.getElementById("modalCancel").style.display="";
 		}
-		return;
 	}
-	document.getElementById("modalCancel").style.display="none";
-	alertModal("Paste the copped value to the file name","Then continue the application",{
-		"resolve":[()=>{
-			var I=document.getElementById("path");
-			if(I){
-				I.disabled=false;
-				I.value+="value.DyS.cosv";
-				I.select();
-				document.execCommand("copy");
-				I.value=I.value.replace(/value\.DyS\.cosv$/i,"");
-				I.disabled=true;
-			}
-			saveData(arr.join("\n"),"value.DyS.cosv",true);
-		}],
-		"finally":[()=>{document.getElementById("modalCancel").style.display="";}]
-	});
+	else{
+		document.getElementById("modalCancel").style.display="none";
+		alertModal("Paste the copped value to the file name","Then continue the application",{
+			"resolve":[()=>{
+				var I=document.getElementById("path");
+				if(I){
+					I.disabled=false;
+					I.value+="value.DyS.cosv";
+					I.select();
+					document.execCommand("copy");
+					I.value=I.value.replace(/value\.DyS\.cosv$/i,"");
+					I.disabled=true;
+				}
+				saveData(arr.join("\n"),"value.DyS.cosv",true);
+			}],
+			"finally":[()=>{document.getElementById("modalCancel").style.display="";}]
+		});
+	}
 }
 
 function iimport(){
@@ -45,8 +46,8 @@ function iimport(){
 }
 
 window.addEventListener("load",()=>{
+	var fr=new FileReader();
 	document.getElementById("iimport").addEventListener("change",()=>{
-		var fr=new FileReader();
 	//medium.com/programmers-developers/convert-blob-to-string-in-javascript-944c15ad7d52
 		fr.addEventListener('loadend',txt=>{
 			txt=txt.srcElement.result;

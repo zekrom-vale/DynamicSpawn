@@ -6,21 +6,12 @@ body{
 	background-color:black;
 }
 
-.carousel-item,
-.carousel-inner,
-#side,
-#side2,
-#speciesInput,
-li.list-group-item{
-	background-color:transparent;
-}
-
 li.nav-item,
 li.nav-item>a{
 	background-color:#90909020!important;
 }
 
-.form-control{
+#speciesLabel:not(.err){
 	background-color:#90909050!important;
 }
 
@@ -37,7 +28,8 @@ li.nav-item>a.show{
 	border-bottom:1px solid #3e3e3e7d;
 }
 
-p,h1,h2,h3,h4,h5,h6,small,li,#speciesInput,#speciesInput::placeholder{
+p,h1,h2,h3,h4,h5,h6,small,li,
+#speciesInput,#speciesInput::placeholder{
 	color:white;
 }
 
@@ -46,6 +38,6 @@ kbd{
 	color:black;
 }
 
-.form-control{
+#speciesLabel{
 	border:1px solid #37383a;
 }

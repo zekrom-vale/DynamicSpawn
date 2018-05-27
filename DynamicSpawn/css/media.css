@@ -5,9 +5,7 @@
 	#side{
 		min-width:250px;
 	}
-}
-
-@media (max-width:850px){
+}@media (max-width:850px){
 	#body{
 		width:100%;
 		max-width:100%;
@@ -30,13 +28,20 @@
 }
 
 @media (max-width:519px){
-	.btn-group.float-right{
-		float:none!important;
+	.species-group{
 		margin:0 auto;
 		display:table;
 	}
-	li>.btn{
-		width:100%!important;
+	.species{
+		width:100%;
+	}
+}@media (min-width:520px){
+	.species-group{
+		float:right;
+	}
+	.species{
+		width:50%;
+		min-width:100px;
 	}
 }
 
