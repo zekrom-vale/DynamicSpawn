@@ -1,9 +1,8 @@
+@import "techScrollBar.css";
+@import "media.css";
 #npcList>div>ul{
 	height:25vh;
 	overflow:auto;
-}
-#npcList>*{
-	padding:0;
 }
 
 #speciesInput{
@@ -11,8 +10,15 @@
 	border:none;
 }
 /*https://stackoverflow.com/questions/3397113/how-to-remove-border-outline-around-text-input-boxes-chrome*/
-label>*>textarea:focus, label>input:focus{
-	outline:none;
+
+div>div.alert-success.d-flex>.p-2,#npcList>*{
+	padding:0!important;
+}
+
+.code{
+	font-family:SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+	font-size:87.5%;
+	word-break:break-word;
 }
 
 /*https://www.w3schools.com/howto/howto_css_switch.asp*/
@@ -24,8 +30,6 @@ label>*>textarea:focus, label>input:focus{
 	margin:0;
 	padding:0;
 }
-
-.switch input{display:none;}
 
 .slider{
 	position:absolute;
@@ -39,7 +43,7 @@ label>*>textarea:focus, label>input:focus{
 	transition:.4s;
 }
 
-.slider:before{
+.slider::before{
 	position:absolute;
 	content:"";
 	height:26px;
@@ -59,7 +63,7 @@ input:focus + .slider{
 	box-shadow:0 0 1px #2196F3;
 }
 
-input:checked + .slider:before{
+input:checked + .slider::before{
 	-webkit-transform:translateX(26px);
 	-ms-transform:translateX(26px);
 	transform:translateX(26px);
@@ -69,15 +73,70 @@ input:checked + .slider:before{
 	border-radius:34px;
 }
 
-.slider.round:before{
+.slider.round::before{
 	border-radius:50%;
 }
 
-#path>*>textarea:focus, #path>input:focus{
+#path>*>textarea:focus,#path>input:focus,
+label>*>textarea:focus,label>input:focus{
 	outline:none;
 }
 
-#path{
+#path,#path2{
 	border:none;
 	background:none;
+}
+
+.nav-item:not(.nav-link-sel)>a>span{
+	visibility:hidden;
+}
+
+a.nav-link{
+	cursor:pointer;
+	-webkit-user-select:none;
+	-moz-user-select:none;
+	-ms-user-select:none;
+	user-select:none;
+}
+
+button:hover>img.off,button:not(:hover)>img.on,.switch input{
+	display:none;
+}
+
+.loc{
+	position:fixed;
+	bottom:-5px;
+	left:10px;
+	width:calc(100% - 20px);
+	z-index:3;
+}
+
+#container{
+	margin:0;
+}
+
+#side2 .carousel-item{
+	padding:10px 20px;
+	height:80vh;
+}
+
+#side2 .carousel-indicators{
+	bottom:0;
+}
+
+.help{
+	cursor:help;
+}
+
+.invert{
+	filter:invert(1);
+}
+
+#speciesLabel.err{
+	background-color:red!important;
+}
+
+.carousel-item,.carousel-inner,#side,
+#side2,#speciesInput,li.list-group-item{
+	background-color:transparent;
 }
