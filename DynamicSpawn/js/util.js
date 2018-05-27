@@ -71,7 +71,7 @@ function alertModal(modalHead="",modalBody="",f){
 	});
 }
 
-function popup(mesage,type="danger",id){
+function popup(mesage,type="danger",id,loc){
 	if(id)$(`#${id}:First`).remove();
 	var div=document.createElement("div");
 		div.classList.add("alert","alert-"+type,"alert-dismissible");
@@ -81,6 +81,7 @@ function popup(mesage,type="danger",id){
 		btn.classList.add("close");
 		btn.dataset.dismiss="alert";
 		btn.innerHTML="&times;";
+	if(loc)div.classList.add("loc");
 	div.appendChild(btn);
 	document.getElementById("container").prepend(div);
 	window.scrollTo(0,0);

@@ -16,12 +16,10 @@ function addVisible(event){
 			lii.setAttribute("onclick","removeEl(this)");
 			lii.id="";
 			lii.classList.add(...css);
-			for(var l in uls){
-				if(!li[s].classList.contains(css[l])){
-					li[s].classList.add(css[l]);
-					let clone=lii.cloneNode(true);
-					uls[l].getElementsByTagName("ul")[0].prepend(clone);
-				}
+			for(var l in uls)if(!li[s].classList.contains(css[l])){
+				li[s].classList.add(css[l]);
+				let clone=lii.cloneNode(true);
+				uls[l].getElementsByTagName("ul")[0].prepend(clone);
 			}
 		}
 	}
