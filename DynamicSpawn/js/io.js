@@ -41,18 +41,18 @@ function download(){
 }
 
 function iimport(){
-	var fr=new FileReader();
-//medium.com/programmers-developers/convert-blob-to-string-in-javascript-944c15ad7d52
-	fr.addEventListener('loadend',txt=>{
-		txt=txt.srcElement.result;
-		var item=JSON.parse(txt);
-		for(var i in item)for(var n in item[i])setLi(i,item[i][n]);
-	});
-	try{
-		files=document.getElementById("iimport").files;
-		if(files.length<1)throw "No file selected";
-		fr.readAsText(files[0]);
-	}catch(err){
-		popup("Import failure: "+err);
-	}
+	document.getElementById("iimport").click();
 }
+
+window.addEventListener("load",()=>{
+	document.getElementById("iimport").addEventListener("change",()=>{
+		var fr=new FileReader();
+	//medium.com/programmers-developers/convert-blob-to-string-in-javascript-944c15ad7d52
+		fr.addEventListener('loadend',txt=>{
+			txt=txt.srcElement.result;
+			var item=JSON.parse(txt);
+			for(var i in item)for(var n in item[i])setLi(i,item[i][n]);
+		});
+		fr.readAsText(document.getElementById("iimport").files[0]);
+	});
+});
