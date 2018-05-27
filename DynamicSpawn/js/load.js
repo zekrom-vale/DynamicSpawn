@@ -16,8 +16,8 @@ window.addEventListener("load",()=>{
 		el.value=qi;
 		let inMod=/(\\|\/)steamapps(\\|\/)common(\\|\/)Starbound(\\|\/)mods(\\|\/)[^\\\/]+(\\|\/)?$/.test(qi),
 		atMod=/(\\|\/)steamapps(\\|\/)common(\\|\/)Starbound(\\|\/)mods(\\|\/)?$/.test(qi)
-		if(atMod)popup("Warning: Local Component Should not be In the Root of Mods","warning");
-		else if(!inMod)popup("Warning: Local Component Not in Starbound's Mod Folder","warning");
+		if(atMod)popup("Warning: Local Component Should not be In the Root of Mods","warning",null,true);
+		else if(!inMod)popup("Warning: Local Component Not in Starbound's Mod Folder","warning",null,true);
 		
 	}
 	else{
@@ -31,42 +31,33 @@ window.addEventListener("load",()=>{
 		el.value=sys?"Cannot Be a System URL":qi?"Invalid URL":e();
 	}
 }
+//--------------- Location ---------------
+if(location.hash){
+	let hash=location.hash;
+	location.hash="npcGeneric";
+	dtTab(document.querySelector(`[data-hash="${hash}"]`));
+	location.hash=hash;
+}
+else location.hash="npcGeneric";
 {//--------------- Generate speciesList ---------------
-	if(location.hash){
-		let hash=location.hash;
-		location.hash="npcGeneric";
-		dtTab(document.querySelector(`[data-hash="${hash}"]`));
-		location.hash=hash;
-	}
-	else location.hash="npcGeneric";
-	let [li,btn,img,div]=baseLi,
-	arr=[];
-	console.group();
+	let[li,btn,img,div]=baseLi,
+	base=document.getElementById("speciesList");
 	for(var i in species){
-		arr[i]=li.cloneNode();
-		let specie=species[i].value;
-		arr[i].setAttribute("value",specie);
-		arr[i].id=specie;
+		let el=li.cloneNode();
+		el.setAttribute("value",species[i].value);
+		el.id=species[i].value;
 		let b=btn.cloneNode();
 			b.innerHTML=species[i].name;
-				let imgM=img.cloneNode();
+			let imgM=img.cloneNode();
 				imgM.classList.add("off");
 				imgM.src=species[i].img[0];
-				imgM.addEventListener("error",function(){
-					this.src="img/tab_other.png";
-					console.clear();
-				},{once:true});
-				let imgM2=img.cloneNode();
+			let imgM2=img.cloneNode();
 				imgM2.classList.add("on");
 				imgM2.src=species[i].img[1];
-				imgM2.addEventListener("error",function(){
-					this.src="img/tab_other_select.png";
-					console.clear();
-				},{once:true});
 				b.append(imgM,imgM2);
-		arr[i].append(b,div.cloneNode(true));
+		el.append(b,div.cloneNode(true));
+		base.append(el);
 	}
-	document.getElementById("speciesList").append(...arr);//Spread
 }
 //--------------- Get Cookie Value ---------------
 let c=getCookie("value");
@@ -141,4 +132,5 @@ over("addVisible","Add All Visible");
 		}
 	});
 }
+$('[data-toggle="popover"]').popover()
 });
