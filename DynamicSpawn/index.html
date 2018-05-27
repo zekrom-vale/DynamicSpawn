@@ -16,7 +16,6 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="css/core.css"/>
-	<link rel="stylesheet" href="css/techScrollBar.css"/>
 </head>
 <body>
 <!--[if IE]>
@@ -24,85 +23,8 @@
 	alert("This page is incompatible with Internet Explorer.\nPlease copy the link and paste it into modern browser.\nEx: Google Chrome or Firefox");
 	</script>
 <![endif]-->
-<br/>
-	<div class="container-fluid" id="container">
-		<div class="alert alert-success d-flex">
-			<div class="p-2">Path to Local:&nbsp;</div>
-			<input class="p-2 flex-grow-1 code" id="path" disabled />
-		</div>
-		<div>
-			<label class="form-control">
-				<input id="speciesInput" type="text" placeholder="Search Species..."/>
-				<label class="switch float-right" style="position:relative;bottom:4px" data-toggle="tooltip" data-placement="left" title="Enable RegExp support">
-					<input type="checkbox" id="RegExp"/>
-					<span class="slider round"></span>
-				</label>
-			</label>
-			<br/>
-			<ul class="list-group" id="speciesList" style="height:25vh;overflow:auto"/>
-		</div>
-		<ul class="nav nav-tabs" role="tablist" id="npcTab">
-			<li class="nav-item">
-				<a class="nav-link active" data-toggle="tab" data-hash="#npcGeneric">Generic <span class="badge badge-primary">&#x2713;</span></a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" data-toggle="tab" data-hash="#npcScientific">Scientific <span class="badge badge-primary">&#x2713;</span></a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" data-toggle="tab" data-hash="#npcCult">Cult <span class="badge badge-primary">&#x2713;</span></a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" data-toggle="tab" data-hash="#npcPirate">Pirate <span class="badge badge-primary">&#x2713;</span></a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" data-toggle="tab" data-hash="#npcMerchant">Merchant <span class="badge badge-primary">&#x2713;</span></a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" data-toggle="tab" data-hash="#npcBandit">Bandit <span class="badge badge-primary">&#x2713;</span></a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" data-toggle="tab" data-hash="#npcROC">Outpost <span class="badge badge-primary">&#x2713;</span></a>
-			</li>
-		</ul>
-		<div class="tab-content" id="npcList">
-			<div id="npcGeneric" class="container tab-pane active">
-				<h3>Changes the species config of Generic NPCs.</h3>
-				<h5>Ex. Space Stations, Space Hotel</h5>
-				<ul class="list-group"/>
-			</div>
-			<div id="npcScientific" class="container tab-pane fade">
-				<h3>Changes the species config of Scientist NPCs.</h3>
-				<h5>Ex. Labs</h5>
-				<ul class="list-group"/>
-			</div>
-			<div id="npcCult" class="container tab-pane fade">
-				<h3>Changes the species config of Cult NPCs.</h3>
-				<h5>Ex. Random Encounters</h5>
-				<ul class="list-group"/>
-			</div>
-			<div id="npcPirate" class="container tab-pane fade">
-				<h3>Changes the species config of Space Pirate NPCs.</h3>
-				<h5>Ex. Pirate Ships</h5>
-				<ul class="list-group"/>
-			</div>
-			<div id="npcMerchant" class="container tab-pane fade">
-				<h3>Changes the species config of Merchant NPCs.</h3>
-				<h5>Ex. Merchant Ship, Industrial Merchant Ship.</h5>
-				<ul class="list-group"/>
-			</div>
-			<div id="npcBandit" class="container tab-pane fade">
-				<h3>Changes the species config of Bandit NPCs.</h3>
-				<h5>Ex. Random Encounters</h5>
-				<ul class="list-group"/>
-			</div>
-			<div id="npcROC" class="container tab-pane fade">
-				<h3>Changes the species config of Random Outpost NPCs.</h3>
-				<h5>NOT USED YET</h5>
-				<ul class="list-group"/>
-			</div>
-		</div>
-		<br/>
-		<!--[if !IE]><!-->
+	<!--[if !IE]><!-->
+	<header class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top justify-content-center">
 		<div class="btn-group">
 			<button class="btn btn-danger" id="removeAll" data-toggle="modal">Remove All</button>
 			<button class="btn btn-warning" id="removeVisible" onclick="removeVisible(event)">Remove Visible</button>
@@ -111,8 +33,194 @@
 			<button class="btn btn-success" onclick="iimport()">Import JSON</button>
 			<button class="btn btn-success" onclick="download()" id="download">Download Mod</button>
 		</div>
-		<input type="file" class="form-control-file" id="iimport" accept=".DyS.json" placeholder="Choose File to Import"/>
-		<!--<![endif]-->
+	</header>
+	<!--<![endif]-->
+	<br/>
+	<div class="container-fluid row" id="container">
+		<span class="col-sm-10" id="body">
+			<div class="alert alert-success d-flex">
+				<div class="p-2">Path to Local:&nbsp;</div>
+				<input class="p-2 flex-grow-1 code" id="path" disabled />
+			</div>
+			<div>
+				<label class="form-control">
+					<input id="speciesInput" type="text" placeholder="Search Species... EX: ^kazdra$|hum|^[a-b]|Ar(gon)?i|^s[^a-d]+"/>
+					<label class="switch float-right" style="position:relative;bottom:4px" data-toggle="tooltip" data-placement="left" title="Enable RegExp support">
+						<input type="checkbox" id="RegExp"/>
+						<span class="slider round"></span>
+					</label>
+				</label>
+				<br/>
+				<ul class="list-group" id="speciesList" style="height:25vh;overflow:auto"/>
+			</div>
+			<ul class="nav nav-tabs" role="tablist" id="npcTab">
+				<li class="nav-item">
+					<a class="nav-link active" data-toggle="tab" data-hash="#npcGeneric">Generic <span class="badge badge-primary">&#x2713;</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="tab" data-hash="#npcScientific">Scientific <span class="badge badge-primary">&#x2713;</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="tab" data-hash="#npcCult">Cult <span class="badge badge-primary">&#x2713;</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="tab" data-hash="#npcPirate">Pirate <span class="badge badge-primary">&#x2713;</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="tab" data-hash="#npcMerchant">Merchant <span class="badge badge-primary">&#x2713;</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="tab" data-hash="#npcBandit">Bandit <span class="badge badge-primary">&#x2713;</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="tab" data-hash="#npcROC">Outpost <span class="badge badge-primary">&#x2713;</span></a>
+				</li>
+			</ul>
+			<div class="tab-content" id="npcList">
+				<div id="npcGeneric" class="container tab-pane active">
+					<h3>Changes the species config of Generic NPCs.</h3>
+					<h5>Ex. Space Stations, Space Hotel</h5>
+					<ul class="list-group"/>
+				</div>
+				<div id="npcScientific" class="container tab-pane fade">
+					<h3>Changes the species config of Scientist NPCs.</h3>
+					<h5>Ex. Labs</h5>
+					<ul class="list-group"/>
+				</div>
+				<div id="npcCult" class="container tab-pane fade">
+					<h3>Changes the species config of Cult NPCs.</h3>
+					<h5>Ex. Random Encounters</h5>
+					<ul class="list-group"/>
+				</div>
+				<div id="npcPirate" class="container tab-pane fade">
+					<h3>Changes the species config of Space Pirate NPCs.</h3>
+					<h5>Ex. Pirate Ships</h5>
+					<ul class="list-group"/>
+				</div>
+				<div id="npcMerchant" class="container tab-pane fade">
+					<h3>Changes the species config of Merchant NPCs.</h3>
+					<h5>Ex. Merchant Ship, Industrial Merchant Ship.</h5>
+					<ul class="list-group"/>
+				</div>
+				<div id="npcBandit" class="container tab-pane fade">
+					<h3>Changes the species config of Bandit NPCs.</h3>
+					<h5>Ex. Random Encounters</h5>
+					<ul class="list-group"/>
+				</div>
+				<div id="npcROC" class="container tab-pane fade">
+					<h3>Changes the species config of Random Outpost NPCs.</h3>
+					<h5>NOT USED YET</h5>
+					<ul class="list-group"/>
+				</div>
+			</div>
+		</span>
+		<span class="col-sm-2" style="width:100%" data-pause="hover" id="side">
+		<div class="carousel slide" data-ride="carousel" id="side2">
+			 <ul class="carousel-indicators invert">
+				<li data-target="#side2" data-slide-to="0" class="active"/>
+				<li data-target="#side2" data-slide-to="1"/>
+				<li data-target="#side2" data-slide-to="2"/>
+				<li data-target="#side2" data-slide-to="3"/>
+			</ul>
+			<div class="carousel-inner">
+				<div class="card carousel-item active">
+					<img class="card-img-top" src="https://avatars3.githubusercontent.com/u/27376918?s=460&v=4" alt="zekrom_vale">
+					<div class="card-body">
+						<h4 class="card-title">zekrom_vale</h4>
+						<p class="card-text">
+							Developer of the Kazdra Recipes and Fixes Patch, it's additions varent, as well as Multicraft API.
+							Devoted self taught programmer of numerous 
+							<a data-toggle="tooltip" title="TI-basic, HTML, CSS, XML, JavaScript, JSON, Lua, C#" class="help">
+								languages
+							</a> and programs.
+						</p>
+						<a href="https://github.com/zekrom-vale" class="btn btn-primary">Github Profile</a>
+					</div>
+				</div>
+				<div class="card carousel-item">
+					<img class="card-img-top" src="https://image.freepik.com/free-icon/exe-file_318-10079.jpg" alt="EXE File" data-toggle="popover" data-trigger="hover" title="Image by flaticon" data-content="From freepik.com/free-icon/exe-file_695081.htm">
+					<div class="card-body">
+						<h4 class="card-title">The Local Component</h4>
+						<p class="card-text">
+							Required to create the working mod in the end.
+						</p>
+						<a href="https://github.com/zekrom-vale/DynamicSpawn/tree/c%23" class="btn btn-primary">Download Now!</a>
+					</div>
+				</div>
+				<div class="card carousel-item" style="overflow-y:auto;padding:10px 5px;">
+					<div class="card-body">
+						<h5 class="card-title">[rR]eg(ular )?[eE]xp(ression)?</h5>
+						<h4><-- Turn On</h4>
+						<h6>A powerful syntax used to match text</h6>
+						<ul class="list-group">
+							<li class="list-group-item">
+								<kbd>.</kbd> Matches any one character
+							</li>
+							<li class="list-group-item">
+								<kbd>\d</kbd> Matches any digit
+							</li>
+							<li class="list-group-item">
+								<kbd>\w</kbd> Matches any alphanumeric character. Equivalent to <code>[A-Za-z0-9_]</code>
+							</li>
+							<li class="list-group-item">
+								<kbd>\</kbd> Matches characters literally or to escape special meanings like <code>\w</code>, <code>\d</code>
+							</li>
+							<li class="list-group-item">
+								<kbd>[]</kbd> Character set, matches any  enclosed characters. <kbd>-</kbd> is used as a range
+							</li>
+							<li class="list-group-item">
+								<kbd>[^]</kbd> Negated character set, will not match enclosed characters.
+							</li>
+							<li class="list-group-item">
+								<kbd>()</kbd> Group, groups characters together
+							</li>
+							<li class="list-group-item">
+								<kbd>|</kbd> Alteration, either or.
+							</li>
+							<li class="list-group-item">
+								<kbd>^</kbd> Matches start
+							</li>
+							<li class="list-group-item">
+								<kbd>$</kbd> Matches end
+							</li>
+							<li class="list-group-item">
+								<kbd>*</kbd> Matches 0 or more
+							</li>
+							<li class="list-group-item">
+								<kbd>+</kbd> Matches 1 or more
+							</li>
+							<li class="list-group-item">
+								<kbd>?</kbd> Matches 0 or 1
+							</li>
+						</ul>
+						<div class="btn-group btn-group-sm" style="margin-top:5px;">
+							<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp" class="btn btn-primary">moz://a</a>
+							<a href="https://www.w3schools.com/jsref/jsref_obj_regexp.asp" class="btn btn-primary">w3schools</a>
+						</div>
+					</div>
+				</div>
+				<div class="card carousel-item">
+					<img class="card-img-top" src="">
+					<div class="card-body">
+						<h4 class="card-title">You Ad Here</h4>
+						<p class="card-text">
+							For $2 a month you could host your ad on this site. Use <a data-toggle="tooltip" title="Bootstrap4 and jQuery available" class="help">HTML/CSS/JS</a> or any image.
+						</p>
+						<small>
+							Your ad must comply to my standards. No adult content, no scams, no political junk, no misleading information, no malware, ect.
+						</small>
+						<!--<a href="" class="btn btn-primary">Contact NOW!</a>-->
+					</div>
+				</div>
+			</div>
+			<a class="carousel-control-prev invert" href="#side2" data-slide="prev">
+				<span class="carousel-control-prev-icon"/>
+			</a>
+			<a class="carousel-control-next invert" href="#side2" data-slide="next">
+				<span class="carousel-control-next-icon"/>
+			</a>
+		</div>
+		</span>
 	</div>
 </body>
 <scripts hidden>
@@ -126,7 +234,7 @@
 		.active-npcGeneric{
 			z-index:2;
 			color:#fff;
-			background-color:#007bff;
+			background-color:#007bff!important;
 			border-color:#007bff;
 		}
 	</style>
@@ -134,6 +242,7 @@
 </scripts>
 <!--[if !IE]><!-->
 <div class="modal" id="modal">
+	<input type="file" id="iimport" accept=".DyS.json"/>
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
