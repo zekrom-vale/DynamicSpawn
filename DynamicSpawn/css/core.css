@@ -1,3 +1,5 @@
+@import "techScrollBar.css";
+@import "media.css";
 #npcList>div>ul{
 	height:25vh;
 	overflow:auto;
@@ -40,17 +42,18 @@ div>div.alert-success.d-flex>.p-2,
 	background-color:#ccc;
 	-webkit-transition:.4s;
 	transition:.4s;
-	&::before{
-		position:absolute;
-		content:"";
-		height:26px;
-		width:26px;
-		left:4px;
-		bottom:4px;
-		background-color:white;
-		-webkit-transition:.4s;
-		transition:.4s;
-	}
+}
+
+.slider::before{
+	position:absolute;
+	content:"";
+	height:26px;
+	width:26px;
+	left:4px;
+	bottom:4px;
+	background-color:white;
+	-webkit-transition:.4s;
+	transition:.4s;
 }
 
 input:checked + .slider{
@@ -69,9 +72,10 @@ input:checked + .slider::before{
 
 .slider.round{
 	border-radius:34px;
-	&::before{
-		border-radius:50%;
-	}
+}
+
+.slider.round::before{
+	border-radius:50%;
 }
 
 #path>*>textarea:focus,
