@@ -10,14 +10,29 @@ saveData=(function(){
 		a.click();
 		window.URL.revokeObjectURL(url);
 	};
-	//https://jsfiddle.net/koldev/cW7W5/
+	//https://jsfiddle.net/koldev/cW7W5
 }());
 });
 
-function getCookie(n){
-	let ca=decodeURIComponent(document.cookie).split(';');
-	n=new RegExp(`^\s*${n}=`);
-	for(var i in ca)if(n.test(ca[i]))return ca[i].slice(n.length);
+var getData,setData;
+if(localStorage){
+	getData=function(n){
+		return localStorage.getItem(n);
+	}
+	setData=function(v,s){
+		localStorage.setItem(v,s);
+	}
+}
+else{
+	getData=function(n){
+		var ca=decodeURIComponent(document.cookie).split(';'),
+		_n=n.length;
+		n=new RegExp(`^${n}=`);
+		for(var i in ca)if(n.test(ca[i]))return ca[i].slice(_n+1);
+	}
+	setData=function(v,s,e){
+		document.cookie=`${v}=${s};expires=${dayPlus(e)}`;
+	}
 }
 
 function dayPlus(a){
@@ -82,9 +97,9 @@ function popup(mesage,type="danger",id,loc){
 		btn.dataset.dismiss="alert";
 		btn.innerHTML="&times;";
 	if(loc)div.classList.add("loc");
+	else window.scrollTo(0,0);
 	div.appendChild(btn);
 	document.getElementById("container").prepend(div);
-	window.scrollTo(0,0);
 }
 
 function over(l,a,e){

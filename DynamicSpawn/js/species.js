@@ -202,7 +202,3 @@ function getLi(){
 	}
 	return arr;
 }
-
-window.addEventListener("beforeunload",()=>{
-	document.cookie=`value=${JSON.stringify(getLi())};expires=${dayPlus(90)}`;
-});

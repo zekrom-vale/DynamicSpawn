@@ -60,7 +60,7 @@ else location.hash="npcGeneric";
 	}
 }
 //--------------- Get Cookie Value ---------------
-let c=getCookie("value");
+let c=getData("value");
 if(c){
 	let item=JSON.parse(c);
 	for(var i in item)for(var n in item[i])setLi(i,item[i][n]);
@@ -132,4 +132,8 @@ over("addVisible","Add All Visible");
 	});
 }
 $('[data-toggle="popover"]').popover()
+});
+
+window.addEventListener("beforeunload",()=>{
+	setData("value",JSON.stringify(getLi()),90);
 });
