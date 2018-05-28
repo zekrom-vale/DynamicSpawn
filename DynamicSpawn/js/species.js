@@ -1,9 +1,9 @@
 "use strict";
 function addVisible(event){
-	var li=$("#speciesList>li.list-group-item"),
+	var li=elm.speciesList.querySelectorAll("li.list-group-item"),
 	_l=li.length;
 	if(event.shiftKey){
-		var base=document.querySelectorAll("#npcTab>li.nav-link-sel>a"),
+		var base=elm.npcTab.querySelectorAll("li.nav-link-sel>a"),
 		uls=[],
 		css=[],
 		_b=base.length;
@@ -37,10 +37,10 @@ function addVisible(event){
 }
 
 function removeVisible(event){
-	var li=$("#speciesList>li.list-group-item"),
+	var li=elm.speciesList.querySelectorAll("li.list-group-item"),
 	_l=li.length;
 	if(event.shiftKey){
-		var base=document.querySelectorAll("#npcTab>li.nav-link-sel>a"),
+		var base=elm.npcTab.querySelectorAll("li.nav-link-sel>a"),
 		_b=base.length;
 		for(var n=0;n<_b;n++){
 			var css="active-"+base[n].dataset.hash.slice(1);

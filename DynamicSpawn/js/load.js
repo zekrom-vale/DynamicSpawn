@@ -1,7 +1,13 @@
 "use strict";
 var saveData;
+const elm={};
 
 window.addEventListener("load",()=>{
+//--------------- Set Up References ---------------
+if(elm.length>0)location.reload;
+elm.npcTab=document.getElementById("npcTab");
+elm.speciesList=document.getElementById("speciesList");
+Object.freeze(elm);
 {//--------------- Get Path ---------------
 	let q=location.search.slice(1).split("&"),
 	qi;
@@ -23,7 +29,7 @@ window.addEventListener("load",()=>{
 	else{
 		let e=()=>{
 			alertModal("No path found","Would you like to download the local component of Dynamic Spawn?<br/>If not, you still can create a list for later",{
-				"resolve":[()=>{location.href="https://github.com/zekrom-vale/DynamicSpawn/tree/c%23"}],
+				"resolve":[()=>{location.assign("https://github.com/zekrom-vale/DynamicSpawn/tree/c%23")}],
 				"reject":[()=>{document.getElementById("download").disabled=true;}]
 			});
 		}
@@ -40,8 +46,7 @@ if(location.hash){
 }
 else location.hash="npcGeneric";
 {//--------------- Generate speciesList ---------------
-	let[li,btn,img,div]=baseLi,
-	base=document.getElementById("speciesList");
+	let[li,btn,img,div]=baseLi;
 	for(var i in species){
 		let el=li.cloneNode();
 		el.setAttribute("value",species[i].value);
@@ -56,7 +61,7 @@ else location.hash="npcGeneric";
 				imgM2.src=species[i].img[1];
 				b.append(imgM,imgM2);
 		el.append(b,div.cloneNode(true));
-		base.append(el);
+		elm.speciesList.append(el);
 	}
 }
 //--------------- Get Cookie Value ---------------
@@ -114,7 +119,7 @@ over("addVisible","Add All Visible");
 		else alertModal(`Remove all items from the ${event.shiftKey?"selected":"current"} list${event.shiftKey?"(s)":""}?`,"This Cannot be undone!",{"resolve":[core,event]});
 		function core(event){
 			if(event.shiftKey){
-				var sel=$("#npcTab>li.nav-link-sel>a"),
+				var sel=elm.npcTab.querySelectorAll("li.nav-link-sel>a"),
 				_l=sel.length,
 				hashs=[];
 				for(var i=0;i<_l;i++){
@@ -122,16 +127,16 @@ over("addVisible","Add All Visible");
 					hashs[i]="active-"+hash.slice(1);
 					$(`${hash}:First ul:First`).empty();
 				}
-				$(`#speciesList li`).removeClass(hashs.join(" "));
+				elm.speciesList.getElementsByTagName("li").removeClass(hashs.join(" "));
 			}
 			else{
-				$(`#speciesList li`).removeClass("active-"+location.hash.slice(1));
+				elm.speciesList.getElementsByTagName("li").removeClass("active-"+location.hash.slice(1));
 				$(`${location.hash}:First ul:First`).empty();
 			}
 		}
 	});
 }
-$('[data-toggle="popover"]').popover()
+$('[data-toggle="popover"]').popover();
 });
 
 window.addEventListener("beforeunload",()=>{

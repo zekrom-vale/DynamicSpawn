@@ -13,8 +13,8 @@ function download(){
 		else if(f===0)arr[i++]=`${n}:"${ob[n].join(",")}"`;
 	}
 	if(f>0){
-		for(var i in arrF)arrF[i]=document.querySelector(
-		`#npcTab>li:nth-child(${arrF[i]})>a`).innerHTML.replace(/ <span class="badge badge-primary">.<\/span>$/,"");
+		for(var i in arrF)arrF[i]=elm.npcTab.querySelector(
+		`li:nth-child(${arrF[i]})>a`).innerHTML.replace(/ <span class="badge badge-primary">.<\/span>$/,"");
 		document.getElementById("modalCancel").style.display="none";
 		alertModal("Cannot download!","No Species exist in "+arrF.join(", "),{"finally":[e]});
 		function e(){
