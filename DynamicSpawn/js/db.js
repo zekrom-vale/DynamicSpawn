@@ -1,3 +1,4 @@
+//https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Client-side_storage
 //Database set up
 var db;
 /*window.addEventListener("load",()=>{
@@ -57,16 +58,18 @@ function DBsetUp(name,value,key,items,f){
 	});
 }
 
-function dbAddData(name,value,element){
+function dbAddData(name,value,element,f){
 	if(element)element.preventDefault();
 	var transaction=db.transaction([name],'readwrite');
 	store=transaction.objectStore(name);
 	var request=objectStore.add(value);
 	request.addEventListener("success",()=>{
-		f.success()
+		if(f.success.length===1)f.success[0]();
+		else f.success[0](...f.success.slice(1));
 	});
 	transaction.addEventListener("complete",()=>{
-		f.complete();
+		if(f.complete.length===1)f.complete[0](request.result);
+		else f.complete[0](request.result,...f.complete.slice(1));
 		
 		var store=db.transaction(name).objectStore(name);
 		store.openCursor().addEventListener("success",(storage)=>{
@@ -75,7 +78,8 @@ function dbAddData(name,value,element){
 				arr.push(storage.value);
 				storage.continue();
 			}
-			f.display(arr)
+			if(f.display.length===1)f.display[0](arr);
+			else f.display[0](arr,...f.display.slice(1));
 		});
 	});
 	transaction.addEventListener("error",()=>{
