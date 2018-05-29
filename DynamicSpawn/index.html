@@ -1,15 +1,19 @@
 <!DOCTYPE html>
-<html lang="en-US" data-author="zekrom-vale">
-<head>
+<html lang="en-US" data-author="zekrom-vale" data-game="Starbound" data-version="5" data-require="Bootstrap4,jQuery,popper">
+<head id="top">
 	<meta name="charset" content="UTF-8"/>
 	<title>Dynamic Spawn Creator</title>
 	<!--Meta-->
 	<meta name="viewport" content="width=device-width,initial-scale=1"/>
 	<meta name="author" content="zekrom_vale"/>
 	<meta name="description" content="Create your own mod! Chose the NPCs you want to spawn in Starbound."/>
+	<meta name="game" content="Starbound"/>
 	<meta name="generator" content="Notepad++"/>
-	<meta name="extensions" content="Bootstrap4,jQuery,popper*"/>
 	<meta name="keywords" content="Starbound,NPC,Spawning,Mod,Dynamic Mod"/>
+	<meta name="month" content="5"/>
+	<meta name="monthname" content="May"/>
+	<meta name="year" content="2018"/>
+	<meta name="yearshort" content="18"/>
 
 	<meta name="creator" content="zekrom_vale"/>
 	<meta name="robots" content="nofollow"/>
@@ -21,26 +25,22 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"/>
 </head>
 <body>
-<!--[if IE]>
-	<script>
-	alert("This page is incompatible with Internet Explorer.\nPlease copy the entire link and paste it into modern browser.\nEx: Google Chrome or Firefox");
-	</script>
-<![endif]-->
+<!--[if IE]><script>alert("This page is incompatible with Internet Explorer.\nPlease copy the entire link and paste it into modern browser.\nEx: Google Chrome or Firefox");</script><![endif]-->
 	<!--[if !IE]><!-->
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top justify-content-center">
 		<div class="btn-group">
-			<button class="btn btn-danger" id="removeAll" data-toggle="modal">Remove All</button>
-			<button class="btn btn-warning" id="removeVisible" onclick="removeVisible(event)">Remove Visible</button>
-			<button class="btn btn-primary" id="addVisible" onclick="addVisible(event)">Add Visible</button>
-			<button class="btn btn-success" onclick="iexport()">Export JSON</button>
-			<button class="btn btn-success" onclick="iimport()">Import JSON</button>
-			<button class="btn btn-info" onclick="download()" id="download">Download Mod</button>
+			<button class="btn btn-danger" accesskey="del delete bak backspace bks" id="removeAll" data-toggle="modal">Remove All</button>
+			<button class="btn btn-warning" accesskey="- r" id="removeVisible" onclick="removeVisible(event)">Remove Visible</button>
+			<button class="btn btn-primary" accesskey="+ a" id="addVisible" onclick="addVisible(event)">Add Visible</button>
+			<button class="btn btn-success" accesskey="e" onclick="iexport()">Export JSON</button>
+			<button class="btn btn-success" accesskey="i u up" onclick="iimport()">Import JSON</button>
+			<button class="btn btn-info" accesskey="d down" onclick="download()" id="download">Download Mod</button>
 		</div>
 	</nav>
 	<!--<![endif]-->
 	<br/>
-	<div class="container-fluid row" id="container">
-		<main class="col-sm-10" id="body" roll="span">
+	<div class="container-fluid row ad ad-box" id="container">
+		<main as="span" class="col-sm-10" id="body" roll="span">
 			<div class="alert alert-success d-flex">
 				<div class="p-2">Path<span id="toLocal"> to Local</span>:&nbsp;</div>
 				<input class="p-2 flex-grow-1 code" id="path" disabled />
@@ -117,7 +117,7 @@
 				</div>
 			</div>
 		</main>
-		<aside class="col-sm-2" style="width:100%" data-pause="hover" id="side" roll="span">
+		<aside as="span" class="col-sm-2" style="width:100%" data-pause="hover" id="side" roll="span">
 		<div class="carousel slide" data-ride="carousel" id="side2">
 			 <ul class="carousel-indicators invert">
 				<li data-target="#side2" data-slide-to="0" class="active"/>
@@ -127,22 +127,22 @@
 			</ul>
 			<div class="carousel-inner">
 				<div class="card carousel-item active">
-					<img class="card-img-top" src="https://avatars3.githubusercontent.com/u/27376918?s=460&v=4" alt="zekrom_vale">
+					<img class="card-img-top" crossorigin="anonymous" src="https://avatars3.githubusercontent.com/u/27376918" alt="zekrom_vale's avatar">
 					<div class="card-body">
 						<h4 class="card-title">zekrom_vale</h4>
 						<p class="card-text">
 							Developer of the Kazdra Recipes and Fixes Patch, it's additions varent, as well as Multicraft API.
 							Devoted self taught programmer of numerous <a data-toggle="tooltip" title="TI-basic, HTML, CSS, XML, JavaScript, JSON, SVG, Lua, Bootstrap4, C#" class="help">languages</a> and programs.
 						</p>
-						<a href="https://github.com/zekrom-vale" class="btn btn-primary">Github Profile</a>
+						<a rel="external" href="https://github.com/zekrom-vale" class="btn btn-primary">Github Profile</a>
 					</div>
 				</div>
 				<div class="card carousel-item">
-					<img class="card-img-top" src="img/exe.svg" alt="EXE File" data-toggle="popover" data-trigger="hover" title="Image by Freepik" data-content="From freepik.com/free-icon/exe-file_695081.htm Licensed by Creative Commons BY 3.0"/>
+					<img class="card-img-top" src="img/exe.svg" alt="An icon of an EXE file" data-toggle="popover" data-trigger="hover" title="Image by Freepik" data-content="From freepik.com/free-icon/exe-file_695081.htm Licensed by Creative Commons BY 3.0"/>
 					<div class="card-body">
 						<h4 class="card-title">The Local Component</h4>
 						<p class="card-text">Required to create the working mod in the end.</p>
-						<a href="https://github.com/zekrom-vale/DynamicSpawn/tree/c%23" class="btn btn-primary">Download Now!</a>
+						<a rel="external" href="https://github.com/zekrom-vale/DynamicSpawn/tree/c%23" class="btn btn-primary">Download Now!</a>
 					</div>
 				</div>
 				<div class="card carousel-item" style="overflow-y:auto;padding:10px 5px;">
@@ -195,8 +195,8 @@
 							</li>
 						</ul>
 						<div class="btn-group btn-group-sm" style="margin-top:5px;">
-							<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp" class="btn btn-primary">moz://a</a>
-							<a href="https://www.w3schools.com/jsref/jsref_obj_regexp.asp" class="btn btn-primary">w3schools</a>
+							<a rel="external" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp" class="btn btn-primary">moz://a</a>
+							<a rel="external" href="https://www.w3schools.com/jsref/jsref_obj_regexp.asp" class="btn btn-primary">w3schools</a>
 						</div>
 					</div>
 				</div>
@@ -207,7 +207,7 @@
 							For $2 a month you could host your ad on this site. Use <a data-toggle="tooltip" title="Bootstrap4 and jQuery available" class="help">HTML/CSS/JS</a> or any image.
 						</p>
 						<small>Your ad must comply to my standards. No adult content, no scams, no political junk, no misleading information, no malware, ect.</small>
-						<!--<a href="" class="btn btn-primary">Contact NOW!</a>-->
+						<!--<a rel="external" href="" class="btn btn-primary">Contact NOW!</a>-->
 					</div>
 				</div>
 			</div>
@@ -218,7 +218,7 @@
 	</div>
 </body>
 <!--[if !IE]><!-->
-<div hidden data-type="text/javascript,text/css" data-nodes="script,style,a,input">
+<scripts is="div" roll="div" hidden data-type="text/javascript,text/css" data-version="6" data-nodes="script,style,a,input">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="js/util.js"></script>
 	<script src="js/speciesList.js"></script>
@@ -238,7 +238,7 @@
 	<input type="file" id="iimport" accept=".DyS.json"/>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-</div>
+</scripts>
 <!--[if !IE]><!-->
 <div class="modal" id="modal">
 	<div class="modal-dialog">
