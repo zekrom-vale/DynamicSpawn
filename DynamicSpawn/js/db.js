@@ -52,9 +52,9 @@ function DBsetUp(name,value,key,items,f){
 		var store=db.createObjectStore(name,{keyPath:name+"id",autoIncrement:true});
 		if(key){
 			let keys=getDeepKeys(items);
-			for(var i in keys)store.createIndex(items[i],items[i],{unique:true,multiEntry:/\d$/.test(keys)});
+			for(let i in keys)store.createIndex(items[i],items[i],{unique:true,multiEntry:/\d$/.test(keys)});
 		}
-		else for(var i in items)store.createIndex(items[i],items[i],{unique:true,multiEntry:/\d$/.test(items)});
+		else for(let i in items)store.createIndex(items[i],items[i],{unique:true,multiEntry:/\d$/.test(items)});
 	});
 }
 
