@@ -6,7 +6,7 @@ document.getElementById("speciesInput").addEventListener("keyup",event=>{
 		if(event.shiftKey){
 			let els=$("li.nav-link-sel>a.nav-link"),
 			_l=els.length;
-			for(var i=0;i<_l;i++){
+			for(let i=0;i<_l;i++){
 				let ul=document.querySelector(els[i].dataset.hash+">ul");
 				if(!ul.querySelector(`#npcList li[value="${species}"]`))ul.prepend(el.cloneNode(true));
 			}
@@ -14,7 +14,7 @@ document.getElementById("speciesInput").addEventListener("keyup",event=>{
 		else if(event.ctrlKey){
 			let els=$("li>a.nav-link"),
 			_l=els.length;
-			for(var i=0;i<_l;i++){
+			for(let i=0;i<_l;i++){
 				let ul=document.querySelector(els[i].dataset.hash+">ul");
 				if(!ul.querySelector(`#npcList li[value="${species}"]`))ul.prepend(el.cloneNode(true));
 			}
@@ -28,7 +28,7 @@ document.getElementById("speciesInput").addEventListener("keyup",event=>{
 });
 
 var customNPC=(function(){
-	var[li,btn,img,div]=baseLi,
+	var[li,btn,img,img2,div]=baseLi,
 	el=li.cloneNode();
 	el.classList.add("custom-species");
 	var b=btn.cloneNode();
@@ -37,10 +37,8 @@ var customNPC=(function(){
 		divM.firstChild.setAttribute("onclick","addToAllC(this,event)");
 		divM.childNodes[1].setAttribute("onclick","removeFromAllC(this,event)");
 	var imgM=img.cloneNode();
-		imgM.classList.add("off");
 		imgM.src="img/tab_other.png";
-	var imgM2=img.cloneNode();
-		imgM2.classList.add("on");
+	var imgM2=img2.cloneNode();
 		imgM2.src="img/tab_other_select.png";
 		b.append(imgM,imgM2);
 	return[el,b,imgM,imgM2,divM];
@@ -64,19 +62,19 @@ function modifyContC(el){
 
 function addToAllC(el,event){
 	var elp=el.parentNode.parentNode,
-	spawns=$("#npcList ul"),
-	base=$("#npcList>div"),
-	arr=[],
-	_b=base.length;
-	if(event.shiftKey)for(var i=0;_b>i;i++){
+	spawns=elm.npcList.getElementsByTagName("ul"),
+	base=elm.npcList.getElementsByTagName("div"),
+	arr=[];
+	const _b=base.length;
+	if(event.shiftKey)for(let i=0;_b>i;i++){
 		if(!document.querySelector(`[data-hash="#${base[i].id}"]`).parentNode.classList.contains("nav-link-sel"))arr[i]=false;
 		else if(base[i].querySelector(`ul>li[value="${elp.getAttribute("value")}"]`))arr[i]=false;
 	}
-	else for(var i=0;_b>i;i++){
+	else for(let i=0;_b>i;i++){
 		if(base[i].querySelector(`ul>li[value="${elp.getAttribute("value")}"]`))arr[i]=false;
 	}
-	var _s=spawns.length;
-	for(var i=0;_s>i;i++)if(arr[i]!=false){
+	const _s=spawns.length;
+	for(let i=0;_s>i;i++)if(arr[i]!=false){
 		let li=elp.cloneNode(true);
 		li.setAttribute("onclick","removeEl(this)");
 		li.id="";
@@ -86,16 +84,16 @@ function addToAllC(el,event){
 
 function removeFromAllC(el,event){
 	var elp=el.parentNode.parentNode,
-	arr=document.querySelectorAll(`#npcList li.list-group-item[value="${elp.getAttribute("value")}"]`),
+	arr=elm.npcList.querySelectorAll(`li.list-group-item[value="${elp.getAttribute("value")}"]`),
 	_l=arr.length;
 	if(event.shiftKey){
-		for(var i=0;i<_l;i++){
+		for(let i=0;i<_l;i++){
 			if(document.querySelector(`[data-hash="#${arr[i].parentNode.parentNode.id}"]`).parentNode.classList.contains("nav-link-sel")){
 				arr[i].parentNode.removeChild(arr[i]);
 			}
 		}
 	}
-	else for(var i=0;i<_l;i++){
+	else for(let i=0;i<_l;i++){
 		arr[i].parentNode.removeChild(arr[i]);
 	}
 }

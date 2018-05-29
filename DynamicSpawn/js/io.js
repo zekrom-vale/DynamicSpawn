@@ -8,12 +8,12 @@ function download(){
 	arrF=[],
 	i=0,
 	f=0;
-	for(var n in ob){
+	for(let n in ob){
 		if(ob[n].length<1)arrF[f++]=++i;
 		else if(f===0)arr[i++]=`${n}:"${ob[n].join(",")}"`;
 	}
 	if(f>0){
-		for(var i in arrF)arrF[i]=elm.npcTab.querySelector(
+		for(let i in arrF)arrF[i]=elm.npcTab.querySelector(
 		`li:nth-child(${arrF[i]})>a`).innerHTML.replace(/ <span class="badge badge-primary">.<\/span>$/,"");
 		document.getElementById("modalCancel").style.display="none";
 		alertModal("Cannot download!","No Species exist in "+arrF.join(", "),{"finally":[e]});
@@ -52,7 +52,7 @@ window.addEventListener("load",()=>{
 		fr.addEventListener('loadend',txt=>{
 			txt=txt.srcElement.result;
 			var item=JSON.parse(txt);
-			for(var i in item)for(var n in item[i])setLi(i,item[i][n]);
+			for(let i in item)for(let n in item[i])setLi(i,item[i][n]);
 		});
 		fr.readAsText(document.getElementById("iimport").files[0]);
 	});

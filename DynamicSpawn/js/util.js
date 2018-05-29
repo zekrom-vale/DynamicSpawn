@@ -24,22 +24,22 @@ if(localStorage){
 	}
 }
 else{
+	function dayPlus(a){
+		let d=new Date();
+		d.setTime(d.getTime()+(a*86400000));
+		return d.toUTCString();
+	}
 	getData=function(n){
-		var ca=decodeURIComponent(document.cookie).split(';'),
-		_n=n.length;
+		var ca=decodeURIComponent(document.cookie).split(';');
+		const _n=n.length;
 		n=new RegExp(`^${n}=`);
-		for(var i in ca)if(n.test(ca[i]))return ca[i].slice(_n+1);
+		for(let i in ca)if(n.test(ca[i]))return ca[i].slice(_n+1);
 	}
 	setData=function(v,s,e){
 		document.cookie=`${v}=${s};expires=${dayPlus(e)}`;
 	}
 }
 
-function dayPlus(a){
-	let d=new Date();
-	d.setTime(d.getTime()+(a*86400000));
-	return d.toUTCString();
-}
 function alertModal(modalHead="",modalBody="",f){
 	document.getElementById("modalHead").innerHTML=modalHead;
 	document.getElementById("modalBody").innerHTML=modalBody;
