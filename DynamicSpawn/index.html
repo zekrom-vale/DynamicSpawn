@@ -1,24 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-US" data-author="zekrom-vale">
 <head>
 	<meta name="charset" content="UTF-8"/>
 	<title>Dynamic Spawn Creator</title>
-		<meta name="viewport" content="width=device-width,initial-scale=1"/>
-		<meta name="author" content="zekrom_vale"/>
-		<meta name="description" content="Create your own mod! Chose the NPCs you want to spawn in Starbound."/>
-		<meta name="generator" content="Notepad++"/>
-		<meta name="extensions" content="Bootstrap4,jQuery,popper*"/>
-		<meta name="keywords" content="Starbound,NPC,Spawning,Mod,Dynamic Mod"/>
+	<!--Meta-->
+	<meta name="viewport" content="width=device-width,initial-scale=1"/>
+	<meta name="author" content="zekrom_vale"/>
+	<meta name="description" content="Create your own mod! Chose the NPCs you want to spawn in Starbound."/>
+	<meta name="generator" content="Notepad++"/>
+	<meta name="extensions" content="Bootstrap4,jQuery,popper*"/>
+	<meta name="keywords" content="Starbound,NPC,Spawning,Mod,Dynamic Mod"/>
 
-		<meta name="creator" content="zekrom_vale"/>
-		<meta name="robots" content="nofollow"/>
+	<meta name="creator" content="zekrom_vale"/>
+	<meta name="robots" content="nofollow"/>
+	<!--links-->
 	<link rel="icon" type="image/svg+xml" href="img/icon.svg"/>
 	<link rel="icon" type="image/png" href="img/icon.png"/>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"/>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="css/core.css"/>
+	<!--Extension links-->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"/>
 </head>
 <body>
 <!--[if IE]>
@@ -27,7 +27,7 @@
 	</script>
 <![endif]-->
 	<!--[if !IE]><!-->
-	<header class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top justify-content-center">
+	<nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top justify-content-center">
 		<div class="btn-group">
 			<button class="btn btn-danger" id="removeAll" data-toggle="modal">Remove All</button>
 			<button class="btn btn-warning" id="removeVisible" onclick="removeVisible(event)">Remove Visible</button>
@@ -36,11 +36,11 @@
 			<button class="btn btn-success" onclick="iimport()">Import JSON</button>
 			<button class="btn btn-info" onclick="download()" id="download">Download Mod</button>
 		</div>
-	</header>
+	</nav>
 	<!--<![endif]-->
 	<br/>
 	<div class="container-fluid row" id="container">
-		<span class="col-sm-10" id="body">
+		<main class="col-sm-10" id="body" roll="span">
 			<div class="alert alert-success d-flex">
 				<div class="p-2">Path<span id="toLocal"> to Local</span>:&nbsp;</div>
 				<input class="p-2 flex-grow-1 code" id="path" disabled />
@@ -116,8 +116,8 @@
 					<ul class="list-group"/>
 				</div>
 			</div>
-		</span>
-		<span class="col-sm-2" style="width:100%" data-pause="hover" id="side">
+		</main>
+		<aside class="col-sm-2" style="width:100%" data-pause="hover" id="side" roll="span">
 		<div class="carousel slide" data-ride="carousel" id="side2">
 			 <ul class="carousel-indicators invert">
 				<li data-target="#side2" data-slide-to="0" class="active"/>
@@ -132,10 +132,7 @@
 						<h4 class="card-title">zekrom_vale</h4>
 						<p class="card-text">
 							Developer of the Kazdra Recipes and Fixes Patch, it's additions varent, as well as Multicraft API.
-							Devoted self taught programmer of numerous 
-							<a data-toggle="tooltip" title="TI-basic, HTML, CSS, XML, JavaScript, JSON, Lua, C#" class="help">
-								languages
-							</a> and programs.
+							Devoted self taught programmer of numerous <a data-toggle="tooltip" title="TI-basic, HTML, CSS, XML, JavaScript, JSON, SVG, Lua, Bootstrap4, C#" class="help">languages</a> and programs.
 						</p>
 						<a href="https://github.com/zekrom-vale" class="btn btn-primary">Github Profile</a>
 					</div>
@@ -166,6 +163,7 @@
 							<li class="list-group-item">
 								<kbd>\</kbd> Matches characters literally or to escape special meanings like <code>\w</code>, <code>\d</code>
 							</li>
+							<hr/>
 							<li class="list-group-item">
 								<kbd>[]</kbd> Character set, matches any  enclosed characters. <kbd>-</kbd> is used as a range
 							</li>
@@ -175,6 +173,7 @@
 							<li class="list-group-item">
 								<kbd>()</kbd> Group, groups characters together
 							</li>
+							<hr/>
 							<li class="list-group-item">
 								<kbd>|</kbd> Alteration, either or.
 							</li>
@@ -184,6 +183,7 @@
 							<li class="list-group-item">
 								<kbd>$</kbd> Matches end
 							</li>
+							<hr/>
 							<li class="list-group-item">
 								<kbd>*</kbd> Matches 0 or more
 							</li>
@@ -211,23 +211,21 @@
 					</div>
 				</div>
 			</div>
-			<a class="carousel-control-prev invert" href="#side2" data-slide="prev">
-				<span class="carousel-control-prev-icon"/>
-			</a>
-			<a class="carousel-control-next invert" href="#side2" data-slide="next">
-				<span class="carousel-control-next-icon"/>
-			</a>
+			<a class="carousel-control-prev invert" href="#side2" data-slide="prev"><span class="carousel-control-prev-icon"/></a>
+			<a class="carousel-control-next invert" href="#side2" data-slide="next"><span class="carousel-control-next-icon"/></a>
 		</div>
-		</span>
+		</aside>
 	</div>
 </body>
-<scripts hidden>
+<!--[if !IE]><!-->
+<div hidden data-type="text/javascript,text/css" data-nodes="script,style,a,input">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="js/util.js"></script>
 	<script src="js/speciesList.js"></script>
 	<script src="js/species.js"></script>
-	<script src="js/load.js"></script>
 	<script src="js/io.js"></script>
 	<script src="js/custom.js"></script>
+	<script src="js/load.js"></script>
 	<style id="activeStyle">
 		.active-npcGeneric{
 			z-index:2;
@@ -236,9 +234,11 @@
 			border-color:#007bff;
 		}
 	</style>
-	<a id="save"/>
+	<a id="save"></a>
 	<input type="file" id="iimport" accept=".DyS.json"/>
-</scripts>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+</div>
 <!--[if !IE]><!-->
 <div class="modal" id="modal">
 	<div class="modal-dialog">
@@ -256,4 +256,20 @@
 	</div>
 </div>
 <!--<![endif]-->
+<noscript>
+	<div class="modal show" style="display:block;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="modalHead">JavaScript Not Working</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body" id="modalBody">Not Enabled or Not Supported.<br/>This Page Will NOT WORK!</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</noscript>
 </html>
