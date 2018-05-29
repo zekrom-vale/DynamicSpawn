@@ -7,11 +7,12 @@ window.addEventListener("load",()=>{
 if(elm.length>0)location.reload;
 elm.npcTab=document.getElementById("npcTab");
 elm.speciesList=document.getElementById("speciesList");
+elm.npcList=document.getElementById("npcList");
 Object.freeze(elm);
 {//--------------- Get Path ---------------
 	let q=location.search.slice(1).split("&"),
 	qi;
-	for(var i in q)if(/^path=/i.test(q[i])){
+	for(let i in q)if(/^path=/i.test(q[i])){
 		qi=decodeURIComponent(q[i].slice(5)+"\\");
 		continue;
 	}
@@ -45,62 +46,27 @@ if(location.hash){
 	location.hash=hash;
 }
 else location.hash="npcGeneric";
-{//--------------- Generate speciesList ---------------
-	let[li,btn,img,div]=baseLi;
-	for(var i in species){
-		let el=li.cloneNode();
-		el.setAttribute("value",species[i].value);
-		el.id=species[i].value;
-		let b=btn.cloneNode();
-			b.innerHTML=species[i].name;
-			let imgM=img.cloneNode();
-				imgM.classList.add("off");
-				imgM.src=species[i].img[0];
-			let imgM2=img.cloneNode();
-				imgM2.classList.add("on");
-				imgM2.src=species[i].img[1];
-				b.append(imgM,imgM2);
-		el.append(b,div.cloneNode(true));
-		elm.speciesList.append(el);
-	}
-}
+//--------------- Generate speciesList ---------------
+for(let i in speciesEl)elm.speciesList.append(speciesEl[i]);
 //--------------- Get Cookie Value ---------------
 let c=getData("value");
 if(c){
 	let item=JSON.parse(c);
-	for(var i in item)for(var n in item[i])setLi(i,item[i][n]);
+	for(let i in item)for(let n in item[i])setLi(i,item[i][n]);
 }
 //--------------- Filter ---------------
-$("#speciesInput").on("keyup",function(){
-	if(document.getElementById("RegExp").checked){
-		try{
-			var v=new RegExp($(this).val(),"ig");
-			$("#speciesList li, #npcList li").filter(function(){
-				document.getElementById("speciesLabel").classList.remove("err");
-				$(this).toggle(v.test(this.firstChild.innerHTML)||v.test(this.getAttribute("value")));
-		});
-		}catch(e){
-			document.getElementById("speciesLabel").classList.add("err");
-		}
-	}
-	else{
-		//https://www.w3schools.com/bootstrap4/bootstrap_filters.asp
-		var value=$(this).val().toLowerCase().trim(),
-		exists=txt=>txt.toLowerCase().indexOf(value)>-1;
-		$("#speciesList li,#npcList li").filter(function(){
-			$(this).toggle(exists(this.firstChild.innerHTML)||exists(this.getAttribute("value")));
-		});
-	}
-});
+$("#speciesInput").on("keyup paste cut",filterFn);
+document.getElementById("RegExp").addEventListener("change",filterFn)
+
 //--------------- Tooltip ---------------
 $('[data-toggle="tooltip"]').tooltip();
 over("removeAll","Remove All",true);
 over("removeVisible","Remove All Visible");
 over("addVisible","Add All Visible");
 {//--------------- Tab list ---------------
-	let els=document.querySelectorAll(".nav-link"),
-	_l=els.length;
-	for(var i=0;i<_l;i++)els[i].addEventListener("click",function(event){
+	let els=document.querySelectorAll(".nav-link");
+	const _l=els.length;
+	for(let i=0;i<_l;i++)els[i].addEventListener("click",function(event){
 		if(event.shiftKey){
 			this.parentNode.classList.toggle('nav-link-sel');
 			window.setTimeout(()=>{
@@ -122,15 +88,15 @@ over("addVisible","Add All Visible");
 				var sel=elm.npcTab.querySelectorAll("li.nav-link-sel>a"),
 				_l=sel.length,
 				hashs=[];
-				for(var i=0;i<_l;i++){
+				for(let i=0;i<_l;i++){
 					let hash=sel[i].dataset.hash;
 					hashs[i]="active-"+hash.slice(1);
 					$(`${hash}:First ul:First`).empty();
 				}
-				elm.speciesList.getElementsByTagName("li").removeClass(hashs.join(" "));
+				$("#speciesList li").removeClass(hashs.join(" "));
 			}
 			else{
-				elm.speciesList.getElementsByTagName("li").removeClass("active-"+location.hash.slice(1));
+				$("#speciesList li").removeClass("active-"+location.hash.slice(1));
 				$(`${location.hash}:First ul:First`).empty();
 			}
 		}
@@ -142,3 +108,25 @@ $('[data-toggle="popover"]').popover();
 window.addEventListener("beforeunload",()=>{
 	setData("value",JSON.stringify(getLi()),90);
 });
+
+function filterFn(){
+	if(document.getElementById("RegExp").checked){
+		try{
+			var v=new RegExp($(this).val(),"ig");
+			$("#speciesList li, #npcList li").filter(function(){
+				document.getElementById("speciesLabel").classList.remove("err");
+				$(this).toggle(v.test(this.firstChild.innerHTML)||v.test(this.getAttribute("value")));
+		});
+		}catch(e){
+			document.getElementById("speciesLabel").classList.add("err");
+		}
+	}
+	else{
+		//https://www.w3schools.com/bootstrap4/bootstrap_filters.asp
+		var value=$(this).val().toLowerCase().trim(),
+		exists=txt=>txt.toLowerCase().indexOf(value)>-1;
+		$("#speciesList li,#npcList li").filter(function(){
+			$(this).toggle(exists(this.firstChild.innerHTML)||exists(this.getAttribute("value")));
+		});
+	}
+}

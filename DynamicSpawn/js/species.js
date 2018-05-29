@@ -1,22 +1,22 @@
 "use strict";
 function addVisible(event){
-	var li=elm.speciesList.querySelectorAll("li.list-group-item"),
-	_l=li.length;
+	var li=elm.speciesList.querySelectorAll("li.list-group-item");
+	const _l=li.length;
 	if(event.shiftKey){
 		var base=elm.npcTab.querySelectorAll("li.nav-link-sel>a"),
 		uls=[],
-		css=[],
-		_b=base.length;
-		for(var n=0;n<_b;n++){
+		css=[];
+		const _b=base.length;
+		for(let n=0;n<_b;n++){
 			uls[n]=document.getElementById(base[n].dataset.hash.slice(1));
 			css[n]="active-"+uls[n].id.slice(1);
 		}
-		for(var s=0;s<_l;s++)if(li[s].style.display!=="none"){
+		for(let s=0;s<_l;s++)if(li[s].style.display!=="none"){
 			let LI=li[s].cloneNode(true);
 			LI.setAttribute("onclick","removeEl(this)");
 			LI.id="";
 			LI.classList.add(...css);
-			for(var l in uls)if(!li[s].classList.contains(css[l])){
+			for(let l in uls)if(!li[s].classList.contains(css[l])){
 				li[s].classList.add(css[l]);
 				let clone=LI.cloneNode(true);
 				uls[l].getElementsByTagName("ul")[0].prepend(clone);
@@ -26,7 +26,7 @@ function addVisible(event){
 	else{
 		var hash=location.hash,
 		css="active-"+hash.slice(1);
-		for(var i=0;i<_l;i++)if(!(li[i].classList.contains(css)||li[i].style.display==="none")){
+		for(let i=0;i<_l;i++)if(!(li[i].classList.contains(css)||li[i].style.display==="none")){
 			li[i].classList.add(css);
 			let LI=li[i].cloneNode(true);
 			LI.setAttribute("onclick","removeEl(this)");
@@ -42,11 +42,11 @@ function removeVisible(event){
 	if(event.shiftKey){
 		var base=elm.npcTab.querySelectorAll("li.nav-link-sel>a"),
 		_b=base.length;
-		for(var n=0;n<_b;n++){
+		for(let n=0;n<_b;n++){
 			var css="active-"+base[n].dataset.hash.slice(1);
-			for(var i=0;i<_l;i++)if(li[i].classList.contains(css)&&li[i].style.display!=="none"){
+			for(let i=0;i<_l;i++)if(li[i].classList.contains(css)&&li[i].style.display!=="none"){
 				li[i].classList.remove(css);
-				var l=document.querySelector(`${base[n].dataset.hash} [value="${li[i].getAttribute("value")}"]`);
+				let l=document.querySelector(`${base[n].dataset.hash} [value="${li[i].getAttribute("value")}"]`);
 				l.parentNode.removeChild(l);
 			}
 		}
@@ -54,34 +54,13 @@ function removeVisible(event){
 	else{
 		var hash=location.hash,
 		css="active-"+hash.slice(1);
-		for(var i=0;i<_l;i++)if(li[i].classList.contains(css)&&li[i].style.display!=="none"){
+		for(let i=0;i<_l;i++)if(li[i].classList.contains(css)&&li[i].style.display!=="none"){
 			li[i].classList.remove(css);
-			var l=document.querySelector(`${hash} [value="${li[i].getAttribute("value")}"]`);
+			let l=document.querySelector(`${hash} [value="${li[i].getAttribute("value")}"]`);
 			l.parentNode.removeChild(l);
 		}
 	}
 }
-
-var baseLi=(function(){
-	var btnB=document.createElement("button");
-		btnB.classList.add("btn");
-	var li=document.createElement("li");
-		li.classList.add("list-group-item");
-	var btn=btnB.cloneNode();
-		btn.setAttribute("onclick","modifyCont(this)");
-		btn.classList.add("btn-dark","species");
-	var div=document.createElement("div");
-		div.classList.add("btn-group","species-group");
-		btnB.classList.add("btn-secondary");
-		var all=btnB.cloneNode();
-			all.setAttribute("onclick","addToAll(this,event)");
-			all.innerHTML="Add to All";
-			btnB.setAttribute("onclick","removeFromAll(this,event)");
-			btnB.innerHTML="Remove from All";
-		div.append(all,btnB);
-	var img=document.createElement("img");
-	return[li,btn,img,div];
-}());
 
 function dtTab(el){
 	var hash=el.dataset.hash,
@@ -115,30 +94,6 @@ function modifyCont(el){
 	}
 }
 
-function addToAll(el,event){
-	var elp=document.getElementById(el.parentNode.parentNode.getAttribute("value")),
-	spawns=$("#npcList ul"),
-	base=$("#npcList>div"),
-	arr=[],
-	_b=base.length;
-	if(event.shiftKey)for(var i=0;_b>i;i++){
-		if(!document.querySelector(`[data-hash="#${base[i].id}"]`).parentNode.classList.contains("nav-link-sel"))arr[i]=false;
-		else if(elp.classList.contains("active-"+base[i].id))arr[i]=false;
-		else elp.classList.add("active-"+base[i].id);
-	}
-	else for(var i=0;_b>i;i++){
-		if(elp.classList.contains("active-"+base[i].id))arr[i]=false;
-		else elp.classList.add("active-"+base[i].id);
-	}
-	var _s=spawns.length;
-	for(var i=0;_s>i;i++)if(arr[i]!=false){
-		let li=elp.cloneNode(true);
-		li.setAttribute("onclick","removeEl(this)");
-		li.id="";
-		spawns[i].prepend(li);
-	}
-}
-
 function removeEl(el){
 	var elp=el.parentNode;
 	document.getElementById(el.getAttribute("value")).classList.remove("active-"+location.hash.slice(1));
@@ -149,9 +104,9 @@ function removeFromAll(el,event){
 	arr=elp.classList.value.split(" ");
 	if(event.shiftKey){
 //BUG Deselects active item even if it is deselected
-		for(var i in arr)if(arr[i].includes("active-")){
+		for(let i in arr)if(arr[i].includes("active-")){
 			let t=arr[i].slice(7);
-			if(document.querySelector(`[data-hash="#${t}"]`).parentNode.classList.contains("nav-link-sel")){
+			if(elm.npcTab.querySelector(`[data-hash="#${t}"]`).parentNode.classList.contains("nav-link-sel")){
 				let item=document.querySelector(`#${t} li[value=${elp.getAttribute("value")}]`);
 				if(item){
 					item.parentNode.removeChild(item);
@@ -160,15 +115,38 @@ function removeFromAll(el,event){
 			}
 		}
 	}
-	else for(var i in arr){
+	else for(let i in arr){
 		if(arr[i].includes("active-")){
-			let t=arr[i].slice(7),
-			item=document.querySelector(`#${t} li[value=${elp.getAttribute("value")}]`);
+			let item=document.querySelector(`#${arr[i].slice(7)} li[value=${elp.getAttribute("value")}]`);
 			if(item){
 				item.parentNode.removeChild(item);
 				elp.classList.remove(arr[i]);
 			}
 		}
+	}
+}
+
+function addToAll(el,event){
+	var elp=document.getElementById(el.parentNode.parentNode.getAttribute("value")),
+	spawns=elm.npcList.getElementsByTagName("ul"),
+	base=elm.npcList.getElementsByTagName("div"),
+	arr=[];
+	const _b=base.length;
+	if(event.shiftKey)for(let i=0;_b>i;i++){
+		if(!document.querySelector(`[data-hash="#${base[i].id}"]`).parentNode.classList.contains("nav-link-sel"))arr[i]=false;
+		else if(elp.classList.contains("active-"+base[i].id))arr[i]=false;
+		else elp.classList.add("active-"+base[i].id);
+	}
+	else for(let i=0;_b>i;i++){
+		if(elp.classList.contains("active-"+base[i].id))arr[i]=false;
+		else elp.classList.add("active-"+base[i].id);
+	}
+	const _s=spawns.length;
+	for(let i=0;_s>i;i++)if(arr[i]!=false){
+		let li=elp.cloneNode(true);
+		li.setAttribute("onclick","removeEl(this)");
+		li.id="";
+		spawns[i].prepend(li);
 	}
 }
 
@@ -190,15 +168,15 @@ function setLi(set,key){
 }
 
 function getLi(){
-	var spawns=$("#npcList>div"),
+	var spawns=elm.npcList.getElementsByTagName("div"),
 	arr={},
 	_s=spawns.length;
-	for(var i=0;_s>i;i++){
+	for(let i=0;_s>i;i++){
 		let id=spawns[i].id,
 		items=$(`#${id} li`),
 		_i=items.length;
 		arr[id]=[];
-		for(var n=0;_i>n;n++)arr[id][n]=items[n].getAttribute("value");
+		for(let n=0;_i>n;n++)arr[id][n]=items[n].getAttribute("value");
 	}
 	return arr;
 }

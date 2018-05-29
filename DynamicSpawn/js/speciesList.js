@@ -115,3 +115,46 @@ const species=[
 	new specieDefault("zombie")
 ];
 Object.freeze(species);
+
+var baseLi=(function(){
+	var btnB=document.createElement("button");
+		btnB.classList.add("btn");
+	var li=document.createElement("li");
+		li.classList.add("list-group-item");
+	var btn=btnB.cloneNode();
+		btn.setAttribute("onclick","modifyCont(this)");
+		btn.classList.add("btn-dark","species");
+	var div=document.createElement("div");
+		div.classList.add("btn-group","species-group");
+		btnB.classList.add("btn-secondary");
+		var all=btnB.cloneNode();
+			all.setAttribute("onclick","addToAll(this,event)");
+			all.innerHTML="Add to All";
+			btnB.setAttribute("onclick","removeFromAll(this,event)");
+			btnB.innerHTML="Remove from All";
+		div.append(all,btnB);
+	var img=document.createElement("img");
+		img.classList.add("off");
+	var img2=document.createElement("img");
+		img2.classList.add("on");
+	return[li,btn,img,img2,div];
+}());
+
+const speciesEl={};
+let[li,btn,img,img2,div]=baseLi;
+for(let i in species){
+	let el=li.cloneNode();
+	el.setAttribute("value",species[i].value);
+	el.id=species[i].value;
+	let b=btn.cloneNode();
+		b.innerHTML=species[i].name;
+		let imgM=img.cloneNode();
+			imgM.src=species[i].img[0];
+		let imgM2=img2.cloneNode();
+			imgM2.src=species[i].img[1];
+			b.append(imgM,imgM2);
+	el.append(b,div.cloneNode(true));
+	speciesEl[species[i].value]=el;
+}
+
+Object.freeze(speciesEl);
