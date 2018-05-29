@@ -260,16 +260,28 @@
 	<div class="modal show" style="display:block;">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title" id="modalHead">JavaScript Not Working</h4>
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-				</div>
-				<div class="modal-body" id="modalBody">Not Enabled or Not Supported.<br/>This Page Will NOT WORK!</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
-				</div>
+				<div class="modal-header"><h4 class="modal-title">JavaScript Not Working</h4><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+				<div class="modal-body" id="modalBody">Not Enabled or Not Supported.<br/>This Page Will <b>Not Work!</b></div>
+				<div class="modal-footer"><button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button></div>
 			</div>
 		</div>
 	</div>
 </noscript>
+<template>
+	<li class="list-group-item">
+		<button class="btn btn-dark" onclick="modifyCont(this)">
+			<p class="species"></p>
+			<img class="off"/>
+			<img class="on"/>
+		</button>
+		<div class="btn-group species-group">
+			<button class="btn btn-secondary" onclick="addToAll(this,event)">
+				Add to All
+			</button>
+			<button class="btn btn-secondary" onclick="removeFromAll(this,event)">
+				Remove from All
+			</button>
+		</div>
+	</li>
+</template>
 </html>
