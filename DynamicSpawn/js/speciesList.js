@@ -1,4 +1,7 @@
 "use strict";
+window.addEventListener("load",()=>{
+	for(let i in speciesEl)elm.speciesList.append(speciesEl[i]);
+});
 
 class specieDefault{
 	constructor(value,nameOverride){
@@ -115,31 +118,6 @@ const species=[
 	new specieDefault("zombie")
 ];
 Object.freeze(species);
-
-var baseLi=(function(){
-	var btnB=document.createElement("button");
-		btnB.classList.add("btn");
-	var li=document.createElement("li");
-		li.classList.add("list-group-item");
-	var btn=btnB.cloneNode();
-		btn.setAttribute("onclick","modifyCont(this)");
-		btn.classList.add("btn-dark","species");
-	var div=document.createElement("div");
-		div.classList.add("btn-group","species-group");
-		btnB.classList.add("btn-secondary");
-		var all=btnB.cloneNode();
-			all.setAttribute("onclick","addToAll(this,event)");
-			all.innerHTML="Add to All";
-			btnB.setAttribute("onclick","removeFromAll(this,event)");
-			btnB.innerHTML="Remove from All";
-		div.append(all,btnB);
-	var img=document.createElement("img");
-		img.classList.add("off");
-	var img2=document.createElement("img");
-		img2.classList.add("on");
-	return[li,btn,img,img2,div];
-}());
-
 const speciesEl={};
 let[li,btn,img,img2,div]=baseLi;
 for(let i in species){

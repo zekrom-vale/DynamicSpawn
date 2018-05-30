@@ -1,5 +1,20 @@
-<!DOCTYPE html>
-<html lang="en-US" data-author="zekrom-vale" data-game="Starbound" data-version="5" data-require="Bootstrap4,jQuery,popper">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html [
+<!ENTITY nbsp "&#160;">
+<!ENTITY times "&#10005;">
+<!ENTITY check "&#x2713;">
+<!ELEMENT html (body,head,title,meta)>
+<!ELEMENT body (#PCDATA)>
+<!ELEMENT head (#PCDATA)>
+]>
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+	<xsl:template match="/">
+
+
+
+
+
+<html lang="en-US" data-author="zekrom-vale" data-game="Starbound" data-version="5" data-require="Bootstrap4,jQuery,popper,XML,XSL,XPath,DTD">
 <head id="top">
 	<meta charset="UTF-8"/>
 	<title>Dynamic Spawn Creator</title>
@@ -54,31 +69,9 @@
 					</label>
 				</div>
 				<br/>
-				<ul class="list-group" id="speciesList" style="height:25vh;overflow:auto"></ul>
+				<xsl:apply-templates select="root/species"/>
 			</div>
-			<ul class="nav nav-tabs" role="tablist" id="npcTab">
-				<li class="nav-item">
-					<a class="nav-link active" data-toggle="tab" data-hash="#npcGeneric">Generic <span class="badge badge-primary">&#x2713;</span></a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" data-toggle="tab" data-hash="#npcScientific">Scientific <span class="badge badge-primary">&#x2713;</span></a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" data-toggle="tab" data-hash="#npcCult">Cult <span class="badge badge-primary">&#x2713;</span></a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" data-toggle="tab" data-hash="#npcPirate">Pirate <span class="badge badge-primary">&#x2713;</span></a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" data-toggle="tab" data-hash="#npcMerchant">Merchant <span class="badge badge-primary">&#x2713;</span></a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" data-toggle="tab" data-hash="#npcBandit">Bandit <span class="badge badge-primary">&#x2713;</span></a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" data-toggle="tab" data-hash="#npcROC">Outpost <span class="badge badge-primary">&#x2713;</span></a>
-				</li>
-			</ul>
+				<xsl:apply-templates select="root/tab"/>
 			<div class="tab-content" id="npcList">
 				<div id="npcGeneric" class="container tab-pane active">
 					<h3>Changes the species config of Generic NPCs.</h3>
@@ -226,7 +219,6 @@
 	<scripts is="div" roll="div" hidden="hidden">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="js/util.js"></script>
-		<script src="js/speciesList.js"></script>
 		<script src="js/species.js"></script>
 		<script src="js/io.js"></script>
 		<script src="js/custom.js"></script>
@@ -291,3 +283,51 @@
 	</template>
 </body>
 </html>
+
+	</xsl:template>
+	<xsl:template match="root/species">
+		<ul class="list-group" id="speciesList" style="height:25vh;overflow:auto">
+			<xsl:for-each select="mod">
+				<xsl:sort select="@name"/>
+				<xsl:for-each select="specie">
+					<li class="list-group-item {../@name}" value="{@value}" id="{@value}">
+						<button class="btn btn-dark" onclick="modifyCont(this)">
+							<xsl:value-of select="@name"/>
+							<xsl:choose>
+								<xsl:when test="imgOn and imgOff">
+									<img class="off" src="img/{imgOff/@src}"/>
+									<img class="on" src="img/{imgOn/@src}"/>
+								</xsl:when>
+								<xsl:otherwise>
+									<img class="off" src="img/tab_other.png"/>
+									<img class="on" src="img/tab_other_select.png"/>
+								</xsl:otherwise>
+							</xsl:choose>
+						</button>
+						<div class="btn-group species-group">
+							<button class="btn btn-secondary" onclick="addToAll(this,event)">
+								Add to All
+							</button>
+							<button class="btn btn-secondary" onclick="removeFromAll(this,event)">
+								Remove from All
+							</button>
+						</div>
+					</li>
+				</xsl:for-each>
+			</xsl:for-each>
+		</ul>
+	</xsl:template>
+	<xsl:template match="root/tab">
+		<ul class="nav nav-tabs" role="tablist" id="npcTab">
+			<xsl:for-each select="*">
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="tab" data-hash="#npc{local-name()}">
+						<xsl:value-of select="local-name()"/>
+						<span class="badge badge-primary">&check;</span>
+					</a>
+				</li>
+			</xsl:for-each>
+		</ul>
+	</xsl:template>
+
+</xsl:stylesheet>

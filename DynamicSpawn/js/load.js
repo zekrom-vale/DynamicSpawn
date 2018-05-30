@@ -46,8 +46,6 @@ if(location.hash){
 	location.hash=hash;
 }
 else location.hash="npcGeneric";
-//--------------- Generate speciesList ---------------
-for(let i in speciesEl)elm.speciesList.append(speciesEl[i]);
 //--------------- Get Cookie Value ---------------
 let c=getData("value");
 if(c){

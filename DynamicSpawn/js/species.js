@@ -168,7 +168,7 @@ function setLi(set,key){
 }
 
 function getLi(){
-	var spawns=elm.npcList.getElementsByTagName("div"),
+	var spawns=document.querySelectorAll("#npcList>div"),
 	arr={},
 	_s=spawns.length;
 	for(let i=0;_s>i;i++){
@@ -180,3 +180,27 @@ function getLi(){
 	}
 	return arr;
 }
+
+var baseLi=(function(){
+	var btnB=document.createElement("button");
+		btnB.classList.add("btn");
+	var li=document.createElement("li");
+		li.classList.add("list-group-item");
+	var btn=btnB.cloneNode();
+		btn.setAttribute("onclick","modifyCont(this)");
+		btn.classList.add("btn-dark","species");
+	var div=document.createElement("div");
+		div.classList.add("btn-group","species-group");
+		btnB.classList.add("btn-secondary");
+		var all=btnB.cloneNode();
+			all.setAttribute("onclick","addToAll(this,event)");
+			all.innerHTML="Add to All";
+			btnB.setAttribute("onclick","removeFromAll(this,event)");
+			btnB.innerHTML="Remove from All";
+		div.append(all,btnB);
+	var img=document.createElement("img");
+		img.classList.add("off");
+	var img2=document.createElement("img");
+		img2.classList.add("on");
+	return[li,btn,img,img2,div];
+}());
