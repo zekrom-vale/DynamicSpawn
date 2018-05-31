@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="species.xsl"?>
-<!DOCTYPE root[
-<!ELEMENT root (species,tab,html?)>
+<!DOCTYPE species[
 <!ELEMENT species (mod)>
 <!ELEMENT mod (specie,id?,link?)>
 <!ATTLIST mod name CDATA "Z">
-<!ATTLIST mod value CDATA "Z">
 <!ELEMENT specie (imgOn?,imgOff?,default?)>
 <!ATTLIST specie value CDATA #REQUIRED>
 <!ATTLIST specie name CDATA #IMPLIED>
@@ -19,493 +17,449 @@
 <!ELEMENT sub (#PCDATA)>
 <!ELEMENT html ANY>
 ]>
-<root>
-	<species>
-		<mod name="vanilla" value="vanilla">
-			<specie value="apex" name="Apex">
-				<imgOn src="tab_apex_select.png"/>
-				<imgOff src="tab_apex.png"/>
-				<default all="true">
-					<Generic/>
-					<Scientific/>
-					<Cult/>
-					<Pirate/>
-					<Merchant/>
-					<Bandit/>
-					<ROC/>
-				</default>
-			</specie>
-			<specie value="avian">
-				<imgOn src="tab_avian_select.png"/>
-				<imgOff src="tab_avian.png"/>
-				<default all="true">
-					<Generic/>
-					<Scientific/>
-					<Cult/>
-					<Pirate/>
-					<Merchant/>
-					<Bandit/>
-					<ROC/>
-				</default>
-			</specie>
-			<specie value="floran">
-				<imgOn src="tab_floran_select.png"/>
-				<imgOff src="tab_floran.png"/>
-				<default>
-					<Generic/>
-					<Merchant/>
-					<Bandit/>
-					<ROC/>
-				</default>
-			</specie>
-			<specie value="glitch">
-				<imgOn src="tab_glitch_select.png"/>
-				<imgOff src="tab_glitch.png"/>
-				<default>
-					<Generic/>
-					<Scientific/>
-					<Pirate/>
-					<Merchant/>
-					<Bandit/>
-					<ROC/>
-				</default>
-			</specie>
-			<specie value="human">
-				<imgOn src="tab_human_select.png"/>
-				<imgOff src="tab_human.png"/>
-				<default all="true">
-					<Generic/>
-					<Scientific/>
-					<Cult/>
-					<Pirate/>
-					<Merchant/>
-					<Bandit/>
-					<ROC/>
-				</default>
-			</specie>
-			<specie value="hylotl">
-				<imgOn src="tab_hylotl_select.png"/>
-				<imgOff src="tab_hylotl.png"/>
-				<default all="true">
-					<Generic/>
-					<Scientific/>
-					<Cult/>
-					<Pirate/>
-					<Merchant/>
-					<Bandit/>
-					<ROC/>
-				</default>
-			</specie>
-			<specie value="novakid">
-				<default all="true">
-					<Generic/>
-					<Pirate/>
-					<Merchant/>
-					<Bandit/>
-					<ROC/>
-				</default>
-			</specie>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="Attarran"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="Canids"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="Eevee"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="Indix"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="Umbreon"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="agaran"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="albinopenguin" name="Albino Penguin"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="alicorn"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="alpaca"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="arachne"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="argonian"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="avali"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="avikan"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="avonian"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="batpony"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="blattra"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="bunnykin"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="callistan"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="cat"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="catus"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="changeling"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="chicken"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="clownkin"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="cryoguin"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="demon"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="dragon"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="droden"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="eeveetwo" name="Eevee Two"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="elunite"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="everis"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="familiar"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="felin"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="fenerox"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="gardevan"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="greckan"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="gyrusen"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="inkling"/>
-		</mod>
-		<mod name="The Kazdra Reloaded" value="theKazdraReloaded" author="Andr3w246,zekrom_vale">
-			<id steam="949156982"/>
-			<specie value="kazdra">
-				<imgOn src="tab_kazdra_select.png"/>
-				<imgOff src="tab_kazdra.png"/>
-			</specie>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="kemono"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="kineptic"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="lamia"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="lombax_pointed" name="Lombax Pointed"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="lombax_striped" name="lombax_striped"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="manicpenguin"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="mantizi"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="moogle"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="munari"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="neko"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="nightar"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="ningen"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="ooze"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="orcana"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="pegasus"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="peglaci"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="penguin"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="pengvolt"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="phantasm"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="phox"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="plaguin"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="ponex"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="pony"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="puffin"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="pygs"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="pyroguin"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="robopenguin"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="rockhopperpenguin" name="Rock Hopper Penguin"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="rodentia"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="saturn"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="Speciesorsheep"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="sergal"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="shade"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="shadow2"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="skath"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="skelekin"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="slimeperson" name="Slime Person"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="su_gem" name="Su Gem"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="tauren"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="terrakin"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="tirastrolls" name="Tiras Trolls"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="trink"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="troll"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="unicorn"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="vampyric"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="vanillapenguin" name="Vanilla Penguin"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="vespoid"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="viera"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="vulpes"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="wasphive"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="webber"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="woggle"/>
-		</mod>
-		<mod name="" author="">
-			<id/>
-			<specie value="zombie"/>
-		</mod>
-	</species>
-	<tab>
-		<Generic>
-			<title>Changes the species config of Generic NPCs.</title>
-			<sub>Ex. Space Stations, Space Hotel</sub>
-		</Generic>
-		<Scientific>
-			<title>Changes the species config of Scientist NPCs.</title>
-			<sub>Ex. Labs</sub>
-		</Scientific>
-		<Cult>
-			<title>Changes the species config of Cult NPCs.</title>
-			<sub>Ex. Random Encounters</sub>
-		</Cult>
-		<Pirate>
-			<title>Changes the species config of Space Pirate NPCs.</title>
-			<sub>Ex. Pirate Ships</sub>
-		</Pirate>
-		<Merchant>
-			<title>Changes the species config of Merchant NPCs.</title>
-			<sub>Ex. Merchant Ship, Industrial Merchant Ship.</sub>
-		</Merchant>
-		<Bandit>
-			<title>Changes the species config of Bandit NPCs.</title>
-			<sub>Ex. Random Encounters</sub>
-		</Bandit>
-		<ROC>
-			<title>Changes the species config of Random Outpost NPCs.</title>
-			<sub>NOT USED YET</sub>
-		</ROC>
-	</tab>
-	<html>
-		
-	</html>
-</root>
+<species>
+	<mod name="vanilla">
+		<specie value="apex" name="Apex">
+			<imgOn src="tab_apex_select.png"/>
+			<imgOff src="tab_apex.png"/>
+			<default all="true">
+				<Generic/>
+				<Scientific/>
+				<Cult/>
+				<Pirate/>
+				<Merchant/>
+				<Bandit/>
+				<ROC/>
+			</default>
+		</specie>
+		<specie value="avian">
+			<imgOn src="tab_avian_select.png"/>
+			<imgOff src="tab_avian.png"/>
+			<default all="true">
+				<Generic/>
+				<Scientific/>
+				<Cult/>
+				<Pirate/>
+				<Merchant/>
+				<Bandit/>
+				<ROC/>
+			</default>
+		</specie>
+		<specie value="floran">
+			<imgOn src="tab_floran_select.png"/>
+			<imgOff src="tab_floran.png"/>
+			<default>
+				<Generic/>
+				<Merchant/>
+				<Bandit/>
+				<ROC/>
+			</default>
+		</specie>
+		<specie value="glitch">
+			<imgOn src="tab_glitch_select.png"/>
+			<imgOff src="tab_glitch.png"/>
+			<default>
+				<Generic/>
+				<Scientific/>
+				<Pirate/>
+				<Merchant/>
+				<Bandit/>
+				<ROC/>
+			</default>
+		</specie>
+		<specie value="human">
+			<imgOn src="tab_human_select.png"/>
+			<imgOff src="tab_human.png"/>
+			<default all="true">
+				<Generic/>
+				<Scientific/>
+				<Cult/>
+				<Pirate/>
+				<Merchant/>
+				<Bandit/>
+				<ROC/>
+			</default>
+		</specie>
+		<specie value="hylotl">
+			<imgOn src="tab_hylotl_select.png"/>
+			<imgOff src="tab_hylotl.png"/>
+			<default all="true">
+				<Generic/>
+				<Scientific/>
+				<Cult/>
+				<Pirate/>
+				<Merchant/>
+				<Bandit/>
+				<ROC/>
+			</default>
+		</specie>
+		<specie value="novakid">
+			<default>
+				<Generic/>
+				<Pirate/>
+				<Merchant/>
+				<Bandit/>
+				<ROC/>
+			</default>
+		</specie>
+	</mod>
+	<mod name="The Attarran Race Mod" author="Civvy">
+		<id steam="797166006"/>
+		<specie value="Attarran"/>
+	</mod>
+	<mod name="Canids Race" author="Sparklink">
+		<id steam="905564668"/>
+		<specie value="Canids"/>
+	</mod>
+	<mod name="Eevee Mod Remade" author="GoldenDustFox,Catfox">
+		<id steam="1266991719"/>
+		<specie value="Eevee"/>
+	</mod>
+	<mod name="Arsenalbound - Indix race pack" author="rooki12k">
+		<id steam="1114822742"/>
+		<specie value="Indix"/>
+	</mod>
+	<mod name="Playable Umbreon" author="NukerNoah,Jokerswildnight">
+		<id steam="730345787"/>
+		<specie value="Umbreon"/>
+	</mod>
+	<mod name="Playable Agaran Mod" author="Deadly_Golem,Haxosaurus">
+		<id steam="1095558082"/>
+		<specie value="agaran"/>
+	</mod>
+	<mod name="" author="">
+		<id steam="null"/>
+		<specie value="albinopenguin" name="Albino Penguin"/>
+	</mod>
+	<mod name="" author="">
+		<id steam="null"/>
+		<specie value="alicorn"/>
+	</mod>
+	<mod name="Playable Alpaca" author="Vanake14">
+		<id steam="1099066352"/>
+		<specie value="alpaca"/>
+	</mod>
+	<mod name="Arachne Race" author="Quintexial">
+		<id steam="1164332913"/>
+		<specie value="arachne"/>
+	</mod>
+	<mod name="" author="">
+		<id steam=""/>
+		<specie value="argonian"/>
+	</mod>
+	<mod name="Argonian Race Redux" author="Grimmers">
+		<id steam="740694177"/>
+		<specie value="avali"/>
+	</mod>
+	<mod name="Elithian Races Mod" author="Aegonian [THEA]">
+		<!--????????????????????????????????????????????????????????????????????-->
+		<id steam="850109963"/>
+		<specie value="avikan"/>
+		<specie value="terrakin"/>
+		<specie value="droden"/>
+		<specie value="trink"/>
+	</mod>
+	<mod name="The Avonian Mod" author="XelaVael,WolfHero">
+		<id steam="885762351"/>
+		<specie value="avonian"/>
+	</mod>
+	<mod name="" author="">
+		<id steam="null"/>
+		<specie value="batpony"/>
+	</mod>
+	<mod name="Blattra" author="gay monster dad,Wollo The Woo">
+		<id steam="900225032"/>
+		<specie value="blattra"/>
+	</mod>
+	<mod name="Bunnykin Race" author="DrPvtSkittles">
+		<id steam="732452461"/>
+		<specie value="bunnykin"/>
+	</mod>
+	<mod name="Callistan Race Mod" author="Roskii Falkirk">
+		<id steam="774083065"/>
+		<specie value="callistan"/>
+	</mod>
+	<mod name="Playable Cats Redux" author="Sentient Cookie,TheBlueLeafeon,TheAdmiral">
+		<id steam="1302252128/1300828186"/>
+		<specie value="cat"/>
+	</mod>
+	<mod name="" author="">
+		<id steam="null"/>
+		<specie value="catus"/>
+	</mod>
+	<mod name="Dominion Races" author="odo">
+		<id steam="1098756684"/>
+		<specie value="changeling"/>
+	</mod>
+	<mod name="Playable Chicken" author="ASquishedFishPattyOnABun">
+		<id steam="1258016322"/>
+		<specie value="chicken"/>
+	</mod>
+	<mod name="" author="">
+		<id steam=""/>
+		<specie value="clownkin"/>
+	</mod>
+	<mod name="Clownkin Race" author="DrPvtSkittles">
+		<id steam="1223044195"/>
+		<specie value="cryoguin"/>
+	</mod>
+	<mod name="" author="">
+		<id steam="null"/>
+		<specie value="demon"/>
+	</mod>
+	<mod name="Draconis Race(Humanoid Dragon Race)" author="Meme Trash">
+		<id steam="868165595"/>
+		<specie value="dragon"/>
+	</mod>
+	<mod name="" author="">
+		<id steam="null"/>
+		<specie value="eeveetwo" name="Eevee Two"/>
+	</mod>
+	<mod name="Elunite Race" author="Sotaeko,Hiroyasu">
+		<id steam="788890408"/>
+		<specie value="elunite"/>
+	</mod>
+	<mod name="Everis (Canine Humanoids) Race Mod" author="Ruthenium,Alphonse-XII">
+		<id steam="1117006719"/>
+		<specie value="everis"/>
+	</mod>
+	<mod name="Familiars Race" author="Bitcoon">
+		<id steam="729597107"/>
+		<specie value="familiar"/>
+	</mod>
+	<mod name="Felin" author="Kawa,Letrune">
+		<id steam="729429063"/>
+		<specie value="felin"/>
+	</mod>
+	<mod name="Playable Fenerox!" author=" TanzNukeTerror">
+		<id steam="729622432"/>
+		<specie value="fenerox"/>
+	</mod>
+	<mod name="Gardevan" author="Green Dune,Eld">
+		<id steam="780188370"/>
+		<specie value="gardevan"/>
+	</mod>
+	<mod name="Greckan Race Mod" author="Inf_Wolf14,Jareix Craivix">
+		<id steam="766773110"/>
+		<specie value="greckan"/>
+	</mod>
+	<mod name="Gyrusens+" author="Gyrruss,Turbozero">
+		<id steam="868800462"/>
+		<specie value="gyrusen"/>
+	</mod>
+	<mod name="Squids in Space!: A Splatoon Species Mod" author="Marinebeast">
+		<id steam="734855883"/>
+		<specie value="inkling"/>
+	</mod>
+	<mod name="The Kazdra Reloaded" author="Andr3w246,zekrom_vale">
+		<id steam="949156982"/>
+		<specie value="kazdra">
+			<imgOn src="tab_kazdra_select.png"/>
+			<imgOff src="tab_kazdra.png"/>
+		</specie>
+	</mod>
+	<mod name="Kemono Race Mod" author="ODABUTSU">
+		<id steam="739437569"/>
+		<specie value="kemono"/>
+	</mod>
+	<mod name="" author="">
+		<id steam="null"/>
+		<specie value="kineptic"/>
+	</mod>
+	<mod name="Lamia Race" author="Antyrus">
+		<id steam="779096734"/>
+		<specie value="lamia"/>
+	</mod>
+	<mod name="Lombax Race Redux" author="Window Novakid,RoboticMasterMind">
+		<id steam="1361888892"/>
+		<specie value="lombax_pointed" name="Lombax Pointed"/>
+		<specie value="lombax_striped" name="Lombax Striped"/>
+	</mod>
+	<mod name="" author="">
+		<id steam="null"/>
+		<specie value="manicpenguin"/>
+	</mod>
+	<mod name="The Mantizi Empire" author="UnsubRedun">
+		<id steam="950717664"/>
+		<specie value="mantizi"/>
+	</mod>
+	<mod name="" author="">
+		<id steam="null"/>
+		<specie value="moogle"/>
+	</mod>
+	<mod name="" author="">
+		<id steam=""/>
+		<specie value="munari"/>
+	</mod>
+	<mod name="Race - Munari" author="Motionless">
+		<id steam="739676461"/>
+		<specie value="neko"/>
+	</mod>
+	<mod name="The Nightars (Revived)" author="Absolute Xero">
+		<id steam="1325968658"/>
+		<specie value="nightar"/>
+	</mod>
+	<mod name="Ningen Race Mod" author="ODABUTSU">
+		<id steam="739436205"/>
+		<specie value="ningen"/>
+	</mod>
+	<mod name="Ooze Race" author="Gentooze">
+		<id steam="792904949"/>
+		<specie value="ooze"/>
+	</mod>
+	<mod name="The Orcana" author="Nemasys">
+		<id steam="729432341"/>
+		<specie value="orcana"/>
+	</mod>
+	<mod name="" author="">
+		<id steam="null"/>
+		<specie value="pegasus"/>
+	</mod>
+	<mod name="Peglaci Rebirth" author="GonDragon,Gratuitous Lurking,Cryptic Xenon">
+		<id steam="1272073433"/>
+		<specie value="peglaci"/>
+	</mod>
+	<mod name="Penguin Enabler" author="Indie-ana Jones">
+		<id steam="729536412"/>
+		<specie value="penguin"/>
+	</mod>
+	<mod name="" author="">
+		<id steam="null"/>
+		<specie value="pengvolt"/>
+	</mod>
+	<mod name="The Phantasm" author="Deatrathias">
+		<id steam="740618124"/>
+		<specie value="phantasm"/>
+	</mod>
+	<mod name="Phox Race" author=" LeviThePants">
+		<id steam="1107519620"/>
+		<specie value="phox"/>
+	</mod>
+	<mod name="" author="">
+		<id steam="null"/>
+		<specie value="plaguin"/>
+	</mod>
+	<mod name="" author="">
+		<id steam="null"/>
+		<specie value="ponex"/>
+	</mod>
+	<mod name="The Pony Modpack" author="C0bra5">
+		<id steam="730849360"/>
+		<specie value="pony"/>
+	</mod>
+	<mod name="" author="">
+		<id steam="null"/>
+		<specie value="puffin"/>
+	</mod>
+	<mod name="The Pyg Race" author="Wobblewaffle (Lileats277)">
+		<id steam="1181632454"/>
+		<specie value="pygs"/>
+	</mod>
+	<mod name="" author="">
+		<id steam="null"/>
+		<specie value="pyroguin"/>
+	</mod>
+	<mod name="" author="">
+		<id steam="null"/>
+		<specie value="robopenguin" name="Robo Penguin"/>
+	</mod>
+	<mod name="" author="">
+		<id steam="null"/>
+		<specie value="rockhopperpenguin" name="Rock Hopper Penguin"/>
+	</mod>
+	<mod name="" author="">
+		<id steam="null"/>
+		<specie value="rodentia"/>
+	</mod>
+	<mod name="The Saturnians" author="Cyan Sky Knight">
+		<id steam="1103027918"/>
+		<specie value="saturn"/>
+	</mod>
+	<mod name="Scorsheep: Sheep in space" author="Sadie">
+		<id steam="1271991028"/>
+		<specie value="Speciesorsheep"/>
+	</mod>
+	<mod name="Sergal Race Mod" author="Mr.T,omegadrace">
+		<id steam="731125431"/>
+		<link sb="sergal-race.980"/>
+		<specie value="sergal"/>
+	</mod>
+	<mod name="" author="">
+		<id steam="null"/>
+		<specie value="shade"/>
+	</mod>
+	<mod name="Shadow Race" author="Kitty of Pathos2,Khe">
+		<id steam="1291723704"/>
+		<specie value="shadow2"/>
+	</mod>
+	<mod name="Skath Race" author="Streema,Sorveteiro,phail,Skyborg,Yashi,KlausG">
+		<id steam="936898205"/>
+		<specie value="skath"/>
+	</mod>
+	<mod name="Skelekin Race" author="DrPvtSkittles">
+		<id steam="802291314"/>
+		<specie value="skelekin"/>
+	</mod>
+	<mod name="Slime Race Mod" author="Hieru,Chofranc,Xel,Kapitän">
+		<id steam="866175420"/>
+		<specie value="slimeperson" name="Slime"/>
+	</mod>
+	<mod name="" author="">
+		<id steam="null"/>
+		<specie value="su_gem" name="Su Gem"/>
+	</mod>
+	<mod name="The Tauren of Warcraft" author="Valkyrion">
+		<id steam="1327392829"/>
+		<specie value="tauren"/>
+	</mod>
+	<mod name="Housetrapped Goblin Race (Homestuck Trolls)" author="tiramisu,TSmae,TT">
+		<id steam="1382301744"/>
+		<specie value="tirastrolls" name="Tiras Trolls (Housetrapped)"/>
+	</mod>
+	<mod name="" author="">
+		<id steam=""/>
+		<specie value="troll"/>
+	</mod>
+	<mod name="" author="">
+		<id steam="null"/>
+		<specie value="unicorn"/>
+	</mod>
+	<mod name="Batong Vampire" author="cloudchaserpony32,Hubnester">
+		<id steam="1297163979"/>
+		<specie value="vampyric"/>
+	</mod>
+	<mod name="" author="">
+		<id steam="731106237"/>
+		<specie value="vanillapenguin" name="Vanilla Penguin"/>
+	</mod>
+	<mod name="Vespoids. A wasp/beelike race." author="AnthonySkunk89">
+		<id steam=""/>
+		<specie value="vespoid"/>
+	</mod>
+	<mod name="The Viera of Ivalice" author="freyjasvalkyrie13">
+		<id steam="732276079"/>
+		<specie value="viera"/>
+	</mod>
+	<mod name="Vulpes Race" author="Giulia,Drayk Foston">
+		<id steam="1307942879"/>
+		<specie value="vulpes"/>
+	</mod>
+	<mod name="Hive Wasp Race" author="Mighty Annihilator">
+		<id steam="770083792"/>
+		<specie value="wasphive"/>
+	</mod>
+	<mod name="Webbers Race" author="Makmorn,tank slayer 2">
+		<id steam="1347364393"/>
+		<specie value="webber"/>
+	</mod>
+	<mod name="Woggles!" author="Gyrruss">
+		<id steam="1296622347"/>
+		<specie value="woggle"/>
+	</mod>
+	<mod name="Zombie Race Mod Redux" author="DrPvtSkittles,Xel">
+		<id steam="953122293"/>
+		<specie value="zombie"/>
+	</mod>
+</species>
 <!--<id steam> base url: https://steamcommunity.com/sharedfiles/filedetails/?id= -->
+<!--<id steam> base url: http://community.playstarbound.com/resources/ -->

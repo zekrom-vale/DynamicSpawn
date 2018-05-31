@@ -2,26 +2,30 @@
 <!DOCTYPE html[
 <!ENTITY nbsp "&#160;">
 <!ENTITY times "&#10005;">
+<!ENTITY h "https://">
+<!ENTITY b "bootstrap">
+<!ENTITY bt "btn btn-">
+<!ENTITY Sb "Starbound">
 <!ELEMENT html (body,head)>
 <!ELEMENT body ANY>
 <!ELEMENT head ANY>
 ]>
-<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:import href="template.xsl"/>
 	<xsl:import href="aside.xsl"/>
 	<xsl:template match="/">
 
-<html xmlns:html="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US" data-author="zekrom-vale" data-game="Starbound" data-version="5" data-require="Bootstrap4,jQuery,popper,XML,XSL,XPath">
+<html xmlns:html="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US" data-author="zekrom-vale" data-game="&Sb;" data-version="5" data-require="Bootstrap4,jQuery,popper,XML,XSL,XPath">
 <head id="top">
 	<meta charset="UTF-8"/>
 	<title>Dynamic Spawn Creator</title>
 	<!--Meta-->
 	<meta name="viewport" content="width=device-width,initial-scale=1"/>
 	<meta name="author" content="zekrom_vale"/>
-	<meta name="description" content="Create your own mod! Chose the NPCs you want to spawn in Starbound."/>
-	<meta name="game" content="Starbound"/>
+	<meta name="description" content="Create your own mod! Chose the NPCs you want to spawn in &Sb;."/>
+	<meta name="game" content="&Sb;"/>
 	<meta name="generator" content="Notepad++"/>
-	<meta name="keywords" content="Starbound,NPC,Spawning,Mod,Dynamic Mod"/>
+	<meta name="keywords" content="&Sb;,NPC,Spawning,Mod,Dynamic Mod"/>
 	<meta name="month" content="5"/>
 	<meta name="monthname" content="May"/>
 	<meta name="year" content="2018"/>
@@ -34,21 +38,22 @@
 	<link rel="icon" type="image/png" href="img/icon.png"/>
 	<link rel="stylesheet" href="css/core.css"/>
 	<!--Extension links-->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="&h;maxcdn.&b;cdn.com/&b;/4.1.0/css/&b;.min.css"/>
 </head>
 <body>
 <!--[if IE]><script>
-<![CDATA[alert("This page is incompatible with Internet Explorer.\nPlease copy the entire link and paste it into modern browser.\nEx: Google Chrome or Firefox");]]>
+//<![CDATA[
+alert("This page is incompatible with Internet Explorer.\nPlease copy the entire link and paste it into modern browser.\nEx: Google Chrome or Firefox");//]]>
 </script><![endif]-->
 	<!--[if !IE]><!-->
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top justify-content-center">
 		<div class="btn-group">
-			<button class="btn btn-danger" id="removeAll" data-toggle="modal">Remove All</button>
-			<button class="btn btn-warning" accesskey="- r" id="removeVisible" onclick="removeVisible(event)">Remove Visible</button>
-			<button class="btn btn-primary" accesskey="+ a" id="addVisible" onclick="addVisible(event)">Add Visible</button>
-			<button class="btn btn-success" accesskey="e" onclick="iexport()">Export JSON</button>
-			<button class="btn btn-success" accesskey="i u" onclick="iimport()">Import JSON</button>
-			<button class="btn btn-info" accesskey="d" onclick="download()" id="download">Download Mod</button>
+			<button class="&bt;danger" id="removeAll" data-toggle="modal">Remove All</button>
+			<button class="&bt;warning" accesskey="- r" id="removeVisible" onclick="removeVisible(event)">Remove Visible</button>
+			<button class="&bt;primary" accesskey="+ a" id="addVisible" onclick="addVisible(event)">Add Visible</button>
+			<button class="&bt;success" accesskey="e" onclick="iexport()">Export JSON</button>
+			<button class="&bt;success" accesskey="i u" onclick="iimport()">Import JSON</button>
+			<button class="&bt;info" accesskey="d" onclick="download()" id="download">Download Mod</button>
 		</div>
 	</nav>
 	<!--<![endif]-->
@@ -68,16 +73,16 @@
 					</label>
 				</div>
 				<br/>
-				<xsl:apply-templates select="root/species"/>
+				<xsl:call-template name="liConstruct"/>
 			</div>
-			<xsl:call-template name="rootTabTab"/>
-			<xsl:call-template name="rootTabBody"/>
+			<xsl:call-template name="tabTab"/>
+			<xsl:call-template name="tabBody"/>
 		</main>
 		<xsl:call-template name="aside"/>
 	</div>
 	<!--[if !IE]><!-->
 	<scripts is="div" roll="div" hidden="hidden">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="&h;ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="js/util.js"></script>
 		<script src="js/species.js"></script>
 		<script src="js/io.js"></script>
@@ -93,8 +98,8 @@
 		</style>
 		<a id="save"></a>
 		<input type="file" id="iimport" accept=".DyS.json"/>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+		<script src="&h;cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+		<script src="&h;maxcdn.&b;cdn.com/&b;/4.1.0/js/&b;.min.js"></script>
 	</scripts>
 	<!--[if !IE]><!-->
 	<div class="modal" id="modal">
@@ -106,8 +111,8 @@
 				</div>
 				<div class="modal-body" id="modalBody"></div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" data-dismiss="modal" id="modalOk">Ok</button>
-					<button type="button" class="btn btn-danger" data-dismiss="modal" id="modalCancel">Cancel</button>
+					<button type="button" class="&bt;primary" data-dismiss="modal" id="modalOk">Ok</button>
+					<button type="button" class="&bt;danger" data-dismiss="modal" id="modalCancel">Cancel</button>
 				</div>
 			</div>
 		</div>
@@ -119,7 +124,7 @@
 				<div class="modal-content">
 					<div class="modal-header"><h4 class="modal-title">JavaScript Not Working</h4><button type="button" class="close" data-dismiss="modal">&times;</button></div>
 					<div class="modal-body">Not Enabled or Not Supported.<br/>This Page Will <b>Not Work!</b></div>
-					<div class="modal-footer"><button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button></div>
+					<div class="modal-footer"><button type="button" class="&bt;primary" data-dismiss="modal">Ok</button></div>
 				</div>
 			</div>
 		</div>
