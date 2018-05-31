@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="species.xsl"?>
-<root xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="species.xsd">
+<!DOCTYPE root[
+<!ELEMENT root (species,tab,html?)>
+<!ELEMENT species (mod)>
+<!ELEMENT mod (specie,id?,link?)>
+<!ATTLIST mod name CDATA "Z">
+<!ATTLIST mod value CDATA "Z">
+<!ELEMENT specie (imgOn?,imgOff?,default?)>
+<!ATTLIST specie value CDATA #REQUIRED>
+<!ATTLIST specie name CDATA #IMPLIED>
+<!ELEMENT default ANY>
+<!ELEMENT imgOn EMPTY>
+<!ATTLIST imgOn src CDATA "img/tab_other_select.png">
+<!ELEMENT imgOff EMPTY>
+<!ATTLIST imgOff src CDATA "img/tab_other.png">
+<!ELEMENT tab ANY>
+<!ELEMENT title (#PCDATA)>
+<!ELEMENT sub (#PCDATA)>
+<!ELEMENT html ANY>
+]>
+<root>
 	<species>
 		<mod name="vanilla" value="vanilla">
 			<specie value="apex" name="Apex">
@@ -16,7 +35,7 @@
 					<ROC/>
 				</default>
 			</specie>
-			<specie value="avian" name="Avian">
+			<specie value="avian">
 				<imgOn src="tab_avian_select.png"/>
 				<imgOff src="tab_avian.png"/>
 				<default all="true">
@@ -29,7 +48,7 @@
 					<ROC/>
 				</default>
 			</specie>
-			<specie value="floran" name="Floran">
+			<specie value="floran">
 				<imgOn src="tab_floran_select.png"/>
 				<imgOff src="tab_floran.png"/>
 				<default>
@@ -39,7 +58,7 @@
 					<ROC/>
 				</default>
 			</specie>
-			<specie value="glitch" name="Glitch">
+			<specie value="glitch">
 				<imgOn src="tab_glitch_select.png"/>
 				<imgOff src="tab_glitch.png"/>
 				<default>
@@ -51,7 +70,7 @@
 					<ROC/>
 				</default>
 			</specie>
-			<specie value="human" name="Human">
+			<specie value="human">
 				<imgOn src="tab_human_select.png"/>
 				<imgOff src="tab_human.png"/>
 				<default all="true">
@@ -64,7 +83,7 @@
 					<ROC/>
 				</default>
 			</specie>
-			<specie value="hylotl" name="Hylotl">
+			<specie value="hylotl">
 				<imgOn src="tab_hylotl_select.png"/>
 				<imgOff src="tab_hylotl.png"/>
 				<default all="true">
@@ -77,7 +96,7 @@
 					<ROC/>
 				</default>
 			</specie>
-			<specie value="novakid" name="Novakid">
+			<specie value="novakid">
 				<default all="true">
 					<Generic/>
 					<Pirate/>
@@ -89,27 +108,27 @@
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="Attarran" name="Attarran"/>
+			<specie value="Attarran"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="Canids" name="Canids"/>
+			<specie value="Canids"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="Eevee" name="Eevee"/>
+			<specie value="Eevee"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="Indix" name="Indix"/>
+			<specie value="Indix"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="Umbreon" name="Umbreon"/>
+			<specie value="Umbreon"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="agaran" name="Agaran"/>
+			<specie value="agaran"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
@@ -117,83 +136,83 @@
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="alicorn" name="Alicorn"/>
+			<specie value="alicorn"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="alpaca" name="Alpaca"/>
+			<specie value="alpaca"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="arachne" name="Arachne"/>
+			<specie value="arachne"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="argonian" name="Argonian"/>
+			<specie value="argonian"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="avali" name="Avali"/>
+			<specie value="avali"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="avikan" name="Avikan"/>
+			<specie value="avikan"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="avonian" name="Avonian"/>
+			<specie value="avonian"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="batpony" name="Batpony"/>
+			<specie value="batpony"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="blattra" name="Blattra"/>
+			<specie value="blattra"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="bunnykin" name="Bunnykin"/>
+			<specie value="bunnykin"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="callistan" name="Callistan"/>
+			<specie value="callistan"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="cat" name="Cat"/>
+			<specie value="cat"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="catus" name="Catus"/>
+			<specie value="catus"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="changeling" name="Changeling"/>
+			<specie value="changeling"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="chicken" name="Chicken"/>
+			<specie value="chicken"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="clownkin" name="Clownkin"/>
+			<specie value="clownkin"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="cryoguin" name="Cryoguin"/>
+			<specie value="cryoguin"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="demon" name="Demon"/>
+			<specie value="demon"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="dragon" name="Dragon"/>
+			<specie value="dragon"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="droden" name="Droden"/>
+			<specie value="droden"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
@@ -201,58 +220,58 @@
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="elunite" name="Elunite"/>
+			<specie value="elunite"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="everis" name="Everis"/>
+			<specie value="everis"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="familiar" name="Familiar"/>
+			<specie value="familiar"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="felin" name="Felin"/>
+			<specie value="felin"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="fenerox" name="Fenerox"/>
+			<specie value="fenerox"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="gardevan" name="Gardevan"/>
+			<specie value="gardevan"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="greckan" name="Greckan"/>
+			<specie value="greckan"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="gyrusen" name="Gyrusen"/>
+			<specie value="gyrusen"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="inkling" name="Inkling"/>
+			<specie value="inkling"/>
 		</mod>
 		<mod name="The Kazdra Reloaded" value="theKazdraReloaded" author="Andr3w246,zekrom_vale">
 			<id steam="949156982"/>
-			<specie value="kazdra" name="Kazdra">
+			<specie value="kazdra">
 				<imgOn src="tab_kazdra_select.png"/>
 				<imgOff src="tab_kazdra.png"/>
 			</specie>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="kemono" name="Kemono"/>
+			<specie value="kemono"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="kineptic" name="Kineptic"/>
+			<specie value="kineptic"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="lamia" name="Lamia"/>
+			<specie value="lamia"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
@@ -264,91 +283,91 @@
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="manicpenguin" name="Manicpenguin"/>
+			<specie value="manicpenguin"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="mantizi" name="Mantizi"/>
+			<specie value="mantizi"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="moogle" name="Moogle"/>
+			<specie value="moogle"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="munari" name="Munari"/>
+			<specie value="munari"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="neko" name="Neko"/>
+			<specie value="neko"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="nightar" name="Nightar"/>
+			<specie value="nightar"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="ningen" name="Ningen"/>
+			<specie value="ningen"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="ooze" name="Ooze"/>
+			<specie value="ooze"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="orcana" name="Orcana"/>
+			<specie value="orcana"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="pegasus" name="Pegasus"/>
+			<specie value="pegasus"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="peglaci" name="Peglaci"/>
+			<specie value="peglaci"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="penguin" name="Penguin"/>
+			<specie value="penguin"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="pengvolt" name="Pengvolt"/>
+			<specie value="pengvolt"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="phantasm" name="Phantasm"/>
+			<specie value="phantasm"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="phox" name="Phox"/>
+			<specie value="phox"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="plaguin" name="Plaguin"/>
+			<specie value="plaguin"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="ponex" name="Ponex"/>
+			<specie value="ponex"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="pony" name="Pony"/>
+			<specie value="pony"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="puffin" name="Puffin"/>
+			<specie value="puffin"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="pygs" name="Pygs"/>
+			<specie value="pygs"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="pyroguin" name="Pyroguin"/>
+			<specie value="pyroguin"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="robopenguin" name="Robopenguin"/>
+			<specie value="robopenguin"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
@@ -356,35 +375,35 @@
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="rodentia" name="Rodentia"/>
+			<specie value="rodentia"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="saturn" name="Saturn"/>
+			<specie value="saturn"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="Speciesorsheep" name="Speciesorsheep"/>
+			<specie value="Speciesorsheep"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="sergal" name="Sergal"/>
+			<specie value="sergal"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="shade" name="Shade"/>
+			<specie value="shade"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="shadow2" name="Shadow2"/>
+			<specie value="shadow2"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="skath" name="Skath"/>
+			<specie value="skath"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="skelekin" name="Skelekin"/>
+			<specie value="skelekin"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
@@ -396,11 +415,11 @@
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="tauren" name="Tauren"/>
+			<specie value="tauren"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="terrakin" name="Terrakin"/>
+			<specie value="terrakin"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
@@ -408,19 +427,19 @@
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="trink" name="Trink"/>
+			<specie value="trink"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="troll" name="Troll"/>
+			<specie value="troll"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="unicorn" name="Unicorn"/>
+			<specie value="unicorn"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="vampyric" name="Vampyric"/>
+			<specie value="vampyric"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
@@ -428,41 +447,65 @@
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="vespoid" name="Vespoid"/>
+			<specie value="vespoid"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="viera" name="Viera"/>
+			<specie value="viera"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="vulpes" name="Vulpes"/>
+			<specie value="vulpes"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="wasphive" name="Wasphive"/>
+			<specie value="wasphive"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="webber" name="Webber"/>
+			<specie value="webber"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="woggle" name="Woggle"/>
+			<specie value="woggle"/>
 		</mod>
 		<mod name="" author="">
 			<id/>
-			<specie value="zombie" name="Zombie"/>
+			<specie value="zombie"/>
 		</mod>
 	</species>
 	<tab>
-		<Generic/>
-		<Scientific/>
-		<Cult/>
-		<Pirate/>
-		<Merchant/>
-		<Bandit/>
-		<ROC/>
+		<Generic>
+			<title>Changes the species config of Generic NPCs.</title>
+			<sub>Ex. Space Stations, Space Hotel</sub>
+		</Generic>
+		<Scientific>
+			<title>Changes the species config of Scientist NPCs.</title>
+			<sub>Ex. Labs</sub>
+		</Scientific>
+		<Cult>
+			<title>Changes the species config of Cult NPCs.</title>
+			<sub>Ex. Random Encounters</sub>
+		</Cult>
+		<Pirate>
+			<title>Changes the species config of Space Pirate NPCs.</title>
+			<sub>Ex. Pirate Ships</sub>
+		</Pirate>
+		<Merchant>
+			<title>Changes the species config of Merchant NPCs.</title>
+			<sub>Ex. Merchant Ship, Industrial Merchant Ship.</sub>
+		</Merchant>
+		<Bandit>
+			<title>Changes the species config of Bandit NPCs.</title>
+			<sub>Ex. Random Encounters</sub>
+		</Bandit>
+		<ROC>
+			<title>Changes the species config of Random Outpost NPCs.</title>
+			<sub>NOT USED YET</sub>
+		</ROC>
 	</tab>
+	<html>
+		
+	</html>
 </root>
 <!--<id steam> base url: https://steamcommunity.com/sharedfiles/filedetails/?id= -->

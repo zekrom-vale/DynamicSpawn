@@ -104,8 +104,8 @@ function removeFromAll(el,event){
 	arr=elp.classList.value.split(" ");
 	if(event.shiftKey){
 //BUG Deselects active item even if it is deselected
-		for(let i in arr)if(arr[i].includes("active-")){
-			let t=arr[i].slice(7);
+		for(let i in arr)if(/^active-./.test(arr[i])){
+			let t=arr[i].replace("active-","");
 			if(elm.npcTab.querySelector(`[data-hash="#${t}"]`).parentNode.classList.contains("nav-link-sel")){
 				let item=document.querySelector(`#${t} li[value=${elp.getAttribute("value")}]`);
 				if(item){
@@ -116,12 +116,11 @@ function removeFromAll(el,event){
 		}
 	}
 	else for(let i in arr){
-		if(arr[i].includes("active-")){
-			let item=document.querySelector(`#${arr[i].slice(7)} li[value=${elp.getAttribute("value")}]`);
-			if(item){
-				item.parentNode.removeChild(item);
-				elp.classList.remove(arr[i]);
-			}
+		if(/^active-./.test(arr[i])){
+			console.info(arr[i]);
+			let item=document.querySelector(`#${arr[i].replace("active-","")} li[value=${elp.getAttribute("value")}]`);
+			elp.classList.remove(arr[i]);
+			if(item)item.parentNode.removeChild(item);
 		}
 	}
 }
