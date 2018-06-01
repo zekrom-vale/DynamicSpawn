@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="species.xsl"?>
+<!DOCTYPE species[
+<!ELEMENT species (mod+)>
+<!ELEMENT mod (specie+,id?,link?)>
+<!ATTLIST mod name CDATA "Z-UNDEFINED">
+<!ELEMENT specie (imgOn?,imgOff?,default?)>
+<!ATTLIST specie value CDATA #REQUIRED>
+<!ATTLIST specie name CDATA #IMPLIED>
+<!ELEMENT default ANY>
+<!ELEMENT imgOn EMPTY>
+<!ATTLIST imgOn src CDATA "img/tab_other_select.png">
+<!ELEMENT imgOff EMPTY>
+<!ATTLIST imgOff src CDATA "img/tab_other.png">
+<!ELEMENT tab ANY>
+<!ELEMENT title (#PCDATA)>
+<!ELEMENT sub (#PCDATA)>
+<!ELEMENT html ANY>
+]>
+<species warning="true">
+	<mod author="">
+		<id steam=""/>
+		<specie value="albinopenguin" name="Albino Penguin"/>
+	</mod>
+	<mod author="">
+		<id steam=""/>
+		<specie value="alicorn"/>
+	</mod>
+	<mod name="Elithian Races Mod" author="Aegonian [THEA]">
+		<id steam="850109963"/>
+		<specie value="avikan"/>
+		<specie value="terrakin"/>
+		<specie value="droden"/>
+		<specie value="trink"/>
+	</mod>
+	<mod author="">
+		<id steam=""/>
+		<specie value="batpony"/>
+	</mod>
+	<mod author="">
+		<id steam=""/>
+		<specie value="catus"/>
+	</mod>
+	<mod author="">
+		<id steam=""/>
+		<specie value="clownkin"/>
+	</mod>
+	<mod author="">
+		<id steam=""/>
+		<specie value="demon"/>
+	</mod>
+	<mod author="">
+		<id steam=""/>
+		<specie value="eeveetwo" name="Eevee Two"/>
+	</mod>
+	<mod author="">
+		<id steam=""/>
+		<specie value="kineptic"/>
+	</mod>
+	<mod author="">
+		<id steam=""/>
+		<specie value="manicpenguin"/>
+	</mod>
+	<mod author="">
+		<id steam=""/>
+		<specie value="moogle"/>
+	</mod>
+	<mod author="">
+		<id steam=""/>
+		<specie value="munari"/>
+	</mod>
+	<mod author="">
+		<id steam=""/>
+		<specie value="pegasus"/>
+	</mod>
+	<mod author="">
+		<id steam=""/>
+		<specie value="pengvolt"/>
+	</mod>
+	<mod author="">
+		<id steam=""/>
+		<specie value="plaguin"/>
+	</mod>
+	<mod author="">
+		<id steam=""/>
+		<specie value="ponex"/>
+	</mod>
+	<mod author="">
+		<id steam=""/>
+		<specie value="puffin"/>
+	</mod>
+	<mod author="">
+		<id steam=""/>
+		<specie value="pyroguin"/>
+	</mod>
+	<mod author="">
+		<id steam=""/>
+		<specie value="robopenguin" name="Robo Penguin"/>
+	</mod>
+	<mod author="">
+		<id steam=""/>
+		<specie value="rockhopperpenguin" name="Rock Hopper Penguin"/>
+	</mod>
+	<mod author="">
+		<id steam=""/>
+		<specie value="rodentia"/>
+	</mod>
+	<mod author="">
+		<id steam=""/>
+		<specie value="shade"/>
+	</mod>
+	<mod author="">
+		<id steam=""/>
+		<specie value="su_gem" name="Su Gem"/>
+	</mod>
+	<mod author="">
+		<id steam=""/>
+		<specie value="troll"/>
+	</mod>
+	<mod author="">
+		<id steam=""/>
+		<specie value="unicorn"/>
+	</mod>
+	<mod author="">
+		<id steam=""/>
+		<specie value="vanillapenguin" name="Vanilla Penguin"/>
+	</mod>
+</species>
