@@ -18,7 +18,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 		</ul>
 	</xsl:template>
 	<xsl:template name="liTemplate">
-		<li value="{@value}" id="{@value}" data-mod="{../@name}">
+		<li value="{@value}" id="{@value}" data-mod="{../@name}" data-author="{../@author}">
 			<xsl:if test="../id/@steam">
 				<xsl:attribute name="data-steam-id">
 					<xsl:text>https://steamcommunity.com/sharedfiles/filedetails/?id=</xsl:text>

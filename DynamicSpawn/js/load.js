@@ -113,7 +113,12 @@ function filterFn(){
 			var v=new RegExp($(this).val(),"ig");
 			$("#speciesList li, #npcList li").filter(function(){
 				document.getElementById("speciesLabel").classList.remove("err");
-				$(this).toggle(v.test(this.firstChild.innerHTML)||v.test(this.getAttribute("value")));
+				$(this).toggle(
+					v.test(this.firstChild.innerHTML)||
+					v.test(this.getAttribute("value"))||
+					v.test(this.dataset.author)||
+					v.test(this.dataset.mod)
+				);
 		});
 		}catch(e){
 			document.getElementById("speciesLabel").classList.add("err");
@@ -124,7 +129,12 @@ function filterFn(){
 		var value=$(this).val().toLowerCase().trim(),
 		exists=txt=>txt?txt.toLowerCase().indexOf(value)>-1:false;
 		$("#speciesList li,#npcList li").filter(function(){
-			$(this).toggle(exists(this.firstChild.innerHTML)||exists(this.getAttribute("value")));
+			$(this).toggle(
+				exists(this.firstChild.innerHTML)||
+				exists(this.getAttribute("value"))||
+				exists(this.dataset.author)||
+				exists(this.dataset.mod)
+			);
 		});
 	}
 }
