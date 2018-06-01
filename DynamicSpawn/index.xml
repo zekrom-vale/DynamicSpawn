@@ -1,3 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet type="text/xsl" href="xml/species.xsl"?>
-<root></root>
+<?xml-stylesheet type="text/xsl" href="xml/html.xsl"?>
+<!DOCTYPE root[
+<!ENTITY b "bootstrap">
+]>
+<root>
+		<author>zekrom_vale</author>
+		<game type="mod">Starbound</game>
+		<month monthName="June">6</month>
+		<year shortYear="18">2018</year>
+		<description>Create your own mod! Chose the NPCs you want to spawn in Starbound.</description>
+		<keywords keywordsDelimiter=",">Starbound,NPC,Spawning,Mod,Dynamic Mod</keywords>
+		<viewport>width=device-width,initial-scale=1</viewport>
+		<creator robots="nofollow">zekrom_vale</creator>
+		<xml xslt="1.0">1.0</xml>
+		<html>5</html>
+	</meta>
+	<script>
+		<e>ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery</e>
+		<f>util</f>
+		<f>species</f>
+		<f>io</f>
+		<f>custom</f>
+		<f>load</f>
+		<e>cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper</e>
+		<e>maxcdn.&b;cdn.com/&b;/4.1.0/js/&b;</e>
+	</script>
+</root>
