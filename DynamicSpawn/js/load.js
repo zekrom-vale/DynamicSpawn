@@ -122,7 +122,7 @@ function filterFn(){
 	else{
 		//https://www.w3schools.com/bootstrap4/bootstrap_filters.asp
 		var value=$(this).val().toLowerCase().trim(),
-		exists=txt=>txt.toLowerCase().indexOf(value)>-1;
+		exists=txt=>txt?txt.toLowerCase().indexOf(value)>-1:false;
 		$("#speciesList li,#npcList li").filter(function(){
 			$(this).toggle(exists(this.firstChild.innerHTML)||exists(this.getAttribute("value")));
 		});

@@ -108,16 +108,13 @@ function removeFromAll(el,event){
 			let t=arr[i].replace("active-","");
 			if(elm.npcTab.querySelector(`[data-hash="#${t}"]`).parentNode.classList.contains("nav-link-sel")){
 				let item=document.querySelector(`#${t} li[value=${elp.getAttribute("value")}]`);
-				if(item){
-					item.parentNode.removeChild(item);
-					elp.classList.remove(arr[i]);
-				}
+				elp.classList.remove(arr[i]);
+				if(item)item.parentNode.removeChild(item);
 			}
 		}
 	}
 	else for(let i in arr){
 		if(/^active-./.test(arr[i])){
-			console.info(arr[i]);
 			let item=document.querySelector(`#${arr[i].replace("active-","")} li[value=${elp.getAttribute("value")}]`);
 			elp.classList.remove(arr[i]);
 			if(item)item.parentNode.removeChild(item);
@@ -127,13 +124,16 @@ function removeFromAll(el,event){
 
 function addToAll(el,event){
 	var elp=document.getElementById(el.parentNode.parentNode.getAttribute("value")),
-	spawns=elm.npcList.getElementsByTagName("ul"),
-	base=elm.npcList.getElementsByTagName("div"),
+	spawns=document.querySelectorAll("#npcList>div>ul"),
+	base=document.querySelectorAll("#npcList>div"),
 	arr=[];
 	const _b=base.length;
 	if(event.shiftKey)for(let i=0;_b>i;i++){
-		if(!document.querySelector(`[data-hash="#${base[i].id}"]`).parentNode.classList.contains("nav-link-sel"))arr[i]=false;
-		else if(elp.classList.contains("active-"+base[i].id))arr[i]=false;
+		if(
+			!document.querySelector(`[data-hash="#${base[i].id}"]`).parentNode.classList.contains("nav-link-sel")
+			||
+			elp.classList.contains("active-"+base[i].id)
+		)arr[i]=false;
 		else elp.classList.add("active-"+base[i].id);
 	}
 	else for(let i=0;_b>i;i++){
