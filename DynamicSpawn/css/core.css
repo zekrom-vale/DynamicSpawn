@@ -141,6 +141,10 @@ button:hover>img.off,button:not(:hover)>img.on,.switch input{
 	background-color:transparent;
 }
 
-.species,.capitalize{
+.capitalize{
 	text-transform:capitalize;
+}
+
+:not(:hover)>.hover{
+	display:none;
 }

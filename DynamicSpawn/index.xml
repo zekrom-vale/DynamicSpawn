@@ -4,6 +4,7 @@
 <!ENTITY b "bootstrap">
 ]>
 <root>
+	<meta>
 		<author>zekrom_vale</author>
 		<game type="mod">Starbound</game>
 		<month monthName="June">6</month>

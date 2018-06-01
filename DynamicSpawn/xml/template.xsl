@@ -2,12 +2,13 @@
 <!DOCTYPE template[
 <!ENTITY nbsp "&#160;">
 <!ENTITY times "&#10005;">
+<!ENTITY p "img/">
 ]>
 <xsl:stylesheet version="1.0"
 xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:template name="liConstruct">
 		<ul class="list-group" id="speciesList" style="height:25vh;overflow:auto">
-			<xsl:for-each select="document('species.xml')/species/mod">
+			<xsl:for-each select="document('species.xml')/species/mod|document('verify.xml')/species/mod">
 				<xsl:sort select="@name"/>
 				<xsl:for-each select="specie">
 					<xsl:sort select="@name"/>
@@ -18,34 +19,72 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	</xsl:template>
 	<xsl:template name="liTemplate">
 		<li value="{@value}" id="{@value}" data-mod="{../@name}">
+			<xsl:if test="../id/@steam">
+				<xsl:attribute name="data-steam-id">
+					<xsl:text>https://steamcommunity.com/sharedfiles/filedetails/?id=</xsl:text>
+					<xsl:value-of select="../id/@steam"/>
+				</xsl:attribute>
+			</xsl:if>
+			<xsl:if test="../id/@sb">
+				<xsl:attribute name="data-sb-id">
+					<xsl:text>http://community.playstarbound.com/resources/</xsl:text>
+					<xsl:value-of select="../id/@sb"/>
+				</xsl:attribute>
+			</xsl:if>
 			<xsl:attribute name="class">
 				<xsl:text>list-group-item </xsl:text>
-				<xsl:if test="default">
+				<xsl:if test="../../@warning='true'">warning </xsl:if>
+				<!--<xsl:if test="default">
 					<xsl:for-each select="default/*">
 						<xsl:text> active-npc</xsl:text>
 						<xsl:value-of select="local-name()"/>
 					</xsl:for-each>
-				</xsl:if>
+				</xsl:if>-->
 			</xsl:attribute>
 			<button class="btn btn-dark species" onclick="modifyCont(this)">
-				<xsl:choose>
-					<xsl:when test="@name">
-						<xsl:value-of select="@name"/>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:value-of select="@value"/>
-					</xsl:otherwise>
-				</xsl:choose>
+				<xsl:attribute name="class">
+					<xsl:text>btn btn-</xsl:text>
+					<xsl:choose>
+						<xsl:when test="../../@warning='true'">warning</xsl:when>
+						<xsl:otherwise>dark</xsl:otherwise>
+					</xsl:choose>
+					<xsl:text> species</xsl:text>
+				</xsl:attribute>
+				<xsl:if test="../@name!='' and ../@name!='Z-UNDEFINED' and ../@name or ../@author!='' and ../@author">
+					<xsl:attribute name="data-toggle">popover</xsl:attribute>
+					<xsl:attribute name="data-placement">right</xsl:attribute>
+					<xsl:attribute name="data-trigger">hover</xsl:attribute>
+					<xsl:attribute name="title">
+						<xsl:value-of select="../@name"/>
+					</xsl:attribute>
+					<xsl:attribute name="data-content">
+						<xsl:text>By </xsl:text>
+						<xsl:value-of select="../@author"/>
+					</xsl:attribute>
+				</xsl:if>
+				<span class="capitalize">
+					<xsl:choose>
+						<xsl:when test="@name">
+							<xsl:value-of select="@name"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="@value"/>
+						</xsl:otherwise>
+					</xsl:choose>
+				</span>
 				<xsl:choose>
 					<xsl:when test="imgOn and imgOff">
-						<img class="off" src="img/{imgOff/@src}"/>
-						<img class="on" src="img/{imgOn/@src}"/>
+						<img class="off" src="&p;{imgOff/@src}"/>
+						<img class="on" src="&p;{imgOn/@src}"/>
 					</xsl:when>
 					<xsl:otherwise>
-						<img class="off" src="img/tab_other.png"/>
-						<img class="on" src="img/tab_other_select.png"/>
+						<img class="off" src="&p;tab_other.png"/>
+						<img class="on" src="&p;tab_other_select.png"/>
 					</xsl:otherwise>
 				</xsl:choose>
+				<span class="hover">
+					{<xsl:value-of select="@value"/>}
+				</span>
 			</button>
 			<div class="btn-group species-group">
 				<button class="btn btn-secondary" onclick="addToAll(this,event)">
