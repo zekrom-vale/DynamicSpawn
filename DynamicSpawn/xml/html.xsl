@@ -1,30 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html[
 <!ENTITY nbsp "&#160;">
-<!ENTITY times "&#10005;">
+<!ENTITY x "&#10005;">
 <!ENTITY b "bootstrap">
 <!ENTITY bt "btn btn-">
+<!ENTITY w "-warning">
+<!ENTITY n "navbar">
+<!ENTITY m "modal">
 <!ELEMENT html (body,head)>
 <!ELEMENT body ANY>
 <!ELEMENT head ANY>
 ]>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-	<xsl:import href="template.xsl"/>
-	<xsl:import href="aside.xsl"/>
-	<xsl:template match="/">
-
+<x:stylesheet version="1.0" xmlns:x="http://www.w3.org/1999/XSL/Transform">
+	<x:import href="template.xsl"/>
+	<x:import href="aside.xsl"/>
+	<x:template match="/">
 <html xmlns:html="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US" data-author="zekrom-vale" data-game="Starbound" data-require="Bootstrap4,jQuery,popper,XML,XSL,XPath">
 <head id="top">
 	<meta charset="UTF-8"/>
 	<title>Dynamic Spawn Creator</title>
-	<xsl:for-each select="root/meta/*">
-		<meta name="{local-name()}" content="{text()}"/>
-		<xsl:if test="@*">
-			<xsl:for-each select="@*">
-				<meta name="{name(.)}" content="{.}"/>
-			</xsl:for-each>
-		</xsl:if>
-	</xsl:for-each>
+	<x:for-each select="root/meta/*|root/meta/*/@*">
+		<meta name="{name(.)}" content="{.}"/>
+	</x:for-each>
 	<!--links-->
 	<link rel="icon" type="image/svg+xml" href="img/icon.svg"/>
 	<link rel="icon" type="image/png" href="img/icon.png"/>
@@ -34,13 +31,12 @@
 </head>
 <body>
 <!--[if IE]><script>
-//<![CDATA[
-alert("This page is incompatible with Internet Explorer.\nPlease copy the entire link and paste it into modern browser.\nEx: Google Chrome or Firefox");//]]>
+alert("This page is incompatible with Internet Explorer.\nPlease copy the entire link and paste it into modern browser.\nEx: Google Chrome or Firefox");
 </script><![endif]-->
 	<!--[if !IE]><!-->
-	<nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top justify-content-center">
+	<nav class="&n; &n;-expand-sm bg-dark &n;-dark sticky-top justify-content-center">
 		<div class="btn-group">
-			<button class="&bt;danger" id="removeAll" data-toggle="modal">Remove All</button>
+			<button class="&bt;danger" id="removeAll" data-toggle="&m;">Remove All</button>
 			<button class="&bt;warning" accesskey="- r" id="removeVisible" onclick="removeVisible(event)">Remove Visible</button>
 			<button class="&bt;primary" accesskey="+ a" id="addVisible" onclick="addVisible(event)">Add Visible</button>
 			<button class="&bt;success" accesskey="e" onclick="iexport()">Export JSON</button>
@@ -48,45 +44,59 @@ alert("This page is incompatible with Internet Explorer.\nPlease copy the entire
 			<button class="&bt;info" accesskey="d" onclick="download()" id="download">Download Mod</button>
 		</div>
 	</nav>
-	<nav class="navbar navbar-expand-sm bg-warning navbar-warning sticky-top justify-content-center">
-		<h6>ALERT: The species list is a work in progress, if you find something wrong please contact me!</h6>
+	<nav class="&n; &n;-expand-sm bg&w; &n;&w; sticky-top justify-content-center">
+		<h6><b>ALERT</b>: The species list is a work in progress, if you find something wrong please <a href="https://github.com/zekrom-vale/DynamicSpawn/issues">create an issue!</a></h6>
 	</nav>
 	<!--<![endif]-->
 	<br/>
 	<div class="container-fluid row ad ad-box" id="container">
-		<main as="span" roll="span" class="col-sm-10" id="body">
+		<aside as="span" roll="span" class="col-sm-0 col-md-2 col-xl-2">
+			<h4>Active Mods</h4>
+			<ul class="list-group" id="mods">
+				<x:call-template name="modList"/>
+			</ul>
+		</aside>
+		<main as="span" roll="span" class="col-sm-12 col-md-10 col-xl-8" id="body">
 			<div class="alert alert-success d-flex">
 				<div class="p-2">Path<span id="toLocal"> to Local</span>:&nbsp;</div>
-				<input class="p-2 flex-grow-1 code" id="path" disabled="disabled"/>
+				<input class="p-2 flex-grow-1 code" id="path" disabled="disabled" name="path"/>
 			</div>
 			<div>
 				<div class="form-control" id="speciesLabel">
-					<input id="speciesInput" type="text" placeholder="Search Species... EX: ^kazdra$|hum|^[a-b]|Ar(gon)?i|^s[^a-d]+|^.{5}$"/>
-					<label class="switch float-right" style="position:relative;bottom:4px" data-toggle="tooltip" data-placement="left" title="Enable RegExp support">
+					<select class="form-control-sm" style="width:65px;display:inline;" id="searchOp" name="option">
+						<option value="0">All</option>
+						<option value="1">Species Name</option>
+						<option value="2">Species Value</option>
+						<option value="1.5">Species</option>
+						<option value="3">Mod Name</option>
+						<option value="4">Mod Author</option>
+					</select>
+					<input id="speciesInput" type="text" name="search" style="position:relative;right:-12px;" placeholder="Search Species... EX: ^kazdra$|hum|^[a-b]|Ar(gon)?i|^s[^a-dl-v\d]+|^.{5}$"/>
+					<label class="switch float-right" style="position:relative;bottom:4px;" data-toggle="tooltip" data-placement="left" title="Enable RegExp support">
 						<input type="checkbox" id="RegExp"/>
-						<span class="slider round"></span>
+						<span class="slider round" id="RegExpS"></span>
 					</label>
 				</div>
 				<br/>
-				<xsl:call-template name="liConstruct"/>
+				<x:call-template name="liConstruct"/>
 			</div>
-			<xsl:call-template name="tabTab"/>
-			<xsl:call-template name="tabBody"/>
+			<x:call-template name="tabTab"/>
+			<x:call-template name="tabBody"/>
 		</main>
-		<xsl:call-template name="aside"/>
+		<x:call-template name="aside"/>
 	</div>
 	<!--[if !IE]><!-->
 	<scripts is="div" roll="div" hidden="hidden">
-		<xsl:for-each select="root/script/*">
-			<xsl:choose>
-				<xsl:when test="name()='f'">
+		<x:for-each select="root/script/*">
+			<x:choose>
+				<x:when test="name()='f'">
 					<script src="js/{text()}.js"/>
-				</xsl:when>
-				<xsl:otherwise>
+				</x:when>
+				<x:otherwise>
 					<script src="https://{text()}.min.js"/>
-				</xsl:otherwise>
-			</xsl:choose>
-		</xsl:for-each>
+				</x:otherwise>
+			</x:choose>
+		</x:for-each>
 		<style id="activeStyle">
 			.active-npcGeneric{
 				z-index:2;
@@ -95,38 +105,43 @@ alert("This page is incompatible with Internet Explorer.\nPlease copy the entire
 				border-color:#007bff;
 			}
 		</style>
+		<style id="activeStyle2">
+			.hideMod{
+				display:none;
+			}
+		</style>
 		<a id="save"></a>
 		<input type="file" id="iimport" accept=".DyS.json"/>
 	</scripts>
 	<!--[if !IE]><!-->
-	<div class="modal" id="modal">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title" id="modalHead"></h4>
-					<button type="button" class="close" data-dismiss="modal" id="modalX">&times;</button>
+	<div class="&m;" id="&m;">
+		<div class="&m;-dialog">
+			<div class="&m;-content">
+				<div class="&m;-header">
+					<h4 class="&m;-title" id="&m;Head"></h4>
+					<button class="close" data-dismiss="&m;" id="&m;X">&x;</button>
 				</div>
-				<div class="modal-body" id="modalBody"></div>
-				<div class="modal-footer">
-					<button type="button" class="&bt;primary" data-dismiss="modal" id="modalOk">Ok</button>
-					<button type="button" class="&bt;danger" data-dismiss="modal" id="modalCancel">Cancel</button>
+				<div class="&m;-body" id="&m;Body"></div>
+				<div class="&m;-footer">
+					<button class="&bt;primary" data-dismiss="&m;" id="&m;Ok">Ok</button>
+					<button class="&bt;danger" data-dismiss="&m;" id="&m;Cancel">Cancel</button>
 				</div>
 			</div>
 		</div>
 	</div>
 	<!--<![endif]-->
 	<noscript>
-		<div class="modal show" style="display:block;">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header"><h4 class="modal-title">JavaScript Not Working</h4><button type="button" class="close" data-dismiss="modal">&times;</button></div>
-					<div class="modal-body">Not Enabled or Not Supported.<br/>This Page Will <b>Not Work!</b></div>
-					<div class="modal-footer"><button type="button" class="&bt;primary" data-dismiss="modal">Ok</button></div>
+		<div class="&m; show" style="display:block;">
+			<div class="&m;-dialog">
+				<div class="&m;-content">
+					<div class="&m;-header"><h4 class="&m;-title">JavaScript Not Working</h4><button class="close" data-dismiss="&m;">&x;</button></div>
+					<div class="&m;-body">Not Enabled or Not Supported.<br/>This Page Will <b>Not Work!</b></div>
+					<div class="&m;-footer"><button class="&bt;primary" data-dismiss="&m;">Ok</button></div>
 				</div>
 			</div>
 		</div>
 	</noscript>
 </body>
 </html>
-</xsl:template>
-</xsl:stylesheet>
+</x:template>
+</x:stylesheet>

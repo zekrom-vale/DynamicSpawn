@@ -1,19 +1,6 @@
-@media (min-width:851px){
-	#body{
-		max-width:calc(100% - 250px);
-	}
+@media (max-width:1200px){
 	#side{
-		min-width:250px;
-	}
-}@media (max-width:850px){
-	#body{
-		width:100%;
-		max-width:100%;
-		flex:0 0 100%;
-		ms-flex:0 0 100%;
-	}
-	#side{
-		display:none;
+		display:none!important;
 	}
 }
 

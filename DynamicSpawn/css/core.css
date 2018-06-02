@@ -6,7 +6,7 @@
 }
 
 #speciesInput{
-	width:calc(100% - 60px - 26px);
+	width:calc(100% - 60px - 26px * 2 - 65px);
 	border:none;
 }
 /*https://stackoverflow.com/questions/3397113/how-to-remove-border-outline-around-text-input-boxes-chrome*/
@@ -147,4 +147,22 @@ button:hover>img.off,button:not(:hover)>img.on,.switch input{
 
 :not(:hover)>.hover{
 	display:none;
+}
+
+select>option{
+	padding:10px!important;
+}
+
+#mods{
+	max-height:70%;
+	overflow:hidden scroll;
+}
+
+#mods>li{
+	cursor:pointer;
+	text-overflow:ellipsis;
+	-webkit-user-select:none;
+	-moz-user-select:none;
+	-ms-user-select:none;
+	user-select:none;
 }
