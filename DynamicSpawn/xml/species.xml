@@ -161,7 +161,7 @@
 		<specie value="callistan"/>
 	</mod>
 	<mod name="Playable Cats Redux" author="Sentient Cookie, TheBlueLeafeon, TheAdmiral">
-		<id steam="1302252128/1300828186"/>
+		<id steam="1302252128" altSteam="1300828186"/>
 		<specie value="cat"/>
 	</mod>
 	<mod name="Dominion Races" author="odo">

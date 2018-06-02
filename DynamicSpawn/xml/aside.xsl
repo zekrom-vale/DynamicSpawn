@@ -3,13 +3,14 @@
 <!ENTITY nbsp "&#160;">
 <!ENTITY m "Matches">
 <!ENTITY c "character">
+<!ENTITY cc "carousel-control-">
 ]>
-<xsl:stylesheet version="1.0"
-xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-<xsl:template name="aside">
-	<aside as="span" class="col-sm-2" style="width:100%" data-pause="hover" id="side" roll="span">
+<x:stylesheet version="1.0"
+xmlns:x="http://www.w3.org/1999/XSL/Transform">
+<x:template name="aside">
+	<aside as="span" class="col-xl-2" style="width:100%" data-pause="hover" id="side" roll="span">
 		<div class="carousel slide" data-ride="carousel" id="side2">
-			 <ul class="carousel-indicators invert">
+			<ul class="carousel-indicators invert">
 				<li data-target="#side2" data-slide-to="0" class="active"></li>
 				<li data-target="#side2" data-slide-to="1"></li>
 				<li data-target="#side2" data-slide-to="2"></li>
@@ -22,7 +23,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 						<h4 class="card-title">zekrom_vale</h4>
 						<p class="card-text">
 							Developer of the Kazdra Recipes and Fixes Patch, it's additions varent, as well as Multicraft API.
-							Devoted self taught programmer of numerous <a data-toggle="tooltip" title="TI-basic, HTML, CSS, XML, JavaScript, JSON, SVG, BB, MD, Lua, Bootstrap4, C#, XPath, XSL" class="help">languages / markup</a> and programs.
+							Devoted self taught programmer of numerous <a data-toggle="tooltip" title="TI-basic, HTML, CSS, XML, JavaScript, JSON, SVG, BB, MD, Lua, Bootstrap4, jQuery*, C#*, XPath, XSL, DTD, XSD*" class="help">languages / markup</a> and programs.
 						</p>
 						<a rel="external" href="https://github.com/zekrom-vale" class="btn btn-primary">Github Profile</a>
 					</div>
@@ -107,9 +108,9 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 					</div>
 				</div>
 			</div>
-			<a class="carousel-control-prev invert" href="#side2" data-slide="prev"><span class="carousel-control-prev-icon"></span></a>
-			<a class="carousel-control-next invert" href="#side2" data-slide="next"><span class="carousel-control-next-icon"></span></a>
+			<a class="&cc;prev invert" href="#side2" data-slide="prev"><span class="&cc;prev-icon"></span></a>
+			<a class="&cc;next invert" href="#side2" data-slide="next"><span class="&cc;next-icon"></span></a>
 		</div>
 	</aside>
-</xsl:template>
-</xsl:stylesheet>
+</x:template>
+</x:stylesheet>

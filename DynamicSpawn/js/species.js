@@ -76,21 +76,28 @@ function dtTab(el){
 	style.innerHTML=style.innerHTML.replace(/(active\-).+?\{/,`$1${hash.slice(1)}\{`);
 }
 
-function modifyCont(el){
+function modifyCont(el,event){
 	el=el.parentNode;
-	let hash=location.hash;
-	var css="active-"+hash.slice(1);
-	if(el.classList.contains(css)){
-		var item=document.querySelector(`${hash} li[value=${el.getAttribute("value")}]`);
-		item.parentNode.removeChild(item);
-		el.classList.remove(css);
+	if(event.altKey){
+		let l=el.dataset.steamid||el.dataset.sbid;
+		console.log(l);
+		if(l)location.assign(l);
 	}
 	else{
-		el.classList.add(css);
-		var li=el.cloneNode(true);
-		li.setAttribute("onclick","removeEl(this)");
-		li.id="";
-		document.querySelector(hash+">ul").prepend(li);
+		let hash=location.hash;
+		var css="active-"+hash.slice(1);
+		if(el.classList.contains(css)){
+			var item=document.querySelector(`${hash} li[value=${el.getAttribute("value")}]`);
+			item.parentNode.removeChild(item);
+			el.classList.remove(css);
+		}
+		else{
+			el.classList.add(css);
+			var li=el.cloneNode(true);
+			li.setAttribute("onclick","removeEl(this)");
+			li.id="";
+			document.querySelector(hash+">ul").prepend(li);
+		}
 	}
 }
 
