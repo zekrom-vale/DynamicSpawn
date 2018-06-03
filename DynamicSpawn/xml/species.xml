@@ -352,4 +352,20 @@
 		<id steam="953122293"/>
 		<specie value="zombie"/>
 	</mod>
+	<mod name="Frankin' Universe" author="Sayter, Cari The Kitty, Behold the Robes, Hubnester, renbear, NotMrFlibble, DarkPursuer, cat2002, PParrot, Lucca">
+		<id steam="729480149" sb="frackinuniverse.2920"/>
+		<specie value="fuanodyne" name="Anodyne"/>
+		<specie value="fudarkizku" name="Darkizku"/>
+		<specie value="fuizku" name="Izku"/>
+		<specie value="fukirhos" name="Kirhos"/>
+		<specie value="fumantis" name="Mantis"/>
+		<specie value="fumantizi" name="Mantizi"/>
+		<specie value="fupeglaci" name="Peglaci"/>
+		<specie value="fuphotonpoptop" name="Photonpoptop"/>
+		<specie value="nightar"/>
+		<specie value="precursor"/>
+		<specie value="radien"/>
+		<specie value="spiderdroid" name="Spider Droid"/>
+		<specie value="thelusian"/>
+	</mod>
 </species>
