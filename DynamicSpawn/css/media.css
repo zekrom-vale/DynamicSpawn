@@ -1,6 +1,10 @@
-@media (max-width:1200px){
+@media (max-width:991px){
 	#side{
 		display:none!important;
+	}
+}@media (min-width:992px){
+	#container{
+		padding:0!important;
 	}
 }
 
@@ -50,5 +54,11 @@
 @media (max-width:400px){
 	#toLocal{
 		display:none;
+	}
+}
+
+@media (max-width:767px){
+	#mods{
+		height:200px;
 	}
 }

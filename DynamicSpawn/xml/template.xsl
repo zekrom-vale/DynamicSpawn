@@ -19,6 +19,7 @@ xmlns:x="http://www.w3.org/1999/XSL/Transform">
 	</x:template>
 	<x:template name="modList">
 		<x:for-each select="document('species.xml')/species/mod|document('verify.xml')/species/mod">
+			<x:sort select="@name"/>
 			<x:if test="@name!='' and @name!='Z-UNDEFINED'">
 				<li value="{@name}" class="list-group-item"><x:value-of select="@name"/></li>
 			</x:if>

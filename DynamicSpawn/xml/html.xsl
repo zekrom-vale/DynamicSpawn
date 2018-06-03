@@ -34,29 +34,39 @@
 alert("This page is incompatible with Internet Explorer.\nPlease copy the entire link and paste it into modern browser.\nEx: Google Chrome or Firefox");
 </script><![endif]-->
 	<!--[if !IE]><!-->
-	<nav class="&n; &n;-expand-sm bg-dark &n;-dark sticky-top justify-content-center">
-		<div class="btn-group">
-			<button class="&bt;danger" id="removeAll" data-toggle="&m;">Remove All</button>
-			<button class="&bt;warning" accesskey="- r" id="removeVisible" onclick="removeVisible(event)">Remove Visible</button>
-			<button class="&bt;primary" accesskey="+ a" id="addVisible" onclick="addVisible(event)">Add Visible</button>
-			<button class="&bt;success" accesskey="e" onclick="iexport()">Export JSON</button>
-			<button class="&bt;success" accesskey="i u" onclick="iimport()">Import JSON</button>
-			<button class="&bt;info" accesskey="d" onclick="download()" id="download">Download Mod</button>
+<div id="load" class="container-fluid" style="z-index:999999;position:fixed;top:0;right:0">
+	<div style="height:calc(50vh - 113.5px / 2 - 30px)"></div>
+	<div style="background-color:white;border-radius:5px;padding:30px 15px">
+		<h1>Loading Scripts</h1>
+		<h3 class="justify-content-center">Please Wait</h3>
+		<div class="progress">
+			<div class="progress-bar progress-bar-striped progress-bar-animated" style="width:0%" id="loading"></div>
 		</div>
+	</div>
+	<div style="height:calc(50vh - 113.5px / 2 - 30px)"></div>
+</div>
+<div style="opacity:0.3;" id="base">
+	<nav class="&n; bg-dark sticky-top justify-content-center btn-group">
+		<button class="&bt;danger" id="removeAll" data-toggle="&m;">Remove All</button>
+		<button class="&bt;warning" accesskey="- r" id="removeVisible" onclick="removeVisible(event)">Remove Visible</button>
+		<button class="&bt;primary" accesskey="+ a" id="addVisible" onclick="addVisible(event)">Add Visible</button>
+		<button class="&bt;success" accesskey="e" onclick="iexport()">Export JSON</button>
+		<button class="&bt;success" accesskey="i u" onclick="iimport()">Import JSON</button>
+		<button class="&bt;info" accesskey="d" onclick="download()" id="download">Download Mod</button>
 	</nav>
-	<nav class="&n; &n;-expand-sm bg&w; &n;&w; sticky-top justify-content-center">
-		<h6><b>ALERT</b>: The species list is a work in progress, if you find something wrong please <a href="https://github.com/zekrom-vale/DynamicSpawn/issues">create an issue!</a></h6>
-	</nav>
+	<nav class="&n; bg&w; justify-content-center"><h6>
+		<b>ALERT</b>: The species list is a work in progress, if you find something wrong please <a href="https://github.com/zekrom-vale/DynamicSpawn/issues">create an issue!</a>
+	</h6></nav>
 	<!--<![endif]-->
 	<br/>
 	<div class="container-fluid row ad ad-box" id="container">
-		<aside as="span" roll="span" class="col-sm-0 col-md-2 col-xl-2">
+		<aside as="span" roll="span" class="col-sm-0 col-md-3 col-lg-2 col-xl-2">
 			<h4>Active Mods</h4>
 			<ul class="list-group" id="mods">
 				<x:call-template name="modList"/>
 			</ul>
 		</aside>
-		<main as="span" roll="span" class="col-sm-12 col-md-10 col-xl-8" id="body">
+		<main as="span" roll="span" class="col-sm-12 col-md-9 col-lg-7 col-xl-7" id="body">
 			<div class="alert alert-success d-flex">
 				<div class="p-2">Path<span id="toLocal"> to Local</span>:&nbsp;</div>
 				<input class="p-2 flex-grow-1 code" id="path" disabled="disabled" name="path"/>
@@ -141,6 +151,7 @@ alert("This page is incompatible with Internet Explorer.\nPlease copy the entire
 			</div>
 		</div>
 	</noscript>
+</div>
 </body>
 </html>
 </x:template>

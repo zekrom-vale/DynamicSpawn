@@ -8,7 +8,7 @@
 <x:stylesheet version="1.0"
 xmlns:x="http://www.w3.org/1999/XSL/Transform">
 <x:template name="aside">
-	<aside as="span" class="col-xl-2" style="width:100%" data-pause="hover" id="side" roll="span">
+	<aside as="span" class="col-lg-3 col-xl-3" style="width:100%" data-pause="hover" id="side" roll="span">
 		<div class="carousel slide" data-ride="carousel" id="side2">
 			<ul class="carousel-indicators invert">
 				<li data-target="#side2" data-slide-to="0" class="active"></li>

@@ -117,7 +117,7 @@ button:hover>img.off,button:not(:hover)>img.on,.switch input{
 
 #side2 .carousel-item{
 	padding:10px 20px;
-	height:80vh;
+	height:calc(100vh - 90px);
 }
 
 #side2 .carousel-indicators{
@@ -154,7 +154,7 @@ select>option{
 }
 
 #mods{
-	max-height:70%;
+	max-height:calc(100vh - 125px);
 	overflow:hidden scroll;
 }
 
@@ -165,4 +165,14 @@ select>option{
 	-moz-user-select:none;
 	-ms-user-select:none;
 	user-select:none;
+}
+
+#npcList>div{
+	margin:0;
+	max-width:100vw;
+}
+
+#load h1,
+#load h3{
+	text-align:center;
 }

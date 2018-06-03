@@ -1,46 +1,17 @@
 "use strict";
 var saveData;
 const elm={};
+document.getElementById("loading").style.width="1%";
 
 window.addEventListener("load",()=>{
+var load=document.getElementById("loading");
 //--------------- Set Up References ---------------
 if(elm.length>0)location.reload;
 elm.npcTab=document.getElementById("npcTab");
 elm.speciesList=document.getElementById("speciesList");
 elm.npcList=document.getElementById("npcList");
 Object.freeze(elm);
-{//--------------- Get Path ---------------
-	let q=location.search.slice(1).split("&"),
-	qi;
-	for(let i in q)if(/^path=/i.test(q[i])){
-		qi=decodeURIComponent(q[i].slice(5)+"\\");
-		continue;
-	}
-	let valid=/^[a-z]:((\\|\/)[^\\\/:*?"<>|]+)+(\\|\/)$/i.test(qi),
-	sys=/System Path/.test(qi),
-	el=document.getElementById("path");
-	if(valid&&!sys){
-		el.value=qi;
-		let inMod=/(\\|\/)steamapps(\\|\/)common(\\|\/)Starbound(\\|\/)mods(\\|\/)[^\\\/]+(\\|\/)?$/.test(qi),
-		atMod=/(\\|\/)steamapps(\\|\/)common(\\|\/)Starbound(\\|\/)mods(\\|\/)?$/.test(qi)
-		if(atMod)popup("Warning: Local Component Should not be In the Root of Mods","warning",null,true);
-		else if(!inMod)popup("Warning: Local Component Not in Starbound's Mod Folder","warning",null,true);
-		if(!getData("return"))tour();
-	}
-	else{
-		let e=()=>{
-			alertModal("No path found","Would you like to download the local component of Dynamic Spawn?<br/>If not, you still can create a list for later",{
-				"resolve":[()=>{location.assign("https://github.com/zekrom-vale/DynamicSpawn/tree/c%23")}],
-				"reject":[()=>{
-						document.getElementById("download").disabled=true;
-						if(!getData("return"))tour();
-					}]
-			});
-		}
-		el.id+="2";
-		el.value=sys?"Cannot Be a System URL":qi?"Invalid URL":e();
-	}
-}
+load.style.width="4%";
 //--------------- Location ---------------
 if(location.hash){
 	let hash=location.hash;
@@ -49,21 +20,27 @@ if(location.hash){
 	location.hash=hash;
 }
 else location.hash="npcGeneric";
+load.style.width="7%";
 //--------------- Get Cookie Value ---------------
 let c=getData("value");
 if(c){
 	let item=JSON.parse(c);
 	for(let i in item)for(let n in item[i])setLi(i,item[i][n]);
 }
+load.style.width="12%";
 //--------------- Filter ---------------
 $("#speciesInput").on("keyup paste cut",filterFn);
 document.getElementById("RegExp").addEventListener("change",filterFn)
 
 //--------------- Tooltip ---------------
 $('[data-toggle="tooltip"]').tooltip();
+load.style.width="17%";
 over("removeAll","Remove All",true);
+load.style.width="20%";
 over("removeVisible","Remove All Visible");
+load.style.width="23%";
 over("addVisible","Add All Visible");
+load.style.width="25%";
 {//--------------- Tab list ---------------
 	let els=document.querySelectorAll(".nav-link");
 	const _l=els.length;
@@ -80,6 +57,7 @@ over("addVisible","Add All Visible");
 		else dtTab(this);
 	},true);
 }
+load.style.width="40%";
 {//--------------- Remove all ---------------
 	document.getElementById("removeAll").addEventListener("click",event=>{
 		if(event.ctrlKey)core(event);
@@ -103,8 +81,11 @@ over("addVisible","Add All Visible");
 		}
 	});
 }
+load.style.width="55%";
 $('[data-toggle="popover"]').popover();
+load.style.width="57%";
 var mods=$("#mods>li");
+load.style.width="60%";
 mods.on("click",function(){
 	this.classList.toggle("active");
 	var items=$("#mods>li"),
@@ -126,6 +107,45 @@ mods.on("click",function(){
 	else el.innerHTML=el.innerHTML.replace("null",".hideMod");
 	
 });
+load.style.width="65%";
+{//--------------- Get Path ---------------
+	let q=location.search.slice(1).split("&"),
+	qi;
+	for(let i in q)if(/^path=/i.test(q[i])){
+		qi=decodeURIComponent(q[i].slice(5)+"\\");
+		continue;
+	}
+	load.style.width="80%";
+	let valid=/^[a-z]:((\\|\/)[^\\\/:*?"<>|]+)+(\\|\/)$/i.test(qi),
+	sys=/System Path/.test(qi),
+	el=document.getElementById("path");
+	load.style.width="90%";
+	if(valid&&!sys){
+		el.value=qi;
+		let inMod=/(\\|\/)steamapps(\\|\/)common(\\|\/)Starbound(\\|\/)mods(\\|\/)[^\\\/]+(\\|\/)?$/.test(qi),
+		atMod=/(\\|\/)steamapps(\\|\/)common(\\|\/)Starbound(\\|\/)mods(\\|\/)?$/.test(qi);
+		load.style.width="100%";
+		if(atMod)popup("Warning: Local Component Should not be In the Root of Mods","warning",null,true);
+		else if(!inMod)popup("Warning: Local Component Not in Starbound's Mod Folder","warning",null,true);
+		if(!getData("return"))tour();
+	}
+	else{
+		let e=()=>{
+			alertModal("No path found","Would you like to download the local component of Dynamic Spawn?<br/>If not, you still can create a list for later",{
+				"resolve":[()=>{location.assign("https://github.com/zekrom-vale/DynamicSpawn/tree/c%23")}],
+				"reject":[()=>{
+						document.getElementById("download").disabled=true;
+						if(!getData("return"))tour();
+					}]
+			});
+		}
+		load.style.width="100%";
+		el.id+="2";
+		el.value=sys?"Cannot Be a System URL":qi?"Invalid URL":e();
+	}
+}
+document.body.removeChild(document.getElementById("load"));
+document.getElementById("base").style.opacity="";
 });
 
 async function tour(){
@@ -196,6 +216,7 @@ function filterFn(){
 					(v==0||v==4)&&v.test(this.dataset.author)||
 					(v==0||v==3)&&v.test(this.dataset.mod)
 				);
+				$(this).toggle(v.test(this.getAttribute("value")));
 		});
 		}catch(e){
 			document.getElementById("speciesLabel").classList.add("err");
@@ -212,6 +233,9 @@ function filterFn(){
 				(v==0||v==4)&&exists(this.dataset.author)||
 				(v==0||v==3)&&exists(this.dataset.mod)
 			);
+		});
+		$("#mods li").filter(function(){
+			$(this).toggle(exists(this.getAttribute("value")));
 		});
 	}
 }

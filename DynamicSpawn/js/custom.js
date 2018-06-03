@@ -1,6 +1,7 @@
 "use strict";
 window.addEventListener("load",()=>{
 document.getElementById("speciesInput").addEventListener("keyup",event=>{
+	var species=this.value;
 	if(event.key==="Enter"){
 		var el=customSetUp(document.getElementById("speciesInput").value);
 		if(event.shiftKey){
