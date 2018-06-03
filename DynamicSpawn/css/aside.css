@@ -1,0 +1,19 @@
+#side2 .carousel-item{
+	padding:10px 20px;
+	height:calc(100vh - 90px);
+}#side2 .carousel-indicators{
+	bottom:0;
+}
+
+.help{
+	cursor:help;
+}
+
+.invert{
+	filter:invert(1);
+}
+
+.carousel-item,.carousel-inner,#side,
+#side2,#speciesInput,li.list-group-item{
+	background-color:transparent;
+}

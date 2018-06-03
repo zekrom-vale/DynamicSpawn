@@ -1,14 +1,8 @@
 @import "techScrollBar.css";
 @import "media.css";
-#npcList>div>ul{
-	height:25vh;
-	overflow:auto;
-}
+@import "aside.css";
+@import "input.css";
 
-#speciesInput{
-	width:calc(100% - 60px - 26px * 2 - 65px);
-	border:none;
-}
 /*https://stackoverflow.com/questions/3397113/how-to-remove-border-outline-around-text-input-boxes-chrome*/
 
 div>div.alert-success.d-flex>.p-2,#npcList>*{
@@ -41,9 +35,7 @@ div>div.alert-success.d-flex>.p-2,#npcList>*{
 	background-color:#ccc;
 	-webkit-transition:.4s;
 	transition:.4s;
-}
-
-.slider::before{
+}.slider::before{
 	position:absolute;
 	content:"";
 	height:26px;
@@ -57,13 +49,9 @@ div>div.alert-success.d-flex>.p-2,#npcList>*{
 
 input:checked + .slider{
 	background-color:#2196F3;
-}
-
-input:focus + .slider{
+}input:focus + .slider{
 	box-shadow:0 0 1px #2196F3;
-}
-
-input:checked + .slider::before{
+}input:checked + .slider::before{
 	-webkit-transform:translateX(26px);
 	-ms-transform:translateX(26px);
 	transform:translateX(26px);
@@ -71,74 +59,26 @@ input:checked + .slider::before{
 
 .slider.round{
 	border-radius:34px;
-}
-
-.slider.round::before{
+}.slider.round::before{
 	border-radius:50%;
 }
 
-#path>*>textarea:focus,#path>input:focus,
-label>*>textarea:focus,label>input:focus{
-	outline:none;
-}
-
-#path,#path2{
-	border:none;
-	background:none;
-}
-
-.nav-item:not(.nav-link-sel)>a>span{
-	visibility:hidden;
-}
-
-a.nav-link{
-	cursor:pointer;
-	-webkit-user-select:none;
-	-moz-user-select:none;
-	-ms-user-select:none;
-	user-select:none;
-}
-
-button:hover>img.off,button:not(:hover)>img.on,.switch input{
-	display:none;
-}
-
-.loc{
+#load{
+	z-index:999999;
 	position:fixed;
-	bottom:-5px;
-	left:10px;
-	width:calc(100% - 20px);
-	z-index:3;
+	top:0;
+	right:0;
+}#load h1,
+#load h3{
+	text-align:center;
+}#load>.main{
+	background-color:white;
+	border-radius:5px;
+	padding:30px 15px;
 }
 
-#container{
-	margin:0;
-}
-
-#side2 .carousel-item{
-	padding:10px 20px;
-	height:calc(100vh - 90px);
-}
-
-#side2 .carousel-indicators{
-	bottom:0;
-}
-
-.help{
-	cursor:help;
-}
-
-.invert{
-	filter:invert(1);
-}
-
-#speciesLabel.err{
-	background-color:red!important;
-}
-
-.carousel-item,.carousel-inner,#side,
-#side2,#speciesInput,li.list-group-item{
-	background-color:transparent;
+.loadPad{
+	height:calc(50vh - 26.75px);
 }
 
 .capitalize{
@@ -147,32 +87,4 @@ button:hover>img.off,button:not(:hover)>img.on,.switch input{
 
 :not(:hover)>.hover{
 	display:none;
-}
-
-select>option{
-	padding:10px!important;
-}
-
-#mods{
-	max-height:calc(100vh - 125px);
-	overflow:hidden scroll;
-}
-
-#mods>li{
-	cursor:pointer;
-	text-overflow:ellipsis;
-	-webkit-user-select:none;
-	-moz-user-select:none;
-	-ms-user-select:none;
-	user-select:none;
-}
-
-#npcList>div{
-	margin:0;
-	max-width:100vw;
-}
-
-#load h1,
-#load h3{
-	text-align:center;
 }

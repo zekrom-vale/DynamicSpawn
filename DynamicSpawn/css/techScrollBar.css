@@ -6,18 +6,16 @@
 	border-radius:7px;
 	background:#308BC8;
 	-webkit-box-shadow:inset 0 0 6px #005c9a;
-}
-::-webkit-scrollbar-thumb:active{
+}::-webkit-scrollbar-thumb:active{
 	background:#96C8E9!important;
-}
-::-webkit-scrollbar-thumb:hover{
+}::-webkit-scrollbar-thumb:hover{
 	background:#469AD2;
 }
 ::-webkit-scrollbar-track{
 	border-left:0px solid #000000;
 }
 ::-webkit-scrollbar{
-	width:7px;
-	height:5px;
+	width:10px;
+	height:10px;
 	background:rgba(120,120,120,.5);
 }
