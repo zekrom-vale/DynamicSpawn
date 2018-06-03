@@ -63,6 +63,8 @@ xmlns:x="http://www.w3.org/1999/XSL/Transform">
 					<x:attribute name="data-toggle">popover</x:attribute>
 					<x:attribute name="data-placement">right</x:attribute>
 					<x:attribute name="data-trigger">hover</x:attribute>
+					<x:attribute name="data-boundary">viewport</x:attribute>
+					<x:attribute name="data-fallbackPlacement">["top","bottom"]</x:attribute>
 					<x:attribute name="title">
 						<x:value-of select="../@name"/>
 					</x:attribute>
