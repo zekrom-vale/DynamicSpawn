@@ -117,7 +117,7 @@ alert("This page is incompatible with Internet Explorer.\nPlease copy the entire
 		</style>
 		<style id="activeStyle2">
 			.hideMod{
-				display:none;
+				display:none!important;
 			}
 		</style>
 		<a id="save"></a>
