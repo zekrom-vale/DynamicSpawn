@@ -88,3 +88,6 @@ input:checked + .slider{
 :not(:hover)>.hover{
 	display:none;
 }
+.popover{
+	white-space:pre-line!important;
+}

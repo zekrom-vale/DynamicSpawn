@@ -47,9 +47,25 @@ alert("This page is incompatible with Internet Explorer.\nPlease copy the entire
 </div>
 <div style="opacity:0.3;" id="base">
 	<nav class="&n; bg-dark sticky-top justify-content-center btn-group">
-		<button class="&bt;danger" id="removeAll" data-toggle="&m;">Remove All</button>
-		<button class="&bt;warning" accesskey="- r" id="removeVisible" onclick="removeVisible(event)">Remove Visible</button>
-		<button class="&bt;primary" accesskey="+ a" id="addVisible" onclick="addVisible(event)">Add Visible</button>
+		<button class="&bt;danger" id="removeAll" data-toggle="popover" data-placement="top" data-trigger="hover" title="Remove All Elements">
+			<x:attribute name="data-content">Normal:Active tab
+				Shift:Selected tab(s)
+				Ctrl:No prompt
+			</x:attribute>
+			Remove All
+		</button>
+		<button class="&bt;warning" accesskey="- r" id="removeVisible" onclick="removeVisible(event)" data-toggle="popover" data-placement="top" data-trigger="hover" title="Remove All Visible Elements">
+			<x:attribute name="data-content">Normal:Active tab
+				Shift:Selected tab(s)
+			</x:attribute>
+			Remove Visible
+		</button>
+		<button class="&bt;primary" accesskey="+ a" id="addVisible" onclick="addVisible(event)" data-toggle="popover" data-placement="top" data-trigger="hover" title="Add All Visible Elements">
+			<x:attribute name="data-content">Normal:Active tab
+				Shift:Selected tab(s)
+			</x:attribute>
+			Add Visible
+		</button>
 		<button class="&bt;success" accesskey="e" onclick="iexport()">Export JSON</button>
 		<button class="&bt;success" accesskey="i u" onclick="iimport()">Import JSON</button>
 		<button class="&bt;info" accesskey="d" onclick="download()" id="download">Download Mod</button>

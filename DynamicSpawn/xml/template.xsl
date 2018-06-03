@@ -21,7 +21,24 @@ xmlns:x="http://www.w3.org/1999/XSL/Transform">
 		<x:for-each select="document('species.xml')/species/mod|document('verify.xml')/species/mod">
 			<x:sort select="@name"/>
 			<x:if test="@name!='' and @name!='Z-UNDEFINED'">
-				<li value="{@name}" class="list-group-item"><x:value-of select="@name"/></li>
+				<li value="{@name}" class="list-group-item" data-count="{count(specie)}">
+					<x:if test="@author!='' and @author">
+						<x:attribute name="data-toggle">popover</x:attribute>
+						<x:attribute name="data-placement">right</x:attribute>
+						<x:attribute name="data-trigger">hover</x:attribute>
+						<x:attribute name="data-boundary">viewport</x:attribute>
+						<x:attribute name="data-fallbackPlacement">["top","bottom"]</x:attribute>
+						<x:attribute name="title">Created by</x:attribute>
+						<x:attribute name="data-content">
+							<x:value-of select="@author"/>
+							Steam ID: <x:value-of select="id/@steam"/>
+						</x:attribute>
+					</x:if>
+					<x:value-of select="@name"/>
+					<x:if test="count(specie)&gt;1">
+						 (<x:value-of select="count(specie)"/>)
+					</x:if>
+				</li>
 			</x:if>
 		</x:for-each>
 		<li value="Z-UNDEFINED" class="list-group-item">UNDEFINED</li>

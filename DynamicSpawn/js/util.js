@@ -101,13 +101,3 @@ function popup(mesage,type="danger",id,loc){
 	div.appendChild(btn);
 	document.getElementById("container").prepend(div);
 }
-
-function over(l,a,e){
-	$(`#${l}:First`).popover({
-		title:a+" Elements",
-		content:`Normal:Active tab<br/>Shift:Selected tab(s)${e?"<br/>Ctrl:No prompt":""}`,
-		html:true,
-		placement:"top",
-		trigger:"hover"
-	});
-}

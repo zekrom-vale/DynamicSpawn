@@ -30,17 +30,10 @@ if(c){
 load.style.width="12%";
 //--------------- Filter ---------------
 $("#speciesInput").on("keyup paste cut",filterFn);
-document.getElementById("RegExp").addEventListener("change",filterFn)
 
 //--------------- Tooltip ---------------
 $('[data-toggle="tooltip"]').tooltip();
 load.style.width="17%";
-over("removeAll","Remove All",true);
-load.style.width="20%";
-over("removeVisible","Remove All Visible");
-load.style.width="23%";
-over("addVisible","Add All Visible");
-load.style.width="25%";
 {//--------------- Tab list ---------------
 	let els=document.querySelectorAll(".nav-link");
 	const _l=els.length;
@@ -88,7 +81,6 @@ var mods=$("#mods>li");
 load.style.width="60%";
 {
 	let activeMods=JSON.parse(getData("mods"));
-	console.info(activeMods);
 	if(activeMods&&activeMods.length>0){
 		let items=$("#mods>li"),
 		_i=items.length,
@@ -246,7 +238,7 @@ function filterFn(){
 					(v==0||v==3)&&v.test(this.dataset.mod)
 				);
 				$(this).toggle(v.test(this.getAttribute("value")));
-		});
+			});
 		}catch(e){
 			document.getElementById("speciesLabel").classList.add("err");
 		}
