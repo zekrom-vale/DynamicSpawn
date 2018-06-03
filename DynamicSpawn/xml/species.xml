@@ -240,10 +240,6 @@
 		<id steam="950717664"/>
 		<specie value="mantizi"/>
 	</mod>
-	<mod name="Race - Munari" author="Motionless">
-		<id steam="739676461"/>
-		<specie value="neko"/>
-	</mod>
 	<mod name="The Nightars (Revived)" author="Absolute Xero">
 		<id steam="1325968658"/>
 		<specie value="nightar"/>

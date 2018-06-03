@@ -15,6 +15,7 @@ xmlns:x="http://www.w3.org/1999/XSL/Transform">
 				<li data-target="#side2" data-slide-to="1"></li>
 				<li data-target="#side2" data-slide-to="2"></li>
 				<li data-target="#side2" data-slide-to="3"></li>
+				<li data-target="#side2" data-slide-to="4"></li>
 			</ul>
 			<div class="carousel-inner">
 				<div class="card carousel-item active">
@@ -105,6 +106,52 @@ xmlns:x="http://www.w3.org/1999/XSL/Transform">
 						</p>
 						<small>Your ad must comply to my standards. No adult content, no scams, no political junk, no misleading information, no malware, ect.</small>
 						<!--<a rel="external" href="" class="btn btn-primary">Contact NOW!</a>-->
+					</div>
+				</div>
+				<div class="card carousel-item">
+					<div class="card-body">
+						<h4 class="card-title">Add Your Species</h4>
+						<h6>To add your species is easy...</h6>
+						<p>Just fill out the <a data-toggle="tooltip" class="help" title="Do not use complex characters, Extended Latin is OK.">information below</a> and contact me on github</p>
+<pre>
+&lt;mod name="<kbd>Your mod name*</kbd>" author="<kbd>The authors!</kbd>"&gt;
+  &lt;id steam="<kbd>Your steam ID!</kbd>" sb="<kbd data-toggle="tooltip" class="help" title="The text between the 2 last `/`">Your Starbound mod page path!</kbd>"/&gt;
+  &lt;specie value="<kbd>Your Species Identifier*</kbd>" name="<kbd data-toggle="tooltip" class="help" title="Not required if the name does not differ (Word caption is automatic from species value if this excluded)">Species display name</kbd>"&gt;
+    &lt;imgOn src="<kbd>Name of selected species image!</kbd>"/&gt;
+    &lt;imgOff src="<kbd>Name of deselected species image!</kbd>"/&gt;
+  &lt;/specie&gt;
+  ...
+&lt;/mod&gt;
+...
+</pre>
+<button class="btn" onclick="copyText('#modCopy')">Copy</button>
+<textarea id="modCopy" rows="10" cols="50">
+<![CDATA[<mod name="" author="">
+	<id steam="" sb=""/>
+	<specie value="" name="">
+		<imgOn src=""/>
+		<imgOff src=""/>
+	</specie>
+	...
+</mod>
+...]]>
+</textarea>
+<br/>
+	<small>
+		* Required<br/>
+		! Recommended
+	</small>
+	<h3>Example</h3>
+<pre data-toggle="tooltip" title="TIP: Use &lt;![CDATA[`text`]]&gt;"><![CDATA[
+<mod name="The Kazdra Reloaded" author="Andr3w246, zekrom_vale">
+  <id steam="949156982" sb="kazdra.1234"/>
+  <specie value="kazdra">
+    <imgOn src="tab_kazdra&on;"/>
+    <imgOff src="tab_kazdra.png"/>
+  </specie>
+  <specie value="imgLessSpecies" name="Image Less Species"/>
+</mod>
+]]></pre>
 					</div>
 				</div>
 			</div>

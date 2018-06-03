@@ -210,3 +210,9 @@ var baseLi=(function(){
 		img2.classList.add("on");
 	return[li,btn,img,img2,div];
 }());
+
+function copyText(path){
+	var el=document.querySelector(path);
+	el.select();
+	document.execCommand("copy");
+}

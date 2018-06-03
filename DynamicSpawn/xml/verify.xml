@@ -125,4 +125,8 @@
 		<id steam=""/>
 		<specie value="vanillapenguin" name="Vanilla Penguin"/>
 	</mod>
+	<mod name="Race - Munari" author="Motionless">
+		<id steam="739676461"/>
+		<specie value="neko"/>
+	</mod>
 </species>
