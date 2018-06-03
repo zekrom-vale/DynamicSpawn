@@ -86,6 +86,29 @@ $('[data-toggle="popover"]').popover();
 load.style.width="57%";
 var mods=$("#mods>li");
 load.style.width="60%";
+{
+	let activeMods=JSON.parse(getData("mods"));
+	console.info(activeMods);
+	if(activeMods&&activeMods.length>0){
+		let items=$("#mods>li"),
+		_i=items.length,
+		u=true;
+		for(let i=0;i<_i;i++){
+			if(!activeMods.includes(items[i].getAttribute("value"))){
+				let el=$(`[data-mod="${items[i].getAttribute("value")}"]`),
+				_e=el.length;
+				for(let n=0;n<_e;n++)el[n].classList.add("hideMod");
+			}
+			else{
+				u=false;
+				items[i].classList.add("active");
+			}
+		}
+		let el=document.getElementById("activeStyle2");
+		if(u)el.innerHTML=el.innerHTML.replace(".hideMod","null");
+		else el.innerHTML=el.innerHTML.replace("null",".hideMod");
+	}
+}
 mods.on("click",function(){
 	this.classList.toggle("active");
 	var items=$("#mods>li"),
@@ -157,6 +180,7 @@ async function tour(){
 	S="Shift click to";
 	if(await setPopover("nav.navbar-dark","Global control buttons",`This apples to all ${s} in the${l}ed group.<br/>Shift:All${l}ed ${s+g}.`))return end();
 	if(await setPopover("#searchOp","NPC Lookup Options","Chose what field you are looking up."))return end();
+	if(await setPopover("#mods","Select the Mods you are Using","<h3>Do this First</h3><br/>Deselect all mods to see all mods.<br/>Custom species are ignored."))return end();
 	var f;
 	try{
 		$("#side2").carousel(2);
@@ -201,6 +225,11 @@ function die(el,exit){
 
 window.addEventListener("beforeunload",()=>{
 	setData("value",JSON.stringify(getLi()),90);
+	let val=document.querySelectorAll("#mods>li.active"),
+	_v=val.length,
+	arr=[];
+	for(let i=0;i<_v;i++)arr[i]=val[i].getAttribute("value");
+	setData("mods",JSON.stringify(arr,60));
 });
 
 function filterFn(){

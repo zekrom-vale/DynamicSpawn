@@ -34,16 +34,16 @@
 alert("This page is incompatible with Internet Explorer.\nPlease copy the entire link and paste it into modern browser.\nEx: Google Chrome or Firefox");
 </script><![endif]-->
 	<!--[if !IE]><!-->
-<div id="load" class="container-fluid" style="z-index:999999;position:fixed;top:0;right:0">
-	<div style="height:calc(50vh - 113.5px / 2 - 30px)"></div>
-	<div style="background-color:white;border-radius:5px;padding:30px 15px">
+<div id="load" class="container-fluid">
+	<div class="loadPad"></div>
+	<div class="main">
 		<h1>Loading Scripts</h1>
 		<h3 class="justify-content-center">Please Wait</h3>
 		<div class="progress">
 			<div class="progress-bar progress-bar-striped progress-bar-animated" style="width:0%" id="loading"></div>
 		</div>
 	</div>
-	<div style="height:calc(50vh - 113.5px / 2 - 30px)"></div>
+	<div class="loadPad"></div>
 </div>
 <div style="opacity:0.3;" id="base">
 	<nav class="&n; bg-dark sticky-top justify-content-center btn-group">
@@ -73,7 +73,7 @@ alert("This page is incompatible with Internet Explorer.\nPlease copy the entire
 			</div>
 			<div>
 				<div class="form-control" id="speciesLabel">
-					<select class="form-control-sm" style="width:65px;display:inline;" id="searchOp" name="option">
+					<select class="form-control-sm" id="searchOp" name="option">
 						<option value="0">All</option>
 						<option value="1">Species Name</option>
 						<option value="2">Species Value</option>
@@ -140,18 +140,18 @@ alert("This page is incompatible with Internet Explorer.\nPlease copy the entire
 		</div>
 	</div>
 	<!--<![endif]-->
-	<noscript>
-		<div class="&m; show" style="display:block;">
-			<div class="&m;-dialog">
-				<div class="&m;-content">
-					<div class="&m;-header"><h4 class="&m;-title">JavaScript Not Working</h4><button class="close" data-dismiss="&m;">&x;</button></div>
-					<div class="&m;-body">Not Enabled or Not Supported.<br/>This Page Will <b>Not Work!</b></div>
-					<div class="&m;-footer"><button class="&bt;primary" data-dismiss="&m;">Ok</button></div>
-				</div>
+</div>
+<noscript>
+	<div class="&m; show" style="display:block;">
+		<div class="&m;-dialog">
+			<div class="&m;-content">
+				<div class="&m;-header"><h4 class="&m;-title">JavaScript Not Working</h4><button class="close" data-dismiss="&m;">&x;</button></div>
+				<div class="&m;-body">Not Enabled or Not Supported.<br/>This Page Will <b>Not Work!</b></div>
+				<div class="&m;-footer"><button class="&bt;primary" data-dismiss="&m;">Ok</button></div>
 			</div>
 		</div>
-	</noscript>
-</div>
+	</div>
+</noscript>
 </body>
 </html>
 </x:template>
