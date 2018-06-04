@@ -19,6 +19,20 @@
 <head id="top">
 	<meta charset="UTF-8"/>
 	<title>Dynamic Spawn Creator</title>
+	<meta http-equiv="Content-Security-Policy">
+		<x:attribute name="content">
+			block-all-mixed-content;
+			default-src 'self';
+			img-src 'self' https://* data:;
+			script-src 'unsafe-inline' 'self' https://maxcdn.&b;cdn.com https://ajax.googleapis.com https://cdnjs.cloudflare.com;
+			style-src 'self' https://maxcdn.&b;cdn.com 'unsafe-inline';
+			object-src 'none';
+			media-src 'none';
+			manifest-src 'none';
+			frame-src 'none';
+		</x:attribute>
+	</meta>
+
 	<x:for-each select="root/meta/*|root/meta/*/@*">
 		<meta name="{name(.)}" content="{.}"/>
 	</x:for-each>
@@ -66,7 +80,13 @@ alert("This page is incompatible with Internet Explorer.\nPlease copy the entire
 			</x:attribute>
 			Add Visible
 		</button>
-		<button class="&bt;success" accesskey="e" onclick="iexport()">Export JSON</button>
+		<button class="&bt;success" accesskey="e" onclick="iexport()"  data-toggle="popover" data-placement="top" data-trigger="hover" title="Export The List">
+			<x:attribute name="data-content">For use on different browsers or...
+				Share with your friends
+				Note: You do not need to export to save your progress, we use localStorage to do so (The modern cookie)
+			</x:attribute>
+			Export JSON
+		</button>
 		<button class="&bt;success" accesskey="i u" onclick="iimport()">Import JSON</button>
 		<button class="&bt;info" accesskey="d" onclick="download()" id="download">Download Mod</button>
 	</nav>
