@@ -164,40 +164,41 @@ document.getElementById("base").style.opacity="";
 });
 
 async function tour(){
+	popup("This site use localStorage to save your choices. <a href='https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API'>localStorage</a> is the modern version of cookies and is more secure. However, few sites use this feature.","warning","localStorage",true)
 	var end=()=>{setData("return","true",30);},
 	s="species",
 	l=" select",
 	g=" groups",
 	t="st-of-type",
 	S="Shift click to";
-	if(await setPopover("nav.navbar-dark","Global control buttons",`This apples to all ${s} in the${l}ed group.<br/>Shift:All${l}ed ${s+g}.`))return end();
+	if(await setPopover("nav.bg-dark","Global control buttons",`This apples to all ${s} in the${l}ed group.
+	Shift:All${l}ed ${s+g}.`))return end();
+	if(await setPopover("#mods","Select the Mods you are Using","<h4>Do this First</h4>Deselect all mods to see all mods.\nCustom species are ignored.","left"))return end();
 	if(await setPopover("#searchOp","NPC Lookup Options","Chose what field you are looking up."))return end();
-	if(await setPopover("#mods","Select the Mods you are Using","<h3>Do this First</h3><br/>Deselect all mods to see all mods.<br/>Custom species are ignored."))return end();
+	if(await setPopover(`#${s}Label`,"NPC Lookup","Look up NPCs here.\nPress <kbd>Enter</kbd> to add a custom "+s))return end();
 	var f;
 	try{
 		$("#side2").carousel(2);
 	}catch(e){}
-	if(await setPopover("#RegExpS","RegExp Toggle","Enable Regular Expressions.<br/>Quick guide on the right."))return end();
-	if(await setPopover(`#${s}Label`,"NPC Lookup","Look up NPCs here.<br/>Press <kbd>Enter</kbd> to add a custom "+s))return end();
+	if(await setPopover("#RegExpS","RegExp Toggle","Enable Regular Expressions.\nQuick guide on the right."))return end();
 	if(await setPopover(`#${s}List`,"NPC List","All of the NPCs are displayed here, it will filter on the NPC Lookup."))return end();
-	if(await setPopover(`#${s}List>li:fir${t}`,`Click the ${s} button to add to current group`,"Alt click to go to the mod page"))return end();
-	if(await setPopover(`#${s}List>li:fir${t}>div>button:fir`+t,`Click to add to all${g}`,"${S} add to${l}ed${g}"))return end();
-	if(await setPopover(`#${s}List>li:fir${t}>div>button:la`+t,`Click to remove from${g}`,`${S} remove from${l}ed${g}`))return end();
-	if(await setPopover("#npcTab","NPC Groups",`Your${l}ion will end up below this click the tabs to switch${g}.<br/>${S+l} the tab.`))return end();
+	if(await setPopover(`#${s}List>li:fir${t}`,`Click the ${s} button to add to current group`,"Alt click to go to the mod page","left"))return end();
+	if(await setPopover(`#${s}List>li:fir${t}>div>button:fir`+t,`Click to add to all${g}`,`${S} add to${l}ed${g}`,"right"))return end();
+	if(await setPopover(`#${s}List>li:fir${t}>div>button:la`+t,`Click to remove from${g}`,`${S} remove from${l}ed${g}`,"right"))return end();
+	if(await setPopover("#npcTab","NPC Groups",`Your${l}ion will end up below this click the tabs to switch${g}.
+	${S+l} the tab.`,"top",true))return end();
 }
 
-function setPopover(h,t,c,p="top"){
+function setPopover(h,t,c,p="top",l){
 	var e=$(h),
-	b="button";
+	b="button",
+	next=l?"":`<${b} class="btn btn-primary" onclick="die('${h}')">Next</${b}>`;
 	e.popover({
 		title:t,
-		content:`${c}
-<div class="float-right">
-<br/>
-<${b} class="btn btn-primary" onclick="die('${h}')">Next</${b}>
-<${b} class="btn btn-danger" onclick="die('${h}',true)">End</${b}>
+		content:`${c}<div class="float-right">
+${next}<${b} class="btn btn-danger" onclick="die('${h}',true)">End</${b}>
 <div>
-<br/>`,
+`,
 		placement:p,
 		html:true
 	});

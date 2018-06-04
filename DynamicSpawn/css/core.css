@@ -91,3 +91,11 @@ input:checked + .slider{
 .popover{
 	white-space:pre-line!important;
 }
+
+.loc{
+	position:fixed!important;
+	bottom:-5px;
+	left:10px;
+	width:calc(100% - 20px);
+	z-index:3;
+}

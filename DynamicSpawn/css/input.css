@@ -32,14 +32,6 @@ button:not(:hover)>img.on,
 	display:none;
 }
 
-.loc{
-	position:fixed;
-	bottom:-5px;
-	left:10px;
-	width:calc(100% - 20px);
-	z-index:3;
-}
-
 #container{
 	margin:0;
 }
