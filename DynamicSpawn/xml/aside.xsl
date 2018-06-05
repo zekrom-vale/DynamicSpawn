@@ -37,7 +37,7 @@ xmlns:x="http://www.w3.org/1999/XSL/Transform">
 						<a rel="external" href="https://github.com/zekrom-vale/DynamicSpawn/tree/c%23" class="btn btn-primary">Download Now!</a>
 					</div>
 				</div>
-				<div class="card carousel-item" style="overflow-y:auto;padding:10px 5px;">
+				<div class="card carousel-item">
 					<div class="card-body">
 						<h5 class="card-title">[rR]eg(ular )?[eE]xp(ression)?</h5>
 						<h4>&gt;-- Turn On</h4>

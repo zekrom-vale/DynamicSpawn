@@ -1,59 +1,119 @@
 "use strict";
-var iexport=()=>saveData(getLi(),"value.DyS.json");
-
-function download(){
-//https://www.w3schools.com/howto/howto_js_copy_clipboard.asp
-	var ob=getLi(),
-	arr=[],
-	arrF=[],
-	i=0,
-	f=0;
-	for(let n in ob){
-		if(ob[n].length<1)arrF[f++]=++i;
-		else if(f===0)arr[i++]=`${n}:"${ob[n].join(",")}"`;
-	}
-	if(f>0){
-		for(let i in arrF)arrF[i]=elm.npcTab.querySelector(
-		`li:nth-child(${arrF[i]})>a`).innerHTML.replace(/ <span class="badge badge-primary">.<\/span>$/,"");
-		document.getElementById("modalCancel").style.display="none";
-		alertModal("Cannot download!","No Species exist in "+arrF.join(", "),{"finally":[e]});
-		function e(){
-			document.getElementById("modalCancel").style.display="";
-		}
-	}
-	else{
-		document.getElementById("modalCancel").style.display="none";
-		alertModal("Paste the copped value to the file name","Then continue the application",{
-			"resolve":[()=>{
-				var I=document.getElementById("path");
-				if(I){
-					I.disabled=false;
-					I.value+="value.DyS.cosv";
-					I.select();
-					document.execCommand("copy");
-					I.value=I.value.replace(/value\.DyS\.cosv$/i,"");
-					I.disabled=true;
-				}
-				saveData(arr.join("\n"),"value.DyS.cosv",true);
-			}],
-			"finally":[()=>{document.getElementById("modalCancel").style.display="";}]
-		});
-	}
-}
-
-function iimport(){
-	document.getElementById("iimport").click();
-}
 
 window.addEventListener("load",()=>{
-	var fr=new FileReader();
-	document.getElementById("iimport").addEventListener("change",()=>{
-	//medium.com/programmers-developers/convert-blob-to-string-in-javascript-944c15ad7d52
-		fr.addEventListener('loadend',txt=>{
-			txt=txt.srcElement.result;
-			var item=JSON.parse(txt);
-			for(let i in item)for(let n in item[i])setLi(i,item[i][n]);
-		});
-		fr.readAsText(document.getElementById("iimport").files[0]);
-	});
+$("#mods>li").on("click",function(){
+	this.classList.toggle("active");
+	var items=$("#mods>li"),
+	_i=items.length,
+	u=true;
+	for(let i=0;i<_i;i++){
+		let el=$(`[data-mod="${items[i].getAttribute("value")}"]`),
+		_e=el.length,
+		v;
+		if(items[i].classList.contains("active")){
+			v=false;
+			u=false;
+		}
+		else v=true;
+		for(let n=0;n<_e;n++)el[n].classList.toggle("hideMod",v);
+	}
+	let el=document.getElementById("activeStyle2");
+	if(u)el.innerHTML=el.innerHTML.replace(".hideMod","null");
+	else el.innerHTML=el.innerHTML.replace("null",".hideMod");
+	
 });
+
+$("#speciesList .species").on("click",modifyCont);
+$("#npcList .species").on("click",removeEl);
+$(".species-group>.addToAll").on("click",addToAll);
+$(".species-group>.removeFromAll").on("click",removeFromAll);
+
+});
+
+
+
+//=============================================================
+function removeEl(){
+	console.log(this);
+	console.log(this.parentNode);
+	var elp=this.parentNode;
+	document.getElementById(elp.getAttribute("value")).classList.remove("active-"+location.hash.slice(1));
+	elp.parentNode.removeChild(elp);
+}
+
+function modifyCont(event){
+	var el=this.parentNode;
+	if(event.altKey){
+		let l=el.dataset.steamid||el.dataset.sbid;
+		console.log(l);
+		if(l)location.assign(l);
+	}
+	else{
+		let hash=location.hash;
+		var css="active-"+hash.slice(1);
+		if(el.classList.contains(css)){
+			var item=document.querySelector(`${hash} li[value=${el.getAttribute("value")}]`);
+			item.parentNode.removeChild(item);
+			el.classList.remove(css);
+		}
+		else{
+			el.classList.add(css);
+			var li=el.cloneNode(true);
+			li.id="";
+			li.querySelector(".species-group>.addToAll").addEventListener("click",addToAll);
+			li.querySelector(".species-group>.removeFromAll").addEventListener("click",removeFromAll);
+			li.querySelector("button.btn.species").addEventListener("click",removeEl);
+			document.querySelector(hash+">ul").prepend(li);
+		}
+	}
+}
+
+function addToAll(event){
+	var elp=document.getElementById(this.parentNode.parentNode.getAttribute("value")),
+	spawns=document.querySelectorAll("#npcList>div>ul"),
+	base=document.querySelectorAll("#npcList>div"),
+	arr=[];
+	const _b=base.length;
+	if(event.shiftKey)for(let i=0;_b>i;i++){
+		if(
+			!document.querySelector(`[data-hash="#${base[i].id}"]`).parentNode.classList.contains("nav-link-sel")
+			||
+			elp.classList.contains("active-"+base[i].id)
+		)arr[i]=false;
+		else elp.classList.add("active-"+base[i].id);
+	}
+	else for(let i=0;_b>i;i++){
+		if(elp.classList.contains("active-"+base[i].id))arr[i]=false;
+		else elp.classList.add("active-"+base[i].id);
+	}
+	const _s=spawns.length;
+	for(let i=0;_s>i;i++)if(arr[i]!=false){
+		let li=elp.cloneNode(true);
+		li.setAttribute("onclick","removeEl(this)");
+		li.id="";
+		spawns[i].prepend(li);
+	}
+}
+
+function removeFromAll(event){
+	var elp=document.getElementById(this.parentNode.parentNode.getAttribute("value")),
+	arr=elp.classList.value.split(" ");
+	if(event.shiftKey){
+//BUG Deselects active item even if it is deselected
+		for(let i in arr)if(/^active-./.test(arr[i])){
+			let t=arr[i].replace("active-","");
+			if(elm.npcTab.querySelector(`[data-hash="#${t}"]`).parentNode.classList.contains("nav-link-sel")){
+				let item=document.querySelector(`#${t} li[value=${elp.getAttribute("value")}]`);
+				elp.classList.remove(arr[i]);
+				if(item)item.parentNode.removeChild(item);
+			}
+		}
+	}
+	else for(let i in arr){
+		if(/^active-./.test(arr[i])){
+			let item=document.querySelector(`#${arr[i].replace("active-","")} li[value=${elp.getAttribute("value")}]`);
+			elp.classList.remove(arr[i]);
+			if(item)item.parentNode.removeChild(item);
+		}
+	}
+}

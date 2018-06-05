@@ -21,6 +21,7 @@
 		<f>util</f>
 		<f>species</f>
 		<f>io</f>
+		<f>globalIo</f>
 		<f>custom</f>
 		<f>load</f>
 		<e>cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper</e>

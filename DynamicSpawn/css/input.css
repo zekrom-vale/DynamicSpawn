@@ -39,9 +39,16 @@ button:not(:hover)>img.on,
 #speciesInput{
 	width:calc(100% - 140px);
 	border:none;
+	position:relative;
+	right:-12px;
 }
 #speciesLabel.err{
 	background-color:red!important;
+}
+
+#RegExpPre{
+	position:relative;
+	bottom:4px;
 }
 
 #searchOp{
@@ -64,4 +71,9 @@ select>option{
 	-moz-user-select:none;
 	-ms-user-select:none;
 	user-select:none;
+}
+
+#speciesList{
+	height:25vh;
+	overflow:auto;
 }

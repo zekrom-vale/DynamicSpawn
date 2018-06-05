@@ -7,7 +7,7 @@
 <x:stylesheet version="1.0"
 xmlns:x="http://www.w3.org/1999/XSL/Transform">
 	<x:template name="liConstruct">
-		<ul class="list-group" id="speciesList" style="height:25vh;overflow:auto">
+		<ul class="list-group" id="speciesList">
 			<x:for-each select="document('species.xml')/species/mod|document('verify.xml')/species/mod">
 				<x:sort select="@name"/>
 				<x:for-each select="specie">
@@ -67,7 +67,7 @@ xmlns:x="http://www.w3.org/1999/XSL/Transform">
 					</x:for-each>
 				</x:if>-->
 			</x:attribute>
-			<button class="btn btn-dark species" onclick="modifyCont(this,event)">
+			<button class="btn btn-dark species">
 				<x:attribute name="class">
 					<x:text>btn btn-</x:text>
 					<x:choose>
@@ -115,10 +115,10 @@ xmlns:x="http://www.w3.org/1999/XSL/Transform">
 				</span>
 			</button>
 			<div class="btn-group species-group">
-				<button class="btn btn-secondary" onclick="addToAll(this,event)">
+				<button class="btn btn-secondary addToAll">
 					Add to All
 				</button>
-				<button class="btn btn-secondary" onclick="removeFromAll(this,event)">
+				<button class="btn btn-secondary removeFromAll">
 					Remove from All
 				</button>
 			</div>

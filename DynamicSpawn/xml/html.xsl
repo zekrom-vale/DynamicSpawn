@@ -15,6 +15,16 @@
 	<x:import href="template.xsl"/>
 	<x:import href="aside.xsl"/>
 	<x:template match="/">
+	<x:variable name="nonce">
+		<x:value-of select="translate(
+	concat(
+		generate-id(),
+		generate-id(root/script),
+		generate-id(document('species.xml')),
+		generate-id(document('verify.xml'))
+	)
+	,'idm','')"/>
+	</x:variable>
 <html xmlns:html="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US" data-author="zekrom-vale" data-game="Starbound" data-require="Bootstrap4,jQuery,popper,XML,XSL,XPath">
 <head id="top">
 	<meta charset="UTF-8"/>
@@ -24,8 +34,8 @@
 			block-all-mixed-content;
 			default-src 'self';
 			img-src 'self' https://* data:;
-			script-src 'unsafe-inline' 'self' https://maxcdn.&b;cdn.com https://ajax.googleapis.com https://cdnjs.cloudflare.com;
-			style-src 'self' https://maxcdn.&b;cdn.com 'unsafe-inline';
+			script-src 'self' https://maxcdn.&b;cdn.com https://ajax.googleapis.com https://cdnjs.cloudflare.com;
+			style-src 'self' https://maxcdn.&b;cdn.com 'nonce-<x:value-of select="$nonce"/>';
 			object-src 'none';
 			media-src 'none';
 			manifest-src 'none';
@@ -54,12 +64,12 @@ alert("This page is incompatible with Internet Explorer.\nPlease copy the entire
 		<h1>Loading Scripts</h1>
 		<h3 class="justify-content-center">Please Wait</h3>
 		<div class="progress">
-			<div class="progress-bar progress-bar-striped progress-bar-animated" style="width:0%" id="loading"></div>
+			<div class="progress-bar progress-bar-striped progress-bar-animated" id="loading"></div>
 		</div>
 	</div>
 	<div class="loadPad"></div>
 </div>
-<div style="opacity:0.3;" id="base">
+<div id="base">
 	<nav class="&n; bg-dark sticky-top justify-content-center btn-group">
 		<button class="&bt;danger" id="removeAll" data-toggle="popover" data-placement="top" data-trigger="hover" title="Remove All Elements">
 			<x:attribute name="data-content">Normal:Active tab
@@ -68,27 +78,27 @@ alert("This page is incompatible with Internet Explorer.\nPlease copy the entire
 			</x:attribute>
 			Remove All
 		</button>
-		<button class="&bt;warning" accesskey="- r" id="removeVisible" onclick="removeVisible(event)" data-toggle="popover" data-placement="top" data-trigger="hover" title="Remove All Visible Elements">
+		<button class="&bt;warning" accesskey="- r" id="removeVisible" data-toggle="popover" data-placement="top" data-trigger="hover" title="Remove All Visible Elements">
 			<x:attribute name="data-content">Normal:Active tab
 				Shift:Selected tab(s)
 			</x:attribute>
 			Remove Visible
 		</button>
-		<button class="&bt;primary" accesskey="+ a" id="addVisible" onclick="addVisible(event)" data-toggle="popover" data-placement="top" data-trigger="hover" title="Add All Visible Elements">
+		<button class="&bt;primary" accesskey="+ a" id="addVisible" data-toggle="popover" data-placement="top" data-trigger="hover" title="Add All Visible Elements">
 			<x:attribute name="data-content">Normal:Active tab
 				Shift:Selected tab(s)
 			</x:attribute>
 			Add Visible
 		</button>
-		<button class="&bt;success" accesskey="e" onclick="iexport()"  data-toggle="popover" data-placement="top" data-trigger="hover" title="Export The List">
+		<button class="&bt;success" accesskey="e" id="iexport"  data-toggle="popover" data-placement="top" data-trigger="hover" title="Export The List">
 			<x:attribute name="data-content">For use on different browsers or...
 				Share with your friends
 				Note: You do not need to export to save your progress, we use localStorage to do so (The modern cookie)
 			</x:attribute>
 			Export JSON
 		</button>
-		<button class="&bt;success" accesskey="i u" onclick="iimport()">Import JSON</button>
-		<button class="&bt;info" accesskey="d" onclick="download()" id="download">Download Mod</button>
+		<button class="&bt;success" accesskey="i u" id="imp">Import JSON</button>
+		<button class="&bt;info" accesskey="d" id="download">Download Mod</button>
 	</nav>
 	<nav class="&n; bg&w; justify-content-center"><h6>
 		<b>ALERT</b>: The species list is a work in progress, if you find something wrong please <a href="https://github.com/zekrom-vale/DynamicSpawn/issues">create an issue!</a>
@@ -117,8 +127,8 @@ alert("This page is incompatible with Internet Explorer.\nPlease copy the entire
 						<option value="3">Mod Name</option>
 						<option value="4">Mod Author</option>
 					</select>
-					<input id="speciesInput" type="text" name="search" style="position:relative;right:-12px;" placeholder="Search Species... EX: ^kazdra$|hum|^[a-b]|Ar(gon)?i|^s[^a-dl-v\d]+|^.{5}$"/>
-					<label class="switch float-right" style="position:relative;bottom:4px;" data-toggle="tooltip" data-placement="left" title="Enable RegExp support">
+					<input id="speciesInput" type="text" name="search" placeholder="Search Species... EX: ^kazdra$|hum|^[a-b]|Ar(gon)?i|^s[^a-dl-v\d]+|^.{5}$"/>
+					<label class="switch float-right" data-toggle="tooltip" data-placement="left" title="Enable RegExp support" id="RegExpPre">
 						<input type="checkbox" id="RegExp"/>
 						<span class="slider round" id="RegExpS"></span>
 					</label>
@@ -143,7 +153,7 @@ alert("This page is incompatible with Internet Explorer.\nPlease copy the entire
 				</x:otherwise>
 			</x:choose>
 		</x:for-each>
-		<style id="activeStyle">
+		<style id="activeStyle" nonce="{$nonce}">
 			.active-npcGeneric{
 				z-index:2;
 				color:#fff;
@@ -151,7 +161,7 @@ alert("This page is incompatible with Internet Explorer.\nPlease copy the entire
 				border-color:#007bff;
 			}
 		</style>
-		<style id="activeStyle2">
+		<style id="activeStyle2" nonce="{$nonce}">
 			.hideMod{
 				display:none!important;
 			}
@@ -178,7 +188,7 @@ alert("This page is incompatible with Internet Explorer.\nPlease copy the entire
 	<!--<![endif]-->
 </div>
 <noscript>
-	<div class="&m; show" style="display:block;">
+	<div class="&m; show">
 		<div class="&m;-dialog">
 			<div class="&m;-content">
 				<div class="&m;-header"><h4 class="&m;-title">JavaScript Not Working</h4><button class="close" data-dismiss="&m;">&x;</button></div>

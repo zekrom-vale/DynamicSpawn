@@ -99,3 +99,8 @@ input:checked + .slider{
 	width:calc(100% - 20px);
 	z-index:3;
 }
+
+
+noscript>div{
+	display:block;
+}

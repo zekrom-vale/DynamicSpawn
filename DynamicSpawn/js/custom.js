@@ -33,10 +33,9 @@ var customNPC=(function(){
 	el=li.cloneNode();
 	el.classList.add("custom-species");
 	var b=btn.cloneNode();
-		b.setAttribute("onclick","modifyContC(this)");
 	var divM=div.cloneNode(true);
-		divM.firstChild.setAttribute("onclick","addToAllC(this,event)");
-		divM.childNodes[1].setAttribute("onclick","removeFromAllC(this,event)");
+		divM.firstChild.classList.add("addToAll");
+		divM.childNodes[1].classList.add("removeFromAll");
 	var imgM=img.cloneNode();
 		imgM.src="img/tab_other.png";
 	var imgM2=img2.cloneNode();
@@ -50,19 +49,23 @@ function customSetUp(specie){
 	el=li.cloneNode();
 	el.setAttribute("value",specie);
 	var b=btn.cloneNode();
+		b.addEventListener("click",modifyContC);
 		b.innerHTML="Custom: "+specie;
 		b.append(img.cloneNode(),img2.cloneNode());
-	el.append(b,div.cloneNode(true));
+	var div2=div.cloneNode(true);
+		div2.querySelector(".species-group>.addToAll").addEventListener("click",addToAllC);
+		div2.querySelector(".species-group>.removeFromAll").addEventListener("click",removeFromAllC);
+	el.append(b,div2);
 	return el;
 }
 
-function modifyContC(el){
-	el=el.parentNode;
+function modifyContC(){
+	var el=this.parentNode;
 	el.parentNode.removeChild(el);
 }
 
-function addToAllC(el,event){
-	var elp=el.parentNode.parentNode,
+function addToAllC(event){
+	var elp=this.parentNode.parentNode,
 	spawns=elm.npcList.getElementsByTagName("ul"),
 	base=elm.npcList.getElementsByTagName("div"),
 	arr=[];
@@ -83,8 +86,8 @@ function addToAllC(el,event){
 	}
 }
 
-function removeFromAllC(el,event){
-	var elp=el.parentNode.parentNode,
+function removeFromAllC(event){
+	var elp=this.parentNode.parentNode,
 	arr=elm.npcList.querySelectorAll(`li.list-group-item[value="${elp.getAttribute("value")}"]`),
 	_l=arr.length;
 	if(event.shiftKey){

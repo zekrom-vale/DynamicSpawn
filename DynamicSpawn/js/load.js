@@ -1,17 +1,14 @@
 "use strict";
 var saveData;
 const elm={};
-document.getElementById("loading").style.width="1%";
 
 window.addEventListener("load",()=>{
-var load=document.getElementById("loading");
 //--------------- Set Up References ---------------
 if(elm.length>0)location.reload;
 elm.npcTab=document.getElementById("npcTab");
 elm.speciesList=document.getElementById("speciesList");
 elm.npcList=document.getElementById("npcList");
 Object.freeze(elm);
-load.style.width="4%";
 //--------------- Location ---------------
 if(location.hash){
 	let hash=location.hash;
@@ -20,20 +17,15 @@ if(location.hash){
 	location.hash=hash;
 }
 else location.hash="npcGeneric";
-load.style.width="7%";
 //--------------- Get Cookie Value ---------------
 let c=getData("value");
 if(c){
 	let item=JSON.parse(c);
 	for(let i in item)for(let n in item[i])setLi(i,item[i][n]);
 }
-load.style.width="12%";
-//--------------- Filter ---------------
-$("#speciesInput").on("keyup paste cut",filterFn);
 
 //--------------- Tooltip ---------------
 $('[data-toggle="tooltip"]').tooltip();
-load.style.width="17%";
 {//--------------- Tab list ---------------
 	let els=document.querySelectorAll(".nav-link");
 	const _l=els.length;
@@ -50,35 +42,7 @@ load.style.width="17%";
 		else dtTab(this);
 	},true);
 }
-load.style.width="40%";
-{//--------------- Remove all ---------------
-	document.getElementById("removeAll").addEventListener("click",event=>{
-		if(event.ctrlKey)core(event);
-		else alertModal(`Remove all items from the ${event.shiftKey?"selected":"current"} list${event.shiftKey?"(s)":""}?`,"This Cannot be undone!",{"resolve":[core,event]});
-		function core(event){
-			if(event.shiftKey){
-				var sel=elm.npcTab.querySelectorAll("li.nav-link-sel>a"),
-				_l=sel.length,
-				hashs=[];
-				for(let i=0;i<_l;i++){
-					let hash=sel[i].dataset.hash;
-					hashs[i]="active-"+hash.slice(1);
-					$(`${hash}:First ul:First`).empty();
-				}
-				$("#speciesList li").removeClass(hashs.join(" "));
-			}
-			else{
-				$("#speciesList li").removeClass("active-"+location.hash.slice(1));
-				$(`${location.hash}:First ul:First`).empty();
-			}
-		}
-	});
-}
-load.style.width="55%";
 $('[data-toggle="popover"]').popover();
-load.style.width="57%";
-var mods=$("#mods>li");
-load.style.width="60%";
 {
 	let activeMods=JSON.parse(getData("mods"));
 	if(activeMods&&activeMods.length>0){
@@ -101,28 +65,6 @@ load.style.width="60%";
 		else el.innerHTML=el.innerHTML.replace("null",".hideMod");
 	}
 }
-mods.on("click",function(){
-	this.classList.toggle("active");
-	var items=$("#mods>li"),
-	_i=items.length,
-	u=true;
-	for(let i=0;i<_i;i++){
-		let el=$(`[data-mod="${items[i].getAttribute("value")}"]`),
-		_e=el.length,
-		v;
-		if(items[i].classList.contains("active")){
-			v=false;
-			u=false;
-		}
-		else v=true;
-		for(let n=0;n<_e;n++)el[n].classList.toggle("hideMod",v);
-	}
-	let el=document.getElementById("activeStyle2");
-	if(u)el.innerHTML=el.innerHTML.replace(".hideMod","null");
-	else el.innerHTML=el.innerHTML.replace("null",".hideMod");
-	
-});
-load.style.width="65%";
 {//--------------- Get Path ---------------
 	let q=location.search.slice(1).split("&"),
 	qi;
@@ -130,16 +72,13 @@ load.style.width="65%";
 		qi=decodeURIComponent(q[i].slice(5)+"\\");
 		continue;
 	}
-	load.style.width="80%";
 	let valid=/^[a-z]:((\\|\/)[^\\\/:*?"<>|]+)+(\\|\/)$/i.test(qi),
 	sys=/System Path/.test(qi),
 	el=document.getElementById("path");
-	load.style.width="90%";
 	if(valid&&!sys){
 		el.value=qi;
 		let inMod=/(\\|\/)steamapps(\\|\/)common(\\|\/)Starbound(\\|\/)mods(\\|\/)[^\\\/]+(\\|\/)?$/.test(qi),
 		atMod=/(\\|\/)steamapps(\\|\/)common(\\|\/)Starbound(\\|\/)mods(\\|\/)?$/.test(qi);
-		load.style.width="100%";
 		if(atMod)popup("Warning: Local Component Should not be In the Root of Mods","warning",null,true);
 		else if(!inMod)popup("Warning: Local Component Not in Starbound's Mod Folder","warning",null,true);
 		if(!getData("return"))tour();
@@ -154,13 +93,11 @@ load.style.width="65%";
 					}]
 			});
 		}
-		load.style.width="100%";
 		el.id+="2";
 		el.value=sys?"Cannot Be a System URL":qi?"Invalid URL":e();
 	}
 }
 document.body.removeChild(document.getElementById("load"));
-document.getElementById("base").style.opacity="";
 });
 
 async function tour(){
@@ -225,39 +162,16 @@ window.addEventListener("beforeunload",()=>{
 	setData("mods",JSON.stringify(arr,60));
 });
 
-function filterFn(){
-	v=document.getElementById("searchOp").value;
-	if(document.getElementById("RegExp").checked){
-		try{
-			var v=new RegExp($(this).val(),"ig");
-			$("#speciesList li, #npcList li").filter(function(){
-				document.getElementById("speciesLabel").classList.remove("err");
-				$(this).toggle(
-					(v==0||v==1||v==1.5)&&v.test(this.firstChild.innerHTML)||
-					(v==0||v==2||v==1.5)&&v.test(this.getAttribute("value"))||
-					(v==0||v==4)&&v.test(this.dataset.author)||
-					(v==0||v==3)&&v.test(this.dataset.mod)
-				);
-				$(this).toggle(v.test(this.getAttribute("value")));
-			});
-		}catch(e){
-			document.getElementById("speciesLabel").classList.add("err");
-		}
-	}
-	else{
-		//https://www.w3schools.com/bootstrap4/bootstrap_filters.asp
-		var value=$(this).val().toLowerCase().trim(),
-		exists=txt=>txt?txt.toLowerCase().indexOf(value)>-1:false;
-		$("#speciesList li,#npcList li").filter(function(){
-			$(this).toggle(
-				(v==0||v==1)&&exists(this.firstChild.innerHTML)||
-				(v==0||v==2)&&exists(this.getAttribute("value"))||
-				(v==0||v==4)&&exists(this.dataset.author)||
-				(v==0||v==3)&&exists(this.dataset.mod)
-			);
-		});
-		$("#mods li").filter(function(){
-			$(this).toggle(exists(this.getAttribute("value")));
-		});
-	}
+function dtTab(el){
+	var hash=el.dataset.hash,
+	style=document.getElementById("activeStyle"),
+	oldHash=location.hash,
+	list=document.getElementById(hash.slice(1));
+	document.querySelector(`[data-hash="${oldHash}"]`).classList.remove("show","active");
+	document.getElementById(oldHash.slice(1)).classList.remove("active");
+	el.classList.add("show","active");
+	list.classList.add("active");
+	list.classList.remove("fade");
+	location.hash=hash;
+	style.innerHTML=style.innerHTML.replace(/(active\-).+?\{/,`$1${hash.slice(1)}\{`);
 }
