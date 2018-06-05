@@ -80,9 +80,8 @@ function addToAllC(event){
 	const _s=spawns.length;
 	for(let i=0;_s>i;i++)if(arr[i]!=false){
 		let li=elp.cloneNode(true);
-		li.setAttribute("onclick","removeEl(this)");
 		li.id="";
-		spawns[i].prepend(li);
+		spawns[i].prepend(readyLi(li));
 	}
 }
 

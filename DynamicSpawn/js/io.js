@@ -60,10 +60,7 @@ function modifyCont(event){
 			el.classList.add(css);
 			var li=el.cloneNode(true);
 			li.id="";
-			li.querySelector(".species-group>.addToAll").addEventListener("click",addToAll);
-			li.querySelector(".species-group>.removeFromAll").addEventListener("click",removeFromAll);
-			li.querySelector("button.btn.species").addEventListener("click",removeEl);
-			document.querySelector(hash+">ul").prepend(li);
+			document.querySelector(hash+">ul").prepend(readyLi(li));
 		}
 	}
 }
@@ -89,9 +86,8 @@ function addToAll(event){
 	const _s=spawns.length;
 	for(let i=0;_s>i;i++)if(arr[i]!=false){
 		let li=elp.cloneNode(true);
-		li.setAttribute("onclick","removeEl(this)");
 		li.id="";
-		spawns[i].prepend(li);
+		spawns[i].prepend(readyLi(li));
 	}
 }
 
@@ -116,4 +112,11 @@ function removeFromAll(event){
 			if(item)item.parentNode.removeChild(item);
 		}
 	}
+}
+
+function readyLi(li){
+	li.querySelector(".species-group>.addToAll").addEventListener("click",addToAll);
+	li.querySelector(".species-group>.removeFromAll").addEventListener("click",removeFromAll);
+	li.querySelector("button.btn.species").addEventListener("click",removeEl);
+	return li;
 }

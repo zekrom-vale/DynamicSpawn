@@ -16,12 +16,8 @@ saveData=(function(){
 
 var getData,setData;
 if(localStorage){
-	getData=function(n){
-		return localStorage.getItem(n);
-	}
-	setData=function(v,s){
-		localStorage.setItem(v,s);
-	}
+	getData=n=>localStorage.getItem(n);
+	setData=(v,s)=>{localStorage.setItem(v,s);}
 }
 else{
 	function dayPlus(a){
@@ -29,13 +25,13 @@ else{
 		d.setTime(d.getTime()+(a*86400000));
 		return d.toUTCString();
 	}
-	getData=function(n){
+	getData=(n)=>{
 		var ca=decodeURIComponent(document.cookie).split(';');
 		const _n=n.length;
 		n=new RegExp(`^${n}=`);
 		for(let i in ca)if(n.test(ca[i]))return ca[i].slice(_n+1);
 	}
-	setData=function(v,s,e){
+	setData=(v,s,e)=>{
 		document.cookie=`${v}=${s};expires=${dayPlus(e)}`;
 	}
 }

@@ -43,7 +43,6 @@ $("#speciesInput").on("keyup paste cut",function(){
 //--------------- Import ---------------
 var fr=new FileReader();
 document.getElementById("iimport").addEventListener("change",()=>{
-//medium.com/programmers-developers/convert-blob-to-string-in-javascript-944c15ad7d52
 	fr.addEventListener('loadend',txt=>{
 		txt=txt.srcElement.result;
 		var item=JSON.parse(txt);
@@ -120,6 +119,9 @@ document.getElementById("addVisible").addEventListener("click",function(event){
 			for(let l in uls)if(!li[s].classList.contains(css[l])){
 				li[s].classList.add(css[l]);
 				let clone=LI.cloneNode(true);
+				clone.querySelector(".species-group>.addToAll").addEventListener("click",addToAll);
+				clone.querySelector(".species-group>.removeFromAll").addEventListener("click",removeFromAll);
+				clone.querySelector("button.btn.species").addEventListener("click",removeEl);
 				uls[l].getElementsByTagName("ul")[0].prepend(clone);
 			}
 		}
@@ -127,10 +129,12 @@ document.getElementById("addVisible").addEventListener("click",function(event){
 	else{
 		var hash=location.hash,
 		css="active-"+hash.slice(1);
-		for(let i=0;i<_l;i++)if(!(li[i].classList.contains(css)||li[i].style.display==="none")){
+		for(let i=0;i<_l;i++)if(!(li[i].classList.contains(css)||li[i].style.display==="none")){//!
 			li[i].classList.add(css);
 			let LI=li[i].cloneNode(true);
-			LI.setAttribute("onclick","removeEl(this)");
+			LI.querySelector(".species-group>.addToAll").addEventListener("click",addToAll);
+			LI.querySelector(".species-group>.removeFromAll").addEventListener("click",removeFromAll);
+			LI.querySelector("button.btn.species").addEventListener("click",removeEl);
 			LI.id="";
 			document.querySelector(hash+">ul").prepend(LI);
 		}
@@ -142,7 +146,6 @@ document.getElementById("iexport").addEventListener("click",()=>{saveData(getLi(
 document.getElementById("imp").addEventListener("click",()=>{document.getElementById("iimport").click();});
 
 document.getElementById("download").addEventListener("click",function(){
-//https://www.w3schools.com/howto/howto_js_copy_clipboard.asp
 	var ob=getLi(),
 	arr=[],
 	arrF=[],
@@ -155,14 +158,14 @@ document.getElementById("download").addEventListener("click",function(){
 	if(f>0){
 		for(let i in arrF)arrF[i]=elm.npcTab.querySelector(
 		`li:nth-child(${arrF[i]})>a`).innerHTML.replace(/ <span class="badge badge-primary">.<\/span>$/,"");
-		document.getElementById("modalCancel").style.display="none";
+		document.getElementById("modalCancel").style.display="none";//!
 		alertModal("Cannot download!","No Species exist in "+arrF.join(", "),{"finally":[e]});
 		function e(){
-			document.getElementById("modalCancel").style.display="";
+			document.getElementById("modalCancel").style.display="";//!
 		}
 	}
 	else{
-		document.getElementById("modalCancel").style.display="none";
+		document.getElementById("modalCancel").style.display="none";//!
 		alertModal("Paste the copped value to the file name","Then continue the application",{
 			"resolve":[()=>{
 				var I=document.getElementById("path");
@@ -176,7 +179,7 @@ document.getElementById("download").addEventListener("click",function(){
 				}
 				saveData(arr.join("\n"),"value.DyS.cosv",true);
 			}],
-			"finally":[()=>{document.getElementById("modalCancel").style.display="";}]
+			"finally":[()=>{document.getElementById("modalCancel").style.display="";}]//!
 		});
 	}
 });

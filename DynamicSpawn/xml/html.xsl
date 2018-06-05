@@ -7,6 +7,7 @@
 <!ENTITY w "-warning">
 <!ENTITY n "navbar">
 <!ENTITY m "modal">
+<!ENTITY H "https://">
 <!ELEMENT html (body,head)>
 <!ELEMENT body ANY>
 <!ELEMENT head ANY>
@@ -14,11 +15,10 @@
 <x:stylesheet version="1.0" xmlns:x="http://www.w3.org/1999/XSL/Transform">
 	<x:import href="template.xsl"/>
 	<x:import href="aside.xsl"/>
-	<x:template match="/">
+<x:template match="/">
 	<x:variable name="nonce">
 		<x:value-of select="translate(
-	concat(
-		generate-id(),
+	concat(generate-id(),
 		generate-id(root/script),
 		generate-id(document('species.xml')),
 		generate-id(document('verify.xml'))
@@ -29,35 +29,28 @@
 <head id="top">
 	<meta charset="UTF-8"/>
 	<title>Dynamic Spawn Creator</title>
-	<meta http-equiv="Content-Security-Policy">
-		<x:attribute name="content">
-			block-all-mixed-content;
-			default-src 'self';
-			img-src 'self' https://* data:;
-			script-src 'self' https://maxcdn.&b;cdn.com https://ajax.googleapis.com https://cdnjs.cloudflare.com;
-			style-src 'self' https://maxcdn.&b;cdn.com 'nonce-<x:value-of select="$nonce"/>';
-			object-src 'none';
-			media-src 'none';
-			manifest-src 'none';
-			frame-src 'none';
-		</x:attribute>
-	</meta>
+	<meta http-equiv="Content-Security-Policy"><x:attribute name="content">
+		block-all-mixed-content;
+		default-src 'self';
+		img-src 'self' &H;* data:;
+		script-src 'self' &H;maxcdn.&b;cdn.com &H;ajax.googleapis.com &H;cdnjs.cloudflare.com;
+		style-src 'self' &H;maxcdn.&b;cdn.com 'nonce-<x:value-of select="$nonce"/>';
+	</x:attribute></meta>
+	<meta http-equiv="Content-Security-Policy" content="object-src 'none';media-src 'none';manifest-src 'none';"/>
 
 	<x:for-each select="root/meta/*|root/meta/*/@*">
-		<meta name="{name(.)}" content="{.}"/>
+		<meta name="{local-name()}" content="{.}"/>
 	</x:for-each>
 	<!--links-->
 	<link rel="icon" type="image/svg+xml" href="img/icon.svg"/>
 	<link rel="icon" type="image/png" href="img/icon.png"/>
 	<link rel="stylesheet" href="css/core.css"/>
-	<!--Extension links-->
-	<link rel="stylesheet" href="https://maxcdn.&b;cdn.com/&b;/4.1.0/css/&b;.min.css"/>
+	<!--
+	<link rel="alternative stylesheet" href="css/dark.css" title="Dark"/>
+	Extension links-->
+	<link rel="stylesheet" href="&H;maxcdn.&b;cdn.com/&b;/4.1.0/css/&b;.min.css"/>
 </head>
 <body>
-<!--[if IE]><script>
-alert("This page is incompatible with Internet Explorer.\nPlease copy the entire link and paste it into modern browser.\nEx: Google Chrome or Firefox");
-</script><![endif]-->
-	<!--[if !IE]><!-->
 <div id="load" class="container-fluid">
 	<div class="loadPad"></div>
 	<div class="main">
@@ -101,7 +94,7 @@ alert("This page is incompatible with Internet Explorer.\nPlease copy the entire
 		<button class="&bt;info" accesskey="d" id="download">Download Mod</button>
 	</nav>
 	<nav class="&n; bg&w; justify-content-center"><h6>
-		<b>ALERT</b>: The species list is a work in progress, if you find something wrong please <a href="https://github.com/zekrom-vale/DynamicSpawn/issues">create an issue!</a>
+		<b>ALERT</b>: The species list is a work in progress, if you find something wrong please <a href="&H;github.com/zekrom-vale/DynamicSpawn/issues">create an issue!</a>
 	</h6></nav>
 	<!--<![endif]-->
 	<br/>
@@ -143,25 +136,23 @@ alert("This page is incompatible with Internet Explorer.\nPlease copy the entire
 	</div>
 	<!--[if !IE]><!-->
 	<scripts is="div" roll="div" hidden="hidden">
-		<x:for-each select="root/script/*">
-			<x:choose>
-				<x:when test="name()='f'">
-					<script src="js/{text()}.js"/>
-				</x:when>
-				<x:otherwise>
-					<script src="https://{text()}.min.js"/>
-				</x:otherwise>
-			</x:choose>
-		</x:for-each>
-		<style id="activeStyle" nonce="{$nonce}">
+		<script src="&H;ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"/>
+		<script src="js/util.js"/>
+		<script src="js/species.js"/>
+		<script async="async" src="js/custom.js"/>
+		<script defer="defer" src="js/load.js"/>
+		<script defer="defer" src="js/io.js"/>
+		<script defer="defer" src="js/globalIo.js"/>
+		<script src="&H;cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"/>
+		<script src="&H;maxcdn.&b;cdn.com/&b;/4.1.0/js/&b;.min.js"/>
+		<style id="activeStyle" nonce="{$nonce}" data-allow=".active-*">
 			.active-npcGeneric{
-				z-index:2;
 				color:#fff;
 				background-color:#007bff!important;
 				border-color:#007bff;
 			}
 		</style>
-		<style id="activeStyle2" nonce="{$nonce}">
+		<style id="activeStyle2" nonce="{$nonce}" data-allow=".hideMod|null">
 			.hideMod{
 				display:none!important;
 			}
@@ -169,7 +160,6 @@ alert("This page is incompatible with Internet Explorer.\nPlease copy the entire
 		<a id="save"></a>
 		<input type="file" id="iimport" accept=".DyS.json"/>
 	</scripts>
-	<!--[if !IE]><!-->
 	<div class="&m;" id="&m;">
 		<div class="&m;-dialog">
 			<div class="&m;-content">
@@ -185,7 +175,6 @@ alert("This page is incompatible with Internet Explorer.\nPlease copy the entire
 			</div>
 		</div>
 	</div>
-	<!--<![endif]-->
 </div>
 <noscript>
 	<div class="&m; show">
@@ -198,6 +187,19 @@ alert("This page is incompatible with Internet Explorer.\nPlease copy the entire
 		</div>
 	</div>
 </noscript>
+<!--[if IE]>
+<noscript>
+	<div class="&m; show">
+		<div class="&m;-dialog">
+			<div class="&m;-content">
+				<div class="&m;-header"><h4 class="&m;-title">This page is incompatible with Internet Explorer</h4><button class="close" data-dismiss="&m;">&x;</button></div>
+				<div class="&m;-body">Please copy the entire link and paste it into modern browser.<br/>Ex: Google Chrome or Firefox</div>
+				<div class="&m;-footer"><button class="&bt;primary" data-dismiss="&m;">Ok</button></div>
+			</div>
+		</div>
+	</div>
+</noscript>
+<![endif]-->
 </body>
 </html>
 </x:template>
