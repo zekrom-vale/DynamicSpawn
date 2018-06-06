@@ -1,6 +1,6 @@
 "use strict";
 window.addEventListener("load",()=>{
-document.getElementById("speciesInput").addEventListener("keyup",event=>{
+document.getElementById("speciesInput").addEventListener("keyup",function(event){
 	var species=this.value;
 	if(event.key==="Enter"){
 		var el=customSetUp(document.getElementById("speciesInput").value);
@@ -9,7 +9,7 @@ document.getElementById("speciesInput").addEventListener("keyup",event=>{
 			_l=els.length;
 			for(let i=0;i<_l;i++){
 				let ul=document.querySelector(els[i].dataset.hash+">ul");
-				if(!ul.querySelector(`#npcList li[value="${species}"]`))ul.prepend(el.cloneNode(true));
+				if(!ul.querySelector(`#npcList li[value="${species}"]`))ul.prepend(readyLiC(el.cloneNode(true)));
 			}
 		}
 		else if(event.ctrlKey){
@@ -17,12 +17,12 @@ document.getElementById("speciesInput").addEventListener("keyup",event=>{
 			_l=els.length;
 			for(let i=0;i<_l;i++){
 				let ul=document.querySelector(els[i].dataset.hash+">ul");
-				if(!ul.querySelector(`#npcList li[value="${species}"]`))ul.prepend(el.cloneNode(true));
+				if(!ul.querySelector(`#npcList li[value="${species}"]`))ul.prepend(readyLiC(el.cloneNode(true)));
 			}
 		}
 		else{
 			let ul=document.querySelector(location.hash+">ul");
-			if(!ul.querySelector(`#npcList li[value="${species}"]`))ul.prepend(el);
+			if(!ul.querySelector(`#npcList li[value="${species}"]`))ul.prepend(readyLiC(el));
 		}
 	}
 });
@@ -49,12 +49,9 @@ function customSetUp(specie){
 	el=li.cloneNode();
 	el.setAttribute("value",specie);
 	var b=btn.cloneNode();
-		b.addEventListener("click",modifyContC);
 		b.innerHTML="Custom: "+specie;
 		b.append(img.cloneNode(),img2.cloneNode());
 	var div2=div.cloneNode(true);
-		div2.querySelector(".species-group>.addToAll").addEventListener("click",addToAllC);
-		div2.querySelector(".species-group>.removeFromAll").addEventListener("click",removeFromAllC);
 	el.append(b,div2);
 	return el;
 }
@@ -81,7 +78,7 @@ function addToAllC(event){
 	for(let i=0;_s>i;i++)if(arr[i]!=false){
 		let li=elp.cloneNode(true);
 		li.id="";
-		spawns[i].prepend(readyLi(li));
+		spawns[i].prepend(readyLiC(li));
 	}
 }
 
@@ -99,4 +96,11 @@ function removeFromAllC(event){
 	else for(let i=0;i<_l;i++){
 		arr[i].parentNode.removeChild(arr[i]);
 	}
+}
+
+function readyLiC(li){
+	li.querySelector(".species-group>.addToAll").addEventListener("click",addToAllC);
+	li.querySelector(".species-group>.removeFromAll").addEventListener("click",removeFromAllC);
+	li.querySelector("button.btn.species").addEventListener("click",modifyContC);
+	return li;
 }

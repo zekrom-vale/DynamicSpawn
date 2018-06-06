@@ -119,10 +119,7 @@ document.getElementById("addVisible").addEventListener("click",function(event){
 			for(let l in uls)if(!li[s].classList.contains(css[l])){
 				li[s].classList.add(css[l]);
 				let clone=LI.cloneNode(true);
-				clone.querySelector(".species-group>.addToAll").addEventListener("click",addToAll);
-				clone.querySelector(".species-group>.removeFromAll").addEventListener("click",removeFromAll);
-				clone.querySelector("button.btn.species").addEventListener("click",removeEl);
-				uls[l].getElementsByTagName("ul")[0].prepend(clone);
+				uls[l].getElementsByTagName("ul")[0].prepend(readyLi(clone));
 			}
 		}
 	}
@@ -136,7 +133,7 @@ document.getElementById("addVisible").addEventListener("click",function(event){
 			LI.querySelector(".species-group>.removeFromAll").addEventListener("click",removeFromAll);
 			LI.querySelector("button.btn.species").addEventListener("click",removeEl);
 			LI.id="";
-			document.querySelector(hash+">ul").prepend(LI);
+			document.querySelector(hash+">ul").prepend(readyLi(LI));
 		}
 	}
 });

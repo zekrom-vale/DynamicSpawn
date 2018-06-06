@@ -3,8 +3,7 @@ window.addEventListener("load",()=>{
 saveData=(function(){
 	var a=document.getElementById("save");
 	return function(data,fileName,t){
-		let blob=new Blob([t?data:JSON.stringify(data)],{type:"octet/stream"}),
-			url=window.URL.createObjectURL(blob);
+		let url=window.URL.createObjectURL(new Blob([t?data:JSON.stringify(data)],{type:"octet/stream"}));
 		a.href=url;
 		a.download=fileName;
 		a.click();
@@ -16,7 +15,7 @@ saveData=(function(){
 
 var getData,setData;
 if(localStorage){
-	getData=n=>localStorage.getItem(n);
+	getData=n=>{return localStorage.getItem(n);};
 	setData=(v,s)=>{localStorage.setItem(v,s);}
 }
 else{
@@ -36,9 +35,9 @@ else{
 	}
 }
 
-function alertModal(modalHead="",modalBody="",f){
-	document.getElementById("modalHead").innerHTML=modalHead;
-	document.getElementById("modalBody").innerHTML=modalBody;
+function alertModal(mh="",mb="",f){
+	document.getElementById("modalHead").innerHTML=mh;
+	document.getElementById("modalBody").innerHTML=mb;
 	$("#modal:First").modal();
 	var modal=new Promise((resolve,reject)=>{
 		var ok=document.getElementById("modalOk"),
@@ -82,11 +81,11 @@ function alertModal(modalHead="",modalBody="",f){
 	});
 }
 
-function popup(mesage,type="danger",id,loc){
+function popup(m,t="danger",id,loc){
 	if(id)$(`#${id}:First`).remove();
 	var div=document.createElement("div");
-		div.classList.add("alert","alert-"+type,"alert-dismissible");
-		div.innerHTML=mesage;
+		div.classList.add("alert","alert-"+t,"alert-dismissible");
+		div.innerHTML=m;
 		if(id)div.id=id;
 	var btn=document.createElement("button");
 		btn.classList.add("close");

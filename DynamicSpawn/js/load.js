@@ -17,7 +17,7 @@ if(location.hash){
 	location.hash=hash;
 }
 else location.hash="npcGeneric";
-//--------------- Get Cookie Value ---------------
+//--------------- Species Cookie Value ---------------
 let c=getData("value");
 if(c){
 	let item=JSON.parse(c);
@@ -43,7 +43,7 @@ $('[data-toggle="tooltip"]').tooltip();
 	},true);
 }
 $('[data-toggle="popover"]').popover();
-{
+{//--------------- Get Mods ---------------
 	let activeMods=JSON.parse(getData("mods"));
 	if(activeMods&&activeMods.length>0){
 		let items=$("#mods>li"),
@@ -100,6 +100,7 @@ $('[data-toggle="popover"]').popover();
 document.body.removeChild(document.getElementById("load"));
 });
 
+//--------------- Get Tour ---------------
 async function tour(){
 	popup("This site use localStorage to save your choices. <a href='https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API'>localStorage</a> is the modern version of cookies and is more secure. However, few sites use this feature.","warning","localStorage",true)
 	var end=()=>{setData("return","true",30);},
@@ -153,6 +154,7 @@ function die(el,exit){
 	document.querySelector(el).dispatchEvent(exit?eventExit:eventDie);
 }
 
+//--------------- Set Data ---------------
 window.addEventListener("beforeunload",()=>{
 	setData("value",JSON.stringify(getLi()),90);
 	let val=document.querySelectorAll("#mods>li.active"),
