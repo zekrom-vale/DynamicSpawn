@@ -23,12 +23,7 @@ $("#mods>li").on("click",function(){
 });
 
 $("#speciesList .species").on("click",modifyCont);
-$("#npcList>*>li:not(.custom-species)>.species").on("click",removeEl);
-$("li:not(.custom-species)>.species-group>.addToAll").on("click",addToAll);
-$("li:not(.custom-species)>.species-group>.removeFromAll").on("click",removeFromAll);
-
-$("#npcList>*>li.custom-species>.species").on("click",modifyContC);
-$("li.custom-species>.species-group>.addToAll").on("click",addToAllC);
-$("li.custom-species>.species-group>.removeFromAll").on("click",removeFromAllC);
+$("#speciesList .species-group>.addToAll").on("click",addToAll);
+$("#speciesList .species-group>.removeFromAll").on("click",removeFromAll);
 
 });
