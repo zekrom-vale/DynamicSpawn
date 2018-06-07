@@ -32,6 +32,20 @@ xmlns:x="http://www.w3.org/1999/XSL/Transform">
 						<x:attribute name="data-content">
 							<x:value-of select="@author"/>
 							Steam ID: <x:value-of select="id/@steam"/>
+							Species: <x:for-each select="specie">
+								<x:choose>
+									<x:when test="@name">
+										<x:value-of select="@name"/>
+									</x:when>
+									<x:otherwise>
+										<x:call-template name="cap">
+											<x:with-param name="text" select="translate(@value,'_',' ')"/>
+											<x:with-param name="capl" select="'true'"/>
+										</x:call-template>
+									</x:otherwise>
+								</x:choose>
+								<x:if test="position()!=count(../specie)">, </x:if>
+							</x:for-each>
 						</x:attribute>
 					</x:if>
 					<x:value-of select="@name"/>
@@ -146,5 +160,35 @@ xmlns:x="http://www.w3.org/1999/XSL/Transform">
 				</div>
 			</x:for-each>
 		</div>
+	</x:template>
+	<x:template name="cap">
+		<x:param name="text"/>
+		<x:param name="capl"/>
+		<x:param name="sub" select="substring($text,1,1)"/>
+		<x:if test="string-length($text)&gt;0">
+			<x:choose>
+				<x:when test="$sub=' '">
+					<x:value-of select="$sub"/>
+					<x:call-template name="cap">
+						<x:with-param name="text" select="substring($text,2)"/>
+						<x:with-param name="capl" select="'true'"/>
+					</x:call-template>
+				</x:when>
+				<x:otherwise>
+					<x:choose>
+						<x:when test="$capl='true'">
+							<x:value-of select="translate($sub,'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ')"/>
+						</x:when>
+						<x:otherwise>
+							<x:value-of select="$sub"/>
+						</x:otherwise>
+					</x:choose>
+					<x:call-template name="cap">
+						<x:with-param name="text" select="substring($text,2)"/>
+						<x:with-param name="capl" select="'false'"/>
+					</x:call-template>
+				</x:otherwise>
+			</x:choose>
+		</x:if>
 	</x:template>
 </x:stylesheet>

@@ -25,19 +25,17 @@
 	)
 	,'idm','')"/>
 	</x:variable>
-<html xmlns:html="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US" data-author="zekrom-vale" data-game="Starbound" data-require="Bootstrap4,jQuery,popper,XML,XSL,XPath">
+<html xmlns:html="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US" data-author="zekrom-vale" data-game="Starbound">
 <head id="top">
 	<meta charset="UTF-8"/>
 	<title>Dynamic Spawn Creator</title>
 	<meta http-equiv="Content-Security-Policy"><x:attribute name="content">
-		block-all-mixed-content;
 		default-src 'self';
 		img-src 'self' &H;* data:;
 		script-src 'self' &H;maxcdn.&b;cdn.com &H;ajax.googleapis.com &H;cdnjs.cloudflare.com;
 		style-src 'self' &H;maxcdn.&b;cdn.com 'nonce-<x:value-of select="$nonce"/>';
 	</x:attribute></meta>
-	<meta http-equiv="Content-Security-Policy" content="object-src 'none';media-src 'none';manifest-src 'none';"/>
-
+	<meta http-equiv="Content-Security-Policy" content="block-all-mixed-content; object-src 'none'; media-src 'none';manifest-src 'none';"/>
 	<x:for-each select="root/meta/*|root/meta/*/@*">
 		<meta name="{local-name()}" content="{.}"/>
 	</x:for-each>
@@ -45,25 +43,19 @@
 	<link rel="icon" type="image/svg+xml" href="img/icon.svg"/>
 	<link rel="icon" type="image/png" href="img/icon.png"/>
 	<link rel="stylesheet" href="css/core.css"/>
-	<!--
-	<link rel="alternative stylesheet" href="css/dark.css" title="Dark"/>
-	Extension links-->
+	<!--<link rel="alternative stylesheet" href="css/dark.css" title="Dark"/>-->
 	<link rel="stylesheet" href="&H;maxcdn.&b;cdn.com/&b;/4.1.0/css/&b;.min.css"/>
 </head>
 <body>
-<div id="load" class="container-fluid">
-	<div class="loadPad"></div>
+<div id="load" class="container-fluid center">
 	<div class="main">
 		<h1>Loading Scripts</h1>
 		<h3 class="justify-content-center">Please Wait</h3>
-		<div class="progress">
-			<div class="progress-bar progress-bar-striped progress-bar-animated" id="loading"></div>
-		</div>
+		<div class="loader"></div>
 	</div>
-	<div class="loadPad"></div>
 </div>
 <div id="base">
-	<nav class="&n; bg-dark sticky-top justify-content-center btn-group">
+	<nav class="&n; bg-dark sticky-top justify-content-center btn-group noPrint">
 		<button class="&bt;danger" id="removeAll" data-toggle="popover" data-placement="top" data-trigger="hover" title="Remove All Elements">
 			<x:attribute name="data-content">Normal:Active tab
 				Shift:Selected tab(s)
@@ -93,19 +85,18 @@
 		<button class="&bt;success" accesskey="i u" id="imp">Import JSON</button>
 		<button class="&bt;info" accesskey="d" id="download">Download Mod</button>
 	</nav>
-	<nav class="&n; bg&w; justify-content-center"><h6>
+	<nav class="&n; bg&w; justify-content-center noPrint"><h6>
 		<b>ALERT</b>: The species list is a work in progress, if you find something wrong please <a href="&H;github.com/zekrom-vale/DynamicSpawn/issues">create an issue!</a>
 	</h6></nav>
-	<!--<![endif]-->
 	<br/>
 	<div class="container-fluid row ad ad-box" id="container">
-		<aside as="span" roll="span" class="col-sm-0 col-md-3 col-lg-2 col-xl-2">
+		<aside roll="span" class="col-md-3 col-lg-2">
 			<h4>Active Mods</h4>
 			<ul class="list-group" id="mods">
 				<x:call-template name="modList"/>
 			</ul>
 		</aside>
-		<main as="span" roll="span" class="col-sm-12 col-md-9 col-lg-7 col-xl-7" id="body">
+		<main roll="span" class="col-sm-12 col-md-9 col-lg-7" id="body">
 			<div class="alert alert-success d-flex">
 				<div class="p-2">Path<span id="toLocal"> to Local</span>:&nbsp;</div>
 				<input class="p-2 flex-grow-1 code" id="path" disabled="disabled" name="path"/>
@@ -134,17 +125,16 @@
 		</main>
 		<x:call-template name="aside"/>
 	</div>
-	<!--[if !IE]><!-->
 	<scripts is="div" roll="div" hidden="hidden">
 		<script src="&H;ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"/>
 		<script src="js/util.js"/>
 		<script src="js/species.js"/>
-		<script async="async" src="js/custom.js"/>
+		<script src="js/custom.js"/>
 		<script defer="defer" src="js/load.js"/>
 		<script defer="defer" src="js/io.js"/>
 		<script defer="defer" src="js/globalIo.js"/>
-		<script src="&H;cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"/>
-		<script src="&H;maxcdn.&b;cdn.com/&b;/4.1.0/js/&b;.min.js"/>
+		<script defer="defer" src="&H;cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"/>
+		<script defer="defer" src="&H;maxcdn.&b;cdn.com/&b;/4.1.0/js/&b;.min.js"/>
 		<style id="activeStyle" nonce="{$nonce}" data-allow=".active-*">
 			.active-npcGeneric{
 				color:#fff;
@@ -160,7 +150,7 @@
 		<a id="save"></a>
 		<input type="file" id="iimport" accept=".DyS.json"/>
 	</scripts>
-	<div class="&m;" id="&m;">
+	<div class="&m; center" id="&m;">
 		<div class="&m;-dialog">
 			<div class="&m;-content">
 				<div class="&m;-header">
@@ -177,7 +167,7 @@
 	</div>
 </div>
 <noscript>
-	<div class="&m; show">
+	<div class="&m; show center">
 		<div class="&m;-dialog">
 			<div class="&m;-content">
 				<div class="&m;-header"><h4 class="&m;-title">JavaScript Not Working</h4><button class="close" data-dismiss="&m;">&x;</button></div>

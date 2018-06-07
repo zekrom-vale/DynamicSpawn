@@ -8,7 +8,7 @@
 <x:stylesheet version="1.0"
 xmlns:x="http://www.w3.org/1999/XSL/Transform">
 <x:template name="aside">
-	<aside as="span" class="col-lg-3 col-xl-3" style="width:100%" data-pause="hover" id="side" roll="span">
+	<aside class="col-0p col-lg-3" data-pause="hover" id="side" roll="span">
 		<div class="carousel slide" data-ride="carousel" id="side2">
 			<ul class="carousel-indicators invert">
 				<li data-target="#side2" data-slide-to="0" class="active"></li>
@@ -24,7 +24,19 @@ xmlns:x="http://www.w3.org/1999/XSL/Transform">
 						<h4 class="card-title">zekrom_vale</h4>
 						<p class="card-text">
 							Developer of the Kazdra Recipes and Fixes Patch, it's additions varent, as well as Multicraft API.
-							Devoted self taught programmer of numerous <a data-toggle="tooltip" title="TI-basic, HTML, CSS, XML, JavaScript, JSON, SVG, BB, MD, Lua, Bootstrap4, jQuery*, C#*, XPath, XSL, DTD, XSD*" class="help">languages / markup</a> and programs.
+							Devoted self taught programmer of numerous 
+							<a data-toggle="tooltip" title="TI-basic, JavaScript(JSON, jQuery*), PHP*, Lua, C#*, XSLT" class="help">
+								languages
+							</a>
+							, <a data-toggle="tooltip" title="HTML, CSS(Bootstrap4), XML(SVG, DTD, XSD*), BB, MD" class="help">
+								markup
+							</a>
+							, <a data-toggle="tooltip" title="URL, Query string, hash, XPath" class="help">
+								path systems
+							</a>
+							, and <a data-toggle="tooltip" title="Microsoft Word, Google Docs and co., GIMP" class="help">
+								programs
+							</a>, as well as Windows OS.
 						</p>
 						<a rel="external" href="https://github.com/zekrom-vale" class="btn btn-primary">Github Profile</a>
 					</div>
@@ -124,7 +136,7 @@ xmlns:x="http://www.w3.org/1999/XSL/Transform">
 &lt;/mod&gt;
 ...
 </pre>
-<button class="btn" onclick="copyText('#modCopy')">Copy</button>
+<button class="btn" id="modCopyBtn">Copy</button>
 <textarea id="modCopy" rows="10" cols="50">
 <![CDATA[<mod name="" author="">
 	<id steam="" sb=""/>
@@ -132,9 +144,11 @@ xmlns:x="http://www.w3.org/1999/XSL/Transform">
 		<imgOn src=""/>
 		<imgOff src=""/>
 	</specie>
-	...
+	<!--OR-->
+	<specie value="" name=""/>
+	<!--...-->
 </mod>
-...]]>
+<!--...-->]]>
 </textarea>
 <br/>
 	<small>
@@ -144,7 +158,7 @@ xmlns:x="http://www.w3.org/1999/XSL/Transform">
 	<h3>Example</h3>
 <pre data-toggle="tooltip" title="TIP: Use &lt;![CDATA[`text`]]&gt;"><![CDATA[
 <mod name="The Kazdra Reloaded" author="Andr3w246, zekrom_vale">
-  <id steam="949156982" sb="kazdra.1234"/>
+  <id steam="949156982" sb="kazdra.1234"/><!--Do not include `/`-->
   <specie value="kazdra">
     <imgOn src="tab_kazdra&on;"/>
     <imgOff src="tab_kazdra.png"/>
