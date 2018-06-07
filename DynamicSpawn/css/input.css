@@ -48,7 +48,7 @@ button:not(:hover)>img.on,
 
 #RegExpPre{
 	position:relative;
-	bottom:4px;
+	bottom:1px;
 }
 
 #searchOp{
@@ -66,7 +66,6 @@ select>option{
 	overflow-y:scroll;
 }#mods>li{
 	cursor:pointer;
-	text-overflow:ellipsis;
 	-webkit-user-select:none;
 	-moz-user-select:none;
 	-ms-user-select:none;
