@@ -1,7 +1,5 @@
 "use strict";
 window.addEventListener("load",()=>{
-
-
 //--------------- Filter ---------------
 $("#speciesInput").on("keyup paste cut",function(){
 	v=document.getElementById("searchOp").value;
@@ -28,8 +26,8 @@ $("#speciesInput").on("keyup paste cut",function(){
 		exists=txt=>txt?txt.toLowerCase().indexOf(value)>-1:false;
 		$("#speciesList li,#npcList li").filter(function(){
 			$(this).toggle(
-				(v==0||v==1)&&exists(this.firstChild.innerHTML)||
-				(v==0||v==2)&&exists(this.getAttribute("value"))||
+				(v==0||v==1||v==1.5)&&exists(this.firstChild.innerHTML)||
+				(v==0||v==2||v==1.5)&&exists(this.getAttribute("value"))||
 				(v==0||v==4)&&exists(this.dataset.author)||
 				(v==0||v==3)&&exists(this.dataset.mod)
 			);
