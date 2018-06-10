@@ -10,7 +10,7 @@ function setLi(set,key){
 	else if(!el.classList.contains(css)){
 		el.classList.add(css);
 		var li=el.cloneNode(true);
-		li.querySelector("button.btn.species").dataset.toggle="";
+		li.querySelector(".species").dataset.toggle="";
 		li.id="";
 		document.querySelector(`#${set}>ul`).appendChild(readyLi(li));
 	}
@@ -52,8 +52,8 @@ var baseLi=(function(){
 }());
 
 function readyLi(li){
-	li.querySelector(".species-group>.addToAll").addEventListener("click",addToAll);
-	li.querySelector(".species-group>.removeFromAll").addEventListener("click",removeFromAll);
-	li.querySelector("button.btn.species").addEventListener("click",removeEl);
+	li.querySelector(".addToAll").addEventListener("click",addToAll);
+	li.querySelector(".removeFromAll").addEventListener("click",removeFromAll);
+	li.querySelector(".species").addEventListener("click",removeEl);
 	return li;
 }

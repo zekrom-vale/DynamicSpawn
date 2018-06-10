@@ -3,21 +3,21 @@ window.addEventListener("load",()=>{
 document.getElementById("speciesInput").addEventListener("keyup",function(event){
 	var species=this.value;
 	if(event.key==="Enter"){
-		var el=customSetUp(document.getElementById("speciesInput").value);
+		let el=customSetUp(this.value);
 		if(event.shiftKey){
-			let els=$("li.nav-link-sel>a.nav-link"),
+			let els=$(".nav-link-sel>a"),
 			_l=els.length;
 			for(let i=0;i<_l;i++){
 				let ul=document.querySelector(els[i].dataset.hash+">ul");
-				if(!ul.querySelector(`#npcList li[value="${species}"]`))ul.prepend(readyLi(el.cloneNode(true)));
+				if(!ul.querySelector(`#npcList li[value="${species}"]`))ul.prepend(readyLi(el.cloneNode(1)));
 			}
 		}
 		else if(event.ctrlKey){
-			let els=$("li>a.nav-link"),
+			let els=$("li>.nav-link"),
 			_l=els.length;
 			for(let i=0;i<_l;i++){
 				let ul=document.querySelector(els[i].dataset.hash+">ul");
-				if(!ul.querySelector(`#npcList li[value="${species}"]`))ul.prepend(readyLi(el.cloneNode(true)));
+				if(!ul.querySelector(`#npcList li[value="${species}"]`))ul.prepend(readyLi(el.cloneNode(1)));
 			}
 		}
 		else{
@@ -32,8 +32,8 @@ var customNPC=(function(){
 	var[li,btn,img,img2,div]=baseLi,
 	el=li.cloneNode();
 	el.classList.add("custom-species");
-	var b=btn.cloneNode();
-	var divM=div.cloneNode(true);
+	var b=btn.cloneNode(),
+	divM=div.cloneNode(1);
 		divM.firstChild.classList.add("addToAll");
 		divM.childNodes[1].classList.add("removeFromAll");
 	var imgM=img.cloneNode();
@@ -51,7 +51,7 @@ function customSetUp(specie){
 	var b=btn.cloneNode();
 		b.innerHTML="Custom: "+specie;
 		b.append(img.cloneNode(),img2.cloneNode());
-	var div2=div.cloneNode(true);
+	var div2=div.cloneNode(1);
 	el.append(b,div2);
 	return el;
 }
