@@ -3,12 +3,12 @@ window.addEventListener("load",()=>{
 //--------------- Filter ---------------
 $("#speciesInput").on("keyup paste cut",function(){
 	var v=document.getElementById("searchOp").value;
-    v=[
-        v==(0||1||1.5),
-        v==(0||2||1.5),
-        v%3==0,
-        v%4==0
-    ];
+	v=[
+		v==(0||1||1.5),
+		v==(0||2||1.5),
+		v%3==0,
+		v%4==0
+	];
 	if(document.getElementById("RegExp").checked){
 		let elp=this.parentNode;
 		try{
@@ -147,8 +147,8 @@ document.getElementById("imp").addEventListener("click",()=>{document.getElement
 
 document.getElementById("download").addEventListener("click",function(){
 	var ob=getLi(),
-	arr=arrF=[],
-	i=f=0;
+	arr=[],arrF=[],
+	i=0,f=0,
 	e=()=>{document.getElementById("modalCancel").style.display="";};
 	for(let n in ob){
 		if(ob[n].length<1)arrF[f++]=++i;
@@ -156,8 +156,8 @@ document.getElementById("download").addEventListener("click",function(){
 	}
 	document.getElementById("modalCancel").style.display="none";//!
 	if(f>0){
-		for(let i of arrF)i=elm.npcTab.querySelector(
-		`li:nth-child(${i})>a`).innerHTML.replace(/ <span class="[^"]+">.<.span>$/,"");
+		for(let i in arrF)arrF[i]=elm.npcTab.querySelector(
+		`li:nth-child(${arrF[i]})>a`).innerHTML.replace(/ ?<span class="[^"]+">.<.span>$/,"");
 		alertModal("Cannot download!","No Species exist in "+arrF.join(", "),{
 			"finally":[e]
 		});
