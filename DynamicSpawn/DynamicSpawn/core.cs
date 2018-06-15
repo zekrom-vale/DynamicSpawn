@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 internal class Program{
     private static void Main(){
 		if(!Core(true)){
-            string path= "https://zekrom-vale.github.io/DynamicSpawn/index.xml?path="+Uri.EscapeDataString(Location);
+            string path= "https://zekrom-vale.github.io/DynamicSpawn?path="+Uri.EscapeDataString(Location);
             System.Diagnostics.Process.Start(DefaultBrowserPath,path);
             Console.Clear();
             Console.ForegroundColor=ConsoleColor.Yellow;
