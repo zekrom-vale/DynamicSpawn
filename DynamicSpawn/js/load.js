@@ -82,7 +82,7 @@ $('[data-toggle="popover"]').popover();
 	else{
 		let e=()=>{
 			alertModal("No path found","Would you like to download the local component of Dynamic Spawn?<br/>If not, you still can create a list for later",{
-				"resolve":[()=>{location.assign("https://github.com/zekrom-vale/DynamicSpawn/tree/c%23")}],
+				"resolve":[()=>{location.assign("https://github.com/zekrom-vale/DynamicSpawn/releases")}],
 				"reject":[()=>{
 						document.getElementById("download").disabled=true;
 						if(!getData("return"))tourInit();

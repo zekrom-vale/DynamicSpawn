@@ -15,12 +15,12 @@ saveData=(function(){
 var getData,setData;
 if(localStorage){
 	getData=n=>{return localStorage.getItem(n);};
-	setData=(v,s)=>{localStorage.setItem(v,s);}
+	setData=(v,s)=>{localStorage.setItem(v,s);};
 }
 else{
 	function dP(a){
 		let d=new Date();
-		return d.setTime(d.getTime()+(a*86400000)).toUTCString();
+		return d.setTime(d.getTime()+(a*864e+5)).toUTCString();
 	}
 	getData=(n)=>{
 		var ca=decodeURIComponent(document.cookie).split(';');

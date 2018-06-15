@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 internal class Program{
     private static void Main(){
 		if(!Core(true)){
-            string path= "https://zekrom-vale.github.io/DynamicSpawn/index.html?path="+Uri.EscapeDataString(Location);
+            string path= "https://zekrom-vale.github.io/DynamicSpawn/index.xml?path="+Uri.EscapeDataString(Location);
             System.Diagnostics.Process.Start(DefaultBrowserPath,path);
             Console.Clear();
             Console.ForegroundColor=ConsoleColor.Yellow;
@@ -27,19 +27,19 @@ internal class Program{
 
     private static bool Core(bool first=false){
         string path=Location,
-            j="";
+            cosvFile="";
         UInt16 n;
-        string[]jsons=GetAllFiles(path,"*.DyS.cosv");
-        if(jsons.Length>1){
+        string[]cosv=GetAllFiles(path,"*.DyS.cosv");
+        if(cosv.Length>1){
             Console.Write("Multiple .Dys.cosv files found");
             n=1;
             Console.ForegroundColor=ConsoleColor.Cyan;
-            foreach(string i in jsons)Console.WriteLine("{0}: {1}\n",new dynamic[]{n++,i});
+            foreach(string i in cosv)Console.WriteLine("{0}: {1}\n",new dynamic[]{n++,i});
             Console.ForegroundColor=ConsoleColor.Yellow;
             Console.WriteLine("Select file with number");
-            j=jsons[UInt16.Parse(Console.ReadLine())-1];
+            cosvFile=cosv[UInt16.Parse(Console.ReadLine())-1];
         }
-        else if(jsons.Length<1){
+        else if(cosv.Length<1){
             if(!first){
                 Console.ForegroundColor=ConsoleColor.Red;
                 Console.Error.WriteLine("No .DyS.cosv files found");
@@ -47,8 +47,8 @@ internal class Program{
             }
             return false;
         }
-        else j=jsons[0];
-        string[]nvs=System.IO.File.ReadAllText(j).Split(new char[]{'\n'}),
+        else cosvFile=cosv[0];
+        string[]nvs=System.IO.File.ReadAllText(cosvFile).Split(new char[]{'\n'}),
             files=GetAllFiles("dungeons","*.json.patch"),
             val=new string[nvs.Length];
         Regex[] regs=new Regex[nvs.Length];
@@ -74,6 +74,9 @@ internal class Program{
         }
         Console.ForegroundColor=ConsoleColor.Green;
         Console.WriteLine("Replacment Operation Compleated");
+        Console.ForegroundColor=ConsoleColor.Yellow;
+        Console.WriteLine("Press `k` to keep the `.DyS.cosv` file.  Press any other key to delete it.");
+        if(Console.ReadKey().KeyChar!='k')System.IO.File.Delete(cosvFile);
         return true;
     }
 
@@ -81,7 +84,7 @@ internal class Program{
     private static string Location{
         get{
             string path=System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
-            return new Regex(@"^[a-z]:(\\|\/)(\$[^\\\/]*|Temp|Recovery|Windows|Users|ProgramData|System Volume Information|Intel|PerfLogs)(\\|\/)").IsMatch(path)?"System Path":path;
+            return new Regex(@"^[a-z]:[\\\/](\$[^\\\/]*|Temp|Recovery|Windows|Users|ProgramData|System Volume Information|Intel|PerfLogs)[\\\/]").IsMatch(path)?"System Path":path;
         }
     }
 

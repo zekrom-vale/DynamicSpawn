@@ -111,7 +111,7 @@
 						<option value="3">Mod Name</option>
 						<option value="4">Mod Author</option>
 					</select>
-					<input id="speciesInput" type="text" name="search" placeholder="Search Species... EX: ^kazdra$|hum|^[a-b]|Ar(gon)?i|^s[^a-dl-v\d]+|^.{5}$"/>
+					<input id="speciesInput" type="search" placeholder="Search Species... EX: ^kazdra$|hum|^[a-b]|Ar(gon)?i|^s[^a-dl-v\d]+|^.{5}$"/>
 					<label class="switch float-right" data-toggle="tooltip" data-placement="left" title="Enable RegExp support" id="RegExpPre">
 						<input type="checkbox" id="RegExp"/>
 						<span class="slider round" id="RegExpS"></span>
@@ -178,17 +178,15 @@
 	</div>
 </noscript>
 <!--[if IE]>
-<noscript>
-	<div class="&m; show">
-		<div class="&m;-dialog">
-			<div class="&m;-content">
-				<div class="&m;-header"><h4 class="&m;-title">This page is incompatible with Internet Explorer</h4><button class="close" data-dismiss="&m;">&x;</button></div>
-				<div class="&m;-body">Please copy the entire link and paste it into modern browser.<br/>Ex: Google Chrome or Firefox</div>
-				<div class="&m;-footer"><button class="&bt;primary" data-dismiss="&m;">Ok</button></div>
-			</div>
+<div class="&m; show center">
+	<div class="&m;-dialog">
+		<div class="&m;-content">
+			<div class="&m;-header"><h4 class="&m;-title">This page is incompatible with Internet Explorer</h4><button class="close" data-dismiss="&m;">&x;</button></div>
+			<div class="&m;-body">Please copy the entire link and paste it into modern browser.<br/>Ex: Google Chrome or Firefox</div>
+			<div class="&m;-footer"><button class="&bt;primary" data-dismiss="&m;">Ok</button></div>
 		</div>
 	</div>
-</noscript>
+</div>
 <![endif]-->
 </body>
 </html>
