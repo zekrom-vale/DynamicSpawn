@@ -68,7 +68,7 @@ $('[data-toggle="popover"]').popover();
 	el=document.getElementById("path"),
 	sys=(function(){return /System Path/i.test(qi);})();
 	for(let i of q)if(/^path=/i.test(i)){
-		qi=decodeURIComponent(i.slice(5)+"\\");
+		qi=decodeURIComponent(i.slice(5).replace(/\+/g,"%20")+"\\");
 		continue;
 	}
 	if(/^[a-z]:([\\\/][^\\\/:*?"<>|]+)+[\\\/]$/i.test(qi)&&!sys){
