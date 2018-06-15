@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?><x:stylesheet xmlns:x="http://www.w3.org/1999/XSL/Transform" version="1.0"><x:import href="template.xsl"/><x:import href="aside.xsl"/><x:template match="/"><x:variable name="nonce"><x:value-of select="translate(  concat(generate-id(),   generate-id(root/script),   generate-id(document('species.xml')),   generate-id(document('verify.xml'))  )  ,'idm','')"/></x:variable><html xmlns:html="http://www.w3.org/1999/xhtml" data-author="zekrom-vale" data-game="Starbound" lang="en-US" xml:lang="en-US"><head id="top"><meta charset="UTF-8"/><title>Dynamic Spawn Creator</title><meta http-equiv="Content-Security-Policy"><x:attribute name="content">default-src 'self';img-src 'self' https://* data:;script-src 'self' https://maxcdn.bootstrapcdn.com https://ajax.googleapis.com https://cdnjs.cloudflare.com;style-src 'self' https://maxcdn.bootstrapcdn.com 'nonce-<x:value-of select="$nonce"/>';</x:attribute></meta><meta content="block-all-mixed-content; object-src 'none'; media-src 'none';manifest-src 'none';" http-equiv="Content-Security-Policy"/><x:for-each select="root/meta/*|root/meta/*/@*"><meta content="{.}" name="{local-name()}"/></x:for-each><link href="img/icon.svg" rel="icon" type="image/svg+xml"/><link href="img/icon.png" rel="icon" type="image/png"/><link href="css/core.css" rel="stylesheet"/><link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet"/></head><body><div class="container-fluid center" id="load"><div class="main"><h1>Loading Scripts</h1><h3 class="justify-content-center">Please Wait</h3><div class="loader"/></div></div><div id="base"><nav class="navbar bg-dark sticky-top justify-content-center btn-group noPrint"><button class="btn btn-danger" data-placement="top" data-toggle="popover" data-trigger="hover" id="removeAll" title="Remove All Elements"><x:attribute name="data-content">Normal:Active tab
 Shift:Selected tab(s)
-Ctrl:No prompt
-</x:attribute>
+Ctrl:No prompt</x:attribute>
 Remove All
 </button><button accesskey="- r" class="btn btn-warning" data-placement="top" data-toggle="popover" data-trigger="hover" id="removeVisible" title="Remove All Visible Elements"><x:attribute name="data-content">Normal:Active tab
-Shift:Selected tab(s)
-</x:attribute>
+Shift:Selected tab(s)</x:attribute>
 Remove Visible
 </button><button accesskey="+ a" class="btn btn-primary" data-placement="top" data-toggle="popover" data-trigger="hover" id="addVisible" title="Add All Visible Elements"><x:attribute name="data-content">Normal:Active tab
-Shift:Selected tab(s)
-</x:attribute>
+Shift:Selected tab(s)</x:attribute>
 Add Visible
 </button><button accesskey="e" class="btn btn-success" data-placement="top" data-toggle="popover" data-trigger="hover" id="iexport" title="Export The List"><x:attribute name="data-content">For use on different browsers or...
 Share with your friends
