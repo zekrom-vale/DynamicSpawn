@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.w3.org/2001" elementFormDefault="qualified" targetNamespace="species.xml" >
+	<xs:element name="root">
+		<xs:complexType>
+			<xs:all>
+				<xs:element name="species">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="mod" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="id" minOccurs="0">
+											<xs:complexType>
+												<xs:attribute name="steam" type="xs:positiveInteger"/>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="specie" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+                          <xs:element name="imgOn" minOccurs="0">
+                            <xs:complexType>
+                              <xs:attribute name="src" default="img/tab_other_select.png"/>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="imgOff" minOccurs="0">
+                            <xs:complexType>
+                              <xs:attribute name="src" default="img/tab_other.png"/>
+                            </xs:complexType>
+                          </xs:element>
+													<xs:element name="default" minOccurs="0">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+															</xs:sequence>
+															<xs:attribute name="all" default="false"/>
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+												<xs:attribute name="value" type="xs:string" use="required"/>
+												<xs:attribute name="name" type="xs:string"/>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+									<xs:attribute name="name" type="xs:string"/>
+									<xs:attribute name="value" type="xs:string"/>
+									<xs:attribute name="author" type="xs:string"/>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="tab">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

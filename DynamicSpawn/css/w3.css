@@ -1,0 +1,81 @@
+/*https://www.w3schools.com/howto/howto_css_switch.asp*/
+.switch{
+	position:relative;
+	display:inline-block;
+	width:60px;
+	height:34px;
+	margin:0;
+	padding:0;
+}
+
+.slider{
+	position:absolute;
+	cursor:pointer;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	background-color:#ccc;
+	-webkit-transition:.4s;
+	transition:.4s;
+}.slider::before{
+	position:absolute;
+	content:"";
+	height:26px;
+	width:26px;
+	left:4px;
+	bottom:4px;
+	background-color:white;
+	-webkit-transition:.4s;
+	transition:.4s;
+}
+
+input:checked + .slider{
+	background-color:#2196F3;
+}input:focus + .slider{
+	box-shadow:0 0 1px #2196F3;
+}input:checked + .slider::before{
+	-webkit-transform:translateX(26px);
+	-ms-transform:translateX(26px);
+	transform:translateX(26px);
+}
+
+.slider.round{
+	border-radius:34px;
+}.slider.round::before{
+	border-radius:50%;
+}
+
+.loader{
+	margin:0 auto;
+	border-top:16px solid blue;
+	border-right:16px solid green;
+	border-bottom:16px solid cyan;
+	border-left:16px solid red;
+	border-radius:50%;
+	width:120px;
+	height:120px;
+	animation:spin .5s linear infinite;
+	-webkit-animation:spin .5s linear infinite;
+}
+
+@keyframes spin{
+	0% { transform:rotate(0deg); }
+	100% { transform:rotate(360deg); }
+}@-webkit-keyframes spin {
+	0%{ -webkit-transform: rotate(0deg); }
+	100%{ -webkit-transform: rotate(360deg); }
+}
+
+.center{
+	margin:0!important;
+	position:absolute!important;
+	top:50%!important;
+	left:50%!important;
+	transform:translate(-50%,-50%)!important;
+}
+
+.center-h{
+	margin-right:auto!important;
+	margin-left:auto!important;
+}
