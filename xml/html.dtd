@@ -1,6 +1,0 @@
-<!ENTITY nbsp "&#160;">
-<!ENTITY times "&#10005;">
-<!ENTITY check "&#x2713;">
-<!ELEMENT html (body,head,title,meta)>
-<!ELEMENT body (#PCDATA)>
-<!ELEMENT head (#PCDATA)>
