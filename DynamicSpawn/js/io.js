@@ -20,7 +20,6 @@ $("#mods>li").on("click",function(){
 $("#speciesList .species").on("click",modifyCont);
 $("#speciesList .addToAll").on("click",addToAll);
 $("#speciesList .removeFromAll").on("click",removeFromAll);
-document.getElementById("modCopyBtn").addEventListener("click",()=>copyText('#modCopy'));
 
 });
 

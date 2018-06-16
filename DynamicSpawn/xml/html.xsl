@@ -14,7 +14,6 @@
 ]>
 <x:stylesheet version="1.0" xmlns:x="http://www.w3.org/1999/XSL/Transform">
 	<x:import href="template.xsl"/>
-	<x:import href="aside.xsl"/>
 <x:template match="/">
 	<x:variable name="nonce">
 		<x:value-of select="translate(
@@ -150,7 +149,9 @@
 			<x:call-template name="tabTab"/>
 			<x:call-template name="tabBody"/>
 		</main>
-		<x:call-template name="aside"/>
+		<aside class="col-0p col-lg-3" data-pause="hover" id="side" roll="span">
+			<script defer="defer" src="html/asideInt.js"></script>
+		</aside>
 	</div>
 	<div class="&m; center" id="&m;">
 		<div class="&m;-dialog">
