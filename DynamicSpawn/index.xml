@@ -12,7 +12,7 @@
 		<description>Create your own mod! Chose the NPCs you want to spawn in Starbound.</description>
 		<keywords>Starbound,NPC,Spawning,Mod,Dynamic Mod</keywords>
 		<viewport>width=device-width,initial-scale=1</viewport>
-		<creator robots="nofollow">zekrom_vale</creator>
+		<creator>zekrom_vale</creator>
 		<xml xslt="1.0">1.0</xml>
 		<html>5</html>
 	</meta>

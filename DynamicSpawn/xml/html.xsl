@@ -40,13 +40,40 @@
 		<meta name="{local-name()}" content="{.}"/>
 	</x:for-each>
 	<!--links-->
+	<link rel="alternate" hreflang="en" href="https://zekrom-vale.github.io/DynamicSpawn"/>
+	<link rel="canonical" hreflang="en" href="https://zekrom-vale.github.io/DynamicSpawn/index.xml"/>
 	<link rel="icon" type="image/svg+xml" href="img/icon.svg"/>
 	<link rel="icon" type="image/png" href="img/icon.png"/>
+		<script src="&H;ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"/>
+		<script src="js/util.js"/>
+		<script src="js/load.js"/>
+		<script src="js/species.js"/>
+		<script defer="defer" src="js/io.js"/>
+		<script defer="defer" src="js/globalIo.js"/>
+		<script defer="defer" src="js/custom.js"/>
+		<script defer="defer" src="&H;cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"/>
+		<script defer="defer" src="&H;maxcdn.&b;cdn.com/&b;/4.1.0/js/&b;.min.js"/>
+		<style id="activeStyle" nonce="{$nonce}">
+			.active-npcGeneric{
+				color:#fff;
+				background-color:#007bff!important;
+				border-color:#007bff;
+			}
+		</style>
+		<style id="activeStyle2" nonce="{$nonce}" data-allow=".hideMod|null">
+			.hideMod{
+				display:none!important;
+			}
+		</style>
 	<link rel="stylesheet" href="css/core.css"/>
 	<!--<link rel="alternative stylesheet" href="css/dark.css" title="Dark"/>-->
 	<link rel="stylesheet" href="&H;maxcdn.&b;cdn.com/&b;/4.1.0/css/&b;.min.css"/>
 </head>
 <body>
+<div hidden="hidden">
+	<a id="save"></a>
+	<input type="file" id="iimport" accept=".DyS.json"/>
+</div>
 <div id="load" class="container-fluid center">
 	<div class="main">
 		<h1>Loading Scripts</h1>
@@ -125,31 +152,6 @@
 		</main>
 		<x:call-template name="aside"/>
 	</div>
-	<scripts is="div" roll="div" hidden="hidden">
-		<script src="&H;ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"/>
-		<script src="js/util.js"/>
-		<script src="js/species.js"/>
-		<script src="js/custom.js"/>
-		<script defer="defer" src="js/load.js"/>
-		<script defer="defer" src="js/io.js"/>
-		<script defer="defer" src="js/globalIo.js"/>
-		<script defer="defer" src="&H;cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"/>
-		<script defer="defer" src="&H;maxcdn.&b;cdn.com/&b;/4.1.0/js/&b;.min.js"/>
-		<style id="activeStyle" nonce="{$nonce}" data-allow=".active-*">
-			.active-npcGeneric{
-				color:#fff;
-				background-color:#007bff!important;
-				border-color:#007bff;
-			}
-		</style>
-		<style id="activeStyle2" nonce="{$nonce}" data-allow=".hideMod|null">
-			.hideMod{
-				display:none!important;
-			}
-		</style>
-		<a id="save"></a>
-		<input type="file" id="iimport" accept=".DyS.json"/>
-	</scripts>
 	<div class="&m; center" id="&m;">
 		<div class="&m;-dialog">
 			<div class="&m;-content">
