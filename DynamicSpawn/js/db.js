@@ -1,7 +1,7 @@
 //https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Client-side_storage
 //Database set up
 var db;
-/*window.addEventListener("load",()=>{
+/*addEventListener("load",()=>{
 	DBsetUp(name,value,items,f)
 	//localStorage.setItem("n",n+1);
 });*/
@@ -38,7 +38,7 @@ function DBsetUp(name,value,key,items,f){
 	//where f.success[0](result,...) and f.error[0](...)
 	
 	//Cannot use dynamic sizes of arrays not at the end
-	var request=window.indexedDB.open(name,value);
+	var request=indexedDB.open(name,value);
 	if(f.error)request.addEventListener("error",()=>{
 		if(f.error.length===1)f.error[0]();
 		else f.error[0](...f.error.slice(1));
