@@ -6,7 +6,7 @@ $("#mods>li").on("click",function(){
 	_i=items.length,
 	u=1;
 	for(let i=0;i<_i;i++){
-		let el=$(`[data-mod="${items[i].getAttribute("value")}"]`),
+		let el=$(`[data-mod="${items[i].getValue()}"]`),
 		_e=el.length,
 		v;
 		if(items[i].classList.contains("active"))v=u=0;
@@ -25,13 +25,13 @@ $("#speciesList .removeFromAll").on("click",removeFromAll);
 
 function removeEl(){
 	var elp=this.parentNode;
-	if(!elp.classList.contains("custom-species"))document.getElementById(elp.getAttribute("value")).classList.remove("active-"+location.hash.slice(1));
-	elp.parentNode.removeChild(elp);
+	if(!elp.classList.contains("custom-species"))document.getElementById(elp.getValue()).classList.remove("active-"+location.hash.slice(1));
+	elp.remove();
 }
 
 function modifyCont(event){
 	var el=this.parentNode;
-	if(el.classList.contains("custom-species"))el.parentNode.removeChild(el);
+	if(el.classList.contains("custom-species"))el.remove();
 	else{
 		if(event.altKey){
 			let l=el.dataset.steamid||el.dataset.sbid;
@@ -41,8 +41,8 @@ function modifyCont(event){
 			let hash=location.hash;
 			var css="active-"+hash.slice(1);
 			if(el.classList.contains(css)){
-				var item=document.querySelector(hash+` li[value=${el.getAttribute("value")}]`);
-				item.parentNode.removeChild(item);
+				var item=document.querySelector(hash+` li[value=${el.getValue()}]`);
+				item.remove;
 				el.classList.remove(css);
 			}
 			else{
@@ -64,10 +64,10 @@ function addToAll(event){
 		const _b=base.length;
 		if(event.shiftKey)for(let i=0;_b>i;i++){
 			if(!document.querySelector(`[data-hash="#${base[i].id}"]`).parentNode.classList.contains("nav-link-sel"))arr[i]=false;
-			else if(base[i].querySelector(`ul>li[value="${prev.getAttribute("value")}"]`))arr[i]=false;
+			else if(base[i].querySelector(`ul>li[value="${prev.getValue()}"]`))arr[i]=false;
 		}
 		else for(let i=0;_b>i;i++){
-			if(base[i].querySelector(`ul>li[value="${prev.getAttribute("value")}"]`))arr[i]=false;
+			if(base[i].querySelector(`ul>li[value="${prev.getValue()}"]`))arr[i]=false;
 		}
 		const _s=spawns.length;
 		for(let i=0;_s>i;i++)if(arr[i]!==false){
@@ -77,7 +77,7 @@ function addToAll(event){
 		}
 	}
 	else{
-		var elp=document.getElementById(prev.getAttribute("value")),
+		var elp=document.getElementById(prev.getValue()),
 		spawns=document.querySelectorAll("#npcList ul"),
 		base=document.querySelectorAll("#npcList>div");
 		const _b=base.length;
@@ -106,7 +106,7 @@ function addToAll(event){
 function removeFromAll(event){
 	var prev=this.parentNode.parentNode;
 	if(prev.classList.contains("custom-species")){
-		var arr=elm.npcList.querySelectorAll(`li.list-group-item[value="${prev.getAttribute("value")}"]`),
+		var arr=elm.npcList.querySelectorAll(`li.list-group-item[value="${prev.getValue()}"]`),
 		_l=arr.length;
 		if(event.shiftKey){
 			for(let i=0;i<_l;i++){
@@ -114,25 +114,25 @@ function removeFromAll(event){
 				if(document.querySelector(`[data-hash="#${el.parentNode.id}"]`).parentNode.classList.contains("nav-link-sel"))el.removeChild(arr[i]);
 			}
 		}
-		else for(let i=0;i<_l;i++)arr[i].parentNode.removeChild(arr[i]);
+		else for(let i=0;i<_l;i++)arr[i].remove();
 	}
 	else{
-		var elp=document.getElementById(prev.getAttribute("value")),
+		var elp=document.getElementById(prev.getValue()),
 		arr=elp.classList.value.split(" ");
 		if(event.shiftKey){
 			for(let i of arr)if(/^active-./.test(i)){
 				let t=i.replace("active-","");
 				if(elm.npcTab.querySelector(`[data-hash="#${t}"]`).parentNode.classList.contains("nav-link-sel")){
-					let item=document.querySelector(`#${t} li[value=${elp.getAttribute("value")}]`);
+					let item=document.querySelector(`#${t} li[value=${elp.getValue()}]`);
 					elp.classList.remove(i);
-					if(item)item.parentNode.removeChild(item);
+					if(item)item.remove();
 				}
 			}
 		}
 		else for(let i of arr)if(/^active-./.test(i)){
-			let item=document.querySelector(`#${i.replace("active-","")} li[value=${elp.getAttribute("value")}]`);
+			let item=document.querySelector(`#${i.replace("active-","")} li[value=${elp.getValue()}]`);
 			elp.classList.remove(i);
-			if(item)item.parentNode.removeChild(item);
+			if(item)item.remove();
 		}
 	}
 }

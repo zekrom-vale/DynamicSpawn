@@ -1,20 +1,20 @@
 "use strict";
-window.addEventListener("load",()=>{
+addEventListener("load",()=>{
 saveData=(function(){
 	var a=document.getElementById("save");
 	return function(data,fileName,t){
-		let url=window.URL.createObjectURL(new Blob([t?data:JSON.stringify(data)],{type:"octet/stream"}));
+		let url=URL.createObjectURL(new Blob([t?data:JSON.stringify(data)],{type:"octet/stream"}));
 		a.href=url;
 		a.download=fileName;
 		a.click();
-		window.URL.revokeObjectURL(url);
+		URL.revokeObjectURL(url);
 	};
 	//https://jsfiddle.net/koldev/cW7W5
 }());
 });
 var getData,setData;
 if(localStorage){
-	getData=n=>{return localStorage.getItem(n);};
+	getData=n=>localStorage.getItem(n);
 	setData=(v,s)=>{localStorage.setItem(v,s);};
 }
 else{
@@ -22,11 +22,11 @@ else{
 		let d=new Date();
 		return d.setTime(d.getTime()+(a*864e+5)).toUTCString();
 	}
-	getData=(n)=>{
+	getData=n=>{
 		var ca=decodeURIComponent(document.cookie).split(';');
 		const _n=n.length+1;
 		n=new RegExp(`^${n}=`);
-		for(let i in ca)if(n.test(ca[i]))return ca[i].slice(_n);
+		for(let i of ca)if(n.test(i))return i.slice(_n);
 	}
 	setData=(v,s,e)=>{
 		document.cookie=`${v}=${s};expires=${dP(e)}`;
@@ -82,16 +82,36 @@ function alertModal(mh="",mb="",f){
 }
 
 function info(m,t="danger",id,loc){
-	if(id)$(`#${id}:First`).remove();
-	var div=document.createElement("div");
+	var div;
+	if(id&&document.getElementById(id)){
+		div=document.getElementById(id);
+		div.classList.value="";
+	}
+	else{
+		div=document.createElement("div");
+			if(id)div.id=id;
+		var btn=document.createElement("button");
+			btn.classList.add("close");
+			btn.dataset.dismiss="alert";
+			btn.innerHTML="&times;";
+		div.appendChild(btn);
+		document.getElementById("container").prepend(div);
+	}
+		div.appendChild(typeof(m)=="string"?document.createTextNode(m):m);
 		div.classList.add("alert","alert-"+t,"alert-dismissible");
-		div.innerHTML=m;
-		if(id)div.id=id;
-	var btn=document.createElement("button");
-		btn.classList.add("close");
-		btn.dataset.dismiss="alert";
-		btn.innerHTML="&times;";
-	loc?div.classList.add("loc"):window.scrollTo(0,0);
-	div.appendChild(btn);
-	document.getElementById("container").prepend(div);
+	loc?div.classList.add("loc"):scrollTo(0,0);
+}
+
+HTMLElement.prototype.remove=function(){
+	this.outerHTML="";
+	//this.parentNode.removeChild(this);
+}
+HTMLElement.prototype.empty=function(){
+	this.innerHTML="";
+}
+HTMLElement.prototype.getValue=function(){
+	return this.getAttribute("value");
+}
+HTMLElement.prototype.removeClass=function(){
+	this.classList.value="";
 }

@@ -1,5 +1,5 @@
 "use strict";
-window.addEventListener("load",()=>{
+addEventListener("load",()=>{
 //--------------- Filter ---------------
 $("#speciesInput").on("keyup paste cut",function(){
 	var v=document.getElementById("searchOp").value;
@@ -15,12 +15,12 @@ $("#speciesInput").on("keyup paste cut",function(){
 			var e=new RegExp($(this).val(),"ig");
 			$("#speciesList li,#npcList li").filter(function(){
 				$(this).toggle(
-					v[0]&&e.test(this.firstChildocument.innerHTML)||
-					v[1]&&e.test(this.getAttribute("value"))||
+					v[0]&&e.test(this.firstChild.innerText)||
+					v[1]&&e.test(this.getValue())||
 					v[3]&&e.test(this.dataset.author)||
 					v[2]&&e.test(this.dataset.mod)
 				);
-				$(this).toggle(e.test(this.getAttribute("value")));
+				$(this).toggle(e.test(this.getValue()));
 			});
 			elp.classList.remove("err");
 		}catch(e){
@@ -33,14 +33,14 @@ $("#speciesInput").on("keyup paste cut",function(){
 		exists=txt=>txt.toLowerCase().indexOf(value)>-1;
 		$("#speciesList li,#npcList li").filter(function(){
 			$(this).toggle(
-				v[0]&&exists(this.firstChildocument.innerHTML)||
-				v[1]&&exists(this.getAttribute("value"))||
+				v[0]&&exists(this.firstChild.innerText)||
+				v[1]&&exists(this.getValue())||
 				v[3]&&exists(this.dataset.author)||
 				v[2]&&exists(this.dataset.mod)
 			);
 		});
 		$("#mods li").filter(function(){
-			$(this).toggle(exists(this.getAttribute("value")));
+			$(this).toggle(exists(this.getValue()));
 		});
 	}
 });
@@ -57,10 +57,11 @@ document.getElementById("iimport").addEventListener("change",()=>{
 
 //--------------- Remove All ---------------
 document.getElementById("removeAll").addEventListener("click",event=>{
+	let shift=event.shiftKey;
 	if(event.ctrlKey)core(event);
-	else alertModal(`Remove all items from the ${event.shiftKey?"selected":"current"} list${event.shiftKey?"(s)":""}?`,"This Cannot be undone!",{"resolve":[core,event]});
+	else alertModal(`Remove all items from the ${shift?"selected":"current"} list${shift?"(s)":""}?`,"This Cannot be undone!",{"resolve":[core,event]});
 	function core(event){
-		if(event.shiftKey){
+		if(shift){
 			var sel=elm.npcTab.querySelectorAll(".nav-link-sel>a"),
 			_l=sel.length,
 			hashs=[];
@@ -88,8 +89,8 @@ document.getElementById("removeVisible").addEventListener("click",function(event
 			var css="active-"+base[n].dataset.hash.slice(1);
 			for(let i=0;i<_l;i++)if(li[i].classList.contains(css)&&li[i].style.display!=="none"){
 				li[i].classList.remove(css);
-				let l=document.querySelector(base[n].dataset.hash+` [value="${li[i].getAttribute("value")}"]`);
-				l.parentNode.removeChild(l);
+				let l=document.querySelector(base[n].dataset.hash+` [value="${li[i].getValue()}"]`);
+				l.remove();
 			}
 		}
 	}
@@ -98,8 +99,8 @@ document.getElementById("removeVisible").addEventListener("click",function(event
 		css="active-"+hash.slice(1);
 		for(let i=0;i<_l;i++)if(li[i].classList.contains(css)&&li[i].style.display!=="none"){
 			li[i].classList.remove(css);
-			let l=document.querySelector(hash+` [value="${li[i].getAttribute("value")}"]`);
-			l.parentNode.removeChild(l);
+			let l=document.querySelector(hash+` [value="${li[i].getValue()}"]`);
+			l.remove();
 		}
 	}
 });
@@ -157,7 +158,7 @@ document.getElementById("download").addEventListener("click",function(){
 	document.getElementById("modalCancel").style.display="none";//!
 	if(f>0){
 		for(let i in arrF)arrF[i]=elm.npcTab.querySelector(
-		`li:nth-child(${arrF[i]})>a`).innerHTML.replace(/ ?<span class="[^"]+">.<.span>$/,"");
+		`li:nth-child(${arrF[i]})>a`).innerText;
 		alertModal("Cannot download!","No Species exist in "+arrF.join(", "),{
 			"finally":[e]
 		});

@@ -1,5 +1,5 @@
 "use strict";
-window.addEventListener("load",()=>{
+addEventListener("load",()=>{
 	for(let i in speciesEl)document.getElementById("speciesList").append(speciesEl[i]);
 });
 

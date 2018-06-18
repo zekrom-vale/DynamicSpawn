@@ -25,7 +25,7 @@ function getLi(){
 		items=$(`#${id} li`),
 		_i=items.length;
 		arr[id]=[];
-		for(let n=0;_i>n;n++)arr[id][n]=items[n].getAttribute("value");
+		for(let n=0;_i>n;n++)arr[id][n]=items[n].getValue();
 	}
 	return arr;
 }

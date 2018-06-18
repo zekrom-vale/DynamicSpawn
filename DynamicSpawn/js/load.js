@@ -21,18 +21,19 @@ else location.hash="npcGeneric";
 let c=getData("value");
 if(c){
 	let item=JSON.parse(c);
-	for(let i in item)for(let n of item[i])setLi(i,n);
+	for(let i in item)for(let n in item[i])setLi(i,item[i][n]);
 }
 
 //--------------- Tooltip ---------------
 $('[data-toggle="tooltip"]').tooltip();
+$('[data-toggle="popover"]').popover();
 {//--------------- Tab list ---------------
 	let els=document.querySelectorAll(".nav-link");
 	const _l=els.length;
 	for(let i=0;i<_l;i++)els[i].addEventListener("click",function(event){
 		if(event.shiftKey){
 			this.parentNode.classList.toggle('nav-link-sel');
-			window.setTimeout(()=>{
+			setTimeout(()=>{
 				document.querySelector(`[data-hash="${location.hash}"]`).classList.add("show","active");
 				this.classList.remove("active");
 			},20);
@@ -40,7 +41,6 @@ $('[data-toggle="tooltip"]').tooltip();
 		else dtTab(this);
 	},true);
 }
-$('[data-toggle="popover"]').popover();
 {//--------------- Get Mods ---------------
 	let mods=JSON.parse(getData("mods"));
 	if(mods&&mods.length>0){
@@ -48,7 +48,7 @@ $('[data-toggle="popover"]').popover();
 		_i=items.length,
 		disable=false;
 		for(let i=0;i<_i;i++){
-			let val=items[i].getAttribute("value");
+			let val=items[i].getValue();
 			if(mods.includes(val)){
 				disable=true;
 				items[i].classList.add("active");
@@ -98,7 +98,7 @@ $('[data-toggle="popover"]').popover();
 		document.head.appendChild(script);
 	}
 }
-document.body.removeChild(document.getElementById("load"));
+document.getElementById("load").remove();
 });
 
 //--------------- Set Data ---------------
@@ -107,7 +107,7 @@ addEventListener("beforeunload",()=>{
 	let val=document.querySelectorAll("#mods>.active"),
 	_v=val.length,
 	arr=[];
-	for(let i=0;i<_v;i++)arr[i]=val[i].getAttribute("value");
+	for(let i=0;i<_v;i++)arr[i]=val[i].getValue();
 	setData("mods",JSON.stringify(arr,60));
 });
 
@@ -122,5 +122,5 @@ function dtTab(el){
 	list.classList.add("active");
 	list.classList.remove("fade");
 	location.hash=hash;
-	style.innerHTML=style.innerHTML.replace(/active-.+?{/,`active-${hash.slice(1)}{`);
+	style.innerHTML=style.innerHTML.replace(/active-[^{]+/,"active-"+hash.slice(1));
 }
