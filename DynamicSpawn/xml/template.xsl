@@ -104,7 +104,7 @@ xmlns:x="http://www.w3.org/1999/XSL/Transform">
 						<x:value-of select="../@author"/>
 					</x:attribute>
 				</x:if>
-				<span class="capitalize">
+				<span data-case="cap">
 					<x:choose>
 						<x:when test="@name">
 							<x:value-of select="@name"/>

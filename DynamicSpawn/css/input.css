@@ -18,7 +18,7 @@ label>*>textarea:focus,label>input:focus{
 	visibility:hidden;
 }
 
-a.nav-link{
+.nav-link{
 	cursor:pointer;
 	-webkit-user-select:none;
 	-moz-user-select:none;
@@ -42,7 +42,7 @@ button:not(:hover)>img.on,
 	position:relative;
 	right:-12px;
 }
-#speciesLabel.err{
+.err{
 	background-color:red!important;
 }
 

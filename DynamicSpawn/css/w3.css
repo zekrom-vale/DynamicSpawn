@@ -73,9 +73,20 @@ input:checked + .slider{
 }
 
 @keyframes spin{
-	0% { transform:rotate(0deg); }
-	100% { transform:rotate(360deg); }
-}@-webkit-keyframes spin {
-	0%{ -webkit-transform: rotate(0deg); }
-	100%{ -webkit-transform: rotate(360deg); }
+	0%{transform:rotate(0deg)}
+	100%{transform:rotate(360deg)}
+}@-webkit-keyframes spin{
+	0%{-webkit-transform:rotate(0deg)}
+	100%{-webkit-transform:rotate(360deg)}
+}
+
+#load{
+	z-index:999999;
+}#load h1,
+#load h3{
+	text-align:center;
+}#load{
+	background-color:white;
+	border-radius:5px;
+	padding:30px 15px;
 }

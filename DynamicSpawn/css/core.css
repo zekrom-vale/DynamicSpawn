@@ -10,7 +10,7 @@ textarea:focus,input:focus{
 	outline:none;
 }
 
-div>div.alert-success.d-flex>.p-2,#npcList>*{
+div>.alert-success.d-flex>.p-2,#npcList>*{
 	padding:0!important;
 }
 
@@ -20,19 +20,12 @@ div>div.alert-success.d-flex>.p-2,#npcList>*{
 	word-break:break-word;
 }
 
-#load{
-	z-index:999999;
-}#load h1,
-#load h3{
-	text-align:center;
-}#load>.main{
-	background-color:white;
-	border-radius:5px;
-	padding:30px 15px;
-}
-
-.capitalize{
+[data-case="cap"],[data-case="capitalize"]{
 	text-transform:capitalize;
+}[data-case="upper"],[data-case="uppercase"]{
+	text-transform:uppercase;
+}[data-case="lower"],[data-case="lowercase"]{
+	text-transform:lowercase;
 }
 
 :not(:hover)>.hover{
@@ -55,7 +48,11 @@ noscript>div{
 }
 
 @media print{
-	.noPrint{
+	[data-no*="print"]{
+		display:none;
+	}
+}@media screen{
+	[data-no*="screen"]{
 		display:none;
 	}
 }

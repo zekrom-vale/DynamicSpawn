@@ -71,15 +71,13 @@
 	<a id="save"></a>
 	<input type="file" id="iimport" accept=".DyS.json"/>
 </div>
-<div id="load" class="container-fluid center">
-	<div class="main">
-		<h1>Loading Scripts</h1>
-		<h3 class="justify-content-center">Please Wait</h3>
-		<div class="loader"></div>
-	</div>
+<div id="load" class="center">
+	<h1>Loading Scripts</h1>
+	<h3>Please Wait</h3>
+	<div class="loader"></div>
 </div>
 <div id="base">
-	<nav class="&n; bg-dark sticky-top justify-content-center btn-group noPrint">
+	<nav class="&n; bg-dark sticky-top justify-content-center btn-group" data-no="print">
 		<button class="&bt;danger" id="removeAll" data-toggle="popover" data-placement="top" data-trigger="hover" title="Remove All Elements">
 			<x:attribute name="data-content">Normal:Active tab
 				Shift:Selected tab(s)
@@ -101,15 +99,17 @@
 		</button>
 		<button class="&bt;success" accesskey="e" id="iexport"  data-toggle="popover" data-placement="top" data-trigger="hover" title="Export The List">
 			<x:attribute name="data-content">For use on different browsers or...
-				Share with your friends
-				Note: You do not need to export to save your progress, we use localStorage to do so (The modern cookie)
+				Share with your friends or...
+				Save a backup for a different mod pack.
+				Note: You do not need to export to save your progress, we use localStorage to do so. (The modern cookie)
+				Mod selection not saved yet.
 			</x:attribute>
 			Export JSON
 		</button>
 		<button class="&bt;success" accesskey="i u" id="imp">Import JSON</button>
 		<button class="&bt;info" accesskey="d" id="download">Download Mod</button>
 	</nav>
-	<nav class="&n; bg&w; justify-content-center noPrint"><h6>
+	<nav class="&n; bg&w; justify-content-center" data-no="print"><h6>
 		<b>ALERT</b>: The species list is a work in progress, if you find something wrong please <a href="&H;github.com/zekrom-vale/DynamicSpawn/issues">create an issue!</a>
 	</h6></nav>
 	<br/>
@@ -147,7 +147,7 @@
 			<x:call-template name="tabTab"/>
 			<x:call-template name="tabBody"/>
 		</main>
-		<aside class="col-0p col-lg-3" data-pause="hover" id="side" roll="span">
+		<aside class="col-0p col-lg-3" data-pause="hover" id="side">
 			<script defer="defer" src="html/asideInt.js"></script>
 		</aside>
 	</div>
