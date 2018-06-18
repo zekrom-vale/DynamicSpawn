@@ -21,7 +21,7 @@
 		)
 		,'idm','')"/>
 	</x:variable>
-<html xmlns:info="https://info" xml:lang="en-US" lang="en-US" info:author="zekrom-vale" info:game="Starbound">
+<html xmlns:info="https://info" lang="en-US" info:author="zekrom-vale" info:game="Starbound">
 <!-- `xmlns` is automatically assigned to html elements-->
 <head id="top">
 	<meta charset="UTF-8"/>
@@ -113,7 +113,7 @@
 		<b>ALERT</b>: The species list is a work in progress, if you find something wrong please <a href="&H;github.com/zekrom-vale/DynamicSpawn/issues">create an issue!</a>
 	</h6></nav>
 	<br/>
-	<div class="container-fluid row ad ad-box" id="container">
+	<div class="container-fluid row" id="container">
 		<aside roll="span" class="col-md-3 col-lg-2">
 			<h4>Active Mods</h4>
 			<ul class="list-group" id="mods">
