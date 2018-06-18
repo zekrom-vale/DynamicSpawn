@@ -88,20 +88,20 @@ function dbAddData(name,value,element,f){
 }
 
 function getDeepKeys(obj,key,d="/"){
-	if(typeof(obj)!=="object")return null;
+	if(typeof obj!=="object")return null;
 	var arr=[];
 	for(let i in obj){
-		if(typeof(obj[i])==="object")arr=arr.concat(getDeepKeys(obj[i],key?key+d+i:i));
+		if(typeof obj[i]==="object")arr=arr.concat(getDeepKeys(obj[i],key?key+d+i:i));
 		else arr.push(key?key+d+i:i);
 	}
 	return arr;
 }
 
 function objectFlatten(obj,key,d="/"){
-	if(typeof(obj)!=="object")return null;
+	if(typeof obj!=="object")return null;
 	var arr={};
 	for(let i in obj){
-		if(typeof(obj[i])==="object"){
+		if(typeof obj[i]==="object"){
 			let o=objectFlatten(obj[i],key?key+d+i:i);
 			for(let n in o)arr[n]=o[n];
 		}
@@ -150,12 +150,12 @@ var obj={
 console.log(objectDimensionalize(obj));
 
 function objectGetValue(obj,key,d="/"){
-	if(typeof(obj)!=="object")return undefined;
+	if(typeof obj!=="object")return undefined;
 	key=key.split(d);
 	return objectGetValueCore(obj[key[0]],key.slice(1));
 }
 function objectGetValueCore(obj,key){
-	if(typeof(key)==="object"&&key.length>0){
+	if(typeof key==="object"&&key.length>0){
 		return obj?objectGetValueCore(obj[key[0]],key.slice(1)):undefined;
 	}
 	return obj;

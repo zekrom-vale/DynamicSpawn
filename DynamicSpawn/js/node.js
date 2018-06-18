@@ -27,7 +27,7 @@ class node{
 			else if(typeof a==("string"||"number"||"boolean"))arr[n++]=document.createTextNode(a);
 			else for(let p in a){
 				if(a[p].nodeType)arr[n++]=a[p];
-				else if(typeof(a[p])==("string"||"number"||"boolean"))arr[n++]=document.createTextNode(a);
+				else if(typeof a[p]==("string"||"number"||"boolean"))arr[n++]=document.createTextNode(a);
 				else{
 					if(Array.isArray(a[p]))for(let q of a[p])arr[n++]=createa[p](q,p);
 					else arr[n++]=createa[p](a[p],p);
@@ -39,14 +39,14 @@ class node{
 		
 	}
 	wrap(parent,attr){
-		if(typeof(parent)==("string"||"number"||"boolean"))parent=document.createElement(parent);
+		if(typeof parent==("string"||"number"||"boolean"))parent=document.createElement(parent);
 		for(let i in attr)parent.setAttribute(i,attr[i]);
 		parent.append(...this.arr);
 		this.node=parent;
 		return parent;
 	}
 	wrapNS(namespace,parent){
-		if(typeof(parent)==("string"||"number"||"boolean"))parent=document.createElementNS(namespace,parent);
+		if(typeof parent==("string"||"number"||"boolean"))parent=document.createElementNS(namespace,parent);
 		for(let i in attr)parent.setAttributeNS(namespace,i,attr[i]);
 		parent.append(...this.arr);
 		this.node=parent;
@@ -150,7 +150,7 @@ class nodeNS{
 
 function createNodeNS(namespace,node,i){
 	var el=document.createElementNS(node.NS||namespace,i);
-	if(typeof(node)=="object"){
+	if(typeof node=="object"){
 		let html=node.innerHTML||node.HTML,
 		txt=node.text||node.innerText;
 		if(html)el.innerHTML=html;
