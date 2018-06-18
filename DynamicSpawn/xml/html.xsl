@@ -8,23 +8,21 @@
 <!ENTITY n "navbar">
 <!ENTITY m "modal">
 <!ENTITY H "https://">
-<!ELEMENT html (body,head)>
-<!ELEMENT body ANY>
-<!ELEMENT head ANY>
 ]>
 <x:stylesheet version="1.0" xmlns:x="http://www.w3.org/1999/XSL/Transform">
 	<x:import href="template.xsl"/>
 <x:template match="/">
 	<x:variable name="nonce">
 		<x:value-of select="translate(
-	concat(generate-id(),
-		generate-id(root/script),
-		generate-id(document('species.xml')),
-		generate-id(document('verify.xml'))
-	)
-	,'idm','')"/>
+		concat(generate-id(),
+			generate-id(root/script),
+			generate-id(document('species.xml')),
+			generate-id(document('verify.xml'))
+		)
+		,'idm','')"/>
 	</x:variable>
-<html xmlns:html="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US" data-author="zekrom-vale" data-game="Starbound">
+<html xmlns:info="https://info" xml:lang="en-US" lang="en-US" info:author="zekrom-vale" info:game="Starbound">
+<!-- `xmlns` is automatically assigned to html elements-->
 <head id="top">
 	<meta charset="UTF-8"/>
 	<title>Dynamic Spawn Creator</title>
@@ -45,6 +43,7 @@
 	<link rel="icon" type="image/png" href="img/icon.png"/>
 		<script src="&H;ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"/>
 		<script src="js/util.js"/>
+		<script src="js/node.js"/>
 		<script src="js/load.js"/>
 		<script src="js/species.js"/>
 		<script defer="defer" src="js/io.js"/>
@@ -59,14 +58,13 @@
 				border-color:#007bff;
 			}
 		</style>
-		<style id="activeStyle2" nonce="{$nonce}" data-allow=".hideMod|null">
+		<style id="activeStyle2" nonce="{$nonce}">
 			.hideMod{
 				display:none!important;
 			}
 		</style>
 	<link rel="stylesheet" href="css/core.css"/>
 	<!--<link rel="alternative stylesheet" href="css/dark.css" title="Dark"/>-->
-	<link rel="stylesheet" href="&H;maxcdn.&b;cdn.com/&b;/4.1.0/css/&b;.min.css"/>
 </head>
 <body>
 <div hidden="hidden">
