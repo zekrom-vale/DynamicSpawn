@@ -127,7 +127,7 @@ function objectDimensionalizeCore(objs){
 	for(let i in objs){
 		let value=objs[i][0],
 		I=objs[i][1];
-		if(typeof(I)==="object"&&I.length>0){
+		if(typeof I==="object"&&I.length>0){
 			if(arr[I[0]])arr[I[0]].push([value,I.slice(1)]);
 			else arr[I[0]]=[[value,I.slice(1)]];
 		}

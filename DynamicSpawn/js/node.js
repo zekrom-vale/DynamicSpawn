@@ -52,7 +52,7 @@ class node{
 		n=0;
 		for(let a of arguments){
 			if(a.nodeType)arr[n++]=a;
-			else if(typeof(a)==("string"||"number"||"boolean"))arr[n++]=document.createTextNode(a);
+			else if(typeof a==("string"||"number"||"boolean"))arr[n++]=document.createTextNode(a);
 			else for(let p in a){
 				if(a[p].nodeType)arr[n++]=a[p];
 				else if(typeof(a[p])==("string"||"number"||"boolean"))arr[n++]=document.createTextNode(a);
@@ -66,14 +66,16 @@ class node{
 		this.length=arr.length;
 		
 	}
-	wrap(parent){
+	wrap(parent,attr){
 		if(typeof(parent)==("string"||"number"||"boolean"))parent=document.createElement(parent);
+		for(let i in attr)parent.setAttribute(i,attr[i]);
 		parent.append(...this.arr);
 		this.node=parent;
 		return parent;
 	}
 	wrapNS(namespace,parent){
 		if(typeof(parent)==("string"||"number"||"boolean"))parent=document.createElementNS(namespace,parent);
+		for(let i in attr)parent.setAttributeNS(namespace,i,attr[i]);
 		parent.append(...this.arr);
 		this.node=parent;
 		return parent;
@@ -91,6 +93,10 @@ class node{
 			if(nodes[i] instanceof HTMLElement)arr[i]=nodes[i].nameName;
 			else arr[i]=NodeNumberLower[nodes[i].nodeType];
 		}
+		return arr;
+	}
+	typesReduced(){
+		return[...new Set(this.types())];
 	}
 }
 const NodeNumber={},
@@ -106,7 +112,7 @@ Object.freeze(NodeNumberLower);
 
 function createNode(node,i){
 	var el=node.NS?document.createElementNS(node.NS,i):document.createElement(i);
-	if(typeof(node)=="object"){
+	if(typeof node=="object"){
 		let html=node.innerHTML||node.HTML,
 		txt=node.text||node.innerText;
 		if(html)el.innerHTML=html;
@@ -124,10 +130,10 @@ class nodeNS{
 		arg=Array.prototype.slice.call(arguments,1);
 		for(let a of arg){
 			if(a.nodeType)arr[n++]=a;
-			else if(typeof(a)==("string"||"number"||"boolean"))arr[n++]=document.createTextNode(a);
+			else if(typeof a==("string"||"number"||"boolean"))arr[n++]=document.createTextNode(a);
 			else for(let p in a){
 				if(a[p].nodeType)arr[n++]=a[p];
-				else if(typeof(a[p])==("string"||"number"||"boolean"))arr[n++]=document.createTextNode(a);
+				else if(typeof a[p]==("string"||"number"||"boolean"))arr[n++]=document.createTextNode(a);
 				else{
 					if(Array.isArray(a[p]))for(let q of a[p])arr[n++]=createNodeNS(namespace,q,p);
 					else arr[n++]=createNodeNS(namespace,a[p],p);
@@ -139,19 +145,22 @@ class nodeNS{
 		this.length=arr.length;
 	}
 	wrap(parent){
-		if(typeof(parent)==("string"||"number"||"boolean"))parent=document.createElementNS(this.namespace,parent);
+		if(typeof parent==("string"||"number"||"boolean"))parent=document.createElementNS(this.namespace,parent);
+		for(let i in attr)parent.setAttributeNS(this.namespace,i,attr[i]);
 		parent.append(...this.arr);
 		this.node=parent;
 		return parent;
 	}
 	wrapNoNS(parent){
-		if(typeof(parent)==("string"||"number"||"boolean"))parent=document.createElement(parent);
+		if(typeof parent==("string"||"number"||"boolean"))parent=document.createElement(parent);
+		for(let i in attr)parent.setAttribute(i,attr[i]);
 		parent.append(...this.arr);
 		this.node=parent;
 		return parent;
 	}
 	wrapNS(namespace,parent){
-		if(typeof(parent)==("string"||"number"||"boolean"))parent=document.createElementNS(namespace,parent);
+		if(typeof parent==("string"||"number"||"boolean"))parent=document.createElementNS(namespace,parent);
+		for(let i in attr)parent.setAttributeNS(namespace,i,attr[i]);
 		parent.append(...this.arr);
 		this.node=parent;
 		return parent;
@@ -194,5 +203,7 @@ function createNodeNS(namespace,node,i){
 		}
 	},
 	"s".node("p"),
-	new node({p:[1,2,3,4]}).arr
+	new node({p:[1,2,3,4]}).arr,
+	"text node",
+	"innerHTML".node("p",{id:"lastP"})
 ).warp("div");*/

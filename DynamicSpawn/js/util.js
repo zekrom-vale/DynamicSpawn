@@ -97,7 +97,7 @@ function info(m,t="danger",id,loc){
 		div.appendChild(btn);
 		document.getElementById("container").prepend(div);
 	}
-		div.appendChild(typeof(m)=="string"?document.createTextNode(m):m);
+		div.appendChild(typeof m=="string"?document.createTextNode(m):m);
 		div.classList.add("alert","alert-"+t,"alert-dismissible");
 	loc?div.classList.add("loc"):scrollTo(0,0);
 }
