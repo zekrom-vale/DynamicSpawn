@@ -17,34 +17,6 @@ Boolean.prototype.checkbox=function(value){
 	if(this)el.setAttribute("checked","checked");
 	return el;
 }
-//Messes up ul.querySelector(`#npcList li[value="${key}"]`)
-/*Array.prototype.node=function(parent,el,att={},nodes=[],option){
-	var arr=[];
-	for(let i in this){
-		if(this[i] instanceof HTMLElement)arr[i]=this[i];
-		else if(typeof(this[i])=="boolean")arr[i]=this[i].node();
-		else if(this[i].node)arr[i]=this[i].node(el,att,nodes,option);
-	}
-	if(typeof(parent)==("string"||"number"||"boolean"))parent=document.createElement(parent);
-	else if(!parent)return arr;
-	parent.append(...arr);
-	return parent;
-}
-Object.prototype.node=function(parent,att={},nodes=[],option){
-	var arr=[],
-	n=0;
-	for(let i in this){
-		console.log(this,this[i],i);
-		if(this[i] instanceof HTMLElement)arr[n]=this[i];
-		else if(typeof(this[i])=="boolean")arr[n]=this[i].node();
-		else if(this[i].node)arr[n]=this[i].node(i,att,nodes,option);
-		n++;
-	}
-	if(typeof(parent)==("string"||"number"||"boolean"))parent=document.createElement(parent);
-	else if(!parent)return arr;
-	parent.append(...arr);
-	return parent;
-}*/
 
 class node{
 	constructor(){
