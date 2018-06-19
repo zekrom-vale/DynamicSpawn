@@ -2,9 +2,9 @@
 (async function(){
 	{
 		info(
-			new node(
+			new nodes(
 				"This site use localStorage to save your choices, and cookies as a fallback. ",
-				"localStorage".node("a",{
+				new node("a","localStorage",{
 					href:"https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API"
 				}),
 				" is the modern version of cookies and is more secure. However, few sites use this feature."
@@ -64,12 +64,11 @@
 
 function sP(n){
 	if(n.func)n.func();
-	var e=$(n.h),
+	var e=$(n.h);
 	e.popover({
 		title:n.title,
-		content:`${n.cont}<div class="float-right">
-${n.last?"":'<button class="btn btn-primary" id="dieN">Next</button>'}
-<button class="btn btn-danger" id="dieE">End</button>
+		content:n.cont+`<div class="float-right">
+${n.last?"":'<button class="btn btn-primary" id="dieN">Next</button>'}<button class="btn btn-danger" id="dieE">End</button>
 <div>
 `,
 		placement:n.pos||"top",

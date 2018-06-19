@@ -1,62 +1,72 @@
 "use strict";
-String.prototype.textNode=function(){
-	return document.createTextNode(this);
-}
-Boolean.prototype.node=String.prototype.node=Number.prototype.node=function(el,att={},nodes=[],option){
-	el=document.createElement(el);
-	el.innerText=this;
-	for(let i in att)el.setAttribute(i,att[i]);
-	el.append(...nodes);
+function node(type,txt,attr,html){
+	var el=document.createElement(type);
+	html?el.innerHTML=txt:el.innerText=txt;
+	var event=attr.addEventListener||attr.event||attr.eventListener;
+	if(event)for(let i in event){
+		if(Array.isArray(event[i]))el.addEventListener(i,...event[i]);
+		else el.addEventListener(i,event[i]);
+	}
+	for(let i in attr)if(!/(inner)?(HTML|[tT]ext)/.test(i))el.setAttribute(i,attr[i]);
 	return el;
 }
 
-Boolean.prototype.checkbox=function(value){
-	let el=document.createElement("input");
-	el.type="checkbox";
-	if(value)el.value=value;
-	if(this)el.setAttribute("checked","checked");
+function nodeNS(namespace,type,txt,attr,html){
+	var el=document.createElementNS(namespace,type);
+	html?el.innerHTML=txt:el.innerText=txt;
+	for(let i in attr)if(!/(inner)?(HTML|[tT]ext)|NS/.test(i))el.setAttributeNS(namespace,i,attr[i]);
 	return el;
 }
 
-class node{
+class nodes{
 	constructor(){
 		var arr=[],
 		n=0;
 		for(let a of arguments){
 			if(a.nodeType)arr[n++]=a;
-			else if(typeof a==("string"||"number"||"boolean"))arr[n++]=document.createTextNode(a);
-			else for(let p in a){
+			else if(a instanceof(nodes||nodesNS))for(let p in a.arr)arr[n++]=a.arr[p];
+			else if(typeof a=="object")for(let p in a){
 				if(a[p].nodeType)arr[n++]=a[p];
-				else if(typeof a[p]==("string"||"number"||"boolean"))arr[n++]=document.createTextNode(a);
-				else{
-					if(Array.isArray(a[p]))for(let q of a[p])arr[n++]=createa[p](q,p);
-					else arr[n++]=createa[p](a[p],p);
+				else if(typeof a[p]=="object"){
+					if(Array.isArray(a[p]))for(let q of a[p])arr[n++]=createNode(q,p);
+					else arr[n++]=createNode(a[p],p);
 				}
+				else arr[n++]=document.createTextNode(a[p]);
 			}
+			else arr[n++]=document.createTextNode(a);
 		}
 		this.arr=arr;
 		this.length=arr.length;
-		
+		function createNode(node,i){
+			var txt,
+			html;
+			if(typeof node=="object"){
+				html=node.innerHTML||node.HTML;
+				txt=html||node.text||node.innerText;
+			}
+			else txt=node;
+			return node.NS?new nodeNS(node.NS,i,txt,node,!!html):new node(i,txt,node,!!html);
+		}
 	}
 	wrap(parent,attr){
-		if(typeof parent==("string"||"number"||"boolean"))parent=document.createElement(parent);
-		for(let i in attr)parent.setAttribute(i,attr[i]);
+		if(typeof parent==("string"||"number"||"boolean"))parent=new node(parent,undefined,attr)
 		parent.append(...this.arr);
 		this.node=parent;
 		return parent;
 	}
 	wrapNS(namespace,parent){
-		if(typeof parent==("string"||"number"||"boolean"))parent=document.createElementNS(namespace,parent);
-		for(let i in attr)parent.setAttributeNS(namespace,i,attr[i]);
+		if(typeof parent==("string"||"number"||"boolean"))parent=new nodeNS(namespace,parent,undefined,attr);
 		parent.append(...this.arr);
 		this.node=parent;
 		return parent;
 	}
 	attribute(obj){
-		for(let i in this.arr)for(let n in obj)this.arr[i].setAttribute(n,obj[n]);
+		for(let i of this.arr)for(let n in obj)i.setAttribute(n,obj[n]);
+		this.wrap(this.parent);
 	}
 	attributeNS(namespace,obj){
-		for(let i in this.arr)for(let n in obj)this.arr[i].setAttributeNS(namespace,n,obj[n]);
+		for(let i of this.arr)for(let n in obj)i.setAttributeNS(namespace,n,obj[n]);
+		this.wrap(this.parent);
 	}
 	types(){
 		var arr=[],
@@ -79,89 +89,75 @@ for(let i in Node){
 }
 Object.freeze(NodeNumber);
 Object.freeze(NodeNumberLower);
-
 //node.prototype.valueOf=function(){return this.node||this.arr}
 
-function createNode(node,i){
-	var el=node.NS?document.createElementNS(node.NS,i):document.createElement(i);
-	if(typeof node=="object"){
-		let html=node.innerHTML||node.HTML,
-		txt=node.text||node.innerText;
-		if(html)el.innerHTML=html;
-		if(txt)el.innerText=txt;
-		for(let q in node)if(!/(inner)?(HTML|[tT]ext)|NS/.test(q))el.setAttribute(q,node[q]);
-	}
-	else el.innerHTML=node;
-	return el;
-}
-
-class nodeNS{
+class nodesNS{
 	constructor(namespace){
 		var arr=[],
 		n=0,
 		arg=Array.prototype.slice.call(arguments,1);
 		for(let a of arg){
 			if(a.nodeType)arr[n++]=a;
-			else if(typeof a==("string"||"number"||"boolean"))arr[n++]=document.createTextNode(a);
-			else for(let p in a){
+			else if(a instanceof(nodes||nodesNS))for(let p in a.arr)arr[n++]=a.arr[p];
+			else if(typeof a=="object") for(let p in a){
 				if(a[p].nodeType)arr[n++]=a[p];
-				else if(typeof a[p]==("string"||"number"||"boolean"))arr[n++]=document.createTextNode(a);
-				else{
+				else if(typeof a[p]=="object"){
 					if(Array.isArray(a[p]))for(let q of a[p])arr[n++]=createNodeNS(namespace,q,p);
 					else arr[n++]=createNodeNS(namespace,a[p],p);
 				}
+				else arr[n++]=document.createTextNode(a[p]);
 			}
+			else arr[n++]=document.createTextNode(a);
 		}
 		this.arr=arr;
+		for(let i in arr)this[i]=arr[i];
 		this.namespace=namespace;
 		this.length=arr.length;
+		function createNodeNS(namespace,node,i){
+			var txt,
+			html;
+			if(typeof node=="object"){
+				html=node.innerHTML||node.HTML;
+				txt=html||node.text||node.innerText;
+			}
+			else txt=node;
+			return new nodeNS(node.NS||namespace,i,txt,node,!!html);
+		}
 	}
 	wrap(parent){
-		if(typeof parent==("string"||"number"||"boolean"))parent=document.createElementNS(this.namespace,parent);
-		for(let i in attr)parent.setAttributeNS(this.namespace,i,attr[i]);
+		if(typeof parent==("string"||"number"||"boolean"))parent=new nodeNS(this.namespace,parent,undefined,attr);
 		parent.append(...this.arr);
 		this.node=parent;
 		return parent;
 	}
 	wrapNoNS(parent){
-		if(typeof parent==("string"||"number"||"boolean"))parent=document.createElement(parent);
+		if(typeof parent==("string"||"number"||"boolean"))parent=new node(parent,undefined,attr);
 		for(let i in attr)parent.setAttribute(i,attr[i]);
 		parent.append(...this.arr);
 		this.node=parent;
 		return parent;
 	}
 	wrapNS(namespace,parent){
-		if(typeof parent==("string"||"number"||"boolean"))parent=document.createElementNS(namespace,parent);
+		if(typeof parent==("string"||"number"||"boolean"))parent=new nodeNS(namespace,parent,undefined,attr);
 		for(let i in attr)parent.setAttributeNS(namespace,i,attr[i]);
 		parent.append(...this.arr);
 		this.node=parent;
 		return parent;
 	}
 	attributeNoNS(obj){
-		for(let i in this.arr)for(let n in obj)this.arr[i].setAttribute(n,obj[n]);
+		for(let i of this.arr)for(let n in obj)i.setAttribute(n,obj[n]);
+		this.wrapNoNS(this.parent);
 	}
 	attributeNS(namespace,obj){
-		for(let i in this.arr)for(let n in obj)this.arr[i].setAttributeNS(namespace,n,obj[n]);
+		for(let i of this.arr)for(let n in obj)i.setAttributeNS(namespace,n,obj[n]);
+		this.wrapNoNS(this.parent);
 	}
 	attribute(obj){
 		this.attributeNS(this.namespace,obj);
 	}
 }
 
-function createNodeNS(namespace,node,i){
-	var el=document.createElementNS(node.NS||namespace,i);
-	if(typeof node=="object"){
-		let html=node.innerHTML||node.HTML,
-		txt=node.text||node.innerText;
-		if(html)el.innerHTML=html;
-		if(txt)el.innerText=txt;
-		for(let q in node)if(!/(inner)?(HTML|[tT]ext)|NS/.test(q))el.setAttributeNS(node.NS||namespace,q,node[q]);
-	}
-	else el.innerHTML=node;
-	return el;
-}
-
-/*new node(
+/*new nodes(
 	{
 		p:[
 			{innerHTML:1,id:"firstP"},
@@ -174,8 +170,10 @@ function createNodeNS(namespace,node,i){
 			NS:"https://uri.suff/path"
 		}
 	},
-	"s".node("p"),
-	new node({p:[1,2,3,4]}).arr,
+	new node("p","s"),//new is optional for node
+	new nodes({p:[1,2,3,4]}),//using .arr is automatically handled
+	//new is required for nodes
 	"text node",
-	"innerHTML".node("p",{id:"lastP"})
-).warp("div");*/
+	"innerHTML".node("p",{id:"last:div>p"}),
+	new node("pnode".node("p"),"text").wrap("div")
+).wrap("div");*/
