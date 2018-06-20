@@ -1,4 +1,41 @@
 "use strict";
+var sP=(function(){
+	var dN=new CustomEvent("dN"),
+	dE=new CustomEvent("dE");
+	function die(el,exit){
+		$(el).popover("dispose");
+		document.querySelector(el).dispatchEvent(exit?dE:dN);
+	}
+	return function(n){//Automatically includes the local scopes 
+		if(n.func)n.func();
+		var e=$(n.h);
+		e.popover({
+			title:n.title,
+			content:n.cont+`<div class="float-right">
+${n.last?"":'<button class="btn btn-primary" id="dieN">Next</button>'}<button class="btn btn-danger" id="dieE">End</button>
+<div>
+`,
+			placement:n.pos||"top",
+			html:true
+		});
+		e.popover("show");
+		{
+			let pop=document.querySelectorAll(".popover");
+			const _p=pop.length;
+			for(let i=0;i<_p;i++)if(!pop[i].querySelector("#dieE"))pop[i].remove();
+		}
+		let btn=document.getElementById("dieE");
+		if(btn)btn.addEventListener("click",()=>{die(n.h,1)});
+		btn=document.getElementById("dieN");
+		if(btn)btn.addEventListener("click",()=>{die(n.h)});
+		return new Promise(r=>{
+			e[0].addEventListener("dN",()=>r(0));
+			e[0].addEventListener("dE",()=>r(1));
+		});
+	}
+})();
+
+
 (async function(){
 	{
 		info(
@@ -61,38 +98,3 @@
 	for(let n of tours)if(await sP(n))break;
 	setData("return","true",50);
 })();
-
-function sP(n){
-	if(n.func)n.func();
-	var e=$(n.h);
-	e.popover({
-		title:n.title,
-		content:n.cont+`<div class="float-right">
-${n.last?"":'<button class="btn btn-primary" id="dieN">Next</button>'}<button class="btn btn-danger" id="dieE">End</button>
-<div>
-`,
-		placement:n.pos||"top",
-		html:true
-	});
-	e.popover("show");
-	{
-		let pop=document.querySelectorAll(".popover");
-		const _p=pop.length;
-		for(let i=0;i<_p;i++)if(!pop[i].querySelector("#dieE"))pop[i].remove();
-	}
-	let btn=document.getElementById("dieE");
-	if(btn)btn.addEventListener("click",()=>{die(n.h,1)});
-	btn=document.getElementById("dieN");
-	if(btn)btn.addEventListener("click",()=>{die(n.h)});
-	return new Promise(r=>{
-		e[0].addEventListener("dN",()=>r(0));
-		e[0].addEventListener("dE",()=>r(1));
-	});
-}
-
-var dN=new CustomEvent("dN"),
-dE=new CustomEvent("dE");
-function die(el,exit){
-	$(el).popover("dispose");
-	document.querySelector(el).dispatchEvent(exit?dE:dN);
-}
