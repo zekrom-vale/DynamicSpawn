@@ -33,9 +33,9 @@ else{
 	}
 }
 
-function alertModal(mh="",mb="",f){
-	document.getElementById("modalHead").innerHTML=mh;
-	document.getElementById("modalBody").innerHTML=mb;
+function alertModal(mh,mb,f){
+	if(mh)document.getElementById("modalHead").innerHTML=mh;
+	if(mb)document.getElementById("modalBody").innerHTML=mb;
 	$("#modal:First").modal();
 	var modal=new Promise((resolve,reject)=>{
 		var ok=document.getElementById("modalOk"),
@@ -104,7 +104,6 @@ function info(m,t="danger",id,loc){
 
 HTMLElement.prototype.remove=function(){
 	this.outerHTML="";
-	//this.parentNode.removeChild(this);
 }
 HTMLElement.prototype.empty=function(){
 	this.innerHTML="";

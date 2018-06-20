@@ -1,6 +1,11 @@
 "use strict";
 addEventListener("load",()=>{
-$("#mods>li").on("click",function(){
+$("#mods>li").on("click",toggleMods);
+$("#speciesList .species").on("click",modifyCont);
+$("#speciesList .addToAll").on("click",addToAll);
+$("#speciesList .removeFromAll").on("click",removeFromAll);
+});
+function toggleMods(){
 	this.classList.toggle("active");
 	var items=$("#mods>li"),
 	_i=items.length,
@@ -15,13 +20,7 @@ $("#mods>li").on("click",function(){
 	}
 	let el=document.getElementById("activeStyle2");
 	el.innerHTML=el.innerHTML.replace(u?".hideMod":"null",u?"null":".hideMod");
-});
-
-$("#speciesList .species").on("click",modifyCont);
-$("#speciesList .addToAll").on("click",addToAll);
-$("#speciesList .removeFromAll").on("click",removeFromAll);
-
-});
+}
 
 function removeEl(){
 	var elp=this.parentNode;

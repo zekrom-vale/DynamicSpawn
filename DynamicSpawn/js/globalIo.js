@@ -46,15 +46,16 @@ $("#speciesInput").on("keyup paste cut",function(){
 });
 
 //--------------- Import ---------------
-var fr=new FileReader();
-document.getElementById("iimport").addEventListener("change",()=>{
-	fr.addEventListener('loadend',txt=>{
-		var item=JSON.parse(txt.srcElement.result);
-		for(let i in item)for(let n of item[i])setLi(i,n);
+{
+	let fr=new FileReader();
+	document.getElementById("iimport").addEventListener("change",()=>{
+		fr.addEventListener('loadend',txt=>{
+			var item=JSON.parse(txt.srcElement.result);
+			for(let i in item)for(let n of item[i])setLi(i,n);
+		});
+		fr.readAsText(document.getElementById("iimport").files[0]);
 	});
-	fr.readAsText(document.getElementById("iimport").files[0]);
-});
-
+}
 //--------------- Remove All ---------------
 document.getElementById("removeAll").addEventListener("click",event=>{
 	let shift=event.shiftKey;
