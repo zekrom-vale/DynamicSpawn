@@ -23,8 +23,10 @@ $("#speciesInput").on("keyup paste cut",function(){
 				$(this).toggle(e.test(this.getValue()));
 			});
 			elp.classList.remove("err");
+			this.setAttribute("aria-invalid","false");
 		}catch(e){
 			elp.classList.add("err");
+			this.setAttribute("aria-invalid","true");
 		}
 	}
 	else{
@@ -71,10 +73,20 @@ document.getElementById("removeAll").addEventListener("click",event=>{
 				hashs[i]="active-"+hash.slice(1);
 				$(`${hash}:First ul:First`).empty();
 			}
-			$("#speciesList li").removeClass(hashs.join(" "));
+			let li=$("#speciesList li");
+			_l=li.length;
+			for(let i=0;i<_l;i++){
+				li[i].classList.remove(...hashs);
+				li[i].setAttribute("aria-selected","false");
+			}
 		}
 		else{
-			$("#speciesList li").removeClass("active-"+location.hash.slice(1));
+			let li=$("#speciesList li"),
+			_l=li.length;
+			for(let i=0;i<_l;i++){
+				li[i].classList.remove("active-"+location.hash.slice(1));
+				li[i].setAttribute("aria-selected","false");
+			}
 			$(location.hash+":First ul:First").empty();
 		}
 	}
@@ -90,6 +102,7 @@ document.getElementById("removeVisible").addEventListener("click",function(event
 			var css="active-"+base[n].dataset.hash.slice(1);
 			for(let i=0;i<_l;i++)if(li[i].classList.contains(css)&&li[i].style.display!=="none"){
 				li[i].classList.remove(css);
+				li[i].setAttribute("aria-selected","false");
 				let l=document.querySelector(base[n].dataset.hash+` [value="${li[i].getValue()}"]`);
 				l.remove();
 			}
@@ -100,6 +113,7 @@ document.getElementById("removeVisible").addEventListener("click",function(event
 		css="active-"+hash.slice(1);
 		for(let i=0;i<_l;i++)if(li[i].classList.contains(css)&&li[i].style.display!=="none"){
 			li[i].classList.remove(css);
+			li[i].setAttribute("aria-selected","false");
 			let l=document.querySelector(hash+` [value="${li[i].getValue()}"]`);
 			l.remove();
 		}
@@ -108,17 +122,18 @@ document.getElementById("removeVisible").addEventListener("click",function(event
 
 document.getElementById("addVisible").addEventListener("click",function(event){
 	var li=elm.speciesList.querySelectorAll("li");
-	const _l=li.length;
+	const _l=li.length-1;
 	if(event.shiftKey){
 		var base=elm.npcTab.querySelectorAll(".nav-link-sel>a"),
 		uls=[],
 		css=[];
 		const _b=base.length;
-		for(let n=0;n<_b;){
+		for(let n=_b;n>=0;){
 			uls[n]=document.getElementById(base[n].dataset.hash.slice(1));
-			css[n++]="active-"+uls[n].id.slice(1);
+			css[n--]="active-"+uls[n].id.slice(1);
 		}
-		for(let s=0;s<_l;s++)if(li[s].style.display!=="none"){
+		for(let s=_l;s>=0;s--)if(li[s].style.display!=="none"){
+			li[s].setAttribute("aria-selected","true");
 			let LI=li[s].cloneNode(1);
 			LI.id="";
 			LI.classList.add(...css);
@@ -131,8 +146,9 @@ document.getElementById("addVisible").addEventListener("click",function(event){
 	else{
 		var hash=location.hash,
 		css="active-"+hash.slice(1);
-		for(let i=0;i<_l;i++)if(!(li[i].classList.contains(css)||li[i].style.display==="none")){//!
+		for(let i=_l;i>=0;i--)if(!(li[i].classList.contains(css)||li[i].style.display==="none")){//!
 			li[i].classList.add(css);
+			li[i].setAttribute("aria-selected","true");
 			let LI=li[i].cloneNode(1);
 			LI.querySelector(".addToAll").addEventListener("click",addToAll);
 			LI.querySelector(".removeFromAll").addEventListener("click",removeFromAll);

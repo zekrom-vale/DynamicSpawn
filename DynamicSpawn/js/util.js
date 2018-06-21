@@ -100,6 +100,7 @@ function info(m,t="danger",id,loc){
 		div.appendChild(typeof m=="string"?document.createTextNode(m):m);
 		div.classList.add("alert","alert-"+t,"alert-dismissible");
 	loc?div.classList.add("loc"):scrollTo(0,0);
+	div.setAttribute("roll","alert");
 }
 
 HTMLElement.prototype.remove=function(){

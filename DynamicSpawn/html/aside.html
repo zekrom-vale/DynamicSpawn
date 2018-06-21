@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<div class="carousel slide" data-ride="carousel" id="side2">
+<div class="carousel slide" data-ride="carousel" id="side2" roll="complementary">
 	<link rel="stylesheet" href="css/aside.css"/>
 	<ul class="carousel-indicators invert">
-		<li data-target="#side2" data-slide-to="0" class="active"></li>
-		<li data-target="#side2" data-slide-to="1"></li>
-		<li data-target="#side2" data-slide-to="2"></li>
-		<li data-target="#side2" data-slide-to="3"></li>
-		<li data-target="#side2" data-slide-to="4"></li>
+		<li data-target="#side2" data-slide-to="0" id="side2-0" class="active"></li>
+		<li data-target="#side2" data-slide-to="1" id="side2-1"></li>
+		<li data-target="#side2" data-slide-to="2" id="side2-2"></li>
+		<li data-target="#side2" data-slide-to="3" id="side2-3"></li>
+		<li data-target="#side2" data-slide-to="4" id="side2-4"></li>
 	</ul>
 	<div class="carousel-inner">
-		<div class="card carousel-item active">
+		<div class="card carousel-item active" role="tabpanel" aria-labelledby="side2-0">
 			<img class="card-img-top" crossorigin="anonymous" src="https://avatars3.githubusercontent.com/u/27376918" alt="zekrom_vale's avatar"/>
 			<div class="card-body">
 				<h4 class="card-title">zekrom_vale</h4>
@@ -32,7 +32,7 @@
 				<a rel="external" href="https://github.com/zekrom-vale" class="btn btn-primary">Github Profile</a>
 			</div>
 		</div>
-		<div class="card carousel-item">
+		<div class="card carousel-item" role="tabpanel"  aria-labelledby="side2-1">
 			<img class="card-img-top" src="img/exe.svg" alt="An icon of an EXE file" data-toggle="popover" data-trigger="hover" title="Image by Freepik" data-content="From freepik.com/free-icon/exe-file_695081.htm Licensed by Creative Commons BY 3.0"/>
 			<div class="card-body">
 				<h4 class="card-title">The Local Component</h4>
@@ -40,7 +40,7 @@
 				<a rel="external" href="https://github.com/zekrom-vale/DynamicSpawn/tree/c%23" class="btn btn-primary">Download Now!</a>
 			</div>
 		</div>
-		<div class="card carousel-item">
+		<div class="card carousel-item" role="tabpanel"  aria-labelledby="side2-2">
 			<div class="card-body">
 				<h5 class="card-title">[rR]eg(ular )?[eE]xp(ression)?</h5>
 				<h4>&gt;-- Turn On</h4>
@@ -101,7 +101,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="card carousel-item">
+		<div class="card carousel-item" role="tabpanel"  aria-labelledby="side2-3">
 			<div class="card-body">
 				<h4 class="card-title">You Ad Here</h4>
 				<p class="card-text">
@@ -111,7 +111,7 @@
 				<!--<a rel="external" href="" class="btn btn-primary">Contact NOW!</a>-->
 			</div>
 		</div>
-		<div class="card carousel-item">
+		<div class="card carousel-item" role="tabpanel">
 			<div class="card-body">
 				<h4 class="card-title">Add Your Species</h4>
 				<h6>To add your species is easy...</h6>

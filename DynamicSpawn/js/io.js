@@ -7,6 +7,7 @@ $("#speciesList .removeFromAll").on("click",removeFromAll);
 });
 function toggleMods(){
 	this.classList.toggle("active");
+	this.setAttribute("aria-selected",this.classList.contains("active"));
 	var items=$("#mods>li"),
 	_i=items.length,
 	u=1;
@@ -24,7 +25,11 @@ function toggleMods(){
 
 function removeEl(){
 	var elp=this.parentNode;
-	if(!elp.classList.contains("custom-species"))document.getElementById(elp.getValue()).classList.remove("active-"+location.hash.slice(1));
+	if(!elp.classList.contains("custom-species")){
+		let top=document.getElementById(elp.getValue());
+		top.classList.remove("active-"+location.hash.slice(1));
+		top.setAttribute("aria-selected","false");
+	}
 	elp.remove();
 }
 
@@ -41,14 +46,16 @@ function modifyCont(event){
 			var css="active-"+hash.slice(1);
 			if(el.classList.contains(css)){
 				var item=document.querySelector(hash+` li[value=${el.getValue()}]`);
-				item.remove;
+				item.remove();
 				el.classList.remove(css);
+				el.setAttribute("aria-selected","false");
 			}
 			else{
 				el.classList.add(css);
 				var li=el.cloneNode(true);
 				li.id="";
 				document.querySelector(hash+">ul").prepend(readyLi(li));
+				el.setAttribute("aria-selected","true");
 			}
 		}
 	}
@@ -79,6 +86,7 @@ function addToAll(event){
 		var elp=document.getElementById(prev.getValue()),
 		spawns=document.querySelectorAll("#npcList ul"),
 		base=document.querySelectorAll("#npcList>div");
+		elp.setAttribute("aria-selected","true");
 		const _b=base.length;
 		if(event.shiftKey)for(let i=0;_b>i;i++){
 			let ba=base[i];
@@ -118,6 +126,7 @@ function removeFromAll(event){
 	else{
 		var elp=document.getElementById(prev.getValue()),
 		arr=elp.classList.value.split(" ");
+		elp.setAttribute("aria-selected","false");
 		if(event.shiftKey){
 			for(let i of arr)if(/^active-./.test(i)){
 				let t=i.replace("active-","");

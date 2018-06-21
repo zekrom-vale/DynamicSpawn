@@ -9,9 +9,10 @@ function setLi(set,key){
 	}
 	else if(!el.classList.contains(css)){
 		el.classList.add(css);
-		var li=el.cloneNode(true);
-		li.querySelector(".species").dataset.toggle="";
-		li.id="";
+		if("#"+set===location.hash)el.setAttribute("aria-selected","true");
+		var li=el.cloneNode(1);
+		delete li.querySelector(".species").dataset.toggle;
+		delete li.id;
 		document.querySelector(`#${set}>ul`).appendChild(readyLi(li));
 	}
 }

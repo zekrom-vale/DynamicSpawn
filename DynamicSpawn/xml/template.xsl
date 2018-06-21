@@ -7,7 +7,7 @@
 <x:stylesheet version="1.0"
 xmlns:x="http://www.w3.org/1999/XSL/Transform">
 	<x:template name="liConstruct">
-		<ul class="list-group" id="speciesList">
+		<ul class="list-group" id="speciesList" roll="listbox" aria-multiselectable="true" aria-sort="descending">
 			<x:for-each select="document('species.xml')/species/mod|document('verify.xml')/species/mod">
 				<x:sort select="@name"/>
 				<x:for-each select="specie">
@@ -21,7 +21,7 @@ xmlns:x="http://www.w3.org/1999/XSL/Transform">
 		<x:for-each select="document('species.xml')/species/mod|document('verify.xml')/species/mod">
 			<x:sort select="@name"/>
 			<x:if test="@name!='' and @name!='Z-UNDEFINED'">
-				<li value="{@name}" class="list-group-item" data-count="{count(specie)}">
+				<li value="{@name}" class="list-group-item" data-count="{count(specie)}" roll="button">
 					<x:if test="@author!='' and @author">
 						<x:attribute name="data-toggle">popover</x:attribute>
 						<x:attribute name="data-placement">right</x:attribute>
@@ -81,7 +81,7 @@ xmlns:x="http://www.w3.org/1999/XSL/Transform">
 					</x:for-each>
 				</x:if>-->
 			</x:attribute>
-			<button class="btn btn-dark species">
+			<button class="btn btn-dark species" data-key="0" tabindex="-1">
 				<x:attribute name="class">
 					<x:text>btn btn-</x:text>
 					<x:choose>
@@ -129,10 +129,10 @@ xmlns:x="http://www.w3.org/1999/XSL/Transform">
 				</span>
 			</button>
 			<div class="btn-group species-group">
-				<button class="btn btn-secondary addToAll">
+				<button class="btn btn-secondary addToAll" data-key="1" tabindex="-1">
 					Add to All
 				</button>
-				<button class="btn btn-secondary removeFromAll">
+				<button class="btn btn-secondary removeFromAll" data-key="2" tabindex="-1">
 					Remove from All
 				</button>
 			</div>
@@ -141,8 +141,8 @@ xmlns:x="http://www.w3.org/1999/XSL/Transform">
 	<x:template name="tabTab">
 		<ul class="nav nav-tabs" role="tablist" id="npcTab">
 			<x:for-each select="document('tab.xml')/tab/*">
-				<li class="nav-item">
-					<a class="nav-link" data-toggle="tab" data-hash="#npc{local-name()}">
+				<li class="nav-item" id="tab{local-name()}" role="tab">
+					<a class="nav-link" data-toggle="tab" data-hash="#npc{local-name()}" tabindex="0">
 						<x:value-of select="local-name()"/>
 						<span class="badge badge-primary">&#x2713;</span>
 					</a>
@@ -153,13 +153,34 @@ xmlns:x="http://www.w3.org/1999/XSL/Transform">
 	<x:template name="tabBody">
 		<div class="tab-content" id="npcList">
 			<x:for-each select="document('tab.xml')/tab/*">
-				<div id="npc{local-name()}" class="container tab-pane">
+				<div id="npc{local-name()}" role="tabpanel" aria-labelledby="tab{local-name()}" class="container tab-pane">
 					<h3><x:value-of select="title"/></h3>
 					<h5><x:value-of select="sub"/></h5>
-					<ul class="list-group"></ul>
+					<ul class="list-group" roll="widget" aria-relevant="all" aria-required="true" aria-sort="descending" aria-sortby="mod" aria-live="polite"></ul>
 				</div>
 			</x:for-each>
 		</div>
+	</x:template>
+	<x:template name="dataList">
+		<datalist id="speciesDataList" aria-sort="descending">
+			<x:for-each select="document('species.xml')/species/mod/specie|document('verify.xml')/species/mod/specie">
+				<x:sort select="@value"/>
+				<x:choose>
+					<x:when test="@name">
+						<option>
+							<x:value-of select="@name"/>
+						</option>
+					</x:when>
+					<x:otherwise>
+						<option>
+							<x:call-template name="cap">
+								<x:with-param name="text" select="@value"/>
+							</x:call-template>
+						</option>
+					</x:otherwise>
+				</x:choose>
+			</x:for-each>
+		</datalist>
 	</x:template>
 	<x:template name="cap">
 		<x:param name="text"/>
