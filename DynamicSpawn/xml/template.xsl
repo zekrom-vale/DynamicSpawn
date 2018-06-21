@@ -7,7 +7,7 @@
 <x:stylesheet version="1.0"
 xmlns:x="http://www.w3.org/1999/XSL/Transform">
 	<x:template name="liConstruct">
-		<ul class="list-group" id="speciesList" roll="listbox" aria-multiselectable="true" aria-sort="descending">
+		<ul class="list-group" id="speciesList" roll="form" aria-multiselectable="true" aria-sort="descending" aria-controls="mods" aria-keyshortcuts="ArrowUp ArrowDown ArrowRight ArrowLeft">
 			<x:for-each select="document('species.xml')/species/mod|document('verify.xml')/species/mod">
 				<x:sort select="@name"/>
 				<x:for-each select="specie">
@@ -58,16 +58,14 @@ xmlns:x="http://www.w3.org/1999/XSL/Transform">
 		<li value="Z-UNDEFINED" class="list-group-item">UNDEFINED</li>
 	</x:template>
 	<x:template name="liTemplate">
-		<li value="{@value}" id="{@value}" data-mod="{../@name}" data-author="{../@author}">
+		<li roll="button" value="{@value}" id="{@value}" data-mod="{../@name}" data-author="{../@author}" aria-setsize="-1">
 			<x:if test="../id/@steam">
 				<x:attribute name="data-steamid">
-					<x:text>https://steamcommunity.com/sharedfiles/filedetails/?id=</x:text>
 					<x:value-of select="../id/@steam"/>
 				</x:attribute>
 			</x:if>
 			<x:if test="../id/@sb">
 				<x:attribute name="data-sbid">
-					<x:text>http://community.playstarbound.com/resources/</x:text>
 					<x:value-of select="../id/@sb"/>
 				</x:attribute>
 			</x:if>
@@ -156,7 +154,8 @@ xmlns:x="http://www.w3.org/1999/XSL/Transform">
 				<div id="npc{local-name()}" role="tabpanel" aria-labelledby="tab{local-name()}" class="container tab-pane">
 					<h3><x:value-of select="title"/></h3>
 					<h5><x:value-of select="sub"/></h5>
-					<ul class="list-group" roll="widget" aria-relevant="all" aria-required="true" aria-sort="descending" aria-sortby="mod" aria-live="polite"></ul>
+					<ul class="list-group" roll="form" aria-relevant="all" aria-required="true" aria-sort="descending" aria-sortby="mod" aria-controls="speciesList speciesInput menubar" aria-keyshortcuts="Shift+ArrowUp Shift+ArrowDown Shift+ArrowRight Shift+ArrowLeft"></ul>
+					<!--aria-live="polite"-->
 				</div>
 			</x:for-each>
 		</div>
@@ -175,6 +174,7 @@ xmlns:x="http://www.w3.org/1999/XSL/Transform">
 						<option>
 							<x:call-template name="cap">
 								<x:with-param name="text" select="@value"/>
+								<x:with-param name="capl" select="'true'"/>
 							</x:call-template>
 						</option>
 					</x:otherwise>

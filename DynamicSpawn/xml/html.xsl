@@ -53,7 +53,7 @@
 		<script defer="defer" src="&H;cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"/>
 		<script defer="defer" src="&H;maxcdn.&b;cdn.com/&b;/4.1.0/js/&b;.min.js"/>
 		<style id="activeStyle" nonce="{$nonce}">
-			.active-npcGeneric{
+			#body [aria-selected="true"]{
 				color:#fff;
 				background-color:#007bff!important;
 				border-color:#007bff;
@@ -75,10 +75,10 @@
 <div id="load" class="center">
 	<h1>Loading Scripts</h1>
 	<h3>Please Wait</h3>
-	<div class="loader"></div>
+	<div class="loader" roll="progressbar"></div>
 </div>
 <div id="base">
-	<nav class="&n; bg-dark sticky-top justify-content-center btn-group" roll="menubar" data-no="print" tabindex="0">
+	<nav class="&n; bg-dark sticky-top justify-content-center btn-group" roll="menubar" data-no="print" tabindex="0" id="menubar">
 		<button class="&bt;danger" id="removeAll" data-toggle="popover" data-placement="top" data-trigger="hover" title="Remove All Elements" tabindex="-1" roll="menuitem">
 			<x:attribute name="data-content">Normal:Active tab
 				Shift:Selected tab(s)
@@ -114,14 +114,14 @@
 		<b>ALERT</b>: The species list is a work in progress, if you find something wrong please <a href="&H;github.com/zekrom-vale/DynamicSpawn/issues">create an issue!</a>
 	</h6></nav>
 	<br/>
-	<div class="container-fluid row" id="container">
-		<aside roll="span" class="col-md-3 col-lg-2">
+	<div class="container-fluid row" id="container" roll="window">
+		<aside roll="complementary" class="col-md-3 col-lg-2">
 			<h4>Active Mods</h4>
 			<ul class="list-group" id="mods" roll="listbox" aria-multiselectable="true">
 				<x:call-template name="modList"/>
 			</ul>
 		</aside>
-		<main roll="span" class="col-sm-12 col-md-9 col-lg-7" id="body">
+		<main roll="input" class="col-sm-12 col-md-9 col-lg-7" id="body">
 			<div class="alert alert-success d-flex">
 				<div class="p-2">Path<span id="toLocal"> to Local</span>:&nbsp;</div>
 				<input class="p-2 flex-grow-1 code" id="path" disabled="disabled" name="path" aria-readonly="true"/>
@@ -136,9 +136,9 @@
 						<option value="3">Mod Name</option>
 						<option value="4">Mod Author</option>
 					</select>
-					<input id="speciesInput" type="search" roll="searchbox" autocomplete="on" placeholder="Search Species... EX: ^kazdra$|hum|^[a-b]|Ar(gon)?i|^s[^a-dl-v\d]+|^.{5}$"/>
+					<input id="speciesInput" type="search" roll="searchbox" autocomplete="on" placeholder="Search Species... EX: ^kazdra$|hum|^[a-b]|Ar(gon)?i|^s[^a-dl-v\d]+|^.{5}$" aria-placeholder="search text or regular expression when enabled" aria-owns="RegExpPre"/>
 					<label class="switch float-right" data-toggle="tooltip" data-placement="left" title="Enable RegExp support" id="RegExpPre">
-						<input type="checkbox" id="RegExp"/>
+						<input roll="switch" type="checkbox" id="RegExp"/>
 						<span class="slider round" id="RegExpS"></span>
 					</label>
 				</form>
@@ -148,7 +148,7 @@
 			<x:call-template name="tabTab"/>
 			<x:call-template name="tabBody"/>
 		</main>
-		<aside class="col-0p col-lg-3" data-pause="hover" id="side">
+		<aside roll="contentinfo" class="col-0p col-lg-3" data-pause="hover" id="side">
 			<script defer="defer" src="html/asideInt.js"></script>
 		</aside>
 	</div>

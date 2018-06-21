@@ -38,24 +38,27 @@ function modifyCont(event){
 	if(el.classList.contains("custom-species"))el.remove();
 	else{
 		if(event.altKey){
-			let l=el.dataset.steamid||el.dataset.sbid;
-			if(l)location.assign(l);
+			let l;
+			el=el.dataset;
+			if(el.steamid)l="s://steamcommunity.com/sharedfiles/filedetails/?id="+el.steamid;
+			else if(el.sbid)l="://community.playstarbound.com/resources/"+el.sbid;
+			if(l)location.assign("http"+l);
 		}
 		else{
 			let hash=location.hash;
 			var css="active-"+hash.slice(1);
-			if(el.classList.contains(css)){
+			if(el.getAttribute("aria-selected")=="true"){
+				el.setAttribute("aria-selected","false");
 				var item=document.querySelector(hash+` li[value=${el.getValue()}]`);
 				item.remove();
 				el.classList.remove(css);
-				el.setAttribute("aria-selected","false");
 			}
 			else{
+				el.setAttribute("aria-selected","true");
 				el.classList.add(css);
 				var li=el.cloneNode(true);
-				li.id="";
+				delete li.id;
 				document.querySelector(hash+">ul").prepend(readyLi(li));
-				el.setAttribute("aria-selected","true");
 			}
 		}
 	}
@@ -104,7 +107,7 @@ function addToAll(event){
 		const _s=spawns.length;
 		for(let i=0;_s>i;i++)if(arr[i]!==false){
 			let li=elp.cloneNode(true);
-			li.id="";
+			delete li.id;
 			spawns[i].prepend(readyLi(li));
 		}
 	}

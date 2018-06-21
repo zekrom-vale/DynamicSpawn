@@ -100,8 +100,8 @@ addEventListener("beforeunload",()=>{
 function dtTab(el){
 	var hash=el.dataset.hash;
 	{
-		let style=document.getElementById("activeStyle"),
-		oldHash=location.hash,
+		// style=document.getElementById("activeStyle"),
+		let oldHash=location.hash,
 		list=document.getElementById(hash.slice(1));
 		document.querySelector(`[data-hash="${oldHash}"]`).classList.remove("show","active");
 		document.getElementById(oldHash.slice(1)).classList.remove("active");
@@ -109,10 +109,9 @@ function dtTab(el){
 		list.classList.add("active");
 		list.classList.remove("fade");
 		location.hash=hash;
-		hash="active-"+hash.slice(1);
-		style.innerHTML=style.innerHTML.replace(/active-[^{]+/,hash);
+		//style.innerHTML=style.innerHTML.replace(/active-[^{]+/,"active-"+hash.slice(1));
 	}
 	var li=document.querySelectorAll("#speciesList li"),
 	_l=li.length;
-	for(let i=0;i<_l;)li[i].setAttribute("aria-selected",li[i++].classList.contains(hash))
+	for(let i=0;i<_l;)li[i].setAttribute("aria-selected",li[i++].classList.contains("active-"+hash.slice(1)));
 }
