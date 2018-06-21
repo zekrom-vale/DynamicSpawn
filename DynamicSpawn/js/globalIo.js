@@ -128,14 +128,14 @@ document.getElementById("addVisible").addEventListener("click",function(event){
 		uls=[],
 		css=[];
 		const _b=base.length;
-		for(let n=_b;n>=0;){
+		for(let n=0;n<_b;){
 			uls[n]=document.getElementById(base[n].dataset.hash.slice(1));
-			css[n--]="active-"+uls[n].id.slice(1);
+			css[n]="active-"+uls[n++].id
 		}
 		for(let s=_l;s>=0;s--)if(li[s].style.display!=="none"){
 			li[s].setAttribute("aria-selected","true");
 			let LI=li[s].cloneNode(1);
-			LI.id="";
+			delete LI.id;
 			LI.classList.add(...css);
 			for(let l in uls)if(!li[s].classList.contains(css[l])){
 				li[s].classList.add(css[l]);
@@ -153,7 +153,7 @@ document.getElementById("addVisible").addEventListener("click",function(event){
 			LI.querySelector(".addToAll").addEventListener("click",addToAll);
 			LI.querySelector(".removeFromAll").addEventListener("click",removeFromAll);
 			LI.querySelector(".species").addEventListener("click",removeEl);
-			LI.id="";
+			delete LI.id;
 			document.querySelector(hash+">ul").prepend(readyLi(LI));
 		}
 	}
