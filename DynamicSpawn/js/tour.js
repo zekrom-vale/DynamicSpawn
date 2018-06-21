@@ -1,4 +1,8 @@
 "use strict";
+if(/firefox/i.test(navigator.userAgent)){
+	info('Caret browsing mode interferes with keyboard navigation on this page, turn it off with <kbd>F7</kbd>. More info at <a href="https://support.mozilla.org/en-US/questions/974774">Mozilla Support</a>.',"warning");
+}
+
 var sP=(function(){
 	var dN=new CustomEvent("dN"),
 	dE=new CustomEvent("dE");
