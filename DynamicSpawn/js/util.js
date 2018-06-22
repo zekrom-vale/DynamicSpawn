@@ -33,7 +33,7 @@ else{
 	}
 }
 
-function alertModal(mh,mb,f){
+function alertModal(mh,mb,f,focus="ok"){
 	if(mh)document.getElementById("modalHead").innerHTML=mh;
 	if(mb)document.getElementById("modalBody").innerHTML=mb;
 	$("#modal:First").modal();
@@ -52,6 +52,8 @@ function alertModal(mh,mb,f){
 		rej=()=>{
 			rem();	reject();
 		};
+		if(focus==="ok")ok.focus();
+		else if(focus==="cancel")cancel.focus();
 		ok.addEventListener("click",res);
 		cancel.addEventListener("click",rej);
 		x.addEventListener("click",rej);
@@ -97,7 +99,7 @@ function info(m,t="danger",id,loc){
 		div.appendChild(btn);
 		document.getElementById("container").prepend(div);
 	}
-		div.appendChild(typeof m=="string"?document.createTextNode(m):m);
+		div.appendChild(typeof m==="string"?document.createTextNode(m):m);
 		div.classList.add("alert","alert-"+t,"alert-dismissible");
 	loc?div.classList.add("loc"):scrollTo(0,0);
 	div.setAttribute("roll","alert");

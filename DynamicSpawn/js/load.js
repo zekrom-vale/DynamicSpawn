@@ -73,7 +73,7 @@ $('[data-toggle="popover"]').popover();
 						document.getElementById("download").disabled=true;
 						if(!getData("return"))tourInit();
 					}]
-			});
+			},"cancel");
 		}
 		el.id+="2";
 		el.value=sys?"Cannot Be a System URL":qi?"Invalid URL":e();
