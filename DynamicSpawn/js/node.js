@@ -25,7 +25,7 @@ nodejsZ.nodeCore=function(el,txt,attr,html){
 }
 
 nodejsZ.wrapPre=function(argn){
-	return typeof argn=="string"?[argn,undefined]:argn;
+	return typeof argn==="string"?[argn,undefined]:argn;
 }
 
 class nodesCore{
@@ -94,9 +94,9 @@ class nodes extends nodesCore{
 		for(let a of arguments){
 			if(a.nodeType)arr[n++]=a;
 			else if(a instanceof nodesCore)for(let p in a.arr)arr[n++]=a.arr[p];
-			else if(typeof a=="object")for(let p in a){
+			else if(typeof a==="object")for(let p in a){
 				if(a[p].nodeType)arr[n++]=a[p];
-				else if(typeof a[p]=="object"){
+				else if(typeof a[p]==="object"){
 					if(Array.isArray(a[p]))for(let q of a[p])arr[n++]=createNode(q,p);
 					else arr[n++]=createNode(a[p],p);
 				}
@@ -109,7 +109,7 @@ class nodes extends nodesCore{
 		function createNode(el,i){
 			var txt,
 			html;
-			if(typeof el=="object"){
+			if(typeof el==="object"){
 				html=el.innerHTML||el.HTML;
 				txt=html||el.text||el.innerText;
 			}
@@ -176,9 +176,9 @@ class nodesNS extends nodesCore{
 		for(let a of arg){
 			if(a.nodeType)arr[n++]=a;
 			else if(a instanceof nodesCore)for(let p in a.arr)arr[n++]=a.arr[p];
-			else if(typeof a=="object") for(let p in a){
+			else if(typeof a==="object") for(let p in a){
 				if(a[p].nodeType)arr[n++]=a[p];
-				else if(typeof a[p]=="object"){
+				else if(typeof a[p]==="object"){
 					if(Array.isArray(a[p]))for(let q of a[p])arr[n++]=createNodeNS(namespace,q,p);
 					else arr[n++]=createNodeNS(namespace,a[p],p);
 				}
@@ -193,7 +193,7 @@ class nodesNS extends nodesCore{
 		function createNodeNS(namespace,node,i){
 			var txt,
 			html;
-			if(typeof node=="object"){
+			if(typeof node==="object"){
 				html=node.innerHTML||node.HTML;
 				txt=html||node.text||node.innerText;
 			}

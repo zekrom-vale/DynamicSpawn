@@ -19,7 +19,7 @@ addEventListener("load",()=>{
 		else dtTab(this);
 	}
 	function tabEnter(event){
-		if(event.key=="Enter"){
+		if(event.key==="Enter"){
 			dtTab(this);
 			this.focus();
 		}
@@ -30,11 +30,13 @@ document.getElementById("body").addEventListener("keydown",function(event){
 	if(event.shiftKey)move.call(document.querySelector("#npcList>div.active>ul"),event.key);
 	else move.call(document.getElementById("speciesList"),event.key);
 	function move(input){
+		if(/input|textarea/i.test(document.activeElement.tagName))
 		var selected=this.querySelector("[data-active]")||this.querySelector("li:first-of-type"),//document.activeElement,
 		key=selected.dataset.active||selected.dataset.key||0,
 		to,li;
 		switch(input){
 			case "ArrowUp":
+			case "W":
 				li=selected;
 				do{
 					if(!li)return;
@@ -44,6 +46,7 @@ document.getElementById("body").addEventListener("keydown",function(event){
 				to=li.querySelector(`[data-key="${key}"]`);
 				break;
 			case "ArrowDown":
+			case "S":
 				li=selected;
 				do{
 					if(!li)return;
@@ -53,10 +56,12 @@ document.getElementById("body").addEventListener("keydown",function(event){
 				to=li.querySelector(`[data-key="${key}"]`);
 				break;
 			case "ArrowRight":
+			case "D":
 				key=(key+1)%3;
 				to=selected.querySelector(`[data-key="${key}"]`);
 				break;
 			case "ArrowLeft":
+			case "A":
 				key=(key-1)%3;
 				to=selected.querySelector(`[data-key="${key}"]`);
 				break;
@@ -67,7 +72,7 @@ document.getElementById("body").addEventListener("keydown",function(event){
 			to.focus();
 		}
 		function isValid(li){
-			return !(li instanceof HTMLElement)||li.style.display=="none"||(li.classList.contains("hideMod")&&/^\s*null/.test(document.getElementById("activeStyle2").innerHTML));
+			return!(li instanceof HTMLElement)||li.style.display==="none"||(li.classList.contains("hideMod")&&/^\s*null/.test(document.getElementById("activeStyle2").innerHTML));
 		}
 	}
 });
