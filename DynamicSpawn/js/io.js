@@ -8,10 +8,10 @@ $("#speciesList .removeFromAll").on("click",removeFromAll);
 function toggleMods(){
 	this.classList.toggle("active");
 	this.setAttribute("aria-selected",this.classList.contains("active"));
+	document.getElementById("npcList").setAttribute("aria-busy","true");
 	var items=$("#mods>li"),
 	_i=items.length,
 	u=1;
-	document.getElementById("npcList").setAttribute("aria-busy","true");
 	for(let i=0;i<_i;i++){
 		let el=$(`[data-mod="${items[i].getValue()}"]`),
 		_e=el.length,
