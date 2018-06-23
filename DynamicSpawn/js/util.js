@@ -45,15 +45,24 @@ function alertModal(mh,mb,f,focus="ok"){
 			ok.removeEventListener("click",res);
 			cancel.removeEventListener("click",rej);
 			x.removeEventListener("click",rej);
+			removeEventListener("keyup",keyRes);
 		};
 		var res=()=>{
 			rem();	resolve();
 		},
 		rej=()=>{
 			rem();	reject();
+		},
+		keyRes=event=>{
+			if(event.key==="Escape")x.click();
+			else if(/Arrow[ULDR]/.test(event.key)){
+				if(document.activeElement==cancel)ok.focus();
+				else cancel.focus();
+			}
 		};
 		if(focus==="ok")ok.focus();
 		else if(focus==="cancel")cancel.focus();
+		addEventListener("keyup",keyRes);
 		ok.addEventListener("click",res);
 		cancel.addEventListener("click",rej);
 		x.addEventListener("click",rej);
@@ -105,9 +114,6 @@ function info(m,t="danger",id,loc){
 	div.setAttribute("roll","alert");
 }
 
-HTMLElement.prototype.remove=function(){
-	this.outerHTML="";
-}
 HTMLElement.prototype.empty=function(){
 	this.innerHTML="";
 }

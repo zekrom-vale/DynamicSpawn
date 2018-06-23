@@ -127,7 +127,7 @@
 				<input class="p-2 flex-grow-1 code" id="path" disabled="disabled" name="path" aria-readonly="true"/>
 			</div>
 			<div id="speciesContainer">
-				<form class="form-control" roll="group" id="speciesLabel">
+				<form class="form-control" roll="group" id="speciesLabel" aria-label="Search controls">
 					<select class="form-control-sm" id="searchOp" name="option">
 						<option value="0">All</option>
 						<option value="1">Species Name</option>
@@ -137,7 +137,7 @@
 						<option value="4">Mod Author</option>
 					</select>
 					<input id="speciesInput" type="search" roll="searchbox" autocomplete="on" placeholder="Search Species... EX: ^kazdra$|hum|^[a-b]|Ar(gon)?i|^s[^a-dl-v\d]+|^.{5}$" aria-placeholder="search text or regular expression when enabled" aria-owns="RegExpPre"/>
-					<label class="switch float-right" data-toggle="tooltip" data-placement="left" title="Enable RegExp support" id="RegExpPre">
+					<label class="switch float-right" data-toggle="tooltip" data-placement="left" title="Enable RegExp support" id="RegExpPre" aria-details="regExpDes">
 						<input roll="switch" type="checkbox" id="RegExp"/>
 						<span class="slider round" id="RegExpS"></span>
 					</label>
@@ -161,8 +161,8 @@
 				</div>
 				<div class="&m;-body" id="&m;Body" roll="alertdialog"></div>
 				<div class="&m;-footer">
-					<button class="&bt;primary" data-dismiss="&m;" id="&m;Ok">Ok</button>
-					<button class="&bt;danger" data-dismiss="&m;" id="&m;Cancel">Cancel</button>
+					<button class="&bt;primary" data-dismiss="&m;" id="&m;Ok" data-nav="false">Ok</button>
+					<button class="&bt;danger" data-dismiss="&m;" id="&m;Cancel" data-nav="false">Cancel</button>
 				</div>
 			</div>
 		</div>
