@@ -123,10 +123,10 @@ xmlns:x="http://www.w3.org/1999/XSL/Transform">
 					</x:otherwise>
 				</x:choose>
 				<span class="hover">
-					{<x:value-of select="@value"/>}
+					 (<x:value-of select="@value"/>)
 				</span>
 			</button>
-			<div class="btn-group species-group">
+			<div class="btn-group species-group" aria-live="off">
 				<button class="btn btn-secondary addToAll" data-key="1" tabindex="-1">
 					Add to All
 				</button>
@@ -149,13 +149,12 @@ xmlns:x="http://www.w3.org/1999/XSL/Transform">
 		</ul>
 	</x:template>
 	<x:template name="tabBody">
-		<div class="tab-content" id="npcList">
+		<div class="tab-content" id="npcList" aria-busy="true">
 			<x:for-each select="document('tab.xml')/tab/*">
-				<div id="npc{local-name()}" role="tabpanel" aria-labelledby="tab{local-name()}" class="container tab-pane">
+				<div id="npc{local-name()}" role="tabpanel" aria-labelledby="tab{local-name()}" class="container tab-pane" aria-live="polite">
 					<h3><x:value-of select="title"/></h3>
 					<h5><x:value-of select="sub"/></h5>
-					<ul class="list-group" roll="form" aria-relevant="all" aria-required="true" aria-sort="descending" aria-sortby="mod" aria-controls="speciesList speciesInput menubar" aria-keyshortcuts="Shift+ArrowUp Shift+ArrowDown Shift+ArrowRight Shift+ArrowLeft"></ul>
-					<!--aria-live="polite"-->
+					<ul class="list-group" roll="form" aria-required="true" aria-sort="descending" aria-sortby="mod" aria-controls="speciesList speciesInput menubar" aria-keyshortcuts="Shift+ArrowUp Shift+ArrowDown Shift+ArrowRight Shift+ArrowLeft" aria-atomic="false" aria-relevant="additions removals" aria-hidden="true"></ul>
 				</div>
 			</x:for-each>
 		</div>

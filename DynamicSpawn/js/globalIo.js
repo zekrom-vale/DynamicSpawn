@@ -9,6 +9,7 @@ $("#speciesInput").on("keyup paste cut",function(){
 		v%3==0,
 		v%4==0
 	];
+	document.getElementById("body").setAttribute("aria-busy","true");
 	if(document.getElementById("RegExp").checked){
 		let elp=this.parentNode;
 		try{
@@ -45,6 +46,7 @@ $("#speciesInput").on("keyup paste cut",function(){
 			$(this).toggle(exists(this.getValue()));
 		});
 	}
+	document.getElementById("body").removeAttribute("aria-busy");
 });
 
 //--------------- Import ---------------
@@ -64,6 +66,7 @@ document.getElementById("removeAll").addEventListener("click",event=>{
 	if(event.ctrlKey)core(event);
 	else alertModal(`Remove all items from the ${shift?"selected":"current"} list${shift?"(s)":""}?`,"This Cannot be undone!",{"resolve":[core,event]});
 	function core(event){
+		document.getElementById("npcList").setAttribute("aria-busy","true");
 		if(shift){
 			var sel=elm.npcTab.querySelectorAll(".nav-link-sel>a"),
 			_l=sel.length,
@@ -89,12 +92,14 @@ document.getElementById("removeAll").addEventListener("click",event=>{
 			}
 			$(location.hash+":First ul:First").empty();
 		}
+		document.getElementById("npcList").removeAttribute("aria-busy");
 	}
 });
 
 document.getElementById("removeVisible").addEventListener("click",function(event){
 	var li=elm.speciesList.querySelectorAll("li"),
 	_l=li.length;
+	document.getElementById("npcList").setAttribute("aria-busy","true");
 	if(event.shiftKey){
 		var base=elm.npcTab.querySelectorAll(".nav-link-sel>a"),
 		_b=base.length;
@@ -118,11 +123,13 @@ document.getElementById("removeVisible").addEventListener("click",function(event
 			l.remove();
 		}
 	}
+	document.getElementById("npcList").removeAttribute("aria-busy");
 });
 
 document.getElementById("addVisible").addEventListener("click",function(event){
 	var li=elm.speciesList.querySelectorAll("li");
 	const _l=li.length-1;
+	document.getElementById("npcList").setAttribute("aria-busy","true");
 	if(event.shiftKey){
 		var base=elm.npcTab.querySelectorAll(".nav-link-sel>a"),
 		uls=[],
@@ -157,6 +164,7 @@ document.getElementById("addVisible").addEventListener("click",function(event){
 			document.querySelector(hash+">ul").prepend(readyLi(LI));
 		}
 	}
+	document.getElementById("npcList").removeAttribute("aria-busy");
 });
 
 document.getElementById("iexport").addEventListener("click",()=>{saveData(getLi(),"value.DyS.json");})
@@ -169,7 +177,7 @@ document.getElementById("download").addEventListener("click",function(){
 	i=0,f=0,
 	e=()=>{document.getElementById("modalCancel").style.display="";};
 	for(let n in ob){
-		if(ob[n].length<1)arrF[f++]=++i;
+		if(ob[n].length<1&&ob!=="npcROC")arrF[f++]=++i;
 		else if(f===0)arr[i++]=n+`:"${ob[n].join(",")}"`;
 	}
 	document.getElementById("modalCancel").style.display="none";//!

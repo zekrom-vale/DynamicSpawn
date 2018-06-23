@@ -46,9 +46,9 @@
 		<script src="js/node.js"/>
 		<script src="js/load.js"/>
 		<script src="js/species.js"/>
-		<script defer="defer" src="js/nav.js"/>
 		<script defer="defer" src="js/io.js"/>
 		<script defer="defer" src="js/globalIo.js"/>
+		<script defer="defer" src="js/nav.js"/>
 		<script defer="defer" src="js/custom.js"/>
 		<script defer="defer" src="&H;cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"/>
 		<script defer="defer" src="&H;maxcdn.&b;cdn.com/&b;/4.1.0/js/&b;.min.js"/>

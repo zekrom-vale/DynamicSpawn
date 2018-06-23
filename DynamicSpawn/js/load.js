@@ -85,33 +85,18 @@ $('[data-toggle="popover"]').popover();
 	}
 }
 document.getElementById("load").remove();
+document.getElementById("npcList").removeAttribute("aria-busy");
 });
 
 //--------------- Set Data ---------------
 addEventListener("beforeunload",()=>{
 	setData("value",JSON.stringify(getLi()),90);
-	let val=document.querySelectorAll("#mods>.active"),
-	_v=val.length,
-	arr=[];
-	for(let i=0;i<_v;i++)arr[i]=val[i].getValue();
-	setData("mods",JSON.stringify(arr,60));
-});
-
-function dtTab(el){
-	var hash=el.dataset.hash;
-	{
-		// style=document.getElementById("activeStyle"),
-		let oldHash=location.hash,
-		list=document.getElementById(hash.slice(1));
-		document.querySelector(`[data-hash="${oldHash}"]`).classList.remove("show","active");
-		document.getElementById(oldHash.slice(1)).classList.remove("active");
-		el.classList.add("show","active");
-		list.classList.add("active");
-		list.classList.remove("fade");
-		location.hash=hash;
-		//style.innerHTML=style.innerHTML.replace(/active-[^{]+/,"active-"+hash.slice(1));
+	setData("mods",`[${getMods().join(",")}]`,60);
+	function getMods(){
+		var mods=document.querySelectorAll('#mods>li[aria-selected="true"]'),
+		arr=[];
+		const _m=mods.length;
+		for(let i=0;i<_m;i++)arr[i]=mods[i].getAttribute("value");
+		return arr;
 	}
-	var li=document.querySelectorAll("#speciesList li"),
-	_l=li.length;
-	for(let i=0;i<_l;)li[i].setAttribute("aria-selected",li[i++].classList.contains("active-"+hash.slice(1)));
-}
+});

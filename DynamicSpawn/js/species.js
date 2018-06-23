@@ -23,10 +23,12 @@ function getLi(){
 	_s=spawns.length;
 	for(let i=0;_s>i;i++){
 		let id=spawns[i].id,
-		items=$(`#${id} li`),
+		items=spawns[i].querySelectorAll('li[roll="button"]'),
 		_i=items.length;
-		arr[id]=[];
-		for(let n=0;_i>n;n++)arr[id][n]=items[n].getValue();
+		if(_i>0){
+			arr[id]=[];
+			for(let n=0;_i>n;n++)arr[id][n]=items[n].getValue();
+		}
 	}
 	return arr;
 }

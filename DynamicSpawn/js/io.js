@@ -11,6 +11,7 @@ function toggleMods(){
 	var items=$("#mods>li"),
 	_i=items.length,
 	u=1;
+	document.getElementById("npcList").setAttribute("aria-busy","true");
 	for(let i=0;i<_i;i++){
 		let el=$(`[data-mod="${items[i].getValue()}"]`),
 		_e=el.length,
@@ -21,20 +22,24 @@ function toggleMods(){
 	}
 	let el=document.getElementById("activeStyle2");
 	el.innerHTML=el.innerHTML.replace(u?".hideMod":"null",u?"null":".hideMod");
+	document.getElementById("npcList").removeAttribute("aria-busy");
 }
 
 function removeEl(){
 	var elp=this.parentNode;
+	document.getElementById("npcList").setAttribute("aria-busy","true");
 	if(!elp.classList.contains("custom-species")){
 		let top=document.getElementById(elp.getValue());
 		top.classList.remove("active-"+location.hash.slice(1));
 		top.setAttribute("aria-selected","false");
 	}
 	elp.remove();
+	document.getElementById("npcList").removeAttribute("aria-busy");
 }
 
 function modifyCont(event){
 	var el=this.parentNode;
+	document.getElementById("npcList").setAttribute("aria-busy","true");
 	if(el.classList.contains("custom-species"))el.remove();
 	else{
 		if(event.altKey){
@@ -62,11 +67,13 @@ function modifyCont(event){
 			}
 		}
 	}
+	document.getElementById("npcList").removeAttribute("aria-busy");
 }
 
 function addToAll(event){
 	var arr=[],
 	prev=this.parentNode.parentNode;
+	document.getElementById("npcList").setAttribute("aria-busy","true");
 	if(prev.classList.contains("custom-species")){
 		var spawns=elm.npcList.getElementsByTagName("ul"),
 		base=elm.npcList.getElementsByTagName("div");
@@ -111,10 +118,12 @@ function addToAll(event){
 			spawns[i].prepend(readyLi(li));
 		}
 	}
+	document.getElementById("npcList").removeAttribute("aria-busy");
 }
 
 function removeFromAll(event){
 	var prev=this.parentNode.parentNode;
+	document.getElementById("npcList").setAttribute("aria-busy","true");
 	if(prev.classList.contains("custom-species")){
 		var arr=elm.npcList.querySelectorAll(`li.list-group-item[value="${prev.getValue()}"]`),
 		_l=arr.length;
@@ -146,4 +155,5 @@ function removeFromAll(event){
 			if(item)item.remove();
 		}
 	}
+	document.getElementById("npcList").removeAttribute("aria-busy");
 }
