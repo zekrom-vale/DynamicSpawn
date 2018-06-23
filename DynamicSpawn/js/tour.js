@@ -9,34 +9,49 @@ var sP=(function(){
 	function die(el,exit){
 		$(el).popover("dispose");
 		document.querySelector(el).dispatchEvent(exit?dE:dN);
-	}
-	return function(n){//Automatically includes the local scopes 
+	};
+	return function(n){//Automatically includes the local scopes
 		if(n.func)n.func();
 		var e=$(n.h);
 		e.popover({
 			title:n.title,
 			content:n.cont+`<div class="float-right">
-${n.last?"":'<button class="btn btn-primary" id="dieN">Next</button>'}<button class="btn btn-danger" id="dieE">End</button>
+${n.last?"":'<button class="btn btn-primary" id="dieN" data-nav="false">Next</button>'}<button class="btn btn-danger" id="dieE" data-nav="false">End</button>
 <div>
 `,
 			placement:n.pos||"top",
 			html:true
 		});
+		addEventListener("keyup",escape.bind(n.h));
 		e.popover("show");
 		{
 			let pop=document.querySelectorAll(".popover");
 			const _p=pop.length;
 			for(let i=0;i<_p;i++)if(!pop[i].querySelector("#dieE"))pop[i].remove();
+		}{
+			let end=document.getElementById("dieE"),
+			next=document.getElementById("dieN");
+			end.addEventListener("click",()=>{die(n.h,1)});
+			if(n.last)end.focus();
+			else{
+				next.addEventListener("click",()=>{die(n.h)});
+				next.focus();
+			}
 		}
-		let btn=document.getElementById("dieE");
-		if(btn)btn.addEventListener("click",()=>{die(n.h,1)});
-		btn=document.getElementById("dieN");
-		if(btn)btn.addEventListener("click",()=>{die(n.h)});
 		return new Promise(r=>{
-			e[0].addEventListener("dN",()=>r(0));
-			e[0].addEventListener("dE",()=>r(1));
+			e[0].addEventListener("dN",()=>{
+				r(0);
+				removeEventListener("keyup",escape);
+			});
+			e[0].addEventListener("dE",()=>{
+				r(1);
+				removeEventListener("keyup",escape);
+			});
 		});
 	}
+	function escape(event){
+		if(event.key==="Escape")die(this,1);
+	};
 })();
 
 
@@ -99,6 +114,21 @@ ${n.last?"":'<button class="btn btn-primary" id="dieN">Next</button>'}<button cl
 		cont:"Your selection will end up below this, click the tabs to switch groups.\nShift click to select the tab.",
 		last:true
 	}];
+	addEventListener("keyup",move);
 	for(let n of tours)if(await sP(n))break;
+	removeEventListener("keyup",move);
 	setData("return","true",50);
+	function move(event){
+		if(/Arrow(Righ|Lef)t/.test(event.key)){
+			var popup=document.querySelector("div.popover-body"),
+			active=document.activeElement;
+			if(popup.contains(active)){
+				if(active.id==="dieN")document.getElementById("dieE").focus();
+				else{
+					let dieN=document.getElementById("dieN");
+					if(dieN)dieN.focus();
+				}
+			}
+		}
+	}
 })();

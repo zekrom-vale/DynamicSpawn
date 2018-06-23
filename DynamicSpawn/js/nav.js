@@ -1,12 +1,9 @@
 addEventListener("load",()=>{
-
-
-{//--------------- Tab list ---------------
 	let els=document.querySelectorAll(".nav-link");
 	const _l=els.length;
 	for(let i=0;i<_l;i++){
 		els[i].addEventListener("click",tabInteract,true);
-		els[i].addEventListener("keydown",tabEnter,true);
+		els[i].addEventListener("keyup",tabEnter,true);
 	}
 	function tabInteract(event){
 		if(event.shiftKey){
@@ -24,26 +21,48 @@ addEventListener("load",()=>{
 			this.focus();
 		}
 	}
-}
 });
 
+function dtTab(el){
+	var hash=el.dataset.hash;
+	{
+		// style=document.getElementById("activeStyle"),
+		let oldHash=location.hash,
+		list=document.getElementById(hash.slice(1));
+		document.querySelector(`[data-hash="${oldHash}"]`).classList.remove("show","active");
+		document.getElementById(oldHash.slice(1)).classList.remove("active");
+		el.classList.add("show","active");
+		el.setAttribute("aria-hidden","false");
+		list.setAttribute("aria-hidden","true");
+		list.classList.add("active");
+		list.classList.remove("fade");
+		location.hash=hash;
+		//style.innerHTML=style.innerHTML.replace(/active-[^{]+/,"active-"+hash.slice(1));
+	}
+	var li=document.querySelectorAll("#speciesList li"),
+	_l=li.length;
+	for(let i=0;i<_l;)li[i].setAttribute("aria-selected",li[i++].classList.contains("active-"+hash.slice(1)));
+}
+
 addEventListener("keydown",function(event){
-	if(!/input|textarea/i.test(document.activeElement.tagName)){
-		if(event.shiftKey)move.call(document.querySelector("#npcList>div.active>ul"),event.key);
+	var active=document.activeElement;
+	if(/^Arrow[ULDR]|^[wasd]$/.test(event.key)&&!/input|textarea/i.test(active.tagName)&&active.dataset.nav!=="false"){
+		if(event.shiftKey)move.call(document.querySelector("#npcList>.active>ul"),event.key);
 		else move.call(document.getElementById("speciesList"),event.key);
 		function move(input){
 			var selected=document.activeElement,
 			key,to,li;
-			if(this.contains(selected)){
-				key=selected.dataset.key||0;
-				while(selected.tagName!=="LI"){
-					selected=selected.parentNode;
+			{
+				let active=this.querySelector("[data-active]");
+				if(this.contains(selected)){
+					key=selected.dataset.key||0;
+					while(selected.tagName!=="LI")selected=selected.parentNode;
+					if(active)delete active.dataset.active;
 				}
-				delete this.querySelector("[data-active]").dataset.active;
-			}
-			else{
-				selected=this.querySelector("[data-active]")||this.querySelector("li:first-of-type");
-				key=selected.dataset.active||selected.dataset.key||0;
+				else{
+					selected=active||this.querySelector("li:first-of-type");
+					key=selected.dataset.active||selected.dataset.key||0;
+				}
 			}
 			switch(input){
 				case "ArrowUp":
@@ -75,15 +94,17 @@ addEventListener("keydown",function(event){
 				case "a":
 					key=(key+2)%3;//(v-1)%m==(v-1+m)%m (For positive values)
 					to=selected.querySelector(`[data-key="${key}"]`);
+					break;
+				default:
+					console.warn("Key slipped: "+input);
+					return;
 			}
-			if(to){
-				if(li)delete selected.dataset.active;
-				(li||selected).dataset.active=key;
-				to.focus();
+			if(li)delete selected.dataset.active;
+			(li||selected).dataset.active=key;
+			to.focus();
+			function isValid(li){
+				return!(li instanceof HTMLElement)||li.style.display==="none"||(li.classList.contains("hideMod")&&/^\s*null/.test(document.getElementById("activeStyle2").innerHTML));
 			}
-		}
-		function isValid(li){
-			return!(li instanceof HTMLElement)||li.style.display==="none"||(li.classList.contains("hideMod")&&/^\s*null/.test(document.getElementById("activeStyle2").innerHTML));
 		}
 	}
 });
