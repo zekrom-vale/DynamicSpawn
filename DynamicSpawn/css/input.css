@@ -76,3 +76,15 @@ select>option{
 	height:25vh;
 	overflow:auto;
 }
+
+.species li[aria-selected="true"] .btn:focus{
+	box-shadow:0 0 0 0.2rem rgba(163,189,216,.5);
+}
+
+.species li[aria-selected="true"]:focus-within{
+	box-shadow:inset 0 0 0 0.3rem rgba(135,207,228,.5);
+}
+
+.species li:not([aria-selected="true"]):focus-within{
+	box-shadow:inset 0 0 0 0.3rem rgba(52,58,64,.5);
+}

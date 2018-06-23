@@ -86,13 +86,13 @@
 			</x:attribute>
 			Remove All
 		</button>
-		<button class="&bt;warning" accesskey="- r" id="removeVisible" data-toggle="popover" data-placement="top" data-trigger="hover" title="Remove All Visible Elements" tabindex="-1" roll="menuitem">
+		<button class="&bt;warning" accesskey="-" id="removeVisible" data-toggle="popover" data-placement="top" data-trigger="hover" title="Remove All Visible Elements" tabindex="-1" roll="menuitem">
 			<x:attribute name="data-content">Normal:Active tab
 				Shift:Selected tab(s)
 			</x:attribute>
 			Remove Visible
 		</button>
-		<button class="&bt;primary" accesskey="+ a" id="addVisible" data-toggle="popover" data-placement="top" data-trigger="hover" title="Add All Visible Elements" tabindex="-1" roll="menuitem">
+		<button class="&bt;primary" accesskey="=" id="addVisible" data-toggle="popover" data-placement="top" data-trigger="hover" title="Add All Visible Elements" tabindex="-1" roll="menuitem">
 			<x:attribute name="data-content">Normal:Active tab
 				Shift:Selected tab(s)
 			</x:attribute>
@@ -107,7 +107,7 @@
 			</x:attribute>
 			Export JSON
 		</button>
-		<button class="&bt;success" accesskey="i u" id="imp" tabindex="-1" roll="menuitem">Import JSON</button>
+		<button class="&bt;success" accesskey="i" id="imp" tabindex="-1" roll="menuitem">Import JSON</button>
 		<button class="&bt;info" accesskey="d" id="download" tabindex="-1" roll="menuitem">Download Mod</button>
 	</nav>
 	<nav class="&n; bg&w; justify-content-center" data-no="print"><h6 roll="note">
