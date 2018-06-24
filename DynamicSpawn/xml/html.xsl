@@ -117,7 +117,7 @@
 	<div class="container-fluid row" id="container" roll="window">
 		<aside roll="complementary" class="col-md-3 col-lg-2">
 			<h4>Active Mods</h4>
-			<ul class="list-group" id="mods" roll="listbox" aria-multiselectable="true">
+			<ul class="list-group" id="mods" roll="listbox" aria-multiselectable="true" aria-keyshortcuts="PageUp x PageDown z Home End">
 				<x:call-template name="modList"/>
 			</ul>
 		</aside>

@@ -21,7 +21,7 @@ xmlns:x="http://www.w3.org/1999/XSL/Transform">
 		<x:for-each select="document('species.xml')/species/mod|document('verify.xml')/species/mod">
 			<x:sort select="@name"/>
 			<x:if test="@name!='' and @name!='Z-UNDEFINED'">
-				<li value="{@name}" class="list-group-item" data-count="{count(specie)}" roll="button">
+				<li value="{@name}" class="list-group-item" data-count="{count(specie)}" roll="button" tabIndex="-1">
 					<x:if test="@author!='' and @author">
 						<x:attribute name="data-toggle">popover</x:attribute>
 						<x:attribute name="data-placement">right</x:attribute>
@@ -55,7 +55,7 @@ xmlns:x="http://www.w3.org/1999/XSL/Transform">
 				</li>
 			</x:if>
 		</x:for-each>
-		<li value="Z-UNDEFINED" class="list-group-item">UNDEFINED</li>
+		<li value="Z-UNDEFINED" class="list-group-item" tabIndex="-1">UNDEFINED</li>
 	</x:template>
 	<x:template name="liTemplate">
 		<li roll="button" value="{@value}" id="{@value}" data-mod="{../@name}" data-author="{../@author}" aria-setsize="-1">

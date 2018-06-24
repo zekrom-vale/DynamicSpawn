@@ -1,6 +1,7 @@
 "use strict";
 addEventListener("load",()=>{
 $("#mods>li").on("click",toggleMods);
+$("#mods>li").on("keyup",toggleModsKey);
 $("#speciesList .species").on("click",modifyCont);
 $("#speciesList .addToAll").on("click",addToAll);
 $("#speciesList .removeFromAll").on("click",removeFromAll);
@@ -23,6 +24,10 @@ function toggleMods(){
 	let el=document.getElementById("activeStyle2");
 	el.innerHTML=el.innerHTML.replace(u?".hideMod":"null",u?"null":".hideMod");
 	document.getElementById("npcList").removeAttribute("aria-busy");
+}
+
+function toggleModsKey(event){
+	if(event.key==="Enter")toggleMods.call(this);
 }
 
 function removeEl(){

@@ -48,6 +48,7 @@ addEventListener("keydown",function(event){
 	var active=document.activeElement;
 	if(/input|textarea/i.test(active.tagName)||active.dataset.nav==="false")return;
 	if(/^Arrow[ULDR]|^[wasd]$/i.test(event.key)){
+		event.preventDefault();
 		if(event.shiftKey)move.call(document.querySelector("#npcList>.active>ul"),event.key);
 		else move.call(document.getElementById("speciesList"),event.key);
 		function move(input){
@@ -70,20 +71,18 @@ addEventListener("keydown",function(event){
 				case "w":
 					li=selected;
 					do{
-						if(!li)return;
 						li=li.previousSibling;
+						if(!li)return;
 					}while(isValid(li));
-					if(!li)return;
 					to=li.querySelector(`[data-key="${key}"]`);
 					break;
 				case "arrowdown":
 				case "s":
 					li=selected;
 					do{
-						if(!li)return;
 						li=li.nextSibling;
+						if(!li)return;
 					}while(isValid(li));
-					if(!li)return;
 					to=li.querySelector(`[data-key="${key}"]`);
 					break;
 				case "arrowright":
@@ -106,6 +105,44 @@ addEventListener("keydown",function(event){
 			function isValid(li){
 				return!(li instanceof HTMLElement)||li.style.display==="none"||(li.classList.contains("hideMod")&&/^\s*null/.test(document.getElementById("activeStyle2").innerHTML));
 			}
+		}
+	}
+	else if(/^Page[UD]|^(Home|End|[zx])$/.test(event.key)){
+		event.preventDefault();
+		console.log("run")
+		let mods=document.getElementById("mods"),
+		to,
+		key=mods.querySelector('li[data-selected="true"]'),
+		selected=mods.contains(active)?active:key||mods.querySelector("li:first-of-type");
+		switch(event.key){
+			case "PageUp":
+			case "x":
+				to=selected;
+				do{
+					to=to.previousSibling;
+					if(!to)return;
+				}while(isValid(to))
+				break;
+			case "PageDown":
+			case "z":
+				to=selected;
+				do{
+					to=to.nextSibling;
+					if(!to)return;
+				}while(isValid(to))
+				break;
+			case "Home":
+				to=mods.querySelector("li:first-of-type");
+				break;
+			case "End":
+				to=mods.querySelector("li:last-of-type");
+				break;
+		}
+		if(key)delete key.dataset.selected;
+		to.dataset.selected=true;
+		to.focus();
+		function isValid(li){
+			return!(li instanceof HTMLElement)||li.style.display==="none";
 		}
 	}
 	else if(/^\d$/.test(event.key)){
