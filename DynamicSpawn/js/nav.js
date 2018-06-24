@@ -46,7 +46,8 @@ function dtTab(el){
 
 addEventListener("keydown",function(event){
 	var active=document.activeElement;
-	if(/^Arrow[ULDR]|^[wasd]$/.test(event.key)&&!/input|textarea/i.test(active.tagName)&&active.dataset.nav!=="false"){
+	if(/input|textarea/i.test(active.tagName)||active.dataset.nav==="false")return;
+	if(/^Arrow[ULDR]|^[wasd]$/i.test(event.key)){
 		if(event.shiftKey)move.call(document.querySelector("#npcList>.active>ul"),event.key);
 		else move.call(document.getElementById("speciesList"),event.key);
 		function move(input){
@@ -64,8 +65,8 @@ addEventListener("keydown",function(event){
 					key=selected.dataset.active||selected.dataset.key||0;
 				}
 			}
-			switch(input){
-				case "ArrowUp":
+			switch(input.toLowerCase()){
+				case "arrowup":
 				case "w":
 					li=selected;
 					do{
@@ -75,7 +76,7 @@ addEventListener("keydown",function(event){
 					if(!li)return;
 					to=li.querySelector(`[data-key="${key}"]`);
 					break;
-				case "ArrowDown":
+				case "arrowdown":
 				case "s":
 					li=selected;
 					do{
@@ -85,12 +86,12 @@ addEventListener("keydown",function(event){
 					if(!li)return;
 					to=li.querySelector(`[data-key="${key}"]`);
 					break;
-				case "ArrowRight":
+				case "arrowright":
 				case "d":
 					key=(key+1)%3;
 					to=selected.querySelector(`[data-key="${key}"]`);
 					break;
-				case "ArrowLeft":
+				case "arrowleft":
 				case "a":
 					key=(key+2)%3;//(v-1)%m==(v-1+m)%m (For positive values)
 					to=selected.querySelector(`[data-key="${key}"]`);
@@ -106,5 +107,65 @@ addEventListener("keydown",function(event){
 				return!(li instanceof HTMLElement)||li.style.display==="none"||(li.classList.contains("hideMod")&&/^\s*null/.test(document.getElementById("activeStyle2").innerHTML));
 			}
 		}
+	}
+	else if(/^\d$/.test(event.key)){
+		let n=event.key==0?10:event.key;
+		if(event.altKey)n+10;
+		let el=document.querySelector(`#npcTab>li:nth-of-type(${n})>a`);
+		if(el)event.shiftKey?el.focus():el.click();
+	}
+	/*else if(/^F\d$/.test(event.key)){
+		event.preventDefault();
+		let n=Number(event.key.slice(1));
+		if(event.altKey)n+12;
+		let el=document.querySelector(`#npcTab>li:nth-of-type(${n})>a`);
+		if(el)event.shiftKey?el.focus():el.click();
+	}*/
+	else if(!(event.altKey||event.ctrlKey)){
+		let id;
+		switch(event.key.toLowerCase()){
+			case "f":
+				id="speciesInput"
+				break;
+			case "o":
+				id="searchOp"
+				break;
+		}
+		if(id){
+			document.getElementById(id).focus();
+			return;
+		}
+		switch(event.key.toLowerCase()){
+			case "r":
+			case "scrolllock":
+				id="RegExpS";
+				break;
+			case "delete":
+				id="removeAll";
+				break;
+			case "-":
+			case "_":
+			case "backspace":
+				id="removeVisible";
+				break;
+			case "=":
+			case "+":
+				id="addVisible";
+				break;
+			case "e":
+				id="iexport";
+				break;
+			case "i":
+			case "insert":
+				id="imp";
+				break;
+			case " ":
+			//case "end":
+				id="download";
+				break;
+			default:
+				return;
+		}
+		document.getElementById(id).click();
 	}
 });

@@ -28,7 +28,7 @@ else{
 		n=new RegExp(`^${n}=`);
 		for(let i of ca)if(n.test(i))return i.slice(_n);
 	}
-	setData=(v,s,e)=>{
+	setData=(v,s,e=60)=>{
 		document.cookie=`${v}=${s};expires=${dP(e)}`;
 	}
 }

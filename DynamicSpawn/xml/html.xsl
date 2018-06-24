@@ -79,26 +79,26 @@
 </div>
 <div id="base">
 	<nav class="&n; bg-dark sticky-top justify-content-center btn-group" roll="menubar" data-no="print" tabindex="0" id="menubar">
-		<button class="&bt;danger" id="removeAll" data-toggle="popover" data-placement="top" data-trigger="hover" title="Remove All Elements" tabindex="-1" roll="menuitem">
+		<button class="&bt;danger" id="removeAll" data-toggle="popover" data-placement="top" data-trigger="hover" title="Remove All Elements" tabindex="-1" roll="menuitem" aria-keyshortcuts="Delete">
 			<x:attribute name="data-content">Normal:Active tab
 				Shift:Selected tab(s)
 				Ctrl:No prompt
 			</x:attribute>
 			Remove All
 		</button>
-		<button class="&bt;warning" accesskey="-" id="removeVisible" data-toggle="popover" data-placement="top" data-trigger="hover" title="Remove All Visible Elements" tabindex="-1" roll="menuitem">
+		<button class="&bt;warning" aria-keyshortcuts="- _ Backspace" id="removeVisible" data-toggle="popover" data-placement="top" data-trigger="hover" title="Remove All Visible Elements" tabindex="-1" roll="menuitem">
 			<x:attribute name="data-content">Normal:Active tab
 				Shift:Selected tab(s)
 			</x:attribute>
 			Remove Visible
 		</button>
-		<button class="&bt;primary" accesskey="=" id="addVisible" data-toggle="popover" data-placement="top" data-trigger="hover" title="Add All Visible Elements" tabindex="-1" roll="menuitem">
+		<button class="&bt;primary" aria-keyshortcuts="= Plus" id="addVisible" data-toggle="popover" data-placement="top" data-trigger="hover" title="Add All Visible Elements" tabindex="-1" roll="menuitem">
 			<x:attribute name="data-content">Normal:Active tab
 				Shift:Selected tab(s)
 			</x:attribute>
 			Add Visible
 		</button>
-		<button class="&bt;success" accesskey="e" id="iexport"  data-toggle="popover" data-placement="top" data-trigger="hover" title="Export The List" tabindex="-1" roll="menuitem">
+		<button class="&bt;success" aria-keyshortcuts="e" id="iexport"  data-toggle="popover" data-placement="top" data-trigger="hover" title="Export The List" tabindex="-1" roll="menuitem">
 			<x:attribute name="data-content">For use on different browsers or...
 				Share with your friends or...
 				Save a backup for a different mod pack.
@@ -107,8 +107,8 @@
 			</x:attribute>
 			Export JSON
 		</button>
-		<button class="&bt;success" accesskey="i" id="imp" tabindex="-1" roll="menuitem">Import JSON</button>
-		<button class="&bt;info" accesskey="d" id="download" tabindex="-1" roll="menuitem">Download Mod</button>
+		<button class="&bt;success" aria-keyshortcuts="i Insert" id="imp" tabindex="-1" roll="menuitem">Import JSON</button>
+		<button class="&bt;info" aria-keyshortcuts=" " id="download" tabindex="-1" roll="menuitem">Download Mod</button>
 	</nav>
 	<nav class="&n; bg&w; justify-content-center" data-no="print"><h6 roll="note">
 		<b>ALERT</b>: The species list is a work in progress, if you find something wrong please <a href="&H;github.com/zekrom-vale/DynamicSpawn/issues">create an issue!</a>
@@ -128,7 +128,7 @@
 			</div>
 			<div id="speciesContainer">
 				<form class="form-control" roll="group" id="speciesLabel" aria-label="Search controls">
-					<select class="form-control-sm" id="searchOp" name="option">
+					<select class="form-control-sm" id="searchOp" name="option" aria-keyshortcuts="o">
 						<option value="0">All</option>
 						<option value="1">Species Name</option>
 						<option value="2">Species Value</option>
@@ -136,9 +136,9 @@
 						<option value="3">Mod Name</option>
 						<option value="4">Mod Author</option>
 					</select>
-					<input list="speciesDataList" id="speciesInput" roll="searchbox" autocomplete="on" placeholder="Search Species... EX: ^kazdra$|hum|^[a-b]|Ar(gon)?i|^s[^a-dl-v\d]+|^.{5}$" aria-placeholder="search text or regular expression when enabled" aria-owns="RegExpPre"/>
+					<input list="speciesDataList" id="speciesInput" roll="searchbox" autocomplete="on" placeholder="Search Species... EX: ^kazdra$|hum|^[a-b]|Ar(gon)?i|^s[^a-dl-v\d]+|^.{5}$" aria-placeholder="search text or regular expression when enabled" aria-owns="RegExpPre" aria-keyshortcuts="f"/>
 					<label class="switch float-right" data-toggle="tooltip" data-placement="left" title="Enable RegExp support" id="RegExpPre" aria-details="regExpDes">
-						<input roll="switch" type="checkbox" id="RegExp"/>
+						<input roll="switch" type="checkbox" id="RegExp" aria-keyshortcuts="r ScrollLock"/>
 						<span class="slider round" id="RegExpS"></span>
 					</label>
 				</form>

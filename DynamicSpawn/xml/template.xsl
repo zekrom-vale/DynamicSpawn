@@ -139,7 +139,7 @@ xmlns:x="http://www.w3.org/1999/XSL/Transform">
 	<x:template name="tabTab">
 		<ul class="nav nav-tabs" role="tablist" id="npcTab">
 			<x:for-each select="document('tab.xml')/tab/*">
-				<li class="nav-item" id="tab{local-name()}" role="tab">
+				<li class="nav-item" id="tab{local-name()}" role="tab" aria-keyshortcuts="{position()}">
 					<a class="nav-link" data-toggle="tab" data-hash="#npc{local-name()}" tabindex="0">
 						<x:value-of select="local-name()"/>
 						<span class="badge badge-primary">&#x2713;</span>
