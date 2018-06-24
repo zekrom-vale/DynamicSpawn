@@ -7,7 +7,7 @@
 <x:stylesheet version="1.0"
 xmlns:x="http://www.w3.org/1999/XSL/Transform">
 	<x:template name="liConstruct">
-		<ul class="list-group species" id="speciesList" roll="form" aria-multiselectable="true" aria-sort="descending" aria-controls="mods" aria-keyshortcuts="ArrowUp ArrowDown ArrowRight ArrowLeft">
+		<ul class="list-group speci" id="speciesList" roll="form" aria-multiselectable="true" aria-sort="descending" aria-controls="mods" aria-keyshortcuts="ArrowUp ArrowDown ArrowRight ArrowLeft">
 			<x:for-each select="document('species.xml')/species/mod|document('verify.xml')/species/mod">
 				<x:sort select="@name"/>
 				<x:for-each select="specie">
@@ -154,7 +154,7 @@ xmlns:x="http://www.w3.org/1999/XSL/Transform">
 				<div id="npc{local-name()}" role="tabpanel" aria-labelledby="tab{local-name()}" class="container tab-pane" aria-live="polite">
 					<h3><x:value-of select="title"/></h3>
 					<h5><x:value-of select="sub"/></h5>
-					<ul class="list-group species" roll="form" aria-required="true" aria-sort="descending" aria-sortby="mod" aria-controls="speciesList speciesInput menubar" aria-keyshortcuts="Shift+ArrowUp Shift+ArrowDown Shift+ArrowRight Shift+ArrowLeft" aria-atomic="false" aria-relevant="additions removals" aria-hidden="true"></ul>
+					<ul class="list-group speci" roll="form" aria-required="true" aria-sort="descending" aria-sortby="mod" aria-controls="speciesList speciesInput menubar" aria-keyshortcuts="Shift+ArrowUp Shift+ArrowDown Shift+ArrowRight Shift+ArrowLeft" aria-atomic="false" aria-relevant="additions removals" aria-hidden="true"></ul>
 				</div>
 			</x:for-each>
 		</div>

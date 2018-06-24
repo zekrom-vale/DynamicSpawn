@@ -136,7 +136,7 @@
 						<option value="3">Mod Name</option>
 						<option value="4">Mod Author</option>
 					</select>
-					<input id="speciesInput" type="search" roll="searchbox" autocomplete="on" placeholder="Search Species... EX: ^kazdra$|hum|^[a-b]|Ar(gon)?i|^s[^a-dl-v\d]+|^.{5}$" aria-placeholder="search text or regular expression when enabled" aria-owns="RegExpPre"/>
+					<input list="speciesDataList" id="speciesInput" roll="searchbox" autocomplete="on" placeholder="Search Species... EX: ^kazdra$|hum|^[a-b]|Ar(gon)?i|^s[^a-dl-v\d]+|^.{5}$" aria-placeholder="search text or regular expression when enabled" aria-owns="RegExpPre"/>
 					<label class="switch float-right" data-toggle="tooltip" data-placement="left" title="Enable RegExp support" id="RegExpPre" aria-details="regExpDes">
 						<input roll="switch" type="checkbox" id="RegExp"/>
 						<span class="slider round" id="RegExpS"></span>
