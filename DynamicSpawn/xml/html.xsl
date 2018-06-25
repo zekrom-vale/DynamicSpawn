@@ -116,8 +116,8 @@
 	<br/>
 	<div class="container-fluid row" id="container" roll="window">
 		<aside roll="complementary" class="col-md-3 col-lg-2">
-			<h4>Active Mods</h4>
-			<ul class="list-group" id="mods" roll="listbox" aria-multiselectable="true" aria-keyshortcuts="PageUp x PageDown z Home End">
+			<h4 id="ActiveMods">Active Mods</h4>
+			<ul class="list-group" id="mods" roll="listbox" aria-multiselectable="true" aria-keyshortcuts="PageUp x PageDown z Home End" aria-labelledby="ActiveMods">
 				<x:call-template name="modList"/>
 			</ul>
 		</aside>
@@ -136,7 +136,7 @@
 						<option value="3">Mod Name</option>
 						<option value="4">Mod Author</option>
 					</select>
-					<input list="speciesDataList" id="speciesInput" roll="searchbox" autocomplete="on" placeholder="Search Species... EX: ^kazdra$|hum|^[a-b]|Ar(gon)?i|^s[^a-dl-v\d]+|^.{5}$" aria-placeholder="search text or regular expression when enabled" aria-owns="RegExpPre" aria-keyshortcuts="f"/>
+					<input list="speciesDataList" id="speciesInput" roll="searchbox" autocomplete="on" aria-label="Search" placeholder="Search Species... EX: ^kazdra$|hum|^[a-b]|Ar(gon)?i|^s[^a-dl-v\d]+|^.{5}$" aria-placeholder="search text or regular expression when enabled" aria-owns="RegExpPre" aria-keyshortcuts="f"/>
 					<label class="switch float-right" data-toggle="tooltip" data-placement="left" title="Enable RegExp support" id="RegExpPre" aria-details="regExpDes">
 						<input roll="switch" type="checkbox" id="RegExp" aria-keyshortcuts="r ScrollLock"/>
 						<span class="slider round" id="RegExpS"></span>

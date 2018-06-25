@@ -37,13 +37,26 @@ button:not(:hover)>img.on,
 }
 
 #speciesInput{
+	background-color:transparent!important;
 	width:calc(100% - 140px);
 	border:none;
 	position:relative;
 	right:-12px;
 }
+#speciesLabel:not(.err){
+	animation-name:whiteToRed;
+	-webkit-animation-name:whiteToRed;
+	animation-duration:4s;
+	-webkit-animation-duration:4s;
+	animation-fill-mode:forwards;
+	animation-direction:reverse;
+}
 .err{
-	background-color:red!important;
+	animation-name:whiteToRed;
+	-webkit-animation-name:whiteToRed;
+	animation-duration:4s;
+	-webkit-animation-duration:4s;
+	animation-fill-mode:forwards;
 }
 
 #RegExpPre{
