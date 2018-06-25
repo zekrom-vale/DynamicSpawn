@@ -21,34 +21,42 @@ addEventListener("load",()=>{
 			this.focus();
 		}
 	}
+	$("input").on("keydown",unfocus);
+	function unfocus(event){
+		if(event.key==="Escape"){
+			event.preventDefault();
+			this.blur();
+		}
+	}
 });
 
 function dtTab(el){
 	var hash=el.dataset.hash;
 	{
-		// style=document.getElementById("activeStyle"),
 		let oldHash=location.hash,
 		list=document.getElementById(hash.slice(1));
 		document.querySelector(`[data-hash="${oldHash}"]`).classList.remove("show","active");
-		document.getElementById(oldHash.slice(1)).classList.remove("active");
+		{
+			let old=document.getElementById(oldHash.slice(1))
+			old.classList.remove("active");
+			old.setAttribute("aria-hidden","true");
+		}
 		el.classList.add("show","active");
-		el.setAttribute("aria-hidden","false");
-		list.setAttribute("aria-hidden","true");
+		list.setAttribute("aria-hidden","false");
 		list.classList.add("active");
 		list.classList.remove("fade");
 		location.hash=hash;
-		//style.innerHTML=style.innerHTML.replace(/active-[^{]+/,"active-"+hash.slice(1));
 	}
 	var li=document.querySelectorAll("#speciesList li"),
 	_l=li.length;
 	for(let i=0;i<_l;)li[i].setAttribute("aria-selected",li[i++].classList.contains("active-"+hash.slice(1)));
 }
-
+//addEventListener("keydown",e=>{console.log(e.key)});
 addEventListener("keydown",function(event){
 	var active=document.activeElement;
 	if(/input|textarea/i.test(active.tagName)||active.dataset.nav==="false")return;
-	if(/^Arrow[ULDR]|^[wasd]$/i.test(event.key)){
-		event.preventDefault();
+	if(/^Arrow[ULDR]|^[wasdWASD]$/.test(event.key)){
+		//event.preventDefault();
 		if(event.shiftKey)move.call(document.querySelector("#npcList>.active>ul"),event.key);
 		else move.call(document.getElementById("speciesList"),event.key);
 		function move(input){
@@ -107,7 +115,7 @@ addEventListener("keydown",function(event){
 			}
 		}
 	}
-	else if(/^Page[UD]|^(Home|End|[zx])$/.test(event.key)){
+	else if(/^Page[UD]|^(Home|End|[zxZX])$/.test(event.key)){
 		event.preventDefault();
 		console.log("run")
 		let mods=document.getElementById("mods"),
@@ -117,6 +125,7 @@ addEventListener("keydown",function(event){
 		switch(event.key){
 			case "PageUp":
 			case "x":
+			case "X":
 				to=selected;
 				do{
 					to=to.previousSibling;
@@ -125,6 +134,7 @@ addEventListener("keydown",function(event){
 				break;
 			case "PageDown":
 			case "z":
+			case "Z":
 				to=selected;
 				do{
 					to=to.nextSibling;
@@ -137,6 +147,9 @@ addEventListener("keydown",function(event){
 			case "End":
 				to=mods.querySelector("li:last-of-type");
 				break;
+			default:
+				console.warn("Key slipped: "+input);
+				return;
 		}
 		if(key)delete key.dataset.selected;
 		to.dataset.selected=true;
@@ -159,50 +172,52 @@ addEventListener("keydown",function(event){
 		if(el)event.shiftKey?el.focus():el.click();
 	}*/
 	else if(!(event.altKey||event.ctrlKey)){
-		let id;
-		switch(event.key.toLowerCase()){
+		let id,
+		key=event.key.toLowerCase();
+		switch(key){
 			case "f":
 				id="speciesInput"
 				break;
 			case "o":
 				id="searchOp"
 				break;
-		}
-		if(id){
-			document.getElementById(id).focus();
-			return;
-		}
-		switch(event.key.toLowerCase()){
-			case "r":
-			case "scrolllock":
-				id="RegExpS";
-				break;
-			case "delete":
-				id="removeAll";
-				break;
-			case "-":
-			case "_":
-			case "backspace":
-				id="removeVisible";
-				break;
-			case "=":
-			case "+":
-				id="addVisible";
-				break;
-			case "e":
-				id="iexport";
-				break;
-			case "i":
-			case "insert":
-				id="imp";
-				break;
-			case " ":
-			//case "end":
-				id="download";
-				break;
 			default:
+				switch(key){
+					case "r":
+					case "scrolllock":
+						id="RegExpS";
+						break;
+					case "delete":
+						id="removeAll";
+						break;
+					case "-":
+					case "_":
+					case "backspace":
+						id="removeVisible";
+						break;
+					case "=":
+					case "+":
+						id="addVisible";
+						break;
+					case "e":
+						id="iexport";
+						break;
+					case "i":
+					case "insert":
+						id="imp";
+						break;
+					case " ":
+					//case "end":
+						id="download";
+						break;
+					default:
+						return;
+				}
+				event.preventDefault();
+				document.getElementById(id).click();
 				return;
 		}
-		document.getElementById(id).click();
+		event.preventDefault();
+		document.getElementById(id).focus();
 	}
 });
