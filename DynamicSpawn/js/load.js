@@ -18,6 +18,14 @@ if(location.hash){
 }
 else location.hash="npcGeneric";
 //--------------- Species Cookie Value ---------------
+{
+	let speciesList=document.querySelectorAll("#speciesList>li"),
+	_s=speciesList.length;
+	for(let i=0;i<_s;i++){
+		speciesList[i].setAttribute("aria-posinset",i+1);
+		speciesList[i].setAttribute("aria-setsize",_s);
+	}
+}
 let c=getData("value");
 if(c){
 	let item=JSON.parse(c);
@@ -85,6 +93,7 @@ $('[data-toggle="popover"]').popover();
 	}
 }
 document.getElementById("load").remove();
+if(/Edge/.test(navigator.userAgent))info("Edge is not fully supported","danger",null,true);
 document.getElementById("npcList").removeAttribute("aria-busy");
 });
 

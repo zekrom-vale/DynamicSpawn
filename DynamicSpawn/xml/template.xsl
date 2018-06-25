@@ -27,7 +27,7 @@ xmlns:x="http://www.w3.org/1999/XSL/Transform">
 						<x:attribute name="data-placement">right</x:attribute>
 						<x:attribute name="data-trigger">hover</x:attribute>
 						<x:attribute name="data-boundary">viewport</x:attribute>
-						<x:attribute name="data-fallbackPlacement">["top","bottom"]</x:attribute>
+						<x:attribute name="data-fallbackPlacement">['top','bottom']</x:attribute>
 						<x:attribute name="title">Created by</x:attribute>
 						<x:attribute name="data-content">
 							<x:value-of select="@author"/>
@@ -58,7 +58,7 @@ xmlns:x="http://www.w3.org/1999/XSL/Transform">
 		<li value="Z-UNDEFINED" class="list-group-item" tabIndex="-1">UNDEFINED</li>
 	</x:template>
 	<x:template name="liTemplate">
-		<li roll="button" value="{@value}" id="{@value}" data-mod="{../@name}" data-author="{../@author}" aria-setsize="-1">
+		<li value="{@value}" id="{@value}" data-mod="{../@name}" data-author="{../@author}">
 			<x:if test="../id/@steam">
 				<x:attribute name="data-steamid">
 					<x:value-of select="../id/@steam"/>
@@ -151,10 +151,10 @@ xmlns:x="http://www.w3.org/1999/XSL/Transform">
 	<x:template name="tabBody">
 		<div class="tab-content" id="npcList" aria-busy="true">
 			<x:for-each select="document('tab.xml')/tab/*">
-				<div id="npc{local-name()}" role="tabpanel" aria-labelledby="tab{local-name()}" class="container tab-pane" aria-live="polite">
-					<h3><x:value-of select="title"/></h3>
+				<div id="npc{local-name()}" role="tabpanel" aria-labelledby="tab{local-name()}" class="container tab-pane" aria-live="polite" aria-hidden="true">
+					<h3 id="npc{local-name()}h3"><x:value-of select="title"/></h3>
 					<h5><x:value-of select="sub"/></h5>
-					<ul class="list-group speci" roll="form" aria-required="true" aria-sort="descending" aria-sortby="mod" aria-controls="speciesList speciesInput menubar" aria-keyshortcuts="Shift+ArrowUp Shift+ArrowDown Shift+ArrowRight Shift+ArrowLeft" aria-atomic="false" aria-relevant="additions removals" aria-hidden="true"></ul>
+					<ul class="list-group speci" roll="form" aria-required="true" aria-sort="descending" aria-sortby="mod" aria-controls="speciesList speciesInput menubar" aria-keyshortcuts="Shift+ArrowUp Shift+ArrowDown Shift+ArrowRight Shift+ArrowLeft" aria-atomic="false" aria-relevant="additions removals" aria-labelledby="npc{local-name()}h3"></ul>
 				</div>
 			</x:for-each>
 		</div>
