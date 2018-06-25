@@ -10,13 +10,14 @@ $("#speciesInput").on("keyup paste cut",function(){
 		v%4==0
 	];
 	document.getElementById("body").setAttribute("aria-busy","true");
+	//Issue with warning species
 	if(document.getElementById("RegExp").checked){
 		let elp=this.parentNode;
 		try{
 			var e=new RegExp($(this).val(),"ig");
 			$("#speciesList li,#npcList li").filter(function(){
 				$(this).toggle(
-					v[0]&&e.test(this.firstChild.innerText)||
+					v[0]&&e.test(this.querySelector('[data-case="cap"]').innerText)||
 					v[1]&&e.test(this.getValue())||
 					v[3]&&e.test(this.dataset.author)||
 					v[2]&&e.test(this.dataset.mod)
@@ -36,7 +37,7 @@ $("#speciesInput").on("keyup paste cut",function(){
 		exists=txt=>txt.toLowerCase().indexOf(value)>-1;
 		$("#speciesList li,#npcList li").filter(function(){
 			$(this).toggle(
-				v[0]&&exists(this.firstChild.innerText)||
+				v[0]&&exists(this.querySelector('[data-case="cap"]').innerText)||
 				v[1]&&exists(this.getValue())||
 				v[3]&&exists(this.dataset.author)||
 				v[2]&&exists(this.dataset.mod)
