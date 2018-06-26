@@ -50,8 +50,7 @@ button:not(:hover)>img.on,
 	-webkit-animation-duration:4s;
 	animation-fill-mode:forwards;
 	animation-direction:reverse;
-}
-.err{
+}.err{
 	animation-name:whiteToRed;
 	-webkit-animation-name:whiteToRed;
 	animation-duration:4s;
@@ -98,9 +97,13 @@ select>option{
 .speci li[aria-selected="true"]:focus-within{
 	box-shadow:inset 0 0 0 0.3rem rgba(135,207,228,.5);
 }
-
 #mods li:not([aria-selected="true"]):focus,
 .speci li:not([aria-selected="true"]):focus-within{
 	box-shadow:inset 0 0 0 0.3rem rgba(52,58,64,.5);
 }
 
+#body [aria-selected="true"]{
+	color:#fff;
+	background-color:#007bff!important;
+	border-color:#007bff;
+}

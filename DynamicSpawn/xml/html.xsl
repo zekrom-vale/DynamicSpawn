@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE html[
 <!ENTITY nbsp "&#160;">
 <!ENTITY x "&#10005;">
@@ -52,13 +52,6 @@
 		<script defer="defer" src="js/custom.js"/>
 		<script defer="defer" src="&H;cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"/>
 		<script defer="defer" src="&H;maxcdn.&b;cdn.com/&b;/4.1.0/js/&b;.min.js"/>
-		<style id="activeStyle" nonce="{$nonce}">
-			#body [aria-selected="true"]{
-				color:#fff;
-				background-color:#007bff!important;
-				border-color:#007bff;
-			}
-		</style>
 		<style id="activeStyle2" nonce="{$nonce}">
 			.hideMod{
 				display:none!important;
@@ -73,9 +66,9 @@
 	<input type="file" id="iimport" accept=".DyS.json"/>
 </div>
 <div id="load" class="center">
-	<h1>Loading Scripts</h1>
+	<h1 id="loadh1">Loading Scripts</h1>
 	<h3>Please Wait</h3>
-	<div class="loader" roll="progressbar"></div>
+	<div class="loader" roll="progressbar" aria-labelledby="loadh1"></div>
 </div>
 <div id="base">
 	<nav class="&n; bg-dark sticky-top justify-content-center btn-group" roll="menubar" data-no="print" tabindex="0" id="menubar">

@@ -1,19 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?xml-stylesheet type="text/xsl" href="xml/html.xsl"?>
-<!DOCTYPE root[
-<!ENTITY b "bootstrap">
-]>
+<!DOCTYPE root>
 <root>
 	<meta>
 		<author>zekrom_vale</author>
 		<game type="mod">Starbound</game>
 		<month monthName="June">6</month>
 		<year shortYear="18">2018</year>
-		<description>Create your own mod! Chose the NPCs you want to spawn in Starbound.</description>
+		<description>Create your own mod! Chose the NPCs, including moded ones, to spawn in the Starbound universe. From space stations, to merchant ships as well as cultists. All in a free and easy to use website and installation tool.</description>
 		<keywords>Starbound,NPC,Spawning,Mod,Dynamic Mod</keywords>
 		<viewport>width=device-width,initial-scale=1</viewport>
 		<creator>zekrom_vale</creator>
-		<xml xslt="1.0">1.0</xml>
-		<html>5</html>
 	</meta>
 </root>
