@@ -1,6 +1,14 @@
 "use strict";
 if(/firefox/i.test(navigator.userAgent)){
-	info('Caret browsing mode interferes with keyboard navigation on this page, turn it off with <kbd>F7</kbd>. More info at <a href="https://support.mozilla.org/en-US/questions/974774">Mozilla Support</a>.',"warning");
+	info(new nodes(
+		"Caret browsing mode interferes with keyboard navigation on this page, turn it off with ",
+		node("kbd","F7"),
+		". More info at ",
+		node("a","Mozilla Support.",{
+			href:"https://support.mozilla.org/en-US/questions/974774"
+		})
+	).wrap("div"),
+	"warning");
 }
 
 var sP=(function(){
