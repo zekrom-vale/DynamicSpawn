@@ -56,7 +56,6 @@ addEventListener("keydown",function(event){
 	var active=document.activeElement;
 	if(/input|textarea/i.test(active.tagName)||active.dataset.nav==="false")return;
 	if(/^Arrow[ULDR]|^[wasdWASD]$/.test(event.key)){
-		//event.preventDefault();
 		if(event.shiftKey)move.call(document.querySelector("#npcList>.active>ul"),event.key);
 		else move.call(document.getElementById("speciesList"),event.key);
 		function move(input){
@@ -122,6 +121,7 @@ addEventListener("keydown",function(event){
 		to,
 		key=mods.querySelector('li[data-selected="true"]'),
 		selected=mods.contains(active)?active:key||mods.querySelector("li:first-of-type");
+		//Web Worker
 		switch(event.key){
 			case "PageUp":
 			case "x":
@@ -151,6 +151,7 @@ addEventListener("keydown",function(event){
 				console.warn("Key slipped: "+input);
 				return;
 		}
+		//Web Worker End
 		if(key)delete key.dataset.selected;
 		to.dataset.selected=true;
 		to.focus();
@@ -171,6 +172,7 @@ addEventListener("keydown",function(event){
 		let el=document.querySelector(`#npcTab>li:nth-of-type(${n})>a`);
 		if(el)event.shiftKey?el.focus():el.click();
 	}*/
+	//Web Worker
 	else if(!(event.altKey||event.ctrlKey)){
 		let id,
 		key=event.key.toLowerCase();
@@ -213,10 +215,13 @@ addEventListener("keydown",function(event){
 					default:
 						return;
 				}
+				//Web Worker Break
 				event.preventDefault();
 				document.getElementById(id).click();
 				return;
+				//Web Worker Break End
 		}
+		//Web Worker End
 		event.preventDefault();
 		document.getElementById(id).focus();
 	}

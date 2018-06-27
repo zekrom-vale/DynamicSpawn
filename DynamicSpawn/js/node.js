@@ -1,4 +1,5 @@
 "use strict";
+//Web Worker
 function node(type,txt,attr,html,reg=/(inner)?(HTML|[tT]ext)|event(Listener)?/){
 	if(typeof attr!="object")attr={};
 	var el=nodejsZ.nodeCore(document.createElement(type),txt,attr,html);

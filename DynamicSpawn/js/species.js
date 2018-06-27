@@ -21,6 +21,7 @@ function getLi(){
 	var spawns=document.querySelectorAll("#npcList>div"),
 	arr={},
 	_s=spawns.length;
+	//Web Worker
 	for(let i=0;_s>i;i++){
 		let id=spawns[i].id,
 		items=spawns[i].querySelectorAll('li[roll="button"]'),
@@ -60,3 +61,4 @@ function readyLi(li){
 	li.querySelector(".species").addEventListener("click",removeEl);
 	return li;
 }
+//Web Worker End

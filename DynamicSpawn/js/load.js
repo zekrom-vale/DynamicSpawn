@@ -57,15 +57,16 @@ $('[data-toggle="popover"]').popover();
 	}
 }
 {//--------------- Get Path ---------------
-	let q=location.search.slice(1).split("&"),
+	let el=document.getElementById("path"),
+	q=location.search.slice(1).split("&"),
 	qi,
-	el=document.getElementById("path"),
+	//Web Worker
 	sys=(function(){return /System Path/i.test(qi);})();
 	for(let i of q)if(/^path=/i.test(i)){
 		qi=decodeURIComponent(i.slice(5).replace(/\+/g,"%20")+"\\");
 		continue;
-	}
-	if(/^[a-z]:([\\\/][^\\\/:*?"<>|]+)+[\\\/]$/i.test(qi)&&!sys){
+	}//		Return v
+	if(/^[a-z]:([\\\/][^\\\/:*?"<>|]+)+[\\\/]$/i.test(qi)&&!sys){//Web Worker End
 		el.value=qi;
 		let arr=["warning",null,1],
 		reg="[\\\/]steamapps[\\\/]common[\\\/]Starbound[\\\/]mods[\\\/]";

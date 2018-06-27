@@ -82,6 +82,7 @@ function addToAll(event){
 	if(prev.classList.contains("custom-species")){
 		var spawns=elm.npcList.getElementsByTagName("ul"),
 		base=elm.npcList.getElementsByTagName("div");
+		//Web Worker
 		const _b=base.length;
 		if(event.shiftKey)for(let i=0;_b>i;i++){
 			if(!document.querySelector(`[data-hash="#${base[i].id}"]`).parentNode.classList.contains("nav-link-sel"))arr[i]=false;
@@ -90,6 +91,7 @@ function addToAll(event){
 		else for(let i=0;_b>i;i++){
 			if(base[i].querySelector(`ul>li[value="${prev.getValue()}"]`))arr[i]=false;
 		}
+		//Web Worker End
 		const _s=spawns.length;
 		for(let i=0;_s>i;i++)if(arr[i]!==false){
 			let li=prev.cloneNode(true);

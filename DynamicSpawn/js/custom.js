@@ -43,7 +43,7 @@ document.getElementById("speciesInput").addEventListener("keydown",function(even
 	}
 });
 });
-
+//Web Worker
 var customNPC=(function(){
 	var[li,btn,img,img2,div]=baseLi,
 	el=li.cloneNode();
@@ -59,7 +59,7 @@ var customNPC=(function(){
 		b.append(imgM,imgM2);
 	return[el,b,imgM,imgM2,divM];
 }());
-
+//Web Worker
 function customSetUp(specie){
 	var[li,btn,img,img2,div]=customNPC,
 	el=li.cloneNode();
