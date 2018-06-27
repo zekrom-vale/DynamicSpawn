@@ -13,12 +13,12 @@ if(/firefox/i.test(navigator.userAgent)){
 
 var sP=(function(){
 	var dN=new CustomEvent("dN"),
-	dE=new CustomEvent("dE");
-	function die(el,exit){
+	dE=new CustomEvent("dE"),
+	die=(el,exit)=>{
 		$(el).popover("dispose");
 		document.querySelector(el).dispatchEvent(exit?dE:dN);
 	};
-	return function(n){//Automatically includes the local scopes
+	return n=>{//Automatically includes the local scopes
 		if(n.func)n.func();
 		var e=$(n.h);
 		e.popover({
@@ -30,22 +30,22 @@ ${n.last?"":'<button class="btn btn-primary" id="dieN" data-nav="false">Next</bu
 			placement:n.pos||"top",
 			html:true
 		});
-		addEventListener("keyup",escape.bind(n.h));
 		e.popover("show");
 		{
 			let pop=document.querySelectorAll(".popover");
 			const _p=pop.length;
 			for(let i=0;i<_p;i++)if(!pop[i].querySelector("#dieE"))pop[i].remove();
 		}{
-			let end=document.getElementById("dieE"),
-			next=document.getElementById("dieN");
+			let end=document.getElementById("dieE");
 			end.addEventListener("click",()=>{die(n.h,1)});
 			if(n.last)end.focus();
 			else{
+				let next=document.getElementById("dieN");
 				next.addEventListener("click",()=>{die(n.h)});
 				next.focus();
 			}
 		}
+		addEventListener("keyup",{handleEvent:escape,h:n.h});//Accepts an object and calls handleEvent
 		return new Promise(r=>{
 			e[0].addEventListener("dN",()=>{
 				r(0);
@@ -58,23 +58,21 @@ ${n.last?"":'<button class="btn btn-primary" id="dieN" data-nav="false">Next</bu
 		});
 	}
 	function escape(event){
-		if(event.key==="Escape")die(this,1);
+		if(event.key==="Escape")die(this.h,1);
 	};
 })();
 
 
 (async function(){
-	{
-		info(
-			new nodes(
-				"This site use localStorage to save your choices, and cookies as a fallback. ",
-				new node("a","localStorage",{
-					href:"https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API"
-				}),
-				" is the modern version of cookies and is more secure. However, few sites use this feature."
-			).wrap("p"),
-		"warning","localStorage",true);
-	}
+	info(
+		new nodes(
+			"Although, no personal information is stored, this site use localStorage to save your choices, and cookies as a fallback. ",
+			new node("a","localStorage",{
+				href:"https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API"
+			}),
+			" is the modern version of cookies and is more secure. However, few sites use this feature."
+		).wrap("p"),
+	"warning","localStorage",true);
 	var tours=[{
 		h:"nav.bg-dark",
 		title:"Global control buttons",

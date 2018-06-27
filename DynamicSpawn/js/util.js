@@ -2,7 +2,7 @@
 addEventListener("load",()=>{
 saveData=(function(){
 	var a=document.getElementById("save");
-	return function(data,fileName,t){
+	return (data,fileName,t)=>{
 		let url=URL.createObjectURL(new Blob([t?data:JSON.stringify(data)],{type:"octet/stream"}));
 		a.href=url;
 		a.download=fileName;
@@ -29,7 +29,7 @@ else{
 		for(let i of ca)if(n.test(i))return i.slice(_n);
 	}
 	setData=(v,s,e=60)=>{
-		document.cookie=`${v}=${s};expires=${dP(e)}`;
+		document.cookie=v+`=${s};expires=`+dP(e);
 	}
 }
 
