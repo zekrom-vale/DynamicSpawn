@@ -29,7 +29,10 @@ else location.hash="npcGeneric";
 let c=getData("value");
 if(c){
 	let item=JSON.parse(c);
-	for(let i in item)for(let n in item[i])setLi(i,item[i][n]);
+	console.info(c);
+	for(let i in item)if(i!=="key")for(let n in item[i]){
+		setLi(i,item.key[item[i][n]/*parseInt(item[i][n],36)*/]);
+	}
 }
 
 //--------------- Tooltip ---------------
@@ -100,7 +103,7 @@ document.getElementById("npcList").removeAttribute("aria-busy");
 
 //--------------- Set Data ---------------
 addEventListener("beforeunload",()=>{
-	setData("value",JSON.stringify(getLi()),90);
+	setData("value",JSON.stringify(encodeLi()),90);
 	setData("mods",`[${getMods().join(",")}]`,60);
 	function getMods(){
 		var mods=document.querySelectorAll('#mods>li[aria-selected="true"]'),

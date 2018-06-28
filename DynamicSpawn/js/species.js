@@ -19,7 +19,7 @@ function setLi(set,key){
 
 function getLi(){
 	var spawns=document.querySelectorAll("#npcList>div"),
-	arr={},
+	obj={},
 	_s=spawns.length;
 	//Web Worker
 	for(let i=0;_s>i;i++){
@@ -27,12 +27,42 @@ function getLi(){
 		items=spawns[i].querySelectorAll('li[roll="button"]'),
 		_i=items.length;
 		if(_i>0){
-			arr[id]=[];
-			for(let n=0;_i>n;n++)arr[id][n]=items[n].getValue();
+			obj[id]=[];
+			for(let n=0;_i>n;n++)obj[id][n]=items[n].getValue();
 		}
 	}
-	return arr;
+	return obj;
 }
+
+function encodeLi(){
+	var spawns=document.querySelectorAll("#npcList>div"),
+	obj={},
+	arr=[],
+	inv={},
+	_s=spawns.length;
+	//Web Worker
+	for(let i=0;_s>i;i++){
+		let id=spawns[i].id,
+		items=spawns[i].querySelectorAll('li'),
+		_i=items.length;
+		if(_i>0){
+			obj[id]=[];
+			for(let n=0;_i>n;n++){
+				let value=items[n].getValue(),
+				key;
+				if(typeof inv[value]==="undefined"){
+					inv[value]=key=arr.length;
+					arr[key]=value;
+				}
+				else key=inv[value];
+				obj[id][n]=key//.toString(36);
+			}
+		}
+	}
+	obj.key=arr;
+	return obj;
+}
+
 
 var baseLi=(function(){
 	var btnB=document.createElement("button");

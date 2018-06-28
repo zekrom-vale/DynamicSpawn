@@ -165,13 +165,6 @@ addEventListener("keydown",function(event){
 		let el=document.querySelector(`#npcTab>li:nth-of-type(${n})>a`);
 		if(el)event.shiftKey?el.focus():el.click();
 	}
-	/*else if(/^F\d$/.test(event.key)){
-		event.preventDefault();
-		let n=Number(event.key.slice(1));
-		if(event.altKey)n+12;
-		let el=document.querySelector(`#npcTab>li:nth-of-type(${n})>a`);
-		if(el)event.shiftKey?el.focus():el.click();
-	}*/
 	//Web Worker
 	else if(!(event.altKey||event.ctrlKey)){
 		let id,
