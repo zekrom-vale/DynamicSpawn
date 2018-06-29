@@ -29,7 +29,6 @@ else location.hash="npcGeneric";
 let c=getData("value");
 if(c){
 	let item=JSON.parse(c);
-	console.info(c);
 	for(let i in item)if(i!=="key"){
 		let index=item[i].split(",");
 		for(let n in index)setLi(i,item.key[parseInt(index[n],36)]);

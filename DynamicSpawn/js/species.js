@@ -46,20 +46,21 @@ function encodeLi(){
 		items=spawns[i].querySelectorAll('li'),
 		_i=items.length;
 		if(_i>0){
-			obj[id]=getKey(item[0]).toString(36);
-			for(let n=1;_i>n;)obj[id]+=","+getKey(item[n++]).toString(36);
+			obj[id]=getKey(items[0]).toString(36);
+			for(let n=1;_i>n;n++)obj[id]+=","+getKey(items[n]).toString(36);
 		}
+	}
+	function getKey(item){
+		let value=item.getValue();
+		if(typeof inv[value]==="undefined"){
+			let _a=inv[value]=arr.length;
+			arr[_a]=value;
+			return _a;
+		}
+		else return inv[value];
 	}
 	obj.key=arr;
 	return obj;
-	function getKey(item){
-		var value=item.getValue();
-		if(typeof inv[value]==="undefined"){
-			arr[key]=value;
-			inv[value]=arr.length;
-		}
-		return inv[value];
-	}
 }
 
 
