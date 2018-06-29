@@ -24,7 +24,7 @@ function getLi(){
 	//Web Worker
 	for(let i=0;_s>i;i++){
 		let id=spawns[i].id,
-		items=spawns[i].querySelectorAll('li[roll="button"]'),
+		items=spawns[i].querySelectorAll('li'),
 		_i=items.length;
 		if(_i>0){
 			obj[id]=[];
@@ -63,7 +63,6 @@ function encodeLi(){
 	return obj;
 }
 
-
 var baseLi=(function(){
 	var btnB=document.createElement("button");
 		btnB.classList.add("btn");
@@ -92,3 +91,24 @@ function readyLi(li){
 	return li;
 }
 //Web Worker End
+
+function setMods(mods){
+	if(mods&&mods.length>0){
+		let items=$("#mods>li"),
+		_i=items.length,
+		disable=false;
+		for(let i=0;i<_i;i++){
+			let val=items[i].getValue();
+			if(mods.includes(val)){
+				disable=true;
+				items[i].classList.add("active");
+			}
+			else{
+				let el=$(`[data-mod="${val}"]`),
+				_e=el.length;
+				for(let n=0;n<_e;n++)el[n].classList.add("hideMod");
+			}
+		}
+		document.getElementById("activeStyle2").disabled=disable;
+	}
+}
