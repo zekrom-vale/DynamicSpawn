@@ -39,27 +39,7 @@ if(c){
 //--------------- Tooltip ---------------
 $('[data-toggle="tooltip"]').tooltip();
 $('[data-toggle="popover"]').popover();
-{//--------------- Get Mods ---------------
-	let mods=JSON.parse(getData("mods"));
-	if(mods&&mods.length>0){
-		let items=$("#mods>li"),
-		_i=items.length,
-		disable=false;
-		for(let i=0;i<_i;i++){
-			let val=items[i].getValue();
-			if(mods.includes(val)){
-				disable=true;
-				items[i].classList.add("active");
-			}
-			else{
-				let el=$(`[data-mod="${val}"]`),
-				_e=el.length;
-				for(let n=0;n<_e;n++)el[n].classList.add("hideMod");
-			}
-		}
-		document.getElementById("activeStyle2").disabled=disable;
-	}
-}
+setMods(JSON.parse(getData("mods")));
 {//--------------- Get Path ---------------
 	let el=document.getElementById("path"),
 	q=location.search.slice(1).split("&"),
@@ -105,7 +85,7 @@ document.getElementById("npcList").removeAttribute("aria-busy");
 //--------------- Set Data ---------------
 addEventListener("beforeunload",()=>{
 	setData("value",JSON.stringify(encodeLi()),90);
-	setData("mods",`[${getMods().join(",")}]`,60);
+	setData("mods",`${JSON.stringify(getMods())}`,60);
 	function getMods(){
 		var mods=document.querySelectorAll('#mods>li[aria-selected="true"]'),
 		arr=[];

@@ -60,17 +60,6 @@ $("#speciesInput").on("keyup paste cut",function(){
 	document.getElementById("body").removeAttribute("aria-busy");
 });
 
-//--------------- Import ---------------
-{
-	let fr=new FileReader();
-	document.getElementById("iimport").addEventListener("change",()=>{
-		fr.addEventListener('loadend',txt=>{
-			var item=JSON.parse(txt.srcElement.result);
-			for(let i in item)for(let n of item[i])setLi(i,n);
-		});
-		fr.readAsText(document.getElementById("iimport").files[0]);
-	});
-}
 //--------------- Remove All ---------------
 document.getElementById("removeAll").addEventListener("click",event=>{
 	let shift=event.shiftKey;
@@ -178,9 +167,29 @@ document.getElementById("addVisible").addEventListener("click",function(event){
 	document.getElementById("npcList").removeAttribute("aria-busy");
 });
 
-document.getElementById("iexport").addEventListener("click",()=>{saveData(getLi(),"value.DyS.json");})
+document.getElementById("iexport").addEventListener("click",()=>{
+	var data=getLi(),
+	mods=document.querySelectorAll('#mods>li[aria-selected="true"]');
+	const _m=mods.length;
+	if(_m>0){
+		data.mods=[];
+		for(let i=0;i<_m;i++)data.mods[i]=mods[i].getAttribute("value");
+	}
+	saveData(data,"value.DyS.json");
+})
 
 document.getElementById("imp").addEventListener("click",()=>{document.getElementById("iimport").click()});
+{//--------------- Import ---------------
+	let fr=new FileReader();
+	document.getElementById("iimport").addEventListener("change",()=>{
+		fr.addEventListener('loadend',txt=>{
+			var item=JSON.parse(txt.srcElement.result);
+			for(let i in item)if(i!=="mods")for(let n of item[i])setLi(i,n);
+			setMods(item.mods);
+		},{once:true});
+		fr.readAsText(document.getElementById("iimport").files[0]);
+	});
+}
 
 document.getElementById("download").addEventListener("click",function(){
 	var ob=getLi(),
