@@ -35,7 +35,7 @@ $("#speciesInput").on("keyup paste cut",function(){
 		//https://www.w3schools.com/bootstrap4/bootstrap_filters.asp
 		var value=$(this).val().trim().toLowerCase();
 		function exists(txt){
-			return txt.toLowerCase().indexOf(value)>-1;
+			return txt.toLowerCase().indexOf(value)!==-1;
 		}
 		$("#speciesList li,#npcList li").filter(function(){
 			if(this.classList.contains("custom-species")){

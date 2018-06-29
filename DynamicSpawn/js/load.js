@@ -30,8 +30,9 @@ let c=getData("value");
 if(c){
 	let item=JSON.parse(c);
 	console.info(c);
-	for(let i in item)if(i!=="key")for(let n in item[i]){
-		setLi(i,item.key[item[i][n]/*parseInt(item[i][n],36)*/]);
+	for(let i in item)if(i!=="key"){
+		let index=item[i].split(",");
+		for(let n in index)setLi(i,item.key[parseInt(index[n],36)]);
 	}
 }
 
