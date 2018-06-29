@@ -4,8 +4,8 @@ addEventListener("load",()=>{
 $("#speciesInput").on("keyup paste cut",function(){
 	var v=document.getElementById("searchOp").value;
 	v=[
-		v==(0||1||1.5),
-		v==(0||2||1.5),
+		v==0||v==1||v==1.5,
+		v==0||v==2||v==1.5,
 		v%3==0,
 		v%4==0
 	];
@@ -17,7 +17,7 @@ $("#speciesInput").on("keyup paste cut",function(){
 			var e=new RegExp($(this).val(),"ig");
 			$("#speciesList li,#npcList li").filter(function(){
 				$(this).toggle(
-					v[0]&&e.test(this.querySelector('[data-case="cap"]').innerText)||
+					v[0]&&e.test(this.querySelector('button.species').innerText)||
 					v[1]&&e.test(this.getValue())||
 					v[3]&&e.test(this.dataset.author)||
 					v[2]&&e.test(this.dataset.mod)
@@ -33,15 +33,25 @@ $("#speciesInput").on("keyup paste cut",function(){
 	}
 	else{
 		//https://www.w3schools.com/bootstrap4/bootstrap_filters.asp
-		var value=$(this).val().trim().toLowerCase(),
-		exists=txt=>txt.toLowerCase().indexOf(value)>-1;
+		var value=$(this).val().trim().toLowerCase();
+		function exists(txt){
+			return txt.toLowerCase().indexOf(value)>-1;
+		}
 		$("#speciesList li,#npcList li").filter(function(){
-			$(this).toggle(
-				v[0]&&exists(this.querySelector('[data-case="cap"]').innerText)||
-				v[1]&&exists(this.getValue())||
-				v[3]&&exists(this.dataset.author)||
-				v[2]&&exists(this.dataset.mod)
-			);
+			if(this.classList.contains("custom-species")){
+				$(this).toggle(
+					v[0]&&exists(this.querySelector('button.species').innerText)||
+					v[1]&&exists(this.getValue())
+				);
+			}
+			else{
+				$(this).toggle(
+					v[0]&&exists(this.querySelector('button.species').innerText)||
+					v[1]&&exists(this.getValue())||
+					v[3]&&exists(this.dataset.author)||
+					v[2]&&exists(this.dataset.mod)
+				);
+			}
 		});
 		$("#mods li").filter(function(){
 			$(this).toggle(exists(this.getValue()));
