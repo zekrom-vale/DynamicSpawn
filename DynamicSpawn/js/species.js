@@ -42,7 +42,7 @@ function encodeLi(){
 	_s=spawns.length;
 	//Web Worker
 	for(let i=0;_s>i;i++){
-		let id=spawns[i].id,
+		let id=spawns[i].id.slice(3),
 		items=spawns[i].querySelectorAll('li'),
 		_i=items.length;
 		if(_i>0){

@@ -31,6 +31,7 @@ if(c){
 	let item=JSON.parse(c);
 	for(let i in item)if(i!=="key"){
 		let index=item[i].split(",");
+		i="npc"+i;
 		for(let n in index)setLi(i,item.key[parseInt(index[n],36)]);
 	}
 }
