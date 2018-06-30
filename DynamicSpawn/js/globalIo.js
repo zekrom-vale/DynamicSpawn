@@ -2,6 +2,7 @@
 addEventListener("load",()=>{
 //--------------- Filter ---------------
 $("#speciesInput").on("keyup paste cut",function(){
+	if(event.key==="Tab"||event.key==="Enter")return;
 	var v=document.getElementById("searchOp").value;
 	v=[
 		v==0||v==1||v==1.5,
@@ -10,19 +11,18 @@ $("#speciesInput").on("keyup paste cut",function(){
 		v%4==0
 	];
 	document.getElementById("body").setAttribute("aria-busy","true");
-	//Issue with warning species
 	if(document.getElementById("RegExp").checked){
 		let elp=this.parentNode;
 		try{
 			var e=new RegExp($(this).val(),"ig");
 			$("#speciesList li,#npcList li").filter(function(){
-				$(this).toggle(
+				let bool=(
 					v[0]&&e.test(this.querySelector('button.species').innerText)||
 					v[1]&&e.test(this.getValue())||
 					v[3]&&e.test(this.dataset.author)||
 					v[2]&&e.test(this.dataset.mod)
-				);
-				$(this).toggle(e.test(this.getValue()));
+				)
+				if(bool!=(this.style.display==="none"))$(this).toggle(bool);
 			});
 			elp.classList.remove("err");
 			this.setAttribute("aria-invalid","false");
@@ -38,20 +38,19 @@ $("#speciesInput").on("keyup paste cut",function(){
 			return txt.toLowerCase().indexOf(value)!==-1;
 		}
 		$("#speciesList li,#npcList li").filter(function(){
+			let bool;
 			if(this.classList.contains("custom-species")){
-				$(this).toggle(
-					v[0]&&exists(this.querySelector('button.species').innerText)||
-					v[1]&&exists(this.getValue())
-				);
+				bool=v[0]&&exists(this.querySelector('button.species').innerText);
 			}
 			else{
-				$(this).toggle(
+				bool=(
 					v[0]&&exists(this.querySelector('button.species').innerText)||
 					v[1]&&exists(this.getValue())||
 					v[3]&&exists(this.dataset.author)||
 					v[2]&&exists(this.dataset.mod)
 				);
 			}
+			if(bool==(this.style.display==="none"))$(this).toggle(bool);
 		});
 		$("#mods li").filter(function(){
 			$(this).toggle(exists(this.getValue()));
