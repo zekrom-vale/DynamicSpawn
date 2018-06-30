@@ -1,13 +1,15 @@
 "use strict";
 addEventListener("load",()=>{
 {//--------------- Filter ---------------
-let prev;
+let prev,
+searchWorker=new Worker("webWorker/search.js");
+searchWorker.onmessage=function(e){
+	$(e.data.query).toggle(e.data.bool);
+}
+
 $("#speciesInput").on("keyup paste cut",function(){
 	if(event.key==="Tab"||event.key==="Enter")return;
-	var searchWorker=new Worker("webWorker/search.js");
-	searchWorker.onmessage=function(e){
-		$(e.data.query).toggle(e.data.bool);
-	}
+	
 	document.getElementById("body").setAttribute("aria-busy","true");
 	if(document.getElementById("RegExp").checked){
 		/*let elp=this.parentNode;
@@ -34,7 +36,8 @@ $("#speciesInput").on("keyup paste cut",function(){
 		searchWorker.postMessage({
 			v:document.getElementById("searchOp").value,
 			value:$(this).val(),
-			prev:prev
+			prev:prev,
+			init:true
 		});
 		$("#speciesList li,#npcList li").filter(function(){
 			let disp=this.style.display!=="none";
