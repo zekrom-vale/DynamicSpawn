@@ -1,6 +1,7 @@
 "use strict";
 addEventListener("load",()=>{
-//--------------- Filter ---------------
+{//--------------- Filter ---------------
+let prev;
 $("#speciesInput").on("keyup paste cut",function(){
 	if(event.key==="Tab"||event.key==="Enter")return;
 	var v=document.getElementById("searchOp").value;
@@ -33,32 +34,38 @@ $("#speciesInput").on("keyup paste cut",function(){
 	}
 	else{
 		//https://www.w3schools.com/bootstrap4/bootstrap_filters.asp
-		var value=$(this).val().trim().toLowerCase();
+		var value=$(this).val().trim().toLowerCase(),
+		match=prev?
+			value.indexOf(prev)!==-1?
+				1:prev.indexOf(value)?
+					-1:0
+			:0;
 		function exists(txt){
 			return txt.toLowerCase().indexOf(value)!==-1;
 		}
 		$("#speciesList li,#npcList li").filter(function(){
-			let bool;
-			if(this.classList.contains("custom-species")){
-				bool=v[0]&&exists(this.querySelector('button.species').innerText);
+			let disp=this.style.display!=="none";
+			if(!(disp&&match===-1||!disp&&match===1)){
+				let bool=v[0]&&exists(this.querySelector('button.species').innerText);
+				if(!this.classList.contains("custom-species")){
+					bool=(
+						bool||
+						v[1]&&exists(this.getValue())||
+						v[3]&&exists(this.dataset.author)||
+						v[2]&&exists(this.dataset.mod)
+					);
+				}
+				if(bool!=disp)$(this).toggle(bool);
 			}
-			else{
-				bool=(
-					v[0]&&exists(this.querySelector('button.species').innerText)||
-					v[1]&&exists(this.getValue())||
-					v[3]&&exists(this.dataset.author)||
-					v[2]&&exists(this.dataset.mod)
-				);
-			}
-			if(bool==(this.style.display==="none"))$(this).toggle(bool);
 		});
 		$("#mods li").filter(function(){
 			$(this).toggle(exists(this.getValue()));
 		});
+		prev=value;
 	}
 	document.getElementById("body").removeAttribute("aria-busy");
 });
-
+}
 //--------------- Remove All ---------------
 document.getElementById("removeAll").addEventListener("click",event=>{
 	let shift=event.shiftKey;
