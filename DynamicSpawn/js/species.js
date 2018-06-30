@@ -21,7 +21,6 @@ function getLi(){
 	var spawns=document.querySelectorAll("#npcList>div"),
 	obj={},
 	_s=spawns.length;
-	//Web Worker
 	for(let i=0;_s>i;i++){
 		let id=spawns[i].id,
 		items=spawns[i].querySelectorAll('li'),
@@ -40,7 +39,6 @@ function encodeLi(){
 	arr=[],
 	inv={},
 	_s=spawns.length;
-	//Web Worker
 	for(let i=0;_s>i;i++){
 		let id=spawns[i].id.slice(3),
 		items=spawns[i].querySelectorAll('li'),
@@ -90,7 +88,6 @@ function readyLi(li){
 	li.querySelector(".species").addEventListener("click",removeEl);
 	return li;
 }
-//Web Worker End
 
 function setMods(mods){
 	if(mods&&mods.length>0){
