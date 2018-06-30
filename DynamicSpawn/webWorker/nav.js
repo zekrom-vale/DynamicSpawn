@@ -6,24 +6,24 @@ function keyAction(key){
 	switch(key.toLowerCase()){
 		case "r":
 		case "scrolllock":
-			return ["RegExpS","click"];
+			return ["RegExpS"];
 		case "delete":
-			return ["removeAll","click"];
+			return ["removeAll"];
 		case "-":
 		case "_":
 		case "backspace":
-			return ["removeVisible","click"];
+			return ["removeVisible"];
 		case "=":
 		case "+":
-			return ["addVisible","click"];
+			return ["addVisible"];
 		case "e":
-			return ["iexport","click"];
+			return ["iexport"];
 		case "i":
 		case "insert":
-			return ["imp","click"];
+			return ["imp"];
 		case " ":
 		//case "end":
-			return ["download","click"];
+			return ["download"];
 //
 		case "f":
 			return ["speciesInput","focus"];

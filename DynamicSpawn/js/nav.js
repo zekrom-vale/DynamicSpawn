@@ -51,127 +51,126 @@ function dtTab(el){
 	_l=li.length;
 	for(let i=0;i<_l;)li[i].setAttribute("aria-selected",li[i++].classList.contains("active-"+hash.slice(1)));
 }
-var navWorker=new Worker("webWorker/nav.js");
-navWorker.onmessage=e=>{
-	if(act){
-		event.preventDefault();
-		document.getElementById(act[0])[act[1]]();
-	}
-}
 
-//addEventListener("keydown",e=>{console.log(e.key)});
-addEventListener("keydown",async function(event){
-	var active=document.activeElement;
-	if(/input|textarea/i.test(active.tagName)||active.dataset.nav==="false")return;
-	if(/^Arrow[ULDR]|^[wasdWASD]$/.test(event.key)){
-		if(event.shiftKey)move.call(document.querySelector("#npcList>.active>ul"),event.key);
-		else move.call(document.getElementById("speciesList"),event.key);
-		function move(input){
-			var selected=document.activeElement,
-			key,to,li;
-			{
-				let active=this.querySelector("[data-active]");
-				if(this.contains(selected)){
-					key=selected.dataset.key||0;
-					while(selected.tagName!=="LI")selected=selected.parentNode;
-					if(active)delete active.dataset.active;
+{
+	var navWorker=new Worker("webWorker/nav.js");
+	navWorker.onmessage=e=>{
+		let act=e.data;
+		if(act){
+			event.preventDefault();
+			document.getElementById(act[0])[act[1]||"click"]();
+		}
+	}
+	//addEventListener("keydown",e=>{console.log(e.key)});
+	addEventListener("keydown",function(event){
+		var active=document.activeElement;
+		if(/input|textarea/i.test(active.tagName)||active.dataset.nav==="false")return;
+		if(/^Arrow[ULDR]|^[wasdWASD]$/.test(event.key)){
+			if(event.shiftKey)move.call(document.querySelector("#npcList>.active>ul"),event.key);
+			else move.call(document.getElementById("speciesList"),event.key);
+			function move(input){
+				var selected=document.activeElement,
+				key,to,li;
+				{
+					let active=this.querySelector("[data-active]");
+					if(this.contains(selected)){
+						key=selected.dataset.key||0;
+						while(selected.tagName!=="LI")selected=selected.parentNode;
+						if(active)delete active.dataset.active;
+					}
+					else{
+						selected=active||this.querySelector("li:first-of-type");
+						key=selected.dataset.active||selected.dataset.key||0;
+					}
 				}
-				else{
-					selected=active||this.querySelector("li:first-of-type");
-					key=selected.dataset.active||selected.dataset.key||0;
+				switch(input.toLowerCase()){
+					case "arrowup":
+					case "w":
+						li=selected;
+						do{
+							li=li.previousSibling;
+							if(!li)return;
+						}while(isValid(li));
+						to=li.querySelector(`[data-key="${key}"]`);
+						break;
+					case "arrowdown":
+					case "s":
+						li=selected;
+						do{
+							li=li.nextSibling;
+							if(!li)return;
+						}while(isValid(li));
+						to=li.querySelector(`[data-key="${key}"]`);
+						break;
+					case "arrowright":
+					case "d":
+						key=(key+1)%3;
+						to=selected.querySelector(`[data-key="${key}"]`);
+						break;
+					case "arrowleft":
+					case "a":
+						key=(key+2)%3;//(v-1)%m==(v-1+m)%m (For positive values)
+						to=selected.querySelector(`[data-key="${key}"]`);
+						break;
+					default:return;
+				}
+				if(li)delete selected.dataset.active;
+				(li||selected).dataset.active=key;
+				to.focus();
+				function isValid(li){
+					return!(li instanceof HTMLElement)||li.style.display==="none"||(li.classList.contains("hideMod")&&/^\s*null/.test(document.getElementById("activeStyle2").innerHTML));
 				}
 			}
-			switch(input.toLowerCase()){
-				case "arrowup":
-				case "w":
-					li=selected;
+		}
+		else if(/^Page[UD]|^(Home|End|[zxZX])$/.test(event.key)){
+			event.preventDefault();
+			let mods=document.getElementById("mods"),
+			to,
+			key=mods.querySelector('li[data-selected="true"]'),
+			selected=mods.contains(active)?active:key||mods.querySelector("li:first-of-type");
+			switch(event.key){
+				case "PageUp":
+				case "x":
+				case "X":
+					to=selected;
 					do{
-						li=li.previousSibling;
-						if(!li)return;
-					}while(isValid(li));
-					to=li.querySelector(`[data-key="${key}"]`);
+						to=to.previousSibling;
+						if(!to)return;
+					}while(isValid(to))
 					break;
-				case "arrowdown":
-				case "s":
-					li=selected;
+				case "PageDown":
+				case "z":
+				case "Z":
+					to=selected;
 					do{
-						li=li.nextSibling;
-						if(!li)return;
-					}while(isValid(li));
-					to=li.querySelector(`[data-key="${key}"]`);
+						to=to.nextSibling;
+						if(!to)return;
+					}while(isValid(to))
 					break;
-				case "arrowright":
-				case "d":
-					key=(key+1)%3;
-					to=selected.querySelector(`[data-key="${key}"]`);
+				case "Home":
+					to=mods.querySelector("li:first-of-type");
 					break;
-				case "arrowleft":
-				case "a":
-					key=(key+2)%3;//(v-1)%m==(v-1+m)%m (For positive values)
-					to=selected.querySelector(`[data-key="${key}"]`);
+				case "End":
+					to=mods.querySelector("li:last-of-type");
 					break;
-				default:
-					console.warn("Key slipped: "+input);
-					return;
+				default:return;
 			}
-			if(li)delete selected.dataset.active;
-			(li||selected).dataset.active=key;
+			if(key)delete key.dataset.selected;
+			to.dataset.selected=true;
 			to.focus();
 			function isValid(li){
-				return!(li instanceof HTMLElement)||li.style.display==="none"||(li.classList.contains("hideMod")&&/^\s*null/.test(document.getElementById("activeStyle2").innerHTML));
+				return!(li instanceof HTMLElement)||li.style.display==="none";
 			}
 		}
-	}
-	else if(/^Page[UD]|^(Home|End|[zxZX])$/.test(event.key)){
-		event.preventDefault();
-		let mods=document.getElementById("mods"),
-		to,
-		key=mods.querySelector('li[data-selected="true"]'),
-		selected=mods.contains(active)?active:key||mods.querySelector("li:first-of-type");
-		switch(event.key){
-			case "PageUp":
-			case "x":
-			case "X":
-				to=selected;
-				do{
-					to=to.previousSibling;
-					if(!to)return;
-				}while(isValid(to))
-				break;
-			case "PageDown":
-			case "z":
-			case "Z":
-				to=selected;
-				do{
-					to=to.nextSibling;
-					if(!to)return;
-				}while(isValid(to))
-				break;
-			case "Home":
-				to=mods.querySelector("li:first-of-type");
-				break;
-			case "End":
-				to=mods.querySelector("li:last-of-type");
-				break;
-			default:
-				console.warn("Key slipped: "+input);
-				return;
+		else if(/^\d$/.test(event.key)){
+			let n=event.key==0?10:event.key;
+			if(event.altKey)n+10;
+			let el=document.querySelector(`#npcTab>li:nth-of-type(${n})>a`);
+			if(el)event.shiftKey?el.focus():el.click();
 		}
-		if(key)delete key.dataset.selected;
-		to.dataset.selected=true;
-		to.focus();
-		function isValid(li){
-			return!(li instanceof HTMLElement)||li.style.display==="none";
+		//Web Worker
+		else if(!(event.altKey||event.ctrlKey)){
+			navWorker.postMessage(event.key);
 		}
-	}
-	else if(/^\d$/.test(event.key)){
-		let n=event.key==0?10:event.key;
-		if(event.altKey)n+10;
-		let el=document.querySelector(`#npcTab>li:nth-of-type(${n})>a`);
-		if(el)event.shiftKey?el.focus():el.click();
-	}
-	//Web Worker
-	else if(!(event.altKey||event.ctrlKey)){
-		navWorker.postMessage(event.key);
-	}
-});
+	});
+}
