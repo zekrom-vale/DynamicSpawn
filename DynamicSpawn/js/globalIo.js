@@ -4,16 +4,13 @@ addEventListener("load",()=>{
 let prev;
 $("#speciesInput").on("keyup paste cut",function(){
 	if(event.key==="Tab"||event.key==="Enter")return;
-	var v=document.getElementById("searchOp").value;
-	v=[
-		v==0||v==1||v==1.5,
-		v==0||v==2||v==1.5,
-		v%3==0,
-		v%4==0
-	];
+	var searchWorker=new Worker("webWorker/search.js");
+	searchWorker.onmessage=function(e){
+		$(e.data.query).toggle(e.data.bool);
+	}
 	document.getElementById("body").setAttribute("aria-busy","true");
 	if(document.getElementById("RegExp").checked){
-		let elp=this.parentNode;
+		/*let elp=this.parentNode;
 		try{
 			var e=new RegExp($(this).val(),"ig");
 			$("#speciesList li,#npcList li").filter(function(){
@@ -30,38 +27,31 @@ $("#speciesInput").on("keyup paste cut",function(){
 		}catch(e){
 			elp.classList.add("err");
 			this.setAttribute("aria-invalid","true");
-		}
+		}*/
 	}
 	else{
 		//https://www.w3schools.com/bootstrap4/bootstrap_filters.asp
-		var value=$(this).val().trim().toLowerCase(),
-		match=prev?
-			value.indexOf(prev)!==-1?
-				1:prev.indexOf(value)?
-					-1:0
-			:0;
-		function exists(txt){
-			return txt.toLowerCase().indexOf(value)!==-1;
-		}
+		searchWorker.postMessage({
+			v:document.getElementById("searchOp").value,
+			value:$(this).val(),
+			prev:prev
+		});
 		$("#speciesList li,#npcList li").filter(function(){
 			let disp=this.style.display!=="none";
-			if(!(disp&&match===-1||!disp&&match===1)){
-				let bool=v[0]&&exists(this.querySelector('button.species').innerText);
-				if(!this.classList.contains("custom-species")){
-					bool=(
-						bool||
-						v[1]&&exists(this.getValue())||
-						v[3]&&exists(this.dataset.author)||
-						v[2]&&exists(this.dataset.mod)
-					);
-				}
-				if(bool!=disp)$(this).toggle(bool);
-			}
+			searchWorker.postMessage({
+				disp:disp,
+				query:`#${this.parentNode.id||this.parentNode.parentNode.id} li[value="${this.getValue()}"]`,
+				text:this.querySelector('button.species').innerText,
+				value:this.getValue(),
+				author:this.dataset.author,
+				mod:this.dataset.mod,
+				custom:this.classList.contains("custom-species")
+			});
 		});
-		$("#mods li").filter(function(){
+		/*$("#mods li").filter(function(){
 			$(this).toggle(exists(this.getValue()));
-		});
-		prev=value;
+		});*/
+		prev=$(this).val();
 	}
 	document.getElementById("body").removeAttribute("aria-busy");
 });
