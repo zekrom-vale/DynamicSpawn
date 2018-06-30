@@ -1,18 +1,31 @@
 var loop;
 onmessage=e=>{
-	if(e.data.init)loop=init(e);
+	if(e.data.init){
+		if(e.data.RegExp){
+			loop=init(e);
+			throw "RegExp";
+		}
+		else{
+			loop=init(e);
+			throw "done";
+		}
+	}
 	else loop(e);
 }
 
 function init(e){
 	var v=e.data.v,
-	value=e.data.value.trim().toLowerCase(),
 	prev=e.data.prev,
-	match=prev?
-		value.indexOf(prev)!==-1?
-			1:prev.indexOf(value)?
-				-1:0
-		:0;
+	value=e.data.value,
+	match=0;
+	if(!e.data.RegExp){
+		value=value.trim().toLowerCase(),
+		match=prev?
+			value.indexOf(prev)!==-1?
+				1:prev.indexOf(value)?
+					-1:0
+			:0;
+	}
 	v=[
 		v==0||v==1||v==1.5,
 		v==0||v==2||v==1.5,
@@ -20,7 +33,9 @@ function init(e){
 		v%4==0
 	];
 	return(function(){
-		var exists=txt=>txt.toLowerCase().indexOf(value)!==-1;
+		var exists=e.data.RegExp?
+			txt=>value.test(txt)
+			:txt=>txt.toLowerCase().indexOf(value)!==-1;
 		return e=>{
 			if(!(e.data.disp&&match===-1||!e.data.disp&&match===1)){
 				let bool=v[0]&&exists(e.data.text);

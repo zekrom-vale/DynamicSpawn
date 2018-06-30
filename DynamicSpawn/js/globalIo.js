@@ -7,38 +7,9 @@ searchWorker.onmessage=function(e){
 	$(e.data.query).toggle(e.data.bool);
 }
 
-$("#speciesInput").on("keyup paste cut",function(){
-	if(event.key==="Tab"||event.key==="Enter")return;
-	
-	document.getElementById("body").setAttribute("aria-busy","true");
-	if(document.getElementById("RegExp").checked){
-		/*let elp=this.parentNode;
-		try{
-			var e=new RegExp($(this).val(),"ig");
-			$("#speciesList li,#npcList li").filter(function(){
-				let bool=(
-					v[0]&&e.test(this.querySelector('button.species').innerText)||
-					v[1]&&e.test(this.getValue())||
-					v[3]&&e.test(this.dataset.author)||
-					v[2]&&e.test(this.dataset.mod)
-				)
-				if(bool!=(this.style.display==="none"))$(this).toggle(bool);
-			});
-			elp.classList.remove("err");
-			this.setAttribute("aria-invalid","false");
-		}catch(e){
-			elp.classList.add("err");
-			this.setAttribute("aria-invalid","true");
-		}*/
-	}
-	else{
-		//https://www.w3schools.com/bootstrap4/bootstrap_filters.asp
-		searchWorker.postMessage({
-			v:document.getElementById("searchOp").value,
-			value:$(this).val(),
-			prev:prev,
-			init:true
-		});
+searchWorker.onerror=function(e){
+	if(e.message==="Uncaught done"){
+		e.preventDefault();
 		$("#speciesList li,#npcList li").filter(function(){
 			let disp=this.style.display!=="none";
 			searchWorker.postMessage({
@@ -54,6 +25,53 @@ $("#speciesInput").on("keyup paste cut",function(){
 		/*$("#mods li").filter(function(){
 			$(this).toggle(exists(this.getValue()));
 		});*/
+	}
+	else if(e.message==="Uncaught RegExp"){
+		e.preventDefault();
+		$("#speciesList li,#npcList li").filter(function(){
+			let disp=this.style.display!=="none";
+			searchWorker.postMessage({
+				disp:disp,
+				query:`#${this.parentNode.id||this.parentNode.parentNode.id} li[value="${this.getValue()}"]`,
+				text:this.querySelector('button.species').innerText,
+				value:this.getValue(),
+				author:this.dataset.author,
+				mod:this.dataset.mod,
+				custom:this.classList.contains("custom-species")
+			});
+		});
+	}
+}
+
+$("#speciesInput").on("keyup paste cut",function(){
+	if(event.key==="Tab"||event.key==="Enter")return;
+	document.getElementById("body").setAttribute("aria-busy","true");
+	if(document.getElementById("RegExp").checked){
+		let e,
+		elp=this.parentNode;
+		try{
+			searchWorker.postMessage({
+				v:document.getElementById("searchOp").value,
+				value:new RegExp($(this).val(),"ig"),
+				prev:0,
+				init:true,
+				RegExp:true
+			});
+			elp.classList.remove("err");
+			this.setAttribute("aria-invalid","false");
+		}catch(e){
+			elp.classList.add("err");
+			this.setAttribute("aria-invalid","true");
+		}
+	}
+	else{
+		//https://www.w3schools.com/bootstrap4/bootstrap_filters.asp
+		searchWorker.postMessage({
+			v:document.getElementById("searchOp").value,
+			value:$(this).val(),
+			prev:prev,
+			init:true
+		});
 		prev=$(this).val();
 	}
 	document.getElementById("body").removeAttribute("aria-busy");
