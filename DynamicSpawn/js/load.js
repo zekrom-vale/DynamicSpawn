@@ -13,7 +13,7 @@ Object.freeze(elm);
 if(location.hash){
 	let hash=location.hash;
 	location.hash="npcGeneric";
-	dtTab(document.querySelector(`[data-hash="${hash}"]`));
+	dtTab(document.querySelector(`[data-hash="${hash}"]`),true);
 	location.hash=hash;
 }
 else location.hash="npcGeneric";

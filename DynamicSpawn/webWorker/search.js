@@ -3,11 +3,11 @@ onmessage=e=>{
 	if(e.data.init){
 		if(e.data.RegExp){
 			loop=init(e);
-			throw "RegExp";
+			throw "RegExp override:"+!!e.data.override;
 		}
 		else{
 			loop=init(e);
-			throw "done";
+			throw "done override:"+!!e.data.override;
 		}
 	}
 	else loop(e);
@@ -38,14 +38,18 @@ function init(e){
 			:txt=>txt.toLowerCase().indexOf(value)!==-1;
 		return e=>{
 			if(!(e.data.disp&&match===-1||!e.data.disp&&match===1)){
-				let bool=v[0]&&exists(e.data.text);
-				if(!e.data.custom){
-					bool=(
-						bool||
-						v[1]&&exists(e.data.value)||
-						v[3]&&exists(e.data.author)||
-						v[2]&&exists(e.data.mod)
-					);
+				let bool;
+				if(e.data.isMod)bool=exists(e.data.mod);
+				else{
+					bool=v[0]&&exists(e.data.text);
+					if(!e.data.custom){
+						bool=(
+							bool||
+							v[1]&&exists(e.data.value)||
+							v[3]&&exists(e.data.author)||
+							v[2]&&exists(e.data.mod)
+						);
+					}
 				}
 				if(bool!=e.data.disp)postMessage({query:e.data.query,bool:bool});
 			}

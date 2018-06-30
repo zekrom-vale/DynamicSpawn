@@ -30,7 +30,7 @@ addEventListener("load",()=>{
 	}
 });
 
-function dtTab(el){
+function dtTab(el,load){
 	var hash=el.dataset.hash;
 	{
 		let oldHash=location.hash,
@@ -50,6 +50,7 @@ function dtTab(el){
 	var li=document.querySelectorAll("#speciesList li"),
 	_l=li.length;
 	for(let i=0;i<_l;)li[i].setAttribute("aria-selected",li[i++].classList.contains("active-"+hash.slice(1)));
+	if(!load)search.call($("#speciesInput"),{},true);
 }
 
 {
