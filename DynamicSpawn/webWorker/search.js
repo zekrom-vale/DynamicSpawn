@@ -1,3 +1,4 @@
+"use strict";
 var loop;
 onmessage=e=>{
 	if(e.data.init){
