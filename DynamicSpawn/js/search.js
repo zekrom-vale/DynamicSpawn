@@ -3,9 +3,8 @@ var searchWorker=new Worker("webWorker/search.js");
 searchWorker.onmessage=e=>{
 	$(e.data.query).toggle(e.data.bool);
 }
-//Firefox does not work with this
 searchWorker.onerror=e=>{
-	if(/Uncaught (done|RegExp)/.test(e.message)){
+	if(/(done|RegExp)/.test(e.message)){
 		e.preventDefault();
 		var el=/override:true/.test(e.message)?
 			$("#npcList>div.active li"):
