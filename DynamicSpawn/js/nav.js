@@ -51,6 +51,14 @@ function dtTab(el){
 	_l=li.length;
 	for(let i=0;i<_l;)li[i].setAttribute("aria-selected",li[i++].classList.contains("active-"+hash.slice(1)));
 }
+var navWorker=new Worker("webWorker/nav.js");
+navWorker.onmessage=e=>{
+	if(act){
+		event.preventDefault();
+		document.getElementById(act[0])[act[1]]();
+	}
+}
+
 //addEventListener("keydown",e=>{console.log(e.key)});
 addEventListener("keydown",async function(event){
 	var active=document.activeElement;
@@ -164,40 +172,6 @@ addEventListener("keydown",async function(event){
 	}
 	//Web Worker
 	else if(!(event.altKey||event.ctrlKey)){
-		let act=keyAction(event.key.toLowerCase());
-		if(act){
-			event.preventDefault();
-			document.getElementById(act[0])[act[1]]();
-		}
+		navWorker.postMessage(event.key);
 	}
 });
-
-function keyAction(key){
-	switch(key){
-		case "r":
-		case "scrolllock":
-			return ["RegExpS","click"];
-		case "delete":
-			return ["removeAll","click"];
-		case "-":
-		case "_":
-		case "backspace":
-			return ["removeVisible","click"];
-		case "=":
-		case "+":
-			return ["addVisible","click"];
-		case "e":
-			return ["iexport","click"];
-		case "i":
-		case "insert":
-			return ["imp","click"];
-		case " ":
-		//case "end":
-			return ["download","click"];
-//
-		case "f":
-			return ["speciesInput","focus"];
-		case "o":
-			return ["searchOp","focus"];
-	}
-}
