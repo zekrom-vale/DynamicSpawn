@@ -1,5 +1,5 @@
 "use strict";
-addEventListener("load",()=>{
+addEventListener("DOMContentLoaded",()=>{
 //--------------- Filter ---------------
 $("#speciesInput").on("keyup paste cut",search);
 

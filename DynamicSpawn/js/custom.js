@@ -1,5 +1,5 @@
 "use strict";
-addEventListener("load",()=>{
+addEventListener("DOMContentLoaded",()=>{
 document.getElementById("speciesInput").addEventListener("keydown",function(event){
 	if(event.key==="Tab"){
 		event.preventDefault();
