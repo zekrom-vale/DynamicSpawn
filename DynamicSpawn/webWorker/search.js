@@ -3,23 +3,23 @@ var loop;
 onmessage=e=>{
 	if(e.data.init){
 		if(e.data.RegExp){
-			loop=init(e);
+			loop=init(e.data);
 			throw "RegExp override:"+!!e.data.override;
 		}
 		else{
-			loop=init(e);
+			loop=init(e.data);
 			throw "done override:"+!!e.data.override;
 		}
 	}
-	else loop(e);
+	else loop(e.data);
 }
 
-function init(e){
-	var v=e.data.v,
-	prev=e.data.prev,
-	value=e.data.value,
+function init(data){
+	var v=data.v,
+	prev=data.prev,
+	value=data.value,
 	match=0;
-	if(!e.data.RegExp){
+	if(!data.RegExp){
 		value=value.trim().toLowerCase(),
 		match=prev?
 			value.indexOf(prev)!==-1?
@@ -34,25 +34,24 @@ function init(e){
 		v%4==0
 	];
 	return(function(){
-		var exists=e.data.RegExp?
-			txt=>value.test(txt)
-			:txt=>txt.toLowerCase().indexOf(value)!==-1;
-		return e=>{
-			if(!(e.data.disp&&match===-1||!e.data.disp&&match===1)){
+		var exists=data.RegExp?
+			txt=>value.test(txt):txt=>txt.toLowerCase().indexOf(value)!==-1;
+		return data=>{
+			if(!(data.disp&&match===-1||!data.disp&&match===1)){
 				let bool;
-				if(e.data.isMod)bool=exists(e.data.mod);
+				if(data.isMod)bool=exists(data.mod);
 				else{
-					bool=v[0]&&exists(e.data.text);
-					if(!e.data.custom){
+					bool=v[0]&&exists(data.text);
+					if(!data.custom){
 						bool=(
 							bool||
-							v[1]&&exists(e.data.value)||
-							v[3]&&exists(e.data.author)||
-							v[2]&&exists(e.data.mod)
+							v[1]&&exists(data.value)||
+							v[3]&&exists(data.author)||
+							v[2]&&exists(data.mod)
 						);
 					}
 				}
-				if(bool!=e.data.disp)postMessage({query:e.data.query,bool:bool});
+				if(bool!=data.disp)postMessage({query:data.query,bool:bool});
 			}
 		}
 	})();
