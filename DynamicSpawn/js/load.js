@@ -85,7 +85,7 @@ document.getElementById("npcList").removeAttribute("aria-busy");
 //--------------- Set Data ---------------
 addEventListener("beforeunload",()=>{
 	setData("value",JSON.stringify(encodeLi()),90);
-	setData("mods",`${JSON.stringify(getMods())}`,60);
+	setData("mods",JSON.stringify(getMods()),60);
 	function getMods(){
 		var mods=document.querySelectorAll('#mods>li[aria-selected="true"]'),
 		arr=[];
