@@ -1,6 +1,9 @@
-addEventListener('install',function(event){
+"use strict";
+var v='d0';
+
+addEventListener('install',event=>{
 	event.waitUntil(
-		caches.open('v1').then(cache=>{
+		caches.open(v).then(cache=>{
 			return cache.addAll([
 				'/',
 				'/css/',
@@ -70,11 +73,29 @@ addEventListener('fetch',event=>{
 	event.respondWith(
 		caches.match(event.request).then(resp=>{
 			return resp||fetch(event.request).then(response=>{
-				return caches.open('v1').then(cache=>{
+				return caches.open(v).then(cache=>{
 					cache.put(event.request,response.clone());
 					return response;
 				});
-			})//.catch(()=>caches.match('/sw-test/gallery/myLittleVader.jpg'))
+			}).catch(()=>caches.match('/img/tab_other.png'));
 		})
 	);
 });
+
+addEventListener('activate',event=>{
+	event.waitUntil(
+		caches.keys().then(keyList=>{
+			return Promise.all(keyList.map(key=>{
+				if(key!==v)return caches.delete(key);
+			}));
+		})
+	);
+});
+/*
+function folder(f){
+	f=`/${f}/`;
+	var arr=[f],
+	_a=arguments.length;
+	for(let i=1;i<_a;i++)arr[i]=f+arguments[i];
+	return arr;
+}*/
