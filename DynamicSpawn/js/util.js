@@ -96,7 +96,7 @@ function info(m,t="danger",id,loc){
 	var div;
 	if(id&&document.getElementById(id)){
 		div=document.getElementById(id);
-		div.classList.value="";
+		div.classList.value=div.innerHTML="";
 	}
 	else{
 		div=document.createElement("div");
@@ -107,11 +107,11 @@ function info(m,t="danger",id,loc){
 			btn.innerHTML="&times;";
 		div.appendChild(btn);
 		document.getElementById("container").prepend(div);
+		div.setAttribute("roll","alert");
 	}
 		div.appendChild(typeof m==="string"?document.createTextNode(m):m);
 		div.classList.add("alert","alert-"+t,"alert-dismissible");
 	loc?div.classList.add("loc"):scrollTo(0,0);
-	div.setAttribute("roll","alert");
 }
 
 HTMLElement.prototype.empty=function(){
@@ -120,6 +120,11 @@ HTMLElement.prototype.empty=function(){
 HTMLElement.prototype.getValue=function(){
 	return this.getAttribute("value");
 }
-HTMLElement.prototype.removeClass=function(){
-	this.classList.value="";
+
+function getQueryString(path,raw){
+	path=path+"=";
+	var query=location.search.slice(1).split("&");
+	for(let i of query)if(i.indexOf(path)===0){
+		return raw?i:decodeURIComponent(i.slice(path.length).replace(/\+/g,"%20"));
+	}
 }

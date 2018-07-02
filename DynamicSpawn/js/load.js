@@ -21,9 +21,9 @@ else location.hash="npcGeneric";
 {
 	let speciesList=document.querySelectorAll("#speciesList>li"),
 	_s=speciesList.length;
-	for(let i=0;i<_s;i++){
-		speciesList[i].setAttribute("aria-posinset",i+1);
+	for(let i=0;i<_s;){
 		speciesList[i].setAttribute("aria-setsize",_s);
+		speciesList[i].setAttribute("aria-posinset",++i);
 	}
 }
 let c=getData("value");
@@ -96,9 +96,9 @@ addEventListener("beforeunload",()=>{
 });
 
 if('serviceWorker' in navigator){
-	//https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers
-	navigator.serviceWorker.register('/serviceWorker.js',{scope:'/'})
-	.catch(function(e){
-		console.log('Registration failed with '+e);
+//https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers
+	navigator.serviceWorker.register('/serviceWorker.js',{scope:'/'})//>
+	.catch(e=>{
+		throw e;
 	});
 }
