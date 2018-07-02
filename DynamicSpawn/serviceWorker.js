@@ -1,10 +1,10 @@
 "use strict";
-var v='d0';
+const v='d0';
 
 addEventListener('install',event=>{
 	event.waitUntil(
-		caches.open(v).then(cache=>{
-			return cache.addAll([
+		caches.open(v).then(cache=>
+			cache.addAll([
 				'/',
 				'/css/',
 					'/css/animation.css',
@@ -65,30 +65,31 @@ addEventListener('install',event=>{
 				'/serviceWorker.js',
 				'/index.xml'
 			]);
-		})
+		)
 	);
 });
 
 addEventListener('fetch',event=>{
+	var req=event.request;
 	event.respondWith(
-		caches.match(event.request).then(resp=>{
-			return resp||fetch(event.request).then(response=>{
-				return caches.open(v).then(cache=>{
-					cache.put(event.request,response.clone());
-					return response;
+		caches.match(req).then(resp=>
+			resp||fetch(req).then(resp=>
+				caches.open(v).then(cache=>{
+					cache.put(req,resp.clone());
+					return resp;
 				});
-			}).catch(()=>caches.match('/img/tab_other.png'));
-		})
+			).catch(()=>caches.match('/img/tab_other.png'));
+		)
 	);
 });
 
 addEventListener('activate',event=>{
 	event.waitUntil(
-		caches.keys().then(keyList=>{
-			return Promise.all(keyList.map(key=>{
+		caches.keys().then(keyList=>
+			Promise.all(keyList.map(key=>{
 				if(key!==v)return caches.delete(key);
 			}));
-		})
+		)
 	);
 });
 /*
