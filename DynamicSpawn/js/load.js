@@ -2,13 +2,35 @@
 var saveData;
 const elm={};
 
-addEventListener("load",()=>{
+addEventListener("DOMContentLoaded",()=>{
 //--------------- Set Up References ---------------
 if(elm.length>0)for(let i in elm)elm[i]=null;
 elm.npcTab=document.getElementById("npcTab");
 elm.speciesList=document.getElementById("speciesList");
 elm.npcList=document.getElementById("npcList");
 Object.freeze(elm);
+{
+	let speciesList=document.querySelectorAll("#speciesList>li");
+	const _s=speciesList.length;
+	for(let i=0;i<_s;){
+		speciesList[i].setAttribute("aria-setsize",_s);
+		speciesList[i].setAttribute("aria-posinset",++i);
+	}
+}
+//--------------- Species Cookie Value ---------------
+let item=getData("value");
+if(item){
+	item=JSON.parse(item);
+	for(let i in item)if(i!=="key"){
+		let index=item[i].split(",");
+		i="npc"+i;
+		for(let n in index)setLi(i,item.key[parseInt(index[n],36)]);
+	}
+}
+setMods(JSON.parse(getData("mods")));
+//--------------- Tooltip ---------------
+$('[data-toggle="tooltip"]').tooltip();
+$('[data-toggle="popover"]').popover();
 //--------------- Location ---------------
 if(location.hash){
 	let hash=location.hash;
@@ -17,40 +39,19 @@ if(location.hash){
 	location.hash=hash;
 }
 else location.hash="npcGeneric";
-//--------------- Species Cookie Value ---------------
-{
-	let speciesList=document.querySelectorAll("#speciesList>li"),
-	_s=speciesList.length;
-	for(let i=0;i<_s;){
-		speciesList[i].setAttribute("aria-setsize",_s);
-		speciesList[i].setAttribute("aria-posinset",++i);
-	}
-}
-let c=getData("value");
-if(c){
-	let item=JSON.parse(c);
-	for(let i in item)if(i!=="key"){
-		let index=item[i].split(",");
-		i="npc"+i;
-		for(let n in index)setLi(i,item.key[parseInt(index[n],36)]);
-	}
-}
+});
 
-//--------------- Tooltip ---------------
-$('[data-toggle="tooltip"]').tooltip();
-$('[data-toggle="popover"]').popover();
-setMods(JSON.parse(getData("mods")));
+addEventListener("load",()=>{
 {//--------------- Get Path ---------------
 	let el=document.getElementById("path"),
 	q=location.search.slice(1).split("&"),
 	qi,
-	//Web Worker
 	sys=(function(){return /System Path/i.test(qi);})();
 	for(let i of q)if(/^path=/i.test(i)){
 		qi=decodeURIComponent(i.slice(5).replace(/\+/g,"%20")+"\\");
 		continue;
-	}//		Return v
-	if(/^[a-z]:([\\\/][^\\\/:*?"<>|]+)+[\\\/]$/i.test(qi)&&!sys){//Web Worker End
+	}
+	if(/^[a-z]:([\\\/][^\\\/:*?"<>|]+)+[\\\/]$/i.test(qi)&&!sys){
 		el.value=qi;
 		let arr=["warning",null,1],
 		reg="[\\\/]steamapps[\\\/]common[\\\/]Starbound[\\\/]mods[\\\/]";
@@ -72,12 +73,9 @@ setMods(JSON.parse(getData("mods")));
 		el.value=sys?"Cannot Be a System URL":qi?"Invalid URL":e();
 	}
 	function tourInit(){
-		var script=document.createElement("script");
-		script.src="js/tour.js";
-		document.head.appendChild(script);
+		document.head.appendChild(node("script",null,{src:"js/tour.js"}));
 	}
 }
-document.getElementById("load").remove();
 if(/Edge/.test(navigator.userAgent))info("Edge is not fully supported","danger",null,true);
 document.getElementById("npcList").removeAttribute("aria-busy");
 });
@@ -97,8 +95,5 @@ addEventListener("beforeunload",()=>{
 
 if('serviceWorker' in navigator){
 //https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers
-	navigator.serviceWorker.register('/serviceWorker.js',{scope:'/'})//>
-	.catch(e=>{
-		throw e;
-	});
+	navigator.serviceWorker.register('/serviceWorker.js',{scope:'/'});
 }

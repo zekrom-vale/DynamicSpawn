@@ -66,11 +66,6 @@
 	<a id="save"></a>
 	<input type="file" id="iimport" accept=".DyS.json"/>
 </div>
-<div id="load" class="center">
-	<h1 id="loadh1">Loading Scripts</h1>
-	<h3>Please Wait</h3>
-	<div class="loader" roll="progressbar" aria-labelledby="loadh1"></div>
-</div>
 <div id="base">
 	<nav class="&n; bg-dark sticky-top justify-content-center btn-group" roll="menubar" data-no="print" tabindex="0" id="menubar">
 		<button class="&bt;danger" id="removeAll" data-toggle="popover" data-placement="top" data-trigger="hover" title="Remove All Elements" tabindex="-1" roll="menuitem" aria-keyshortcuts="Delete">
