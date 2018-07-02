@@ -62,24 +62,22 @@ function encodeLi(){
 }
 
 var baseLi=(function(){
-	var btnB=document.createElement("button");
-		btnB.classList.add("btn");
-	var li=document.createElement("li");
-		li.classList.add("list-group-item");
+	var btnB=node("button",null,{class:"btn"});
 	var btn=btnB.cloneNode();
 		btn.classList.add("btn-dark","species");
-	var div=document.createElement("div");
-		div.classList.add("btn-group","species-group");
+	var div=node("div",null,{class:"btn-group species-group"})
 		btnB.classList.add("btn-secondary");
 		var all=btnB.cloneNode();
 			all.innerHTML="Add to All";
 			btnB.innerHTML="Remove from All";
 		div.append(all,btnB);
-	var img=document.createElement("img");
-		img.classList.add("off");
-	var img2=document.createElement("img");
-		img2.classList.add("on");
-	return[li,btn,img,img2,div];
+	return[
+		node("li",null,{class:"list-group-item"}),
+		btn,
+		node("img",null,{class:"off"}),
+		node("img",null,{class:"on"}),
+		div
+	];
 }());
 
 function readyLi(li){
