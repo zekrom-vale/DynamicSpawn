@@ -92,24 +92,20 @@ function alertModal(mh,mb,f,focus="ok"){
 }
 
 function info(m,t="danger",id,loc){
-	var div;
-	if(id&&document.getElementById(id)){
-		div=document.getElementById(id);
-		div.classList.value=div.innerHTML="";
-	}
+	var div=document.getElementById(id);
+	if(div)div.classList.value=div.innerHTML="";
 	else{
 		div=document.createElement("div");
-			if(id)div.id=id;
-		var btn=document.createElement("button");
-			btn.classList.add("close");
-			btn.dataset.dismiss="alert";
-			btn.innerHTML="&times;";
-		div.appendChild(btn);
-		document.getElementById("container").prepend(div);
+		if(id)div.id=id;
 		div.setAttribute("roll","alert");
+		document.getElementById("container").prepend(div);
 	}
-		div.appendChild(typeof m==="string"?document.createTextNode(m):m);
-		div.classList.add("alert","alert-"+t,"alert-dismissible");
+	div.appendChild(typeof m==="string"?
+		document.createTextNode(m):
+			Array.isArray(m)?node(...m):m
+	);
+	div.appendChild(node("button","&times;",{class:"close","data-dismiss":"alert"},true));
+	div.classList.add("alert","alert-"+t,"alert-dismissible");
 	loc?div.classList.add("loc"):scrollTo(0,0);
 }
 
