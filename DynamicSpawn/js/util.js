@@ -2,7 +2,7 @@
 addEventListener("load",()=>{
 saveData=(function(){
 	var a=document.getElementById("save");
-	return (data,fileName,t)=>{
+	return(data,fileName,t)=>{
 		let url=URL.createObjectURL(new Blob([t?data:JSON.stringify(data)],{type:"octet/stream"}));
 		a.href=url;
 		a.download=fileName;
@@ -18,10 +18,6 @@ if(localStorage){
 	setData=(v,s)=>{localStorage.setItem(v,s);};
 }
 else{
-	function dP(a){
-		let d=new Date();
-		return d.setTime(d.getTime()+(a*864e+5)).toUTCString();
-	}
 	getData=n=>{
 		var ca=decodeURIComponent(document.cookie).split(';');
 		const _n=n.length+1;
@@ -29,7 +25,10 @@ else{
 		for(let i of ca)if(n.test(i))return i.slice(_n);
 	}
 	setData=(v,s,e=60)=>{
-		document.cookie=v+`=${s};expires=`+dP(e);
+		document.cookie=v+`=${s};expires=`+(function(){
+			let d=new Date();
+			return d.setTime(d.getTime()+(e*864e+5)).toUTCString();
+		}());
 	}
 }
 
