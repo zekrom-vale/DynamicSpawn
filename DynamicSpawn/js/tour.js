@@ -15,8 +15,9 @@ var sP=(function(){
 	var dN=new CustomEvent("dN"),
 	dE=new CustomEvent("dE"),
 	die=(el,exit)=>{
-		$(el).popover("dispose");
-		document.querySelector(el).dispatchEvent(exit?dE:dN);
+		el=$(el);
+		el.popover("dispose");
+		el[0].dispatchEvent(exit?dE:dN);
 	};
 	return n=>{//Automatically includes the local scopes
 		if(n.func)n.func();
@@ -62,7 +63,6 @@ ${n.last?"":'<button class="btn btn-primary" id="dieN" data-nav="false">Next</bu
 	};
 })();
 
-
 (async function(){
 	info(
 		new nodes(
@@ -70,8 +70,6 @@ ${n.last?"":'<button class="btn btn-primary" id="dieN" data-nav="false">Next</bu
 			new node("a","localStorage",{
 				href:"https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API"
 			}),
-			" is the modern version of cookies and is more secure. However, few sites use this feature."
-		).wrap("p"),
 	"warning","localStorage",true);
 	var tours=[{
 		h:"nav.bg-dark",
