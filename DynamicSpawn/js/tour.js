@@ -11,8 +11,8 @@ if(/firefox/i.test(navigator.userAgent)){
 	"warning");
 }
 
-var sP=(function(){
-	var dN=new CustomEvent("dN"),
+const sP=(function(){
+	const dN=new CustomEvent("dN"),
 	dE=new CustomEvent("dE"),
 	die=(el,exit)=>{
 		el=$(el);
@@ -67,7 +67,7 @@ ${n.last?"":'<button class="btn btn-primary" id="dieN" data-nav="false">Next</bu
 	info(
 		new nodes(
 			"Although, no personal information is stored, this site use localStorage to save your choices, and cookies as a fallback. ",
-			new node("a","localStorage",{
+			node("a","localStorage",{
 				href:"https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API"
 			}),
 			" is the modern version of cookies and is more secure.",
@@ -75,7 +75,7 @@ ${n.last?"":'<button class="btn btn-primary" id="dieN" data-nav="false">Next</bu
 			" However, few sites use this feature."
 		).contain(),
 	"warning","localStorage",true);
-	var tours=[{
+	const tours=[{
 		h:"nav.bg-dark",
 		title:"Global control buttons",
 		cont:"This apples to all species in the selected group.\nShift:All selected species groups."
@@ -128,9 +128,8 @@ ${n.last?"":'<button class="btn btn-primary" id="dieN" data-nav="false">Next</bu
 	setData("return","true",50);
 	function move(event){
 		if(/Arrow(Righ|Lef)t/.test(event.key)){
-			var popup=document.querySelector("div.popover-body"),
-			active=document.activeElement;
-			if(popup.contains(active)){
+			var active=document.activeElement;
+			if(document.querySelector("div.popover-body").contains(active)){
 				if(active.id==="dieN")document.getElementById("dieE").focus();
 				else{
 					let dieN=document.getElementById("dieN");
