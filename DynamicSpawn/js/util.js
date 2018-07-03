@@ -122,9 +122,8 @@ HTMLElement.prototype.getValue=function(){
 }
 
 function getQueryString(path,raw){
-	path=path+"=";
-	var query=location.search.slice(1).split("&");
-	for(let i of query)if(i.indexOf(path)===0){
-		return raw?i:decodeURIComponent(i.slice(path.length).replace(/\+/g,"%20"));
-	}
+	var query=location.search.slice(1).split("&"),
+	reg=new RegExp(`^${path}=`);
+	path=path.length+1;
+	for(let i of query)if(reg.test(i))return raw?i:decodeURIComponent(i.slice(path).replace(/\+/g,"%20"));
 }
