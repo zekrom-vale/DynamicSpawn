@@ -62,7 +62,8 @@ class nodesCore{
 			}
 		}
 		this.node=stack;
-		//delete (stack.querySelector('[data-topnodestack="true"]')||stack).dataset.topnodestack;
+		stack=stack.cloneNode();
+		delete (stack.querySelector('[data-topnodestack="true"]')||stack).dataset.topnodestack;
 		return stack;
 	}
 	wrapNSDefault(namespace){//namespace,[parent,attr]||parent
@@ -82,7 +83,8 @@ class nodesCore{
 			}
 		}
 		this.node=stack;
-		//delete (stack.querySelector('[data-topnodestack="true"]')||stack).dataset.topnodestack;
+		stack=stack.cloneNode(1);
+		delete(stack.querySelector('[data-topnodestack="true"]')||stack).dataset.topnodestack;
 		return stack;
 	}
 	contain(){
@@ -139,7 +141,8 @@ class nodes extends nodesCore{
 			}
 		}
 		this.node=stack;
-		//delete (stack.querySelector('[data-topnodestack="true"]')||stack).dataset.topnodestack;
+		stack=stack.cloneNode(1);
+		delete(stack.querySelector('[data-topnodestack="true"]')||stack).dataset.topnodestack;
 		return stack;
 	}
 	attribute(obj){
@@ -223,7 +226,8 @@ class nodesNS extends nodesCore{
 			}
 		}
 		this.node=stack;
-		//delete (stack.querySelector('[data-topnodestack="true"]')||stack).dataset.topnodestack;
+		stack=stack.cloneNode(1);
+		delete(stack.querySelector('[data-topnodestack="true"]')||stack).dataset.topnodestack;
 		return stack;
 	}
 	wrap(){
