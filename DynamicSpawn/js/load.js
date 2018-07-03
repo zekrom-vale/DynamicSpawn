@@ -57,26 +57,40 @@ addEventListener("load",()=>{
 		reg="[\\\/]steamapps[\\\/]common[\\\/]Starbound[\\\/]mods[\\\/]";
 		if(new RegExp(reg+"?$").test(qi))info("Warning: Local Component Should not be In the Root of Mods",...arr);
 		else if(!new RegExp(reg+'[^\\\/:*?"<>|]+[\\\/]?$').test(qi))info("Warning: Local Component Not in Starbound's Mod Folder",...arr);
-		if(!getData("return"))tourInit();
+		tourInit();
 	}
 	else{
-		let e=()=>{
-			alertModal("No path found","Would you like to download the local component of Dynamic Spawn?<br/>If not, you still can create a list for later",{
+		el.id+="2";
+		el.value=sys?"Cannot Be a System URL":qi?"Invalid URL":(function(){
+			let win=/Windows/.test(navigator.userAgent);
+			alertModal("No path found",`Would you like to download the local component of Dynamic Spawn?<br/>If not, you still can create a list for later.${win?"":" <br/>Warning: the local component is compatable with Windows systems only."}`,{
 				"resolve":[()=>{location.assign("https://github.com/zekrom-vale/DynamicSpawn/releases")}],
 				"reject":[()=>{
 						document.getElementById("download").disabled=true;
-						if(!getData("return"))tourInit();
+						tourInit();
 					}]
 			},"cancel");
-		}
-		el.id+="2";
-		el.value=sys?"Cannot Be a System URL":qi?"Invalid URL":e();
+		}());
 	}
 	function tourInit(){
-		document.head.appendChild(node("script",null,{src:"js/tour.js"}));
+		if(!getData("return"))document.head.appendChild(node("script",null,{src:"js/tour.js"}));
 	}
 }
-if(/Edge/.test(navigator.userAgent))info("Edge is not fully supported","danger",null,true);
+if(/Edge|Trident/.test(navigator.userAgent))info(
+	new nodes(
+		"Edge is not fully supported, some functions ",
+		new nodes(
+			"will not ",
+			node("u","work")
+		).wrap("b"),
+		". Explorer ",
+		new nodes(
+			"will not work ",
+			node("u","at all")
+		).wrap("b"),
+		"! Due to the lack of modern scripting support."
+	).wrap("div"),
+"danger",null,true);
 document.getElementById("npcList").removeAttribute("aria-busy");
 });
 
@@ -93,7 +107,5 @@ addEventListener("beforeunload",()=>{
 	}
 });
 
-if('serviceWorker' in navigator){
+if('serviceWorker' in navigator)navigator.serviceWorker.register('/serviceWorker.js',{scope:'/'});
 //https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers
-	navigator.serviceWorker.register('/serviceWorker.js',{scope:'/'});
-}

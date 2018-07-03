@@ -4,19 +4,20 @@ document.getElementById("speciesInput").addEventListener("keydown",function(even
 	if(event.key==="Tab"){
 		event.preventDefault();
 		var species=this.value,
-		el=customSetUp(species);
+		el=customSetUp(species),
+		query=`#npcList li[value="${species}"]`;
 		if(event.shiftKey)loop(".nav-link-sel>a");
 		else if(event.ctrlKey)loop("li>.nav-link");
 		else{
 			let ul=document.querySelector(location.hash+">ul");
-			if(!ul.querySelector(`#npcList li[value="${species}"]`))ul.prepend(readyLi(el));
+			if(!ul.querySelector(query))ul.prepend(readyLi(el));
 		}
 		function loop(els){
 			els=$(els);
 			const _l=els.length;
 			for(let i=0;i<_l;i++){
 				let ul=document.querySelector(els[i].dataset.hash+">ul");
-				if(!ul.querySelector(`#npcList li[value="${species}"]`))ul.prepend(readyLi(el.cloneNode(1)));
+				if(!ul.querySelector(query))ul.prepend(readyLi(el.cloneNode(1)));
 			}
 		}
 	}
