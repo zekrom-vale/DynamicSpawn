@@ -7,7 +7,7 @@ if(/firefox/i.test(navigator.userAgent)){
 		node("a","Mozilla Support.",{
 			href:"https://support.mozilla.org/en-US/questions/974774"
 		})
-	).wrap("div"),
+	).contain(),
 	"warning");
 }
 
@@ -70,6 +70,10 @@ ${n.last?"":'<button class="btn btn-primary" id="dieN" data-nav="false">Next</bu
 			new node("a","localStorage",{
 				href:"https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API"
 			}),
+			" is the modern version of cookies and is more secure.",
+			node("abbr","*",{title:"This is not as secure as server side information, but is incomparable with GitHub sites (A static server)."}),
+			" However, few sites use this feature."
+		).contain(),
 	"warning","localStorage",true);
 	var tours=[{
 		h:"nav.bg-dark",

@@ -84,7 +84,7 @@ if(/Edge|Trident/.test(navigator.userAgent))info(
 			node("u","at all")
 		).wrap("b"),
 		"! Due to the lack of modern scripting support."
-	).wrap("div"),
+	).contain(),
 "danger",null,true);
 document.getElementById("npcList").removeAttribute("aria-busy");
 });

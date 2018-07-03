@@ -85,6 +85,11 @@ class nodesCore{
 		//delete (stack.querySelector('[data-topnodestack="true"]')||stack).dataset.topnodestack;
 		return stack;
 	}
+	contain(){
+		var fragment=new DocumentFragment();
+		fragment.append(...this.arr);
+		return fragment.cloneNode(1);
+	}
 }
 
 class nodes extends nodesCore{
