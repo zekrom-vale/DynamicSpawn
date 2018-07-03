@@ -2,12 +2,10 @@
 <!DOCTYPE html[
 <!ENTITY nbsp "&#160;">
 <!ENTITY x "&#10005;">
-<!ENTITY b "bootstrap">
 <!ENTITY bt "btn btn-">
 <!ENTITY w "-warning">
 <!ENTITY n "navbar">
 <!ENTITY m "modal">
-<!ENTITY H "https://">
 ]>
 <x:stylesheet version="1.0" xmlns:x="http://www.w3.org/1999/XSL/Transform">
 	<x:import href="template.xsl"/>
@@ -21,16 +19,16 @@
 		)
 		,'idm','')"/>
 	</x:variable>
-<html xmlns:info="https://info" lang="en-US" info:author="zekrom-vale" info:game="Starbound">
+<html lang="en-US" data-author="zekrom-vale" data-game="Starbound">
 <!-- `xmlns` is automatically assigned to html elements-->
 <head id="top">
 	<meta charset="UTF-8"/>
 	<title>Dynamic Spawn Creator</title>
 	<meta http-equiv="Content-Security-Policy"><x:attribute name="content">
 		default-src 'self';
-		img-src 'self' &H;* data:;
-		script-src 'self' &H;maxcdn.&b;cdn.com &H;ajax.googleapis.com &H;cdnjs.cloudflare.com;
-		style-src 'self' &H;maxcdn.&b;cdn.com 'nonce-<x:value-of select="$nonce"/>';
+		img-src 'self' https://* data:;
+		script-src 'self' https://maxcdn.bootstrapcdn.com https://ajax.googleapis.com https://cdnjs.cloudflare.com;
+		style-src 'self' https://maxcdn.bootstrapcdn.com 'nonce-<x:value-of select="$nonce"/>';
 	</x:attribute></meta>
 	<meta http-equiv="Content-Security-Policy" content="block-all-mixed-content; object-src 'none'; media-src 'none';manifest-src 'none';"/>
 	<x:for-each select="root/meta/*|root/meta/*/@*">
@@ -41,7 +39,7 @@
 	<link rel="canonical" hreflang="en" href="https://zekrom-vale.github.io/DynamicSpawn/index.xml"/>
 	<link rel="icon" type="image/svg+xml" href="img/icon.svg"/>
 	<link rel="icon" type="image/png" href="img/icon.png"/>
-		<script src="&H;ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"/>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"/>
 		<script src="js/util.js"/>
 		<script src="js/node.js"/>
 		<script src="js/load.js"/>
@@ -51,8 +49,8 @@
 		<script defer="defer" src="js/nav.js"/>
 		<script defer="defer" src="js/search.js"/>
 		<script defer="defer" src="js/custom.js"/>
-		<script defer="defer" src="&H;cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"/>
-		<script defer="defer" src="&H;maxcdn.&b;cdn.com/&b;/4.1.0/js/&b;.min.js"/>
+		<script defer="defer" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"/>
+		<script defer="defer" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"/>
 		<style id="activeStyle2" nonce="{$nonce}">
 			.hideMod{
 				display:none!important;
@@ -100,7 +98,7 @@
 		<button class="&bt;info" aria-keyshortcuts=" " id="download" tabindex="-1" roll="menuitem">Download Mod</button>
 	</nav>
 	<nav class="&n; bg&w; justify-content-center" data-no="print"><h6 roll="note">
-		<b>ALERT</b>: The species list is a work in progress, if you find something wrong please <a href="&H;github.com/zekrom-vale/DynamicSpawn/issues">create an issue!</a>
+		<b>ALERT</b>: The species list is a work in progress, if you find something wrong please <a href="https://github.com/zekrom-vale/DynamicSpawn/issues">create an issue!</a>
 	</h6></nav>
 	<br/>
 	<div class="container-fluid row" id="container" roll="window">
@@ -112,8 +110,8 @@
 		</aside>
 		<main roll="input" class="col-sm-12 col-md-9 col-lg-7" id="body">
 			<div class="alert alert-success d-flex">
-				<div class="p-2">Path<span id="toLocal"> to Local</span>:&nbsp;</div>
-				<input class="p-2 flex-grow-1 code" id="path" disabled="disabled" name="path" aria-readonly="true"/>
+				<div>Path<span id="toLocal"> to Local</span>:&nbsp;</div>
+				<input class="flex-grow-1 code" id="path" disabled="disabled" name="path" aria-readonly="true"/>
 			</div>
 			<div id="speciesContainer">
 				<form class="form-control" roll="group" id="speciesLabel" aria-label="Search controls">
