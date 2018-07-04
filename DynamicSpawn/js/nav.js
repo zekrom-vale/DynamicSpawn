@@ -1,6 +1,6 @@
 addEventListener("load",()=>{
-	let els=document.querySelectorAll(".nav-link");
-	const _l=els.length;
+	const els=document.querySelectorAll(".nav-link"),
+	_l=els.length;
 	for(let i=0;i<_l;i++){
 		els[i].addEventListener("click",tabInteract,true);
 		els[i].addEventListener("keyup",tabEnter,true);
@@ -31,13 +31,13 @@ addEventListener("load",()=>{
 });
 
 function dtTab(el,load){
-	var hash=el.dataset.hash;
+	const hash=el.dataset.hash;
 	{
-		let oldHash=location.hash,
+		const oldHash=location.hash,
 		list=document.getElementById(hash.slice(1));
 		document.querySelector(`[data-hash="${oldHash}"]`).classList.remove("show","active");
 		{
-			let old=document.getElementById(oldHash.slice(1))
+			const old=document.getElementById(oldHash.slice(1))
 			old.classList.remove("active");
 			old.setAttribute("aria-hidden","true");
 		}
@@ -47,14 +47,14 @@ function dtTab(el,load){
 		list.classList.remove("fade");
 		location.hash=hash;
 	}
-	var li=document.querySelectorAll("#speciesList li"),
+	const li=document.querySelectorAll("#speciesList li"),
 	_l=li.length;
 	for(let i=0;i<_l;)li[i].setAttribute("aria-selected",li[i++].classList.contains("active-"+hash.slice(1)));
 	if(!load)search.call($("#speciesInput"),{},true);
 }
 
 {
-	var navWorker=new Worker("webWorker/nav.js");
+	const navWorker=new Worker("webWorker/nav.js");
 	navWorker.onmessage=e=>{
 		let act=e.data;
 		if(act){
@@ -64,7 +64,7 @@ function dtTab(el,load){
 	}
 	//addEventListener("keydown",e=>{console.log(e.key)});
 	addEventListener("keydown",function(event){
-		var active=document.activeElement;
+		const active=document.activeElement;
 		if(/input|textarea/i.test(active.tagName)||active.dataset.nav==="false")return;
 		if(/^Arrow[ULDR]|^[wasdWASD]$/.test(event.key)){
 			if(event.shiftKey)move.call(document.querySelector("#npcList>.active>ul"),event.key);
@@ -125,33 +125,31 @@ function dtTab(el,load){
 		}
 		else if(/^Page[UD]|^(Home|End|[zxZX])$/.test(event.key)){
 			event.preventDefault();
-			let mods=document.getElementById("mods"),
-			to,
-			key=mods.querySelector('li[data-selected="true"]'),
-			selected=mods.contains(active)?active:key||mods.querySelector("li:first-of-type");
-			switch(event.key){
-				case "PageUp":
+			const mods=document.getElementById("mods")
+			let to,
+			key=mods.querySelector('li[data-selected="true"]');
+			const selected=mods.contains(active)?active:key||mods.querySelector("li:first-of-type");
+			switch(event.key.toLowerCase()){
+				case "pageup":
 				case "x":
-				case "X":
 					to=selected;
 					do{
 						to=to.previousSibling;
 						if(!to)return;
 					}while(isValid(to))
 					break;
-				case "PageDown":
+				case "pagedown":
 				case "z":
-				case "Z":
 					to=selected;
 					do{
 						to=to.nextSibling;
 						if(!to)return;
 					}while(isValid(to))
 					break;
-				case "Home":
+				case "home":
 					to=mods.querySelector("li:first-of-type");
 					break;
-				case "End":
+				case "end":
 					to=mods.querySelector("li:last-of-type");
 					break;
 				default:return;
@@ -165,11 +163,10 @@ function dtTab(el,load){
 		}
 		else if(/^\d$/.test(event.key)){
 			let n=event.key==0?10:event.key;
-			if(event.altKey)n+10;
-			let el=document.querySelector(`#npcTab>li:nth-of-type(${n})>a`);
+			if(event.altKey)n+=10;
+			const el=document.querySelector(`#npcTab>li:nth-of-type(${n})>a`);
 			if(el)event.shiftKey?el.focus():el.click();
 		}
-		//Web Worker
 		else if(!(event.altKey||event.ctrlKey)){
 			navWorker.postMessage(event.key);
 		}

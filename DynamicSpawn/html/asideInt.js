@@ -1,7 +1,7 @@
 "use strict";
 function whenViable(el,cal,options,rem=true){
 	try{
-		var observer=new IntersectionObserver((entries,observer)=>{
+		const observer=new IntersectionObserver((entries,observer)=>{
 			if(entries[0].isIntersecting){
 				cal(entries[0].target);
 				if(rem)observer.unobserve(entries[0].target);

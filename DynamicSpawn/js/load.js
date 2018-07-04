@@ -10,8 +10,8 @@ elm.speciesList=document.getElementById("speciesList");
 elm.npcList=document.getElementById("npcList");
 Object.freeze(elm);
 {
-	let speciesList=document.querySelectorAll("#speciesList>li");
-	const _s=speciesList.length;
+	const speciesList=document.querySelectorAll("#speciesList>li"),
+	_s=speciesList.length;
 	for(let i=0;i<_s;){
 		speciesList[i].setAttribute("aria-setsize",_s);
 		speciesList[i].setAttribute("aria-posinset",++i);
@@ -22,7 +22,7 @@ let item=getData("value");
 if(item){
 	item=JSON.parse(item);
 	for(let i in item)if(i!=="key"){
-		let index=item[i].split(",");
+		const index=item[i].split(",");
 		i="npc"+i;
 		for(let n in index)setLi(i,item.key[parseInt(index[n],36)]);
 	}
@@ -33,7 +33,7 @@ $('[data-toggle="tooltip"]').tooltip();
 $('[data-toggle="popover"]').popover();
 //--------------- Location ---------------
 if(location.hash){
-	let hash=location.hash;
+	const hash=location.hash;
 	location.hash="npcGeneric";
 	dtTab(document.querySelector(`[data-hash="${hash}"]`),true);
 	location.hash=hash;
@@ -43,9 +43,9 @@ else location.hash="npcGeneric";
 
 addEventListener("load",()=>{
 {//--------------- Get Path ---------------
-	let el=document.getElementById("path"),
-	qi=getQueryString("path"),
-	sys=(function(){return /System Path/i.test(qi);})();
+	const el=document.getElementById("path"),
+	qi=getQueryString("path");
+	let sys=(function(){return /System Path/i.test(qi);})();
 	if(/^[a-z]:([\\\/][^\\\/:*?"<>|]+)+[\\\/]$/i.test(qi)&&!sys){
 		el.value=qi;
 		let arr=["warning",null,1],
@@ -94,7 +94,7 @@ addEventListener("beforeunload",()=>{
 	setData("value",JSON.stringify(encodeLi()),90);
 	setData("mods",JSON.stringify(getMods()),60);
 	function getMods(){
-		var mods=document.querySelectorAll('#mods>li[aria-selected="true"]'),
+		const mods=document.querySelectorAll('#mods>li[aria-selected="true"]'),
 		arr=[];
 		const _m=mods.length;
 		for(let i=0;i<_m;i++)arr[i]=mods[i].getAttribute("value");

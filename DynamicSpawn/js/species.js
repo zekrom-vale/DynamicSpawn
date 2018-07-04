@@ -1,16 +1,16 @@
 "use strict";
 function setLi(set,key){
-	var el=document.getElementById(key),
+	const el=document.getElementById(key),
 	css="active-"+set;
 	if(!el){
-		let el=customSetUp(key),
+		const el=customSetUp(key),
 		ul=document.querySelector(`#${set}>ul`);
 		if(!ul.querySelector(`#npcList li[value="${key}"]`))ul.prepend(readyLi(el));
 	}
 	else if(!el.classList.contains(css)){
 		el.classList.add(css);
 		if("#"+set===location.hash)el.setAttribute("aria-selected","true");
-		var li=el.cloneNode(1);
+		const li=el.cloneNode(1);
 		delete li.querySelector(".species").dataset.toggle;
 		delete li.id;
 		document.querySelector(`#${set}>ul`).appendChild(readyLi(li));
@@ -18,11 +18,11 @@ function setLi(set,key){
 }
 
 function getLi(){
-	var spawns=document.querySelectorAll("#npcList>div"),
-	obj={},
-	_s=spawns.length;
+	const spawns=document.querySelectorAll("#npcList>div"),
+	_s=spawns.length,
+	obj={};
 	for(let i=0;_s>i;i++){
-		let id=spawns[i].id,
+		const id=spawns[i].id,
 		items=spawns[i].querySelectorAll('li'),
 		_i=items.length;
 		if(_i>0){
@@ -34,13 +34,13 @@ function getLi(){
 }
 
 function encodeLi(){
-	var spawns=document.querySelectorAll("#npcList>div"),
+	const spawns=document.querySelectorAll("#npcList>div"),
 	obj={},
 	arr=[],
 	inv={},
 	_s=spawns.length;
 	for(let i=0;_s>i;i++){
-		let id=spawns[i].id.slice(3),
+		const id=spawns[i].id.slice(3),
 		items=spawns[i].querySelectorAll('li'),
 		_i=items.length;
 		if(_i>0){
@@ -49,9 +49,9 @@ function encodeLi(){
 		}
 	}
 	function getKey(item){
-		let value=item.getValue();
+		const value=item.getValue();
 		if(typeof inv[value]==="undefined"){
-			let _a=inv[value]=arr.length;
+			const _a=inv[value]=arr.length;
 			arr[_a]=value;
 			return _a;
 		}
@@ -62,12 +62,12 @@ function encodeLi(){
 }
 
 var baseLi=(function(){
-	var btnB=node("button",null,{class:"btn"});
-	var btn=btnB.cloneNode();
+	const btnB=node("button",null,{class:"btn"}),
+	btn=btnB.cloneNode();
 		btn.classList.add("btn-dark","species");
-	var div=node("div",null,{class:"btn-group species-group"})
+	const div=node("div",null,{class:"btn-group species-group"})
 		btnB.classList.add("btn-secondary");
-		var all=btnB.cloneNode();
+		const all=btnB.cloneNode();
 			all.innerHTML="Add to All";
 			btnB.innerHTML="Remove from All";
 		div.append(all,btnB);
@@ -89,17 +89,17 @@ function readyLi(li){
 
 function setMods(mods){
 	if(mods&&mods.length>0){
-		let items=$("#mods>li"),
-		_i=items.length,
-		disable=false;
+		const items=$("#mods>li"),
+		_i=items.length;
+		var disable=false;
 		for(let i=0;i<_i;i++){
-			let val=items[i].getValue();
+			const val=items[i].getValue();
 			if(mods.includes(val)){
 				disable=true;
 				items[i].classList.add("active");
 			}
 			else{
-				let el=$(`[data-mod="${val}"]`),
+				const el=$(`[data-mod="${val}"]`),
 				_e=el.length;
 				for(let n=0;n<_e;n++)el[n].classList.add("hideMod");
 			}

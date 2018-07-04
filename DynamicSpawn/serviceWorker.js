@@ -74,7 +74,7 @@ addEventListener('install',event=>{
 });
 
 addEventListener('fetch',event=>{
-	var req=event.request;
+	const req=event.request;
 	event.respondWith(
 		caches.match(req).then(resp=>
 			resp||fetch(req).then(resp=>

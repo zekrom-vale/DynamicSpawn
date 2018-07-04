@@ -1,5 +1,4 @@
 "use strict";
-//Web Worker
 function node(type,txt,attr,html,reg=/(inner)?(HTML|[tT]ext)|event(Listener)?/){
 	if(typeof attr!="object")attr={};
 	var el=nodejsZ.nodeCore(document.createElement(type),txt,attr,html);
@@ -9,7 +8,7 @@ function node(type,txt,attr,html,reg=/(inner)?(HTML|[tT]ext)|event(Listener)?/){
 
 function nodeNS(namespace,type,txt,attr,html,reg=/(inner)?(HTML|[tT]ext)|namespace|NS|event(Listener)?/){
 	if(typeof attr!="object")attr={};
-	var el=nodejsZ.nodeCore(document.createElementNS(namespace,type),txt,attr,html);
+	const el=nodejsZ.nodeCore(document.createElementNS(namespace,type),txt,attr,html);
 	for(let i in attr)if(!reg.test(i))el.setAttributeNS(namespace,i,attr[i]);
 	return el;
 }
@@ -17,7 +16,7 @@ function nodeNS(namespace,type,txt,attr,html,reg=/(inner)?(HTML|[tT]ext)|namespa
 const nodejsZ={};
 nodejsZ.nodeCore=function(el,txt,attr,html){
 	if(txt)html?el.innerHTML=txt:el.innerText=txt;
-	var event=attr.event||attr.eventListener;
+	const event=attr.event||attr.eventListener;
 	if(event)for(let i in event){
 		if(Array.isArray(event[i]))el.addEventListener(i,...event[i]);
 		else el.addEventListener(i,event[i]);
@@ -28,6 +27,7 @@ nodejsZ.nodeCore=function(el,txt,attr,html){
 nodejsZ.wrapPre=function(argn){
 	return typeof argn==="string"?[argn,undefined]:argn;
 }
+Object.freeze(nodejsZ);
 
 class nodesCore{
 	___attribute(namespace,obj){
@@ -38,7 +38,7 @@ class nodesCore{
 			try{for(let n in obj)i.setAttribute(n,obj[n]);}catch(e){}
 		}
 		if(this.node){
-			var top=this.node.querySelector('[data-topnodestack="true"]')||this.node;
+			const top=this.node.querySelector('[data-topnodestack="true"]')||this.node;
 			top.innerHTML="";
 			top.append(...this.arr);
 		}
@@ -46,7 +46,7 @@ class nodesCore{
 	wrapNS(){//[namespace,parent,attr]||parent
 		var stack;
 		for(let n in arguments){
-			let [parent,attr]=nodejsZ.wrapPre([arguments[n][1],arguments[n][2]]);
+			const[parent,attr]=nodejsZ.wrapPre([arguments[n][1],arguments[n][2]]);
 			if(!parent instanceof HTMLElement){
 				if(arguments[n][0])parent=new nodeNS(arguments[n][0],parent,undefined,attr);
 				else new node(parent,undefined,attr);
@@ -63,14 +63,14 @@ class nodesCore{
 		}
 		this.node=stack;
 		stack=stack.cloneNode();
-		delete (stack.querySelector('[data-topnodestack="true"]')||stack).dataset.topnodestack;
+		delete(stack.querySelector('[data-topnodestack="true"]')||stack).dataset.topnodestack;
 		return stack;
 	}
 	wrapNSDefault(namespace){//namespace,[parent,attr]||parent
-		var stack,
-		_a=arguments.length;
+		var stack;
+		const _a=arguments.length;
 		for(let n=1;n<_a;n++){
-			let [parent,attr]=nodejsZ.wrapPre(arguments[n]);
+			const[parent,attr]=nodejsZ.wrapPre(arguments[n]);
 			if(!parent instanceof HTMLElement)parent=new nodeNS(namespace,parent,undefined,attr);
 			if(stack){
 				parent.append(stack);
@@ -128,7 +128,7 @@ class nodes extends nodesCore{
 	wrap(){//[parent,attr]||parent
 		var stack;
 		for(let n in arguments){
-			let [parent,attr]=nodejsZ.wrapPre(arguments[n]);
+			const[parent,attr]=nodejsZ.wrapPre(arguments[n]);
 			if(!(parent instanceof HTMLElement))parent=new node(parent,undefined,attr);
 			if(stack){
 				parent.append(stack);
@@ -177,15 +177,14 @@ var nodeType,nodeTypeLower;
 }
 
 class nodesNS extends nodesCore{
-	constructor(namespace){
+	constructor(namespace,...arg){
 		super();
 		var arr=[],
-		n=0,
-		arg=Array.prototype.slice.call(arguments,1);
+		n=0;
 		for(let a of arg){
 			if(a.nodeType)arr[n++]=a;
 			else if(a instanceof nodesCore)for(let p in a.arr)arr[n++]=a.arr[p];
-			else if(typeof a==="object") for(let p in a){
+			else if(typeof a==="object")for(let p in a){
 				if(a[p].nodeType)arr[n++]=a[p];
 				else if(typeof a[p]==="object"){
 					if(Array.isArray(a[p]))for(let q of a[p])arr[n++]=createNodeNS(namespace,q,p);
@@ -213,7 +212,7 @@ class nodesNS extends nodesCore{
 	wrapNoNS(){//[parent,attr]||parent
 		var stack;
 		for(let n in arguments){
-			let [parent,attr]=nodejsZ.wrapPre(arguments[n]);
+			const[parent,attr]=nodejsZ.wrapPre(arguments[n]);
 			if(!(parent instanceof HTMLElement))parent=new node(parent,undefined,attr);
 			if(stack){
 				parent.append(stack);

@@ -1,7 +1,7 @@
 "use strict";
 addEventListener("load",()=>{
 saveData=(function(){
-	var a=document.getElementById("save");
+	const a=document.getElementById("save");
 	return(data,fileName,t)=>{
 		let url=URL.createObjectURL(new Blob([t?data:JSON.stringify(data)],{type:"octet/stream"}));
 		a.href=url;
@@ -37,7 +37,7 @@ function alertModal(mh,mb,f,focus="ok"){
 	if(mb)document.getElementById("modalBody").innerHTML=mb;
 	$("#modal:First").modal();
 	var modal=new Promise((resolve,reject)=>{
-		var ok=document.getElementById("modalOk"),
+		const ok=document.getElementById("modalOk"),
 		cancel=document.getElementById("modalCancel"),
 		x=document.getElementById("modalX"),
 		rem=()=>{
@@ -45,8 +45,8 @@ function alertModal(mh,mb,f,focus="ok"){
 			cancel.removeEventListener("click",rej);
 			x.removeEventListener("click",rej);
 			removeEventListener("keyup",keyRes);
-		};
-		var res=()=>{
+		},
+		res=()=>{
 			rem();	resolve();
 		},
 		rej=()=>{
@@ -67,25 +67,18 @@ function alertModal(mh,mb,f,focus="ok"){
 		x.addEventListener("click",rej);
 	});
 	function fin(){
-		if(f["finally"]){
-			if(f["finally"].length===1)f["finally"][0]();
-			else f["finally"][0](...f["finally"].slice(1));
-		}
+		if(f["finally"])f["finally"][0](...f["finally"].slice(1));
 	}
 	modal.then(()=>{
 		if(f.resolve){
 			fin();
 			f.resolve[0](...f.resolve.slice(1));
-			//if(f.resolve.length===1)f.resolve[0]();
-			//else f.resolve[0](...f.resolve.slice(1));
 		}
 		else fin();
 	},()=>{
 		if(f.reject){
 			fin();
 			f.reject[0](...f.reject.slice(1));
-			//if(f.reject.length===1)f.reject[0]();
-			//else f.reject[0](...f.reject.slice(1));
 		}
 		else fin();
 	});
@@ -117,7 +110,7 @@ HTMLElement.prototype.getValue=function(){
 }
 
 function getQueryString(path,raw){
-	var query=location.search.slice(1).split("&"),
+	const query=location.search.slice(1).split("&"),
 	reg=new RegExp(`^${path}=`);
 	path=path.length+1;
 	for(let i of query)if(reg.test(i))return raw?i:decodeURIComponent(i.slice(path).replace(/\+/g,"%20"));

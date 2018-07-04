@@ -15,9 +15,9 @@ onmessage=e=>{
 }
 
 function init(data){
-	var v=data.v,
-	prev=data.prev,
-	value=data.value,
+	const prev=data.prev;
+	var value=data.value,
+	v=data.v,
 	match=0;
 	if(!data.RegExp){
 		value=value.trim().toLowerCase(),
@@ -34,7 +34,7 @@ function init(data){
 		v%4==0
 	];
 	return(function(){
-		var exists=data.RegExp?
+		const exists=data.RegExp?
 			txt=>value.test(txt):txt=>txt.toLowerCase().indexOf(value)!==-1;
 		return data=>{
 			if(!(data.disp&&match===-1||!data.disp&&match===1)){
