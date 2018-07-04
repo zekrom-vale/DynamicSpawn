@@ -42,7 +42,7 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"/>
 		<script src="js/util.js"/>
 		<script src="js/node.js"/>
-		<script src="js/load.js"/>
+		<script defer="defer" src="js/load.js"/>
 		<script src="js/species.js"/>
 		<script defer="defer" src="js/io.js"/>
 		<script defer="defer" src="js/globalIo.js"/>
