@@ -11,8 +11,8 @@ function toggleMods(){
 	this.setAttribute("aria-selected",this.classList.contains("active"));
 	document.getElementById("npcList").setAttribute("aria-busy","true");
 	const items=$("#mods>li"),
-	_i=items.length,
-	u=1;
+	_i=items.length;
+	var u=1;
 	for(let i=0;i<_i;i++){
 		const el=$(`[data-mod="${items[i].getValue()}"]`),
 		_e=el.length;
