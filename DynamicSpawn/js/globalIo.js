@@ -9,9 +9,9 @@ document.getElementById("removeAll").addEventListener("click",event=>{
 	if(event.ctrlKey)core(event);
 	else alertModal(`Remove all items from the ${shift?"selected":"current"} list${shift?"(s)":""}?`,"This Cannot be undone!",{"resolve":[core,event]});
 	function core(event){
-		document.getElementById("npcList").setAttribute("aria-busy","true");
+		elm.npcList.setAttribute("aria-busy","true");
 		if(shift){
-			var sel=elm.npcTab.querySelectorAll(".nav-link-sel>a"),
+			const sel=elm.npcTab.querySelectorAll(".nav-link-sel>a"),
 			_l=sel.length,
 			hashs=[];
 			for(let i=0;i<_l;i++){
@@ -35,14 +35,15 @@ document.getElementById("removeAll").addEventListener("click",event=>{
 			}
 			$(location.hash+":First ul:First").empty();
 		}
-		document.getElementById("npcList").removeAttribute("aria-busy");
+		elm.npcList.removeAttribute("aria-busy");
 	}
 });
 
 document.getElementById("removeVisible").addEventListener("click",function(event){
 	const li=elm.speciesList.querySelectorAll("li"),
 	_l=li.length;
-	document.getElementById("npcList").setAttribute("aria-busy","true");
+	elm.npcList.style.display="none";
+	elm.npcList.setAttribute("aria-busy","true");
 	if(event.shiftKey){
 		const base=elm.npcTab.querySelectorAll(".nav-link-sel>a"),
 		_b=base.length;
@@ -64,13 +65,15 @@ document.getElementById("removeVisible").addEventListener("click",function(event
 			document.querySelector(hash+` [value="${li[i].getValue()}"]`).remove();
 		}
 	}
-	document.getElementById("npcList").removeAttribute("aria-busy");
+	elm.npcList.style.display="";
+	elm.npcList.removeAttribute("aria-busy");
 });
 
 document.getElementById("addVisible").addEventListener("click",function(event){
 	var li=elm.speciesList.querySelectorAll("li");
 	const _l=li.length-1;
-	document.getElementById("npcList").setAttribute("aria-busy","true");
+	elm.npcList.style.display="none";
+	elm.npcList.setAttribute("aria-busy","true");
 	if(event.shiftKey){
 		const base=elm.npcTab.querySelectorAll(".nav-link-sel>a");
 		var uls=[],
@@ -105,7 +108,8 @@ document.getElementById("addVisible").addEventListener("click",function(event){
 			document.querySelector(hash+">ul").prepend(readyLi(LI));
 		}
 	}
-	document.getElementById("npcList").removeAttribute("aria-busy");
+	elm.npcList.style.display="";
+	elm.npcList.removeAttribute("aria-busy");
 });
 
 document.getElementById("iexport").addEventListener("click",()=>{
@@ -124,9 +128,13 @@ document.getElementById("imp").addEventListener("click",()=>{document.getElement
 	let fr=new FileReader();
 	document.getElementById("iimport").addEventListener("change",()=>{
 		fr.addEventListener('loadend',txt=>{
+			elm.npcList.style.display="none";
+			elm.npcList.setAttribute("aria-busy","true");
 			var item=JSON.parse(txt.srcElement.result);
 			for(let i in item)if(i!=="mods")for(let n of item[i])setLi(i,n);
 			setMods(item.mods);
+			elm.npcList.style.display="";
+			elm.npcList.removeAttribute("aria-busy");
 		},{once:true});
 		fr.readAsText(document.getElementById("iimport").files[0]);
 	});
