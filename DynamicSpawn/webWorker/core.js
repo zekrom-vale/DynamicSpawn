@@ -1,17 +1,18 @@
 "use strict";
+//requires CSP of `script-src 'unsafe-eval';` 
 if(self.Worker){
 var runWorker=(function(){
 	var worker=new Worker("webWorker/worker.js"),
 	queue=[],//pseudo-queue
-	//end=new CustomEvent("end"),
-	response;
+	response,
+	end=new CustomEvent("end");
 	return(func,that,args)=>{//{a:1,b:2}
 		var _q=queue.length;
 		if(_q>0){
-			queue[_q]={run:run.bind(_q,func,that,args)};
+			queue[_q]={run:run.bind(_q,func,that,args),event:document.createElement("i")};
 			return new Promise(r=>{
-				queue[_q].addEventListener("end",event=>{
-					r(event.response);
+				queue[_q].event.addEventListener("end",event=>{
+					r(response);
 					queue[_q]=undefined;
 				},{once:true});
 			});
@@ -30,7 +31,8 @@ var runWorker=(function(){
 	function run(func,that,args){
 		worker.postMessage([func,that,args]);
 		worker.onerror=worker.onmessage=e=>{
-			queue[this].dispatchEvent(new CustomEvent("end",{response:e.data||e}));
+			response=e.data||e;
+			queue[this].event.dispatchEvent(end);
 			if(queue.length-1>this)queue[this+1].run();
 			else queue=[];
 		}
