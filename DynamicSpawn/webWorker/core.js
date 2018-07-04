@@ -1,13 +1,14 @@
+"use strict";
 if(self.Worker){
 var runWorker=(function(){
 	var worker=new Worker("webWorker/worker.js"),
 	queue=[],//pseudo-queue
 	//end=new CustomEvent("end"),
 	response;
-	return func=>{
+	return(func,that,args)=>{//{a:1,b:2}
 		var _q=queue.length;
 		if(_q>0){
-			queue[_q]={run:run.bind(_q,func)};
+			queue[_q]={run:run.bind(_q,func,that,args)};
 			return new Promise(r=>{
 				queue[_q].addEventListener("end",event=>{
 					r(event.response);
@@ -17,7 +18,7 @@ var runWorker=(function(){
 		}else{
 			queue[0]=undefined;
 			return new Promise(r=>{
-				worker.postMessage(func);
+				worker.postMessage([func,that,args]);
 				worker.onerror=worker.onmessage=e=>{
 					if(queue.length>1)queue[1].run();
 					else queue=[];
@@ -26,8 +27,8 @@ var runWorker=(function(){
 			});
 		}
 	}
-	function run(func){
-		worker.postMessage(func);
+	function run(func,that,args){
+		worker.postMessage([func,that,args]);
 		worker.onerror=worker.onmessage=e=>{
 			queue[this].dispatchEvent(new CustomEvent("end",{response:e.data||e}));
 			if(queue.length-1>this)queue[this+1].run();
