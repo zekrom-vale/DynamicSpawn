@@ -56,3 +56,9 @@ noscript>div{
 		display:none;
 	}
 }
+.scrollY{
+	overflow-y:scroll;
+}
+.scrollX{
+	overflow-x:scroll;
+}
