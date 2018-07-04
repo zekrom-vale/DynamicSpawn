@@ -12,10 +12,11 @@ function whenViable(el,cal,options,rem=true){
 		cal(el,e);
 	}
 };
-
-whenViable(document.getElementById("side"),target=>{
-	$.get("html/aside.html",null,d=>{
-		target.innerHTML=d;
-		document.getElementById("modCopyBtn").addEventListener("click",()=>copyText('#modCopy'));
-	},"html");
-},{root:document.body,threshold:1});
+addEventListener("load",()=>{
+	whenViable(document.getElementById("side"),target=>{
+		$.get("html/aside.html",null,d=>{
+			target.innerHTML=d;
+			document.getElementById("modCopyBtn").addEventListener("click",()=>copyText('#modCopy'));
+		},"html");
+	},{root:document.body,threshold:1});
+});
