@@ -1,40 +1,44 @@
 "use strict";
-//requires CSP of `script-src 'unsafe-eval';` to save functions
 if(self.Worker){
 var worker=(function(){
-	const worker=new Worker("webWorker/worker.js"),
-	end=new CustomEvent("end");
 	var response,
 	queue=[];//pseudo-queue
+	const worker=new Worker("webWorker/worker.js"),
+	end=new CustomEvent("end"),
+	___call=(func,that,args,act)=>{
+		const _q=queue.length,
+		obj={func:func,that:that,args:args,act:act};
+		if(_q===0){
+			queue[0]=undefined;
+			return new Promise(r=>{
+				worker.postMessage(obj);
+				worker.onerror=worker.onmessage=e=>{
+					if(queue.length>1)queue[1].run();
+					else queue=[];
+					r(e.data||e);
+				}
+			});
+		}
+		else{
+			queue[_q]={run:run.bind(_q,name,that,args),event:document.createElement("i")};
+			return new Promise(r=>{
+				queue[_q].event.addEventListener("end",event=>{
+					r(response);
+					queue[_q]=undefined;
+				},{once:true});
+			});
+		}
+	};
 	return{
-		call:(func,that,args={})=>{
-			const _q=queue.length;
-			if(_q>0){
-				queue[_q]={run:run.bind(_q,func,that,args),event:document.createElement("i")};
-				return new Promise(r=>{
-					queue[_q].event.addEventListener("end",event=>{
-						r(response);
-						queue[_q]=undefined;
-					},{once:true});
-				});
-			}else{
-				queue[0]=undefined;
-				return new Promise(r=>{
-					worker.postMessage([func,that,args]);
-					worker.onerror=worker.onmessage=e=>{
-						if(queue.length>1)queue[1].run();
-						else queue=[];
-						r(e.data||e);
-					}
-				});
-			}
-		},
+		call:(func,that,args=[])=>{return ___call(func,that,args,"call")},
+		eval:(func,that,args={})=>{return ___call(func,that,args,"eval")},
+		//requires CSP of `script-src 'unsafe-eval';`
 		save:(name,func,args=[])=>{
-			worker.postMessage([func,undefined,args,name]);
+			worker.postMessage({func:func,args:args,name:name,act:"save"});
 		}
 	}
-	function run(func,that,args){
-		worker.postMessage([func,that,args]);
+	function run(obj){
+		worker.postMessage(obj);
 		worker.onerror=worker.onmessage=e=>{
 			response=e.data||e;
 			queue[this].event.dispatchEvent(end);
