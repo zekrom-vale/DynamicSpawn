@@ -50,10 +50,26 @@ var worker=(function(){
 }
 else{
 	console.error("Web Worker not supported");
-	var runWorker=function(func,that,args={}){
-		return new Promise(r=>{
-			r(new Function(...Object.keys(args),func).apply(that,Object.values(args)));
-		});
-	}
+	var worker=function(){
+		const funcs={},
+		___call=(func,that,args,act)=>{
+			return new Promise(r=>{
+				switch(act){
+					case "call":
+						r(funcs[func].apply(that,args));
+						break;
+					case "eval":
+						r(new Function(...Object.keys(args),func).apply(that,Object.values(args)));
+				}
+			});
+		}
+		return{
+			call:(func,that,args=[])=>{return ___call(func,that,args,"call")},
+			eval:(func,that,args={})=>{return ___call(func,that,args,"eval")},
+			//requires CSP of `script-src 'unsafe-eval';` to save functions
+			save:(name,func,args=[])=>{
+				funcs[name]=new Function(...args,func);
+			}
+		}
+	}();
 }
-//await runWorker("for(let i=0;i<1e+10;i++)continue;return 'done'");
