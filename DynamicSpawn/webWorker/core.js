@@ -50,13 +50,17 @@ var worker=(function(){
 }
 else{
 	console.error("Web Worker not supported");
+	{
+		const script=document.createElement("script");
+		script.src="webWorker/worker.js";
+		document.head.appendChild(script);
+	}
 	var worker=function(){
-		const funcs={},
-		___call=(func,that,args,act)=>{
+		const ___call=(func,that,args,act)=>{
 			return new Promise(r=>{
 				switch(act){
 					case "call":
-						r(funcs[func].apply(that,args));
+						r(worker.funcs[func].apply(that,args));
 						break;
 					case "eval":
 						r(new Function(...Object.keys(args),func).apply(that,Object.values(args)));
@@ -68,7 +72,7 @@ else{
 			eval:(func,that,args={})=>{return ___call(func,that,args,"eval")},
 			//requires CSP of `script-src 'unsafe-eval';` to save functions
 			save:(name,func,args=[])=>{
-				funcs[name]=new Function(...args,func);
+				worker.funcs[name]=new Function(...args,func);
 			}
 		}
 	}();
