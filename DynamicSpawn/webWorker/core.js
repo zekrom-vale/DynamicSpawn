@@ -20,9 +20,9 @@ var worker=(function(){
 			});
 		}
 		else{
-			queue[_q]={run:run.bind(_q,name,that,args),event:document.createElement("i")};
+			queue[_q]={run:run.bind(_q,obj),event:document.createElement("i")};
 			return new Promise(r=>{
-				queue[_q].event.addEventListener("end",event=>{
+				queue[_q].event.addEventListener("end",()=>{
 					r(response);
 					queue[_q]=undefined;
 				},{once:true});
@@ -30,8 +30,8 @@ var worker=(function(){
 		}
 	};
 	return{
-		call:(func,that,args=[])=>{return ___call(func,that,args,"call")},
-		eval:(func,that,args={})=>{return ___call(func,that,args,"eval")},
+		call:(func,that,args=[])=>___call(func,that,args,"call"),
+		eval:(func,that,args={})=>___call(func,that,args,"eval"),
 		//requires CSP of `script-src 'unsafe-eval';`
 		save:(name,func,args=[])=>{
 			worker.postMessage({func:func,args:args,name:name,act:"save"});
@@ -51,8 +51,9 @@ var worker=(function(){
 else{
 	console.error("Web Worker not supported");
 	{
-		const script=document.createElement("script");
-		script.src="webWorker/worker.js";
+		const script=document.createElement("script"),
+		path=document.currentScript.src.replace(/.+?\/.+?/,"");
+		script.src=path+"webWorker/worker.js";
 		document.head.appendChild(script);
 	}
 	var worker=function(){
@@ -68,9 +69,9 @@ else{
 			});
 		}
 		return{
-			call:(func,that,args=[])=>{return ___call(func,that,args,"call")},
-			eval:(func,that,args={})=>{return ___call(func,that,args,"eval")},
-			//requires CSP of `script-src 'unsafe-eval';` to save functions
+			call:(func,that,args=[])=>___call(func,that,args,"call"),
+			eval:(func,that,args={})=>___call(func,that,args,"eval"),
+			//requires CSP of `script-src 'unsafe-eval';`
 			save:(name,func,args=[])=>{
 				worker.funcs[name]=new Function(...args,func);
 			}
