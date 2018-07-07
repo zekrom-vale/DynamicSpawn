@@ -40,6 +40,7 @@
 	<link rel="icon" type="image/svg+xml" href="img/icon.svg"/>
 	<link rel="icon" type="image/png" href="img/icon.png"/>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"/>
+		<script src="webWorker/core.js"/>
 		<script src="js/util.js"/>
 		<script src="js/node.js"/>
 		<script defer="defer" src="js/load.js"/>
