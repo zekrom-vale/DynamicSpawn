@@ -1,4 +1,4 @@
-//Use async and defer
+//Use async (Unless modifying content added by this) and defer
 "use strict";
 addEventListener("DOMContentLoaded",()=>{
 	const data=document.querySelectorAll('script[type="CDATA"]'),
