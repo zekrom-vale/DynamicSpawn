@@ -1,6 +1,6 @@
 "use strict";
 if(self.Worker){
-var worker=(function(){
+var worker=function(){
 	var response,
 	queue=[];//pseudo-queue
 	const worker=new Worker("webWorker/worker.js"),
@@ -24,15 +24,15 @@ var worker=(function(){
 			return new Promise(r=>{
 				queue[_q].event.addEventListener("end",()=>{
 					r(response);
-					queue[_q]=undefined;
+					response=queue[_q]=undefined;
 				},{once:true});
 			});
 		}
 	};
 	return{
 		call:(func,that,args=[])=>___call(func,that,args,"call"),
-		eval:(func,that,args={})=>___call(func,that,args,"eval"),
 		//requires CSP of `script-src 'unsafe-eval';`
+		eval:(func,that,args={})=>___call(func,that,args,"eval"),
 		save:(name,func,args=[])=>{
 			worker.postMessage({func:func,args:args,name:name,act:"save"});
 		}
@@ -46,32 +46,29 @@ var worker=(function(){
 			else queue=[];
 		}
 	}
-})();
+}();
 }
 else{
-	console.error("Web Worker not supported");
+	console.warn("Web Worker not supported");
 	{
-		const script=document.createElement("script"),
-		path=document.currentScript.src.replace(/.+?\/.+?/,"");
-		script.src=path+"webWorker/worker.js";
+		const script=document.createElement("script");
+		script.src=document.currentScript.src.replace(/.+?\/.+?/,"")+"webWorker/worker.js";
 		document.head.appendChild(script);
 	}
 	var worker=function(){
-		const ___call=(func,that,args,act)=>{
-			return new Promise(r=>{
-				switch(act){
-					case "call":
-						r(worker.funcs[func].apply(that,args));
-						break;
-					case "eval":
-						r(new Function(...Object.keys(args),func).apply(that,Object.values(args)));
-				}
-			});
-		}
+		const ___call=(func,that,args,act)=>new Promise(r=>{
+			switch(act){
+				case "call":
+					r(worker.funcs[func].apply(that,args));
+					break;
+				case "eval":
+					r(new Function(...Object.keys(args),func).apply(that,Object.values(args)));
+			}
+		});
 		return{
 			call:(func,that,args=[])=>___call(func,that,args,"call"),
-			eval:(func,that,args={})=>___call(func,that,args,"eval"),
 			//requires CSP of `script-src 'unsafe-eval';`
+			eval:(func,that,args={})=>___call(func,that,args,"eval"),
 			save:(name,func,args=[])=>{
 				worker.funcs[name]=new Function(...args,func);
 			}
