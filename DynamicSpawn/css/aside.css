@@ -10,7 +10,7 @@
 }
 
 .invert{
-	filter:invert(1);
+	filter:invert(var(--invert));
 }
 
 .carousel-item,.carousel-inner,#side,
