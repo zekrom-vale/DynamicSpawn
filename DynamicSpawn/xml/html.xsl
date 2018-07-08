@@ -19,7 +19,7 @@
 		)
 		,'idm','')"/>
 	</x:variable>
-<html lang="en-US" data-author="zekrom-vale" data-game="Starbound">
+<html lang="en-US" data-author="zekrom-vale" data-game="Starbound" light="true">
 <!-- `xmlns` is automatically assigned to html elements-->
 <head id="top">
 	<meta charset="UTF-8"/>

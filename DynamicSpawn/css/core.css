@@ -5,7 +5,7 @@
 @import "w3.css";
 @import "animation.css";
 @import "https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css";
-@import "light.css";
+@import "dark.css";
 /*https://stackoverflow.com/questions/3397113/how-to-remove-border-outline-around-text-input-boxes-chrome*/
 
 textarea:focus,input:focus{
