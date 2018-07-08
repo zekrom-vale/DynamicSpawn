@@ -1,6 +1,6 @@
 .col-0p{
 	display:none;
-}@media (max-width:575px){
+}@media (max-width:calc(var(--breakpoint-sm) - 1px)){
 	.col-0{
 		display:none;
 	}
@@ -9,7 +9,7 @@
 	}
 }
 
-@media (min-width:576px and max-width:767px){
+@media (min-width:var(--breakpoint-sm) and max-width:calc(var(--breakpoint-md) - 1px)){
 	.col-sm-0{
 		display:none;
 	}
@@ -22,11 +22,11 @@
 	}
 }
 
-@media (min-width:768px and max-width:991px){
+@media (min-width:var(--breakpoint-md) and max-width:calc(var(--breakpoint-lg) - 1px)){
 	.col-md-0{
 		display:none;
 	}
-}@media (min-width:768px){
+}@media (min-width:var(--breakpoint-md)){
 	.col-md-0p{
 		display:none;
 	}
@@ -34,11 +34,11 @@
 		display:block;
 	}
 }
-@media (min-width:991px and max-width:1199px){
+@media (min-width:calc(var(--breakpoint-lg) - 1px) and max-width:calc(var(--breakpoint-xl) - 1px)){
 	.col-lg-0{
 		display:none;
 	}
-}@media (min-width:991px){
+}@media (min-width:calc(var(--breakpoint-lg) - 1px)){
 	.col-lg-0p{
 		display:none;
 	}
@@ -47,7 +47,7 @@
 	}
 }
 
-@media (min-width:1200px){
+@media (min-width:var(--breakpoint-xl)){
 	.col-xl-0,
 	.col-xl-0p{
 		display:none;
