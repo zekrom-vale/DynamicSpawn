@@ -42,6 +42,16 @@ button:not(:hover)>img.on,
 	border:none;
 	position:relative;
 	right:-12px;
+	color:var(--cSearch);
+}
+
+#speciesInput::placeholder{
+	color:var(--cSearch);
+	opacity:80%;
+}
+
+#speciesLabel{
+	border:1px solid #37383a;
 }
 #speciesLabel:not(.err){
 	animation-name:whiteToRed;
@@ -50,6 +60,7 @@ button:not(:hover)>img.on,
 	-webkit-animation-duration:4s;
 	animation-fill-mode:forwards;
 	animation-direction:reverse;
+	background-color:var(--bcSearch);
 }.err{
 	animation-name:whiteToRed;
 	-webkit-animation-name:whiteToRed;

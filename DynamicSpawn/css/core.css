@@ -17,15 +17,15 @@ div>.alert-success.d-flex>.p-2,#npcList>*{
 }
 
 .code{
-	font-family:SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+	font-family:var(--font-family-monospace);
 	word-break:break-word;
 }
 
-[data-case="cap"],[data-case="capitalize"]{
+[data-case="cap" i],[data-case="capitalize" i]{
 	text-transform:capitalize;
-}[data-case="upper"],[data-case="uppercase"]{
+}[data-case="upper" i],[data-case="uppercase" i]{
 	text-transform:uppercase;
-}[data-case="lower"],[data-case="lowercase"]{
+}[data-case="lower" i],[data-case="lowercase" i]{
 	text-transform:lowercase;
 }
 
@@ -49,11 +49,11 @@ noscript>div{
 }
 
 @media print{
-	[data-no*="print"]{
+	[data-no*="print" i]{
 		display:none;
 	}
 }@media screen{
-	[data-no*="screen"]{
+	[data-no*="screen" i]{
 		display:none;
 	}
 }
@@ -62,8 +62,4 @@ noscript>div{
 }
 .scrollX{
 	overflow-x:scroll;
-}
-
-body{
-	background-color:transparent;
 }

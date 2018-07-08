@@ -5,6 +5,11 @@
 	bottom:0;
 }
 
+.carousel-item{
+	color:var(--cText);
+	background:var(--bcLi);
+}
+
 .help{
 	cursor:help;
 }
@@ -13,7 +18,7 @@
 	filter:invert(var(--invert));
 }
 
-.carousel-item,.carousel-inner,#side,
+.carousel-inner,#side,
 #side2,#speciesInput,li.list-group-item{
 	background-color:transparent;
 }
