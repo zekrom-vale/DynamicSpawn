@@ -1,9 +1,9 @@
 /*https://www.w3schools.com/howto/howto_css_switch.asp*/
 .switch{
-	--height:36px;
+	--width:36px;
+	/*Use `--ratio` or `--height`*/
+	--height:calc(var(--width) * var(--ratio));
 	--ratio:1.76470588235;
-	/*Use --ratio or --width*/
-	--width:calc(var(--height) * var(--ratio));
 	--innerRatio:0.72222222222;
 	--select:#2196F3;
 	--bg:#ccc;
@@ -14,17 +14,21 @@
 	margin:0;
 	padding:0;
 }.switch:not(.rotate){
-	width:var(--width);
-	height:var(--height);
+	--long:var(--height);
+	--short:var(--width);
+	height:var(--short);
+	width:var(--long);
 }.switch.rotate{
-	height:var(--width);
-	width:var(--height);
+	--long:var(--width);
+	--short:var(--height);
+	height:var(--long);
+	width:var(--short);
 }
 
 .switch .slider{
 	--ratio:var(--innerRatio);
-	--inner:calc(var(--height) * var(--ratio));
-	--bottom:calc(calc(var(--height) - var(--inner)) / 2);
+	--inner:calc(var(--short) * var(--ratio));
+	--bottom:calc(calc(var(--short) - var(--inner)) / 2);
 	position:absolute;
 	cursor:pointer;
 	top:0;
@@ -37,9 +41,9 @@
 }
 .switch:not(.reverse) .slider{
 	--start:var(--bottom);
-	--end:calc(var(--width) - var(--start) * 2 - var(--inner));
+	--end:calc(var(--long) - var(--start) * 2 - var(--inner));
 }.switch.reverse .slider{
-	--start:calc(var(--width) - var(--bottom) - var(--inner));
+	--start:calc(var(--long) - var(--bottom) - var(--inner));
 	--end:calc(-1 * var(--start) + var(--bottom));
 }
 
