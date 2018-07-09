@@ -11,13 +11,17 @@
 	--time:.4s;
 	position:relative;
 	display:inline-block;
-	width:var(--width);
-	height:var(--height);
 	margin:0;
 	padding:0;
+}.switch:not(.rotate){
+	width:var(--width);
+	height:var(--height);
+}.switch.rotate{
+	height:var(--width);
+	width:var(--height);
 }
 
-.slider{
+.switch .slider{
 	--ratio:var(--innerRatio);
 	--inner:calc(var(--height) * var(--ratio));
 	--bottom:calc(calc(var(--height) - var(--inner)) / 2);
@@ -31,38 +35,49 @@
 	-webkit-transition:var(--time);
 	transition:var(--time);
 }
-.slider:not(.reverse){
+.switch:not(.reverse) .slider{
 	--start:var(--bottom);
 	--end:calc(var(--width) - var(--start) * 2 - var(--inner));
-}.slider.reverse{
+}.switch.reverse .slider{
 	--start:calc(var(--width) - var(--bottom) - var(--inner));
 	--end:calc(-1 * var(--start) + var(--bottom));
 }
 
-.slider::before{
+.switch .slider::before{
 	position:absolute;
 	content:"";
-	height:var(--inner);
-	width:var(--inner);
-	left:var(--start);
-	bottom:var(--bottom);
 	background-color:var(--fg);
 	-webkit-transition:var(--time);
 	transition:var(--time);
 }
-
-input:checked + .slider{
-	background-color:var(--select);
-}input:focus + .slider{
-	box-shadow:0 0 1px var(--select);
-}input:checked + .slider::before{
-	-webkit-transform:translateX(var(--end));
-	transform:translateX(var(--end));
+.switch:not(.rotate) .slider::before{
+	height:var(--inner);
+	width:var(--inner);
+	left:var(--start);
+	bottom:var(--bottom);
+}.switch.rotate .slider::before{
+	height:var(--inner);
+	width:var(--inner);
+	bottom:var(--start);
+	left:var(--bottom);
 }
 
-.slider.round{
+.switch input:checked + .slider{
+	background-color:var(--select);
+}.switch input:focus + .slider{
+	box-shadow:0 0 1px var(--select);
+}
+.switch:not(.rotate) input:checked + .slider::before{
+	-webkit-transform:translateX(var(--end));
+	transform:translateX(var(--end));
+}.switch.rotate input:checked + .slider::before{
+	-webkit-transform:translateY(calc(-1 * var(--end)));
+	transform:translateY(calc(-1 * var(--end)));
+}
+
+.switch .slider.round{
 	border-radius:34px;
-}.slider.round::before{
+}.switch .slider.round::before{
 	border-radius:50%;
 }
 
