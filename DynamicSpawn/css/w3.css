@@ -25,11 +25,12 @@
 	width:var(--short);
 }
 
-.switch.fixed.rotate{
+.switch.rotate.fixed-height,
+.switch.rotate[data-fixed*="height" i]{
 	--ratio:0.56666666666;
 }
 
-.switch .slider{
+.switch span{
 	--ratio:var(--innerRatio);
 	--inner:calc(var(--short) * var(--ratio));
 	--bottom:calc(calc(var(--short) - var(--inner)) / 2);
@@ -43,49 +44,49 @@
 	-webkit-transition:var(--time);
 	transition:var(--time);
 }
-.switch:not(.reverse) .slider{
+.switch:not(.reverse) span{
 	--start:var(--bottom);
 	--end:calc(var(--long) - var(--start) * 2 - var(--inner));
-}.switch.reverse .slider{
+}.switch.reverse span{
 	--start:calc(var(--long) - var(--bottom) - var(--inner));
 	--end:calc(-1 * var(--start) + var(--bottom));
 }
 
-.switch .slider::before{
+.switch span::before{
 	position:absolute;
 	content:"";
 	background-color:var(--fg);
 	-webkit-transition:var(--time);
 	transition:var(--time);
 }
-.switch:not(.rotate) .slider::before{
+.switch:not(.rotate) span::before{
 	height:var(--inner);
 	width:var(--inner);
 	left:var(--start);
 	bottom:var(--bottom);
-}.switch.rotate .slider::before{
+}.switch.rotate span::before{
 	height:var(--inner);
 	width:var(--inner);
 	bottom:var(--start);
 	left:var(--bottom);
 }
 
-.switch input:checked + .slider{
+.switch input:checked + span{
 	background-color:var(--select);
-}.switch input:focus + .slider{
+}.switch input:focus + span{
 	box-shadow:0 0 1px var(--select);
 }
-.switch:not(.rotate) input:checked + .slider::before{
+.switch:not(.rotate) input:checked + span::before{
 	-webkit-transform:translateX(var(--end));
 	transform:translateX(var(--end));
-}.switch.rotate input:checked + .slider::before{
+}.switch.rotate input:checked + span::before{
 	-webkit-transform:translateY(calc(-1 * var(--end)));
 	transform:translateY(calc(-1 * var(--end)));
 }
 
-.switch .slider.round{
+.switch.round span{
 	border-radius:34px;
-}.switch .slider.round::before{
+}.switch.round span::before{
 	border-radius:50%;
 }
 
