@@ -69,14 +69,11 @@ button:not(:hover)>img.on,
 	animation-fill-mode:forwards;
 }
 
-#RegExpPre{
-	position:relative;
-	bottom:1px;
-}
-
 #searchOp{
-	width:65px;
+	max-width:65px;
 	display:inline;
+	font-size:inherit;
+	height:inherit;
 }
 
 select>option{
