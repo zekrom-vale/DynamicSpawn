@@ -1,0 +1,120 @@
+/*Modified from https://www.w3schools.com/howto/howto_css_switch.asp*/
+
+/*
+<label class="switch [round]">
+	<input roll="switch" type="checkbox"/>
+	<span></span>
+</label>
+<style type="pseudo-css">
+.switch{
+	--height:2em;
+	--width:3.5em;
+}
+.switch span{
+	--long;
+	--short;
+	--on:#2196F3;
+	--fg:white;
+	--time:.4s;
+	--start;
+	--end;
+}
+
+.switch span::before{
+	--bottom-short;
+	--bottom;
+	--ratio:0.72222222222;
+	--inner;
+	--inner-short;
+	--inner-long;
+}
+</style>
+
+*/
+.switch{
+	--height:2em;
+	--width:3.5em;
+	position:relative;
+	height:var(--height);
+	width:var(--width);
+}.switch:not(.rotate) span{
+	--long:var(--width);
+	--short:var(--height);
+}.switch.rotate span{
+	--long:var(--height);
+	--short:var(--width);
+}
+
+.switch span{
+	--on:#2196F3;
+	--off:#ccc;
+	--time:.4s;
+	position:absolute;
+	cursor:pointer;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	background-color:var(--off);
+}
+
+.switch:not(.reverse) span::before{
+	--start:var(--bottom);
+	--end:calc(var(--long) - var(--start) * 2 - var(--inner-long,var(--inner)));
+}.switch.reverse span::before{
+	--start:calc(var(--long) - var(--bottom) - var(--inner-long,var(--inner)));
+	--end:calc(-1 * var(--start) + var(--bottom));
+}
+
+.switch span::before{
+	--color:white;
+	--bottom-short:calc(calc(var(--short) - var(--inner-short,var(--inner))) / 2);
+	--bottom:calc(calc(var(--short) - var(--inner)) / 2);
+	--ratio:0.72222222222;
+	--inner:calc(var(--short) * var(--ratio));
+	--inner-short:calc(var(--short) * var(--ratioShort));
+	--inner-long:calc(var(--long) * var(--ratioLong));
+	position:absolute;
+	content:"";
+	background-color:var(--color);
+	transition:var(--time);
+	-webkit-transition:var(--time);
+	height:var(--inner-short,var(--inner));
+	width:var(--inner-long,var(--inner));
+}
+.switch:not(.rotate) span::before{
+	left:var(--start);
+	bottom:var(--bottom-short);
+}.switch.rotate span::before{
+	left:var(--bottom-short);
+	bottom:var(--start);
+}
+.switch.io span::before{
+	font-size:calc(var(--inner)*.7);
+	font:var(--font);
+}
+.switch.io input:checked + span::before{
+	content:"On";
+}.switch.io input:not(:checked) + span::before{
+	content:"Off";
+}
+
+.switch input:checked + span{
+	background-color:var(--on);
+}.switch input:focus + span{
+	box-shadow:0 0 1px var(--on);
+}
+.switch:not(.rotate) input:checked + span::before{
+	-webkit-transform:translateX(var(--end));
+	transform:translateX(var(--end));
+}.switch.rotate input:checked + span::before{
+	--nend:calc(-1 * var(--end));
+	-webkit-transform:translateY(var(--nend));
+	transform:translateY(var(--nend));
+}
+
+.switch.round span{
+	border-radius:var(--long);
+}.switch.round span::before{
+	border-radius:50%;
+}
