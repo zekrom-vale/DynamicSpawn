@@ -22,7 +22,6 @@ label>*>textarea:focus,label>input:focus{
 	cursor:pointer;
 	-webkit-user-select:none;
 	-moz-user-select:none;
-	-ms-user-select:none;
 	user-select:none;
 }
 
