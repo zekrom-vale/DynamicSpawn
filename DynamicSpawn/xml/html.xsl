@@ -145,12 +145,12 @@
 			<div class="&m;-content" roll="alert">
 				<div class="&m;-header">
 					<h4 class="&m;-title" id="&m;Head" roll="alertdialog"></h4>
-					<button class="close" data-dismiss="&m;" id="&m;X">&x;</button>
+					<button class="close" id="&m;X">&x;</button>
 				</div>
 				<div class="&m;-body" id="&m;Body" roll="alertdialog"></div>
 				<div class="&m;-footer">
-					<button class="&bt;primary" data-dismiss="&m;" id="&m;Ok" data-nav="false">Ok</button>
-					<button class="&bt;danger" data-dismiss="&m;" id="&m;Cancel" data-nav="false">Cancel</button>
+					<button class="&bt;primary" id="&m;Ok" data-nav="false">Ok</button>
+					<button class="&bt;danger" id="&m;Cancel" data-nav="false">Cancel</button>
 				</div>
 			</div>
 		</div>
