@@ -31,7 +31,7 @@ else{
 		}());
 	}
 }
-//Must wait after 
+//Must load script before and wait for DOMContentLoaded
 var alertModal;
 addEventListener("DOMContentLoaded",()=>{
 alertModal=function(){
