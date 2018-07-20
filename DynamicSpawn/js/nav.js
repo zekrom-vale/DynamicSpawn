@@ -67,6 +67,7 @@ function dtTab(el,load){
 		const active=document.activeElement;
 		if(/input|textarea/i.test(active.tagName)||active.dataset.nav==="false")return;
 		if(/^Arrow[ULDR]|^[wasdWASD]$/.test(event.key)){
+			event.preventDefault();
 			if(event.shiftKey)move.call(document.querySelector("#npcList>.active>ul"),event.key);
 			else move.call(document.getElementById("speciesList"),event.key);
 			function move(input){
