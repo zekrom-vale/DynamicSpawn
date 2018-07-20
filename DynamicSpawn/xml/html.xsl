@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE html[
 <!ENTITY nbsp "&#160;">
-<!ENTITY x "&#10005;">
-<!ENTITY bt "btn btn-">
-<!ENTITY w "-warning">
-<!ENTITY n "navbar">
-<!ENTITY m "modal">
 ]>
-<x:stylesheet version="1.0" xmlns:x="http://www.w3.org/1999/XSL/Transform">
+<x:stylesheet version="1.0" xmlns:x="http://www.w3.org/1999/XSL/Transform" xmlns="">
 	<x:import href="template.xsl"/>
 <x:template match="/">
 	<x:variable name="nonce">
@@ -19,8 +14,7 @@
 		)
 		,'idm','')"/>
 	</x:variable>
-<html lang="en-US" data-author="zekrom-vale" data-game="Starbound" dark="true">
-<!-- `xmlns` is automatically assigned to html elements-->
+<html lang="en-US" data-author="zekrom-vale" data-game="Starbound" dark="">
 <head id="top">
 	<meta charset="UTF-8"/>
 	<title>Dynamic Spawn Creator</title>
@@ -43,15 +37,15 @@
 		<script src="webWorker/core.js"/>
 		<script src="js/util.js"/>
 		<script src="js/node.js"/>
-		<script defer="defer" src="js/load.js"/>
+		<script defer="" src="js/load.js"/>
 		<script src="js/species.js"/>
-		<script defer="defer" src="js/io.js"/>
-		<script defer="defer" src="js/globalIo.js"/>
-		<script defer="defer" src="js/nav.js"/>
-		<script defer="defer" src="js/search.js"/>
-		<script defer="defer" src="js/custom.js"/>
-		<script defer="defer" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"/>
-		<script defer="defer" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"/>
+		<script defer="" src="js/io.js"/>
+		<script defer="" src="js/globalIo.js"/>
+		<script defer="" src="js/nav.js"/>
+		<script defer="" src="js/search.js"/>
+		<script defer="" src="js/custom.js"/>
+		<script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"/>
+		<script defer="" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"/>
 		<style id="activeStyle2" nonce="{$nonce}">
 			.hideMod{
 				display:none!important;
@@ -61,32 +55,32 @@
 	<!--<link rel="alternative stylesheet" href="css/dark.css" title="Dark"/>-->
 </head>
 <body>
-<div hidden="hidden" aria-hidden="true">
+<div hidden="" aria-hidden="true">
 	<a id="save"></a>
 	<input type="file" id="iimport" accept=".DyS.json"/>
 </div>
 <div id="base">
-	<nav class="&n; bg-dark sticky-top justify-content-center btn-group" roll="menubar" data-no="print" tabindex="0" id="menubar">
-		<button class="&bt;danger" id="removeAll" data-toggle="popover" data-placement="top" data-trigger="hover" title="Remove All Elements" tabindex="-1" roll="menuitem" aria-keyshortcuts="Delete">
+	<nav class="navbar bg-dark sticky-top justify-content-center btn-group" roll="menubar" data-no="print" tabindex="0" id="menubar">
+		<button class="btn btn-danger" id="removeAll" data-toggle="popover" data-placement="top" data-trigger="hover" title="Remove All Elements" tabindex="-1" roll="menuitem" aria-keyshortcuts="Delete">
 			<x:attribute name="data-content">Normal:Active tab
 				Shift:Selected tab(s)
 				Ctrl:No prompt
 			</x:attribute>
 			Remove All
 		</button>
-		<button class="&bt;warning" aria-keyshortcuts="- _ Backspace" id="removeVisible" data-toggle="popover" data-placement="top" data-trigger="hover" title="Remove All Visible Elements" tabindex="-1" roll="menuitem">
+		<button class="btn btn-warning" aria-keyshortcuts="- _ Backspace" id="removeVisible" data-toggle="popover" data-placement="top" data-trigger="hover" title="Remove All Visible Elements" tabindex="-1" roll="menuitem">
 			<x:attribute name="data-content">Normal:Active tab
 				Shift:Selected tab(s)
 			</x:attribute>
 			Remove Visible
 		</button>
-		<button class="&bt;primary" aria-keyshortcuts="= Plus" id="addVisible" data-toggle="popover" data-placement="top" data-trigger="hover" title="Add All Visible Elements" tabindex="-1" roll="menuitem">
+		<button class="btn btn-primary" aria-keyshortcuts="= Plus" id="addVisible" data-toggle="popover" data-placement="top" data-trigger="hover" title="Add All Visible Elements" tabindex="-1" roll="menuitem">
 			<x:attribute name="data-content">Normal:Active tab
 				Shift:Selected tab(s)
 			</x:attribute>
 			Add Visible
 		</button>
-		<button class="&bt;success" aria-keyshortcuts="e" id="iexport"  data-toggle="popover" data-placement="top" data-trigger="hover" title="Export The List" tabindex="-1" roll="menuitem">
+		<button class="btn btn-success" aria-keyshortcuts="e" id="iexport"  data-toggle="popover" data-placement="top" data-trigger="hover" title="Export The List" tabindex="-1" roll="menuitem">
 			<x:attribute name="data-content">For use on different browsers or...
 				Share with your friends or...
 				Save a backup for a different mod pack.
@@ -95,10 +89,10 @@
 			</x:attribute>
 			Export JSON
 		</button>
-		<button class="&bt;success" aria-keyshortcuts="i Insert" id="imp" tabindex="-1" roll="menuitem">Import JSON</button>
-		<button class="&bt;info" aria-keyshortcuts=" " id="download" tabindex="-1" roll="menuitem">Download Mod</button>
+		<button class="btn btn-success" aria-keyshortcuts="i Insert" id="imp" tabindex="-1" roll="menuitem">Import JSON</button>
+		<button class="btn btn-info" aria-keyshortcuts=" " id="download" tabindex="-1" roll="menuitem">Download Mod</button>
 	</nav>
-	<nav class="&n; bg&w; justify-content-center" data-no="print"><h6 roll="note">
+	<nav class="navbar bg-warning justify-content-center" data-no="print"><h6 roll="note">
 		<b>ALERT</b>: The species list is a work in progress, if you find something wrong please <a href="https://github.com/zekrom-vale/DynamicSpawn/issues">create an issue!</a>
 	</h6></nav>
 	<br/>
@@ -137,20 +131,20 @@
 			<x:call-template name="tabBody"/>
 		</main>
 		<aside roll="contentinfo" class="col-0p col-lg-3" data-pause="hover" id="side">
-			<script defer="defer" src="html/asideInt.js"></script>
+			<script defer="" src="html/asideInt.js"></script>
 		</aside>
 	</div>
-	<div class="&m; center" id="&m;" aria-modal="true">
-		<div class="&m;-dialog">
-			<div class="&m;-content" roll="alert">
-				<div class="&m;-header">
-					<h4 class="&m;-title" id="&m;Head" roll="alertdialog"></h4>
-					<button class="close" id="&m;X">&x;</button>
+	<div class="modal center" id="modal" aria-modal="true">
+		<div class="modal-dialog">
+			<div class="modal-content" roll="alert">
+				<div class="modal-header">
+					<h4 class="modal-title" id="modalHead" roll="alertdialog"></h4>
+					<button class="close" id="modalX">&#10005;</button>
 				</div>
-				<div class="&m;-body" id="&m;Body" roll="alertdialog"></div>
-				<div class="&m;-footer">
-					<button class="&bt;primary" id="&m;Ok" data-nav="false">Ok</button>
-					<button class="&bt;danger" id="&m;Cancel" data-nav="false">Cancel</button>
+				<div class="modal-body" id="modalBody" roll="alertdialog"></div>
+				<div class="modal-footer">
+					<button class="btn btn-primary" id="modalOk" data-nav="false">Ok</button>
+					<button class="btn btn-danger" id="modalCancel" data-nav="false">Cancel</button>
 				</div>
 			</div>
 		</div>
@@ -158,23 +152,22 @@
 	<x:call-template name="dataList"/>
 </div>
 <noscript>
-	<div class="&m; show center" aria-modal="true">
-		<div class="&m;-dialog">
-			<div class="&m;-content" roll="alert">
-				<div class="&m;-header"><h4 class="&m;-title" roll="alertdialog">JavaScript Not Working</h4><button class="close" data-dismiss="&m;">&x;</button></div>
-				<div class="&m;-body" roll="alertdialog">Not Enabled or Not Supported.<br/>This Page Will <b>Not Work!</b></div>
-				<div class="&m;-footer"><button class="&bt;primary" data-dismiss="&m;">Ok</button></div>
+	<div class="modal show center" aria-modal="true">
+		<div class="modal-dialog">
+			<div class="modal-content" roll="alert">
+				<h4 class="modal-header modal-title" roll="alertdialog">JavaScript Not Working</h4>
+				<div class="modal-body" roll="alertdialog">Not Enabled or Not Supported.<br/>This Page Will <b>Not Work at All! </b></div>
 			</div>
 		</div>
 	</div>
 </noscript>
 <!--[if IE]>
-<div class="&m; show center" aria-modal="true">
-	<div class="&m;-dialog">
-		<div class="&m;-content" roll="alert">
-			<div class="&m;-header"><h4 class="&m;-title" roll="alertdialog">This page is incompatible with Internet Explorer</h4><button class="close" data-dismiss="&m;">&x;</button></div>
-			<div class="&m;-body" roll="alertdialog">Please copy the entire link and paste it into modern browser.<br/>Ex: Google Chrome or Firefox</div>
-			<div class="&m;-footer"><button class="&bt;primary" data-dismiss="&m;">Ok</button></div>
+<div class="modal show center" aria-modal="true">
+	<div class="modal-dialog">
+		<div class="modal-content" roll="alert">
+			<div class="modal-header"><h4 class="modal-title" roll="alertdialog">This page is incompatible with Internet Explorer</h4><button class="close" data-dismiss="modal">&#10005;</button></div>
+			<div class="modal-body" roll="alertdialog">Please copy the entire link and paste it into modern browser.<br/>Ex: Google Chrome or Firefox</div>
+			<div class="modal-footer"><button class="btn btn-primary" data-dismiss="modal">Ok</button></div>
 		</div>
 	</div>
 </div>
