@@ -31,22 +31,23 @@ else{
 		}());
 	}
 }
-//Must load script before and wait for DOMContentLoaded
-var alertModal;
+
 addEventListener("DOMContentLoaded",()=>{
-alertModal=function(){
+	document.getElementById("modal").style.display="none";
+});
+
+var alertModal=function(...pass){
 	const ok=document.getElementById("modalOk"),
 	cancel=document.getElementById("modalCancel"),
 	x=document.getElementById("modalX"),
 	modalEl=document.getElementById("modal");
 	ok.addEventListener("click",close);
 	cancel.addEventListener("click",close);
-	ok.addEventListener("click",close);
+	x.addEventListener("click",close);
 	function close(){
 		modalEl.style.display="none";
 	}
-	modalEl.style.display="none";
-	return function(mh,mb,f,focus="ok"){
+	alertModal=function(mh,mb,f,focus="ok"){
 		if(mh)document.getElementById("modalHead").innerHTML=mh;
 		if(mb)document.getElementById("modalBody").innerHTML=mb;
 		modalEl.style.display="block";
@@ -94,8 +95,8 @@ alertModal=function(){
 			else fin();
 		});
 	}
-}();
-});
+	alertModal(...pass);
+};
 
 function info(m,t="danger",id,loc){
 	var div=document.getElementById(id);
