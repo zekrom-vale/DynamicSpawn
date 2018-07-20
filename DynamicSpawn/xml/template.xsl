@@ -4,8 +4,7 @@
 <!ENTITY times "&#10005;">
 <!ENTITY p "img/">
 ]>
-<x:stylesheet version="1.0"
-xmlns:x="http://www.w3.org/1999/XSL/Transform">
+<x:stylesheet version="1.0" xmlns:x="http://www.w3.org/1999/XSL/Transform">
 	<x:template name="liConstruct">
 		<ul class="list-group speci" id="speciesList" roll="form" aria-multiselectable="true" aria-sort="descending" aria-controls="mods" aria-keyshortcuts="ArrowUp ArrowDown ArrowRight ArrowLeft">
 			<x:for-each select="document('species.xml')/species/mod|document('verify.xml')/species/mod">
@@ -22,32 +21,30 @@ xmlns:x="http://www.w3.org/1999/XSL/Transform">
 			<x:sort select="@name"/>
 			<x:if test="@name!='' and @name!='Z-UNDEFINED'">
 				<li value="{@name}" class="list-group-item" data-count="{count(specie)}" roll="button" tabIndex="-1">
-					<x:if test="@author!='' and @author">
-						<x:attribute name="data-toggle">popover</x:attribute>
-						<x:attribute name="data-placement">right</x:attribute>
-						<x:attribute name="data-trigger">hover</x:attribute>
-						<x:attribute name="data-boundary">viewport</x:attribute>
-						<x:attribute name="data-fallbackPlacement">['top','bottom']</x:attribute>
-						<x:attribute name="title">Created by</x:attribute>
-						<x:attribute name="data-content">
-							<x:value-of select="@author"/>
-							Steam ID: <x:value-of select="id/@steam"/>
-							Species: <x:for-each select="specie">
-								<x:choose>
-									<x:when test="@name">
-										<x:value-of select="@name"/>
-									</x:when>
-									<x:otherwise>
-										<x:call-template name="cap">
-											<x:with-param name="text" select="translate(@value,'_',' ')"/>
-											<x:with-param name="capl" select="'true'"/>
-										</x:call-template>
-									</x:otherwise>
-								</x:choose>
-								<x:if test="position()!=count(../specie)">, </x:if>
-							</x:for-each>
-						</x:attribute>
-					</x:if>
+					<if test="@author!='' and @author" xmlns="http://www.w3.org/1999/XSL/Transform">
+						<attribute name="data-toggle">popover</attribute>
+						<attribute name="data-placement">right</attribute>
+						<attribute name="data-trigger">hover</attribute>
+						<attribute name="data-boundary">viewport</attribute>
+						<attribute name="title">Created by</attribute>
+						<attribute name="data-content">
+							<value-of select="@author"/>
+							Steam ID: <value-of select="id/@steam"/>
+							Species: <for-each select="specie">
+								<choose>
+									<when test="@name">
+										<value-of select="@name"/>
+									</when>
+									<otherwise>
+										<call-template name="cap">
+											<with-param name="text" select="@value"/>
+										</call-template>
+									</otherwise>
+								</choose>
+								<if test="position()!=count(../specie)">, </if>
+							</for-each>
+						</attribute>
+					</if>
 					<x:value-of select="@name"/>
 					<x:if test="count(specie)&gt;1">
 						 (<x:value-of select="count(specie)"/>)
@@ -55,7 +52,7 @@ xmlns:x="http://www.w3.org/1999/XSL/Transform">
 				</li>
 			</x:if>
 		</x:for-each>
-		<li value="Z-UNDEFINED" class="list-group-item" tabIndex="-1">UNDEFINED</li>
+		<li value="Z-UNDEFINED" class="list-group-item" tabIndex="-1">UNDEFINED (N/A)</li>
 	</x:template>
 	<x:template name="liTemplate">
 		<li value="{@value}" id="{@value}" data-mod="{../@name}" data-author="{../@author}">
@@ -173,7 +170,6 @@ xmlns:x="http://www.w3.org/1999/XSL/Transform">
 						<option>
 							<x:call-template name="cap">
 								<x:with-param name="text" select="@value"/>
-								<x:with-param name="capl" select="'true'"/>
 							</x:call-template>
 						</option>
 					</x:otherwise>
@@ -181,34 +177,33 @@ xmlns:x="http://www.w3.org/1999/XSL/Transform">
 			</x:for-each>
 		</datalist>
 	</x:template>
-	<x:template name="cap">
-		<x:param name="text"/>
-		<x:param name="capl"/>
-		<x:param name="sub" select="substring($text,1,1)"/>
-		<x:if test="string-length($text)&gt;0">
-			<x:choose>
-				<x:when test="$sub=' '">
-					<x:value-of select="$sub"/>
-					<x:call-template name="cap">
-						<x:with-param name="text" select="substring($text,2)"/>
-						<x:with-param name="capl" select="'true'"/>
-					</x:call-template>
-				</x:when>
-				<x:otherwise>
-					<x:choose>
-						<x:when test="$capl='true'">
-							<x:value-of select="translate($sub,'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ')"/>
-						</x:when>
-						<x:otherwise>
-							<x:value-of select="$sub"/>
-						</x:otherwise>
-					</x:choose>
-					<x:call-template name="cap">
-						<x:with-param name="text" select="substring($text,2)"/>
-						<x:with-param name="capl" select="'false'"/>
-					</x:call-template>
-				</x:otherwise>
-			</x:choose>
-		</x:if>
-	</x:template>
+	<template name="cap" xmlns="http://www.w3.org/1999/XSL/Transform">
+		<param name="text"/>
+		<param name="capl" select="'true'"/>
+		<param name="sub" select="substring($text,1,1)"/>
+		<if test="string-length($text)&gt;0">
+			<choose>
+				<when test="$sub=' ' or $sub='_'">
+					<text> </text>
+					<call-template name="cap">
+						<with-param name="text" select="substring($text,2)"/>
+					</call-template>
+				</when>
+				<otherwise>
+					<choose>
+						<when test="$capl='true'">
+							<value-of select="translate($sub,'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ')"/>
+						</when>
+						<otherwise>
+							<value-of select="$sub"/>
+						</otherwise>
+					</choose>
+					<call-template name="cap">
+						<with-param name="text" select="substring($text,2)"/>
+						<with-param name="capl" select="'false'"/>
+					</call-template>
+				</otherwise>
+			</choose>
+		</if>
+	</template>
 </x:stylesheet>
