@@ -4,12 +4,17 @@
 <root>
 	<meta>
 		<author>zekrom_vale</author>
-		<game type="mod">Starbound</game>
-		<month monthName="June">6</month>
-		<year shortYear="18">2018</year>
+		<game type="mod" mod-type="dynamic">Starbound</game>
+		<month monthName="July">7</month>
+		<year>2018</year>
 		<description>Create your own mod! Chose the NPCs, including moded ones, to spawn in the Starbound universe. From space stations, to merchant ships as well as cultists. All in a free and easy to use website and installation tool.</description>
 		<keywords>Starbound,NPC,Spawning,Mod,Dynamic Mod</keywords>
 		<viewport>width=device-width,initial-scale=1</viewport>
 		<creator>zekrom_vale</creator>
+		<html javascript="ECMAScript 2018" css="3">5</html>
+		<brouser-support>Chrome 55(55),Firefox 50(50),Opera 42(42)</brouser-support>
+		<support-edge>ok</support-edge>
+		<support-explorer>none</support-explorer>
+		<support-safari>poor</support-safari>
 	</meta>
 </root>

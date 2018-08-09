@@ -10,7 +10,7 @@
 xmlns:x="http://www.w3.org/1999/XSL/Transform">
 	<x:import href="template.xsl"/>
 	<x:template match="/">
-<html xmlns:html="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US" data-author="zekrom-vale" data-game="Starbound" data-require="Bootstrap4,jQuery,popper,XML,XSL,XPath">
+<html xmlns:html="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US"  data-require="Bootstrap4,jQuery,popper,XML,XSL,XPath">
 	<head id="top">
 		<meta charset="UTF-8"/>
 		<title>Dynamic Spawn Creator</title>

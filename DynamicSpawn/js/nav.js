@@ -93,7 +93,7 @@ function dtTab(el,load){
 							li=li.previousSibling;
 							if(!li)return;
 						}while(isValid(li));
-						to=li.querySelector(`[data-key="${key}"]`);
+						ud();
 						break;
 					case "arrowdown":
 					case "s":
@@ -102,23 +102,27 @@ function dtTab(el,load){
 							li=li.nextSibling;
 							if(!li)return;
 						}while(isValid(li));
-						to=li.querySelector(`[data-key="${key}"]`);
+						ud();
 						break;
 					case "arrowright":
 					case "d":
 						key=(key+1)%3;
-						to=selected.querySelector(`[data-key="${key}"]`);
+						rl();
 						break;
 					case "arrowleft":
 					case "a":
 						key=(key+2)%3;//(v-1)%m==(v-1+m)%m (For positive values)
-						to=selected.querySelector(`[data-key="${key}"]`);
-						break;
-					default:return;
+						rl();
 				}
-				if(li)delete selected.dataset.active;
 				(li||selected).dataset.active=key;
 				to.focus();
+				function rl(){
+					to=selected.querySelector(`[data-key="${key}"]`);
+				}
+				function ud(){
+					to=li.querySelector(`[data-key="${key}"]`);
+					delete selected.dataset.active;
+				}
 				function isValid(li){
 					return!(li instanceof HTMLElement)||li.style.display==="none"||(li.classList.contains("hideMod")&&/^\s*null/.test(document.getElementById("activeStyle2").innerHTML));
 				}
@@ -137,7 +141,7 @@ function dtTab(el,load){
 					do{
 						to=to.previousSibling;
 						if(!to)return;
-					}while(isValid(to))
+					}while(isValid(to));
 					break;
 				case "pagedown":
 				case "z":
@@ -145,15 +149,13 @@ function dtTab(el,load){
 					do{
 						to=to.nextSibling;
 						if(!to)return;
-					}while(isValid(to))
+					}while(isValid(to));
 					break;
 				case "home":
 					to=mods.querySelector("li:first-of-type");
 					break;
 				case "end":
 					to=mods.querySelector("li:last-of-type");
-					break;
-				default:return;
 			}
 			if(key)delete key.dataset.selected;
 			to.dataset.selected=true;
