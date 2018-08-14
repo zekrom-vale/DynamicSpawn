@@ -1,9 +1,0 @@
-@keyframes whiteToRed{
-	from{background-color:var(--bcSearch);}
-	to{background-color:red;}
-}
-
-@-webkit-keyframes whiteToRed{
-	from{background-color:var(--bcSearch);}
-	to{background-color:red;}
-}
