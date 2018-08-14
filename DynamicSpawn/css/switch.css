@@ -1,0 +1,141 @@
+/*Modified from https://www.w3schools.com/howto/howto_css_switch.asp*/
+
+/*
+<label class="switch [round]">
+	<input roll="switch" type="checkbox"/>
+	<span></span>
+</label>
+<style type="pseudo-css">
+
+.switch.reverse{
+	--ACTION:"Reverses the direction of the switch";
+}
+
+.switch.rotate{
+	--ACTION:"Makes the switch vertical";
+}
+
+.switch{
+	--NOTE:"Switch container";
+	--height:2em;
+	--width:3.5em;
+}
+.switch span{
+	--NOTE:"";
+	--long;
+	--short;
+	--on:#2196F3;
+	background-color:#ccc;
+		--NOTE:"used when off";
+	--start;
+	--end;
+}
+
+.switch span::before{
+	background-color:white;
+	--bottom-short;
+	--bottom;
+	--ratio:0.722;
+	--inner;
+	--inner-short;
+	--inner-long;
+	transition:.4s;
+	-webkit-transition:.4s;
+}
+</style>
+
+*/
+@namespace svg "http://www.w3.org/2000/svg";
+.switch{
+	--height:2em;
+	--width:3.5em;
+	position:relative;
+	height:var(--height);
+	width:var(--width);
+}.switch:not(.rotate) span{
+	--long:var(--width);
+	--short:var(--height);
+}.switch.rotate span{
+	--long:var(--height);
+	--short:var(--width);
+}
+
+.switch span{
+	--on:#2196F3;
+	background-color:#ccc;
+	position:absolute;
+	cursor:pointer;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+}
+
+.switch:not(.reverse):not(.svg) span::before,
+.switch:not(.reverse).svg span>svg|svg{
+	--start:var(--bottom);
+	--end:calc(var(--long) - var(--start)*2 - var(--inner-long,var(--inner)));
+}.switch.reverse span::before{
+	--start:calc(var(--long) - var(--bottom) - var(--inner-long,var(--inner)));
+	--end:calc(-1 * var(--start) + var(--bottom));
+}
+
+.switch:not(.svg) span::before,
+.switch.svg span>svg|svg{
+	--bottom-short:calc(calc(var(--short) - var(--inner-short,var(--inner)))/2);
+	--bottom:calc(calc(var(--short) - var(--inner))/2);
+	--ratio:0.722;
+	--inner:calc(var(--short) * var(--ratio));
+	--inner-short:calc(var(--short) * var(--ratioShort));
+	--inner-long:calc(var(--long) * var(--ratioLong));
+	position:absolute;
+	content:"";
+	background-color:white;
+	transition:.4s;
+	-webkit-transition:.4s;
+	height:var(--inner-short,var(--inner));
+	width:var(--inner-long,var(--inner));
+}
+.switch:not(.rotate):not(.svg) span::before,
+.switch:not(.rotate).svg span>svg|svg{
+	left:var(--start);
+	bottom:var(--bottom-short);
+}.switch.rotate:not(.svg) span::before,
+.switch.rotate.svg span>svg|svg{
+	left:var(--bottom-short);
+	bottom:var(--start);
+}
+.switch.io:not(.svg) span::before,
+.switch.io.svg span>svg|svg{
+	font-size:calc(var(--inner)*.7);
+	font:var(--font);
+}
+.switch.io:not(.svg) input:checked + span::before,
+.switch.io.svg input:checked + span>svg|svg{
+	content:"On";
+}.switch.io:not(.svg) input:not(:checked) + span::before,
+.switch.io.svg input:not(:checked) + span>svg|svg{
+	content:"Off";
+}
+
+.switch input:checked + span{
+	background-color:var(--on);
+}.switch input:focus + span{
+	box-shadow:0 0 1px var(--on);
+}
+.switch:not(.rotate):not(.svg) input:checked + span::before,
+.switch:not(.rotate).svg input:checked + span>svg|svg{
+	-webkit-transform:translateX(var(--end));
+	transform:translateX(var(--end));
+}.switch.rotate:not(.svg) input:checked + span::before,
+.switch.rotate.svg input:checked + span>svg|svg{
+	--nend:calc(-1 * var(--end));
+	-webkit-transform:translateY(var(--nend));
+	transform:translateY(var(--nend));
+}
+
+.switch.round span{
+	border-radius:var(--long);
+}.switch.round:not(.svg) span::before{
+	border-radius:50%;
+}
