@@ -1,0 +1,14 @@
+@import "switch.css";
+
+.center{
+	margin:0!important;
+	position:absolute!important;
+	top:50%!important;
+	left:50%!important;
+	transform:translate(-50%,-50%)!important;
+}
+
+.center-h{
+	margin-right:auto!important;
+	margin-left:auto!important;
+}
