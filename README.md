@@ -1,5 +1,6 @@
 # Starbound mod: DynamicSpawn
-Instead of creating 2.5E+27 mods just for the 91 listed species, this dynamic mod allows the user to add species to spawn in vanilla maps.  No, I have not looked into how to hack or use vanrabilities.  Feel free to look at the code and scan it with any antivirus/antimalware program.  Why Powershell?  This is the only script that I know of that can mass replace values in files so I can easly create a tool to change the JSON.patch files.
+## Using JavaScript, XSLT, CSS, HTML, XML, and C# to provide a smooth experiance.
+Instead of creating 2.5E+27 mods just for the 91 listed species, this dynamic mod allows the user to add species to spawn in vanilla maps.  No, I have not looked into how to hack or use vanrabilities.  Feel free to look at the code and scan it with any antivirus/antimalware program.  Why C#?  This is the best script that I know of that can mass replace values in files so I can easly create a tool to change the JSON.patch files while interacting with the web component.  The web site uses advanced tequniques that I would have been unable to use in C# or any other language.
 # How to use
 1) Go to [releases](https://github.com/zekrom-vale/DynamicSpawn/releases) and donload the latest version (5.0 or higher) and save to to your starbound mods folder (`C:\Program Files (x86)\Steam\steamapps\common\Starbound\mods\`)
 2) Right click the file and click `Extract All` and then `OK`
@@ -23,30 +24,47 @@ Instead of creating 2.5E+27 mods just for the 91 listed species, this dynamic mo
 * __Never sell__ this mod
 * __Never__ remove the `LICENCE` file from the mod!
 
+# Web Security
+1) Strict CSP (Content Security Policy)
+	* No inline Scripts allowed
+	* Limited allowed script and CSS paths
+	* Strict inlline CSS policy (Uses a XML randomly generated intager)
+2) Only uses event Listeners instead of the old on* attrabute method
+3) No person information is stored
+4) Uses the new Local Sotrage method instead of the cookie
+
 # Bugs/Notes
 * If you discover empty 'dungeons' like the space station and ships __it is a bug!__  _HOWEVER,_
 * You might have added invalid species or ones that are not installed.
 * Manual mode does not check for errors
 
-# Get PowerShell for linux and macOS
-https://github.com/PowerShell/PowerShell
+# linux and macOS
+Sorry, but I do not know any language that would work on those systems.  Other than the web component (No editing files).
 
 # Races
 ### You MUST HAVE the corisponding MOD for it to WORK
 See the curent species at https://zekrom-vale.github.io/DynamicSpawn/?path=overide
 #### Authors please comment on [This file](https://github.com/zekrom-vale/DynamicSpawn/blob/master/README.md) if your race is not on the list __AND__ the species uses the bace NPC file.
-Fill out this
+With this XML form (put answers in the `""`)
 ```
 <mod name="" author="">
 	<id steam="" sb=""/>
+```
+* name : The name of the mod
+* steam : Your steam id (Exclude URL)
+* sb : Starbound mod form (Include after the last slash in the URL)
+```
 	<specie value="" name="">
 		<imgOn src=""/>
 		<imgOff src=""/>
 	</specie>
-	<!--OR-->
-	<specie value="" name=""/>
-	<!--...-->
+	<!--Ect-->
 </mod>
-<!--...-->
 ```
+* value : The species id
+* name : The name of the species overide (Auto captlised and `_` to ` `)
+* src : The name of the image.
 
+If you have no image use `<specie value="" name=""/>` instead of `<specie value="" name="">...</specie>`
+
+To-Do : Create a form for this
