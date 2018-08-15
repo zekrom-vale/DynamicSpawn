@@ -1,6 +1,7 @@
 # Starbound mod: DynamicSpawn
 ## Using JavaScript, XSLT, CSS, HTML, XML, and C# to provide a smooth experiance.
 Instead of creating 2.5E+27 mods just for the 91 listed species, this dynamic mod allows the user to add species to spawn in vanilla maps.  No, I have not looked into how to hack or use vanrabilities.  Feel free to look at the code and scan it with any antivirus/antimalware program.  Why C#?  This is the best script that I know of that can mass replace values in files so I can easly create a tool to change the JSON.patch files while interacting with the web component.  The web site uses advanced tequniques that I would have been unable to use in C# or any other language.
+
 # How to use
 1) Go to [releases](https://github.com/zekrom-vale/DynamicSpawn/releases) and donload the latest version (5.0 or higher) and save to to your starbound mods folder (`C:\Program Files (x86)\Steam\steamapps\common\Starbound\mods\`)
 2) Right click the file and click `Extract All` and then `OK`
@@ -9,6 +10,22 @@ Instead of creating 2.5E+27 mods just for the 91 listed species, this dynamic mo
 4) The program will open https://zekrom-vale.github.io/DynamicSpawn with the location of the .exe file to ease downloads
 5) Follow directions on the website
 5.1) Remove the .exe file
+
+# Features
+* The tour tells you how to use the site, asynchronous
+* Saves your progress automaticaly in Local Storage or Cookies (Backup)
+* Save your options for later use and continue editing
+* Aira support (For Screen Readers)
+* XML used to reduce file sizes and improve editing ease
+* Keyboard support for navigation
+* CSS varables allow for easy to style themes
+* Popups for more information
+* Right column loads when in view to save data and processing
+* Asynchronous and semi-parallel searching
+* Regular Expresion search support
+* Search options
+* Uses hash to remember current tab
+* Uses query string to pass the location
 
 # Community sharing
 ### To make it easy to include in modpacks you are allowed to publish on steam or chucklefish forums _if_ you
